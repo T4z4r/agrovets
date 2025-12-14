@@ -17,6 +17,7 @@ dependencies:
   path_provider: ^2.1.1
   open_file: ^3.3.2
   syncfusion_flutter_pdfviewer: ^24.2.9  # for viewing PDF receipts
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:

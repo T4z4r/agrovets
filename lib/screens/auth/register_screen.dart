@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/auth_service.dart';
 import '../dashboard_screen.dart';
 
@@ -94,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ElevatedButton(
                 onPressed: _loading ? null : _register,
                 child: _loading
-                    ? const CircularProgressIndicator()
+                    ? SpinKitWaveSpinner(color: Colors.white, size: 20.0)
                     : const Text('Register'),
               ),
             ],

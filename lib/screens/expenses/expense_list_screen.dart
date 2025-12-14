@@ -1,5 +1,6 @@
 // lib/screens/expenses/expense_list_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
 import 'expense_form_screen.dart';
@@ -63,7 +64,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
         ],
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _expenses.isEmpty
               ? Center(
                   child: Column(

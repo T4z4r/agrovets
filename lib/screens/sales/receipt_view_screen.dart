@@ -1,6 +1,7 @@
 // lib/screens/sales/receipt_view_screen.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -56,7 +57,7 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Receipt')),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _error != null
               ? Center(child: Text(_error!))
               : SfPdfViewer.file(File(_pdfPath!)),

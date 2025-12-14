@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../services/api_service.dart';
@@ -188,9 +189,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
               // ================= Stats =================
               if (_loading)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(40),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
                 )
               else
                 GridView.count(

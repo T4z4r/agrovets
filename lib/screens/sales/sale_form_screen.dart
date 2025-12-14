@@ -1,5 +1,6 @@
 // lib/screens/sales/sale_form_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
@@ -95,7 +96,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         elevation: 0,
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -318,11 +319,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              ),
+                              child: SpinKitWaveSpinner(
+                                  color: Colors.white, size: 20.0),
                             )
                           : const Text(
                               'Create Sale',

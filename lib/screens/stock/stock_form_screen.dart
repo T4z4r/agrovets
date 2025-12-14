@@ -1,5 +1,6 @@
 // lib/screens/stock/stock_form_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';

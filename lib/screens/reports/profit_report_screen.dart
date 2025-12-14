@@ -1,5 +1,6 @@
 // lib/screens/reports/profit_report_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
@@ -180,11 +181,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                              ),
+                              child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
                             )
                           : const Text(
                               'Generate Report',
@@ -209,11 +206,11 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(40),
-                  child: const Column(
+                  child: Column(
                     children: [
-                      CircularProgressIndicator(),
-                      SizedBox(height: 16),
-                      Text('Generating report...'),
+                      SpinKitWaveSpinner(color: Colors.green, size: 50.0),
+                      const SizedBox(height: 16),
+                      const Text('Generating report...'),
                     ],
                   ),
                 ),

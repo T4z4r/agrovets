@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/auth_service.dart';
 import '../dashboard_screen.dart';
 import 'register_screen.dart';
@@ -201,10 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? const SizedBox(
                                     height: 20,
                                     width: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                    ),
+                                    child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
                                   )
                                 : const Text(
                                     'Sign In',

@@ -1,5 +1,6 @@
 // lib/screens/products/product_list_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import 'product_form_screen.dart';
@@ -138,7 +139,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           // Products List
           Expanded(
             child: _loading
-                ? const Center(child: CircularProgressIndicator())
+                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
                 : _filteredProducts.isEmpty
                     ? Center(
                         child: Column(
