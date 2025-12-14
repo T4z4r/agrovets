@@ -234,7 +234,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Sales
                       _buildMetricCard(
                         'Total Sales',
-                        NumberFormatter.formatCurrency(_report!.totalSales),
+                        NumberFormatter.formatCurrency(_report!.totalSales as num),
                         Icons.point_of_sale,
                         Colors.green,
                         Colors.green[100]!,
@@ -244,7 +244,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Expenses
                       _buildMetricCard(
                         'Total Expenses',
-                        NumberFormatter.formatCurrency(_report!.totalExpenses),
+                        NumberFormatter.formatCurrency(_report!.totalExpenses as num),
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -284,7 +284,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               ),
                             ),
                             Text(
-                              NumberFormatter.formatCurrency((_report!.totalSales - _report!.totalExpenses).abs()),
+                              NumberFormatter.formatCurrency((_report!.totalSales - _report!.totalExpenses).abs() as num),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

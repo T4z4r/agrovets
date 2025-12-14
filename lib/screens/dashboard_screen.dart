@@ -148,7 +148,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             _drawerTile(
-                Icons.dashboard, 'Dashboard', () => Navigator.pop(context), isActive: true),
+                Icons.dashboard, 'Dashboard', () => Navigator.pop(context),
+                isActive: true),
             _drawerTile(Icons.inventory, 'Products', () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ProductListScreen()));
@@ -161,8 +162,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             }),
             if (auth.isOwner || auth.isAdmin || auth.isSeller)
               _drawerTile(Icons.person, 'Sellers', () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const SellerListScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const SellerListScreen()));
               }, isActive: false),
             _drawerTile(Icons.storage, 'Stock', () {
               Navigator.push(context,
@@ -259,17 +262,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Colors.blue),
                         _statCard(
                             'Today Sales',
-                            NumberFormatter.formatCurrency(num.tryParse(dashboard['today_sales']?.toString() ?? '0')),
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
                             'Total Sales',
-                            NumberFormatter.formatCurrency(num.tryParse(dashboard['total_sales']?.toString() ?? '0')),
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
                             'Total Expenses',
-                            NumberFormatter.formatCurrency(num.tryParse(dashboard['total_expenses']?.toString() ?? '0')),
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['total_expenses']?.toString() ??
+                                    '0')),
                             Icons.money_off,
                             Colors.red),
                       ],
@@ -277,7 +284,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: 16),
                     _statCardFullWidth(
                         'Stock Value',
-                        NumberFormatter.formatCurrency(dashboard['stock_value'] as num?),
+                        NumberFormatter.formatCurrency(num.tryParse(
+                            dashboard['stock_value']?.toString() ?? '0')),
                         Icons.warehouse,
                         Colors.green),
                   ],
@@ -330,11 +338,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // ================= Widgets =================
 
-  Widget _drawerTile(IconData icon, String title, VoidCallback onTap, {bool isActive = false}) {
+  Widget _drawerTile(IconData icon, String title, VoidCallback onTap,
+      {bool isActive = false}) {
     return Container(
       color: isActive ? Colors.green[50] : null,
       child: ListTile(
-        leading: Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
+        leading:
+            Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
         title: Text(
           title,
           style: TextStyle(

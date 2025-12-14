@@ -14,8 +14,8 @@ class DailyReport {
 
   factory DailyReport.fromJson(Map<String, dynamic> json) {
     return DailyReport(
-      totalSales: json['total_sales']?.toDouble() ?? 0.0,
-      totalExpenses: json['total_expenses']?.toDouble() ?? 0.0,
+      totalSales: double.tryParse(json['total_sales']?.toString() ?? '0') ?? 0.0,
+      totalExpenses: double.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0.0,
     );
   }
 }
@@ -33,9 +33,9 @@ class ProfitReport {
 
   factory ProfitReport.fromJson(Map<String, dynamic> json) {
     return ProfitReport(
-      revenue: json['revenue']?.toDouble() ?? 0.0,
-      cost: json['cost']?.toDouble() ?? 0.0,
-      profit: json['profit']?.toDouble() ?? 0.0,
+      revenue: double.tryParse(json['revenue']?.toString() ?? '0') ?? 0.0,
+      cost: double.tryParse(json['cost']?.toString() ?? '0') ?? 0.0,
+      profit: double.tryParse(json['profit']?.toString() ?? '0') ?? 0.0,
     );
   }
 }
