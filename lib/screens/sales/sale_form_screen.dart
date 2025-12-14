@@ -87,84 +87,251 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Sale')),
+      backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        title: const Text('Create Sale'),
+        backgroundColor: Colors.green[600],
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
+          : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
                 key: _formKey,
-                child: ListView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    DropdownButtonFormField<int>(
-                      value: _sellerId,
-                      hint: const Text('Select Seller'),
-                      items: _sellers
-                          .map((s) => DropdownMenuItem(
-                              value: s.id, child: Text(s.name)))
-                          .toList(),
-                      onChanged: (v) => setState(() => _sellerId = v),
-                      validator: (v) => v == null ? 'Required' : null,
-                    ),
-                    TextFormField(
-                      readOnly: true,
-                      decoration: const InputDecoration(labelText: 'Date'),
-                      onTap: _selectDate,
-                      controller: TextEditingController(
-                          text: DateFormat('yyyy-MM-dd').format(_date)),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text('Items:'),
-                    ..._items.asMap().entries.map((entry) {
-                      int idx = entry.key;
-                      return Row(
-                        children: [
-                          Expanded(
-                            child: DropdownButtonFormField<int>(
-                              value: _items[idx]['product_id'],
-                              hint: const Text('Product'),
-                              items: _products
-                                  .map((p) => DropdownMenuItem(
-                                      value: p.id, child: Text(p.name!)))
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Sale Details',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[800],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 20),
+                            DropdownButtonFormField<int>(
+                              value: _sellerId,
+                              decoration: InputDecoration(
+                                labelText: 'Select Seller',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey[50],
+                              ),
+                              items: _sellers
+                                  .map((s) => DropdownMenuItem(
+                                      value: s.id, child: Text(s.name)))
                                   .toList(),
-                              onChanged: (v) =>
-                                  setState(() => _items[idx]['product_id'] = v),
+                              onChanged: (v) => setState(() => _sellerId = v),
+                              validator: (v) =>
+                                  v == null ? 'Seller is required' : null,
                             ),
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              onChanged: (v) =>
-                                  _items[idx]['quantity'] = int.tryParse(v),
-                              decoration:
-                                  const InputDecoration(labelText: 'Qty'),
-                              keyboardType: TextInputType.number,
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                labelText: 'Sale Date',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                filled: true,
+                                fillColor: Colors.grey[50],
+                                prefixIcon: const Icon(Icons.calendar_today),
+                              ),
+                              onTap: _selectDate,
+                              controller: TextEditingController(
+                                  text: DateFormat('yyyy-MM-dd').format(_date)),
                             ),
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              onChanged: (v) =>
-                                  _items[idx]['price'] = int.tryParse(v),
-                              decoration:
-                                  const InputDecoration(labelText: 'Price'),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.remove),
-                            onPressed: () =>
-                                setState(() => _items.removeAt(idx)),
-                          ),
-                        ],
-                      );
-                    }),
-                    ElevatedButton(
-                        onPressed: _addItem, child: const Text('Add Item')),
+                          ],
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 20),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Sale Items',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[800],
+                                  ),
+                                ),
+                                ElevatedButton.icon(
+                                  onPressed: _addItem,
+                                  icon: const Icon(Icons.add, size: 16),
+                                  label: const Text('Add Item'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue[600],
+                                    foregroundColor: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            if (_items.isEmpty)
+                              Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[100],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
+                                      size: 48,
+                                      color: Colors.grey[400],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'No items added yet',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              ..._items.asMap().entries.map((entry) {
+                                int idx = entry.key;
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[50],
+                                    borderRadius: BorderRadius.circular(12),
+                                    border:
+                                        Border.all(color: Colors.grey[200]!),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: DropdownButtonFormField<int>(
+                                          value: _items[idx]['product_id'],
+                                          decoration: const InputDecoration(
+                                            labelText: 'Product',
+                                            border: OutlineInputBorder(),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 8),
+                                          ),
+                                          items: _products
+                                              .map((p) => DropdownMenuItem(
+                                                  value: p.id,
+                                                  child: Text(p.name!)))
+                                              .toList(),
+                                          onChanged: (v) => setState(() =>
+                                              _items[idx]['product_id'] = v),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: TextFormField(
+                                          onChanged: (v) => _items[idx]
+                                              ['quantity'] = int.tryParse(v),
+                                          decoration: const InputDecoration(
+                                            labelText: 'Qty',
+                                            border: OutlineInputBorder(),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 8),
+                                          ),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: TextFormField(
+                                          onChanged: (v) => _items[idx]
+                                              ['price'] = int.tryParse(v),
+                                          decoration: const InputDecoration(
+                                            labelText: 'Price',
+                                            border: OutlineInputBorder(),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 8),
+                                          ),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      IconButton(
+                                        icon: const Icon(Icons.remove_circle,
+                                            color: Colors.red),
+                                        onPressed: () => setState(
+                                            () => _items.removeAt(idx)),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                     ElevatedButton(
-                        onPressed: _loading ? null : _save,
-                        child: _loading
-                            ? const CircularProgressIndicator()
-                            : const Text('Save')),
+                      onPressed: _loading ? null : _save,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green[600],
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: _loading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
+                              ),
+                            )
+                          : const Text(
+                              'Create Sale',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                    ),
                   ],
                 ),
               ),

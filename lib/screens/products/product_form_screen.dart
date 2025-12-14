@@ -67,48 +67,240 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          title:
-              Text(widget.product == null ? 'Create Product' : 'Edit Product')),
-      body: Padding(
+        title: Text(widget.product == null ? 'Create Product' : 'Edit Product'),
+        backgroundColor: Colors.green[600],
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                  controller: _nameCtrl,
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              TextFormField(
-                  controller: _unitCtrl,
-                  decoration: const InputDecoration(labelText: 'Unit'),
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              TextFormField(
-                  controller: _categoryCtrl,
-                  decoration: const InputDecoration(labelText: 'Category'),
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              TextFormField(
-                  controller: _stockCtrl,
-                  decoration: const InputDecoration(labelText: 'Stock'),
-                  keyboardType: TextInputType.number,
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              TextFormField(
-                  controller: _costPriceCtrl,
-                  decoration: const InputDecoration(labelText: 'Cost Price'),
-                  keyboardType: TextInputType.number,
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              TextFormField(
-                  controller: _sellingPriceCtrl,
-                  decoration: const InputDecoration(labelText: 'Selling Price'),
-                  keyboardType: TextInputType.number,
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: _loading ? null : _save,
-                  child: _loading
-                      ? const CircularProgressIndicator()
-                      : const Text('Save')),
+              // Product Icon Header
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.green[100],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  widget.product == null ? Icons.add_box : Icons.edit,
+                  size: 40,
+                  color: Colors.green[600],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Form Fields Card
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        widget.product == null
+                            ? 'Add New Product'
+                            : 'Edit Product',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Product Name Field
+                      TextFormField(
+                        controller: _nameCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Product Name',
+                          hintText: 'Enter product name',
+                          prefixIcon: const Icon(Icons.inventory_2),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Product name is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Unit Field
+                      TextFormField(
+                        controller: _unitCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Unit',
+                          hintText: 'e.g., kg, liters, pieces',
+                          prefixIcon: const Icon(Icons.straighten),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Unit is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Category Field
+                      TextFormField(
+                        controller: _categoryCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Category',
+                          hintText: 'e.g., Medicine, Feed, Equipment',
+                          prefixIcon: const Icon(Icons.category),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Category is required';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Stock Field
+                      TextFormField(
+                        controller: _stockCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Initial Stock',
+                          hintText: 'Enter stock quantity',
+                          prefixIcon: const Icon(Icons.inventory),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Stock quantity is required';
+                          }
+                          if (int.tryParse(v) == null) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Cost Price Field
+                      TextFormField(
+                        controller: _costPriceCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Cost Price (KES)',
+                          hintText: 'Enter cost price',
+                          prefixIcon: const Icon(Icons.money_off),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Cost price is required';
+                          }
+                          if (int.tryParse(v) == null) {
+                            return 'Please enter a valid amount';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Selling Price Field
+                      TextFormField(
+                        controller: _sellingPriceCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Selling Price (KES)',
+                          hintText: 'Enter selling price',
+                          prefixIcon: const Icon(Icons.attach_money),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Selling price is required';
+                          }
+                          if (int.tryParse(v) == null) {
+                            return 'Please enter a valid amount';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Save Button
+                      ElevatedButton(
+                        onPressed: _loading ? null : _save,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green[600],
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 2,
+                        ),
+                        child: _loading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                ),
+                              )
+                            : Text(
+                                widget.product == null
+                                    ? 'Create Product'
+                                    : 'Update Product',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
