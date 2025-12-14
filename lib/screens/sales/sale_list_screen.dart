@@ -1,6 +1,7 @@
 // lib/screens/sales/sale_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
 import '../../widgets/app_drawer.dart';
@@ -60,7 +61,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Sales'),
+        title: Text(AppLocalizations.of(context)!.sales),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -81,7 +82,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
             child: TextField(
               onChanged: _filterSales,
               decoration: InputDecoration(
-                hintText: 'Search sales...',
+                hintText: AppLocalizations.of(context)!.searchSales,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -110,8 +111,8 @@ class _SaleListScreenState extends State<SaleListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No sales found'
-                                  : 'No sales match your search',
+                                  ? AppLocalizations.of(context)!.noSalesFound
+                                  : AppLocalizations.of(context)!.noSalesMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -197,11 +198,11 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'receipt',
                                       child: ListTile(
                                         leading: Icon(Icons.receipt),
-                                        title: Text('View Receipt'),
+                                        title: Text(AppLocalizations.of(context)!.viewReceipt),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),

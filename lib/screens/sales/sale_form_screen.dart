@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/user.dart';
@@ -105,7 +106,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Create Sale'),
+        title: Text(AppLocalizations.of(context)!.createSale),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,

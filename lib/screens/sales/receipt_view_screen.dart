@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../widgets/app_drawer.dart';
 
@@ -57,7 +58,7 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Receipt'),
+        title: Text(AppLocalizations.of(context)!.receipt),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
