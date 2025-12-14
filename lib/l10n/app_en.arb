@@ -207,5 +207,6 @@
   "failedLoadReport": "Failed to load report",
   "selectDateRangeProfitReport": "Select a date range to generate profit report",
   "saleLabel": "Sale",
-  "itemsLabel": "Items"
+  "itemsLabel": "Items",
+  "stockTransactionTitle": "Stock Transaction"
 }

@@ -488,4 +488,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get itemsLabel => 'Items';
+
+  @override
+  String get stockTransactionTitle => 'Stock Transaction';
+
+  @override
+  String get retry => 'Retry';
 }

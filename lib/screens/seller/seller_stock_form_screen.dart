@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/supplier.dart';
@@ -65,8 +66,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     try {
       await ApiService.post('/api/stock', data);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Stock transaction saved successfully!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.stockTransactionSaved),
           backgroundColor: Colors.green,
           duration: Duration(seconds: 2),
         ),
@@ -77,11 +78,11 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to save stock transaction: $e'),
+          content: Text('${AppLocalizations.of(context)!.failedSaveStock}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Retry',
+            label: AppLocalizations.of(context)!.retry,
             textColor: Colors.white,
             onPressed: _save,
           ),
@@ -106,7 +107,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Create Stock Transaction'),
+        title: Text(AppLocalizations.of(context)!.createStockTransaction),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -148,7 +149,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Stock Transaction',
+                              AppLocalizations.of(context)!
+                                  .stockTransactionTitle,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -162,8 +164,10 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             DropdownButtonFormField<int>(
                               value: _productId,
                               decoration: InputDecoration(
-                                labelText: 'Select Product',
-                                hintText: 'Choose a product',
+                                labelText:
+                                    AppLocalizations.of(context)!.selectProduct,
+                                hintText:
+                                    AppLocalizations.of(context)!.chooseProduct,
                                 prefixIcon: const Icon(Icons.inventory_2),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -185,7 +189,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             DropdownButtonFormField<String>(
                               value: _type,
                               decoration: InputDecoration(
-                                labelText: 'Transaction Type',
+                                labelText: AppLocalizations.of(context)!.transactionType,
                                 prefixIcon: const Icon(Icons.swap_vert),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -247,8 +251,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             TextFormField(
                               onChanged: (v) => _quantity = int.tryParse(v),
                               decoration: InputDecoration(
-                                labelText: 'Quantity',
-                                hintText: 'Enter quantity',
+                                labelText: AppLocalizations.of(context)!.quantity,
+                                hintText: AppLocalizations.of(context)!.enterQuantity,
                                 prefixIcon:
                                     const Icon(Icons.format_list_numbered),
                                 border: OutlineInputBorder(
@@ -274,8 +278,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             DropdownButtonFormField<int>(
                               value: _supplierId,
                               decoration: InputDecoration(
-                                labelText: 'Supplier (Optional)',
-                                hintText: 'Select supplier',
+                                labelText: AppLocalizations.of(context)!.supplierOptional,
+                                hintText: AppLocalizations.of(context)!.selectSupplier,
                                 prefixIcon: const Icon(Icons.business),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -295,8 +299,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                labelText: 'Transaction Date',
-                                hintText: 'Select date',
+                                labelText: AppLocalizations.of(context)!.transactionDate,
+                                hintText: AppLocalizations.of(context)!.selectDate,
                                 prefixIcon: const Icon(Icons.calendar_today),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),

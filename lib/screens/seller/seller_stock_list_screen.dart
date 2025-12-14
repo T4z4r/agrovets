@@ -1,6 +1,7 @@
 // lib/screens/seller/seller_stock_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/stock_transaction.dart';
 import 'seller_stock_form_screen.dart';
@@ -72,7 +73,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
             child: TextField(
               onChanged: _filterTransactions,
               decoration: InputDecoration(
-                hintText: 'Search transactions...',
+                hintText: AppLocalizations.of(context)!.searchTransactions,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -100,8 +101,8 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No stock transactions found'
-                                  : 'No transactions match your search',
+                                  ? AppLocalizations.of(context)!.noTransactionsFound
+                                  : AppLocalizations.of(context)!.noTransactionsMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -189,7 +190,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Quantity: ${t.quantity}',
+                                    '${AppLocalizations.of(context)!.quantityLabel}: ${t.quantity}',
                                     style: TextStyle(
                                       color: Colors.grey[600],
                                       fontSize: 12,
@@ -207,7 +208,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Date: ${t.date}',
+                                    '${AppLocalizations.of(context)!.dateLabel}: ${t.date}',
                                     style: TextStyle(
                                       color: Colors.grey[600],
                                       fontSize: 12,

@@ -493,4 +493,10 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get itemsLabel => 'Bidhaa';
+
+  @override
+  String get stockTransactionTitle => 'Muamala wa Hekalu';
+
+  @override
+  String get retry => 'Jaribu Tena';
 }

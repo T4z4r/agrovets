@@ -206,5 +206,6 @@
   "selectDateRangeProfitReport": "Chagua muda wa tarehe ili kuzalisha ripoti ya faida",
   "agroVetSeller": "AgroVet Mwuza",
   "saleLabel": "Uuzaji",
-  "itemsLabel": "Bidhaa"
+  "itemsLabel": "Bidhaa",
+  "stockTransactionTitle": "Muamala wa Hekalu"
 }
