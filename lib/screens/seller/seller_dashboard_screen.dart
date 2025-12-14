@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
@@ -35,7 +36,8 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load dashboard: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadDashboard}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -54,7 +56,8 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load report: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -93,20 +96,21 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
-                    children: const [
-                      Icon(Icons.waving_hand, size: 40, color: Colors.white),
-                      SizedBox(width: 16),
+                    children: [
+                      const Icon(Icons.waving_hand,
+                          size: 40, color: Colors.white),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Good Day!',
+                            Text(AppLocalizations.of(context)!.goodDay,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold)),
                             Text(
-                              'Here’s your business overview',
+                              AppLocalizations.of(context)!.businessOverview,
                               style: TextStyle(color: Colors.white70),
                             ),
                           ],
@@ -139,24 +143,24 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       childAspectRatio: 1.25,
                       children: [
                         _statCard(
-                            'Total Products',
+                            AppLocalizations.of(context)!.totalProducts,
                             dashboard['total_products']?.toString() ?? '0',
                             Icons.inventory,
                             Colors.blue),
                         _statCard(
-                            'Today Sales',
+                            AppLocalizations.of(context)!.todaySales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
-                            'Total Sales',
+                            AppLocalizations.of(context)!.totalSales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
-                            'Total Expenses',
+                            AppLocalizations.of(context)!.totalExpenses,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_expenses']?.toString() ??
                                     '0')),
@@ -188,7 +192,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                     padding: const EdgeInsets.all(16),
                     child: DataTable(
                       columnSpacing: 150, // Spread columns to cover full width
-                      columns: const [
+                      columns: [
                         DataColumn(
                           label: Text(
                             'Category',
@@ -204,17 +208,20 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       ],
                       rows: [
                         DataRow(cells: [
-                          const DataCell(Text('Total Sales')),
+                          DataCell(Text(
+                              AppLocalizations.of(context)!.totalSalesLabel)),
                           DataCell(Text(NumberFormatter.formatCurrency(
                               report!.totalSales))),
                         ]),
                         DataRow(cells: [
-                          const DataCell(Text('Total Expenses')),
+                          DataCell(Text(AppLocalizations.of(context)!
+                              .totalExpensesLabel)),
                           DataCell(Text(NumberFormatter.formatCurrency(
                               report!.totalExpenses))),
                         ]),
                         DataRow(cells: [
-                          const DataCell(Text('Net Profit')),
+                          DataCell(
+                              Text(AppLocalizations.of(context)!.netProfit)),
                           DataCell(
                             Text(
                               NumberFormatter.formatCurrency(

@@ -356,7 +356,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppLocalizations.of(context)!.selectDateRangeProfitReport,
+                        'Please select a date range to generate the profit report',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],

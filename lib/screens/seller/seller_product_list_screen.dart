@@ -1,6 +1,7 @@
 // lib/screens/seller/seller_product_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
@@ -9,7 +10,8 @@ class SellerProductListScreen extends StatefulWidget {
   const SellerProductListScreen({super.key});
 
   @override
-  State<SellerProductListScreen> createState() => _SellerProductListScreenState();
+  State<SellerProductListScreen> createState() =>
+      _SellerProductListScreenState();
 }
 
 class _SellerProductListScreenState extends State<SellerProductListScreen> {
@@ -28,7 +30,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
     try {
       final res = await ApiService.get('/api/products');
       setState(() {
-        _products = (res['data'] as List).map((p) => Product.fromJson(p)).toList();
+        _products =
+            (res['data'] as List).map((p) => Product.fromJson(p)).toList();
         _filteredProducts = _products;
         _loading = false;
       });
@@ -36,7 +39,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load products: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -51,8 +55,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
       } else {
         _filteredProducts = _products.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
-                 product.unit!.toLowerCase().contains(query.toLowerCase()) ||
-                 product.category!.toLowerCase().contains(query.toLowerCase());
+              product.unit!.toLowerCase().contains(query.toLowerCase()) ||
+              product.category!.toLowerCase().contains(query.toLowerCase());
         }).toList();
       }
     });
@@ -71,7 +75,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
             child: TextField(
               onChanged: _filterProducts,
               decoration: InputDecoration(
-                hintText: 'Search products...',
+                hintText: AppLocalizations.of(context)!.searchProducts,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -85,7 +89,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           // Products List
           Expanded(
             child: _loading
-                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                ? Center(
+                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
                 : _filteredProducts.isEmpty
                     ? Center(
                         child: Column(
@@ -156,7 +161,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Stock: ${p.stock} ${p.unit}',
+                                          '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -174,7 +179,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Price: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
+                                          '${AppLocalizations.of(context)!.priceLabel}: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -182,7 +187,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                       ],
                                     ),
-                                    if (p.category != null && p.category!.isNotEmpty) ...[
+                                    if (p.category != null &&
+                                        p.category!.isNotEmpty) ...[
                                       const SizedBox(height: 2),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
@@ -191,7 +197,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.blue[100],
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                         child: Text(
                                           p.category!,

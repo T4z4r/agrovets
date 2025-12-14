@@ -203,5 +203,6 @@
   "totalSalesLabel": "Jumla ya Mauzo",
   "totalExpensesLabel": "Jumla ya Matumizi",
   "netProfit": "Faida Halisi",
+  "selectDateRangeProfitReport": "Chagua muda wa tarehe ili kuzalisha ripoti ya faida",
   "agroVetSeller": "AgroVet Mwuza"
 }

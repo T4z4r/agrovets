@@ -1,7 +1,9 @@
 // lib/screens/seller/seller_home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/locale_provider.dart';
 import '../../screens/auth/login_screen.dart';
 import 'seller_dashboard_screen.dart';
 import 'seller_product_list_screen.dart';
@@ -36,14 +38,37 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
+    final localeProvider = context.watch<LocaleProvider>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AgroVet Seller'),
+        title: Text(AppLocalizations.of(context)!.agroVetSeller),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
+          DropdownButton<String>(
+            value: localeProvider.locale.languageCode,
+            icon: const Icon(Icons.language, color: Colors.white),
+            dropdownColor: Colors.green[700],
+            style: const TextStyle(color: Colors.white),
+            underline: Container(),
+            items: const [
+              DropdownMenuItem(
+                value: 'en',
+                child: Text('English'),
+              ),
+              DropdownMenuItem(
+                value: 'sw',
+                child: Text('Swahili'),
+              ),
+            ],
+            onChanged: (String? newValue) {
+              if (newValue != null) {
+                localeProvider.setLocale(Locale(newValue));
+              }
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
@@ -54,14 +79,14 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       borderRadius: BorderRadius.circular(16)),
                   backgroundColor: Colors.white,
                   title: Text(
-                    'Confirm Logout',
+                    AppLocalizations.of(context)!.confirmLogout,
                     style: TextStyle(
                         color: Colors.green[700],
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                   content: Text(
-                    'Are you sure you want to logout?',
+                    AppLocalizations.of(context)!.logoutMessage,
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -69,14 +94,14 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
                       style: TextButton.styleFrom(foregroundColor: Colors.grey[600]),
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
                       style: TextButton.styleFrom(
                           foregroundColor: Colors.red[600],
                           textStyle: const TextStyle(fontWeight: FontWeight.bold)),
-                      child: const Text('Logout'),
+                      child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ],
                 ),
@@ -95,26 +120,26 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            icon: const Icon(Icons.dashboard),
+            label: AppLocalizations.of(context)!.dashboard,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.inventory),
-            label: 'Products',
+            icon: const Icon(Icons.inventory),
+            label: AppLocalizations.of(context)!.products,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.point_of_sale),
-            label: 'Sales',
+            icon: const Icon(Icons.point_of_sale),
+            label: AppLocalizations.of(context)!.sales,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.storage),
-            label: 'Stock',
+            icon: const Icon(Icons.storage),
+            label: AppLocalizations.of(context)!.stock,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calculate),
-            label: 'Expenses',
+            icon: const Icon(Icons.calculate),
+            label: AppLocalizations.of(context)!.expenses,
           ),
         ],
         currentIndex: _selectedIndex,
