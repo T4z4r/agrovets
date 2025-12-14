@@ -15,7 +15,9 @@ class SupplierListScreen extends StatefulWidget {
 
 class _SupplierListScreenState extends State<SupplierListScreen> {
   List<Supplier> _suppliers = [];
+  List<Supplier> _filteredSuppliers = [];
   bool _loading = true;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       setState(() {
         _suppliers =
             (res['data'] as List).map((s) => Supplier.fromJson(s)).toList();
+        _filteredSuppliers = _suppliers;
         _loading = false;
       });
     } catch (e) {
@@ -48,6 +51,29 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
     }
   }
 
+  void _filterSuppliers(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (query.isEmpty) {
+        _filteredSuppliers = _suppliers;
+      } else {
+        _filteredSuppliers = _suppliers.where((supplier) {
+          return supplier.name.toLowerCase().contains(query.toLowerCase()) ||
+              (supplier.contactPerson
+                      ?.toLowerCase()
+                      .contains(query.toLowerCase()) ??
+                  false) ||
+              (supplier.phone?.toLowerCase().contains(query.toLowerCase()) ??
+                  false) ||
+              (supplier.email?.toLowerCase().contains(query.toLowerCase()) ??
+                  false) ||
+              (supplier.address?.toLowerCase().contains(query.toLowerCase()) ??
+                  false);
+        }).toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,36 +91,60 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
         ],
       ),
       drawer: const AppDrawer(),
-      body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
-          : _suppliers.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.business,
-                        size: 64,
-                        color: Colors.grey[400],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No suppliers found',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
+      body: Column(
+        children: [
+          // Search Bar
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.white,
+            child: TextField(
+              onChanged: _filterSuppliers,
+              decoration: InputDecoration(
+                hintText: 'Search suppliers...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                filled: true,
+                fillColor: Colors.grey[50],
+              ),
+            ),
+          ),
+
+          // Suppliers List
+          Expanded(
+            child: _loading
+                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                : _filteredSuppliers.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.business,
+                              size: 64,
+                              color: Colors.grey[400],
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              _searchQuery.isEmpty
+                                  ? 'No suppliers found'
+                                  : 'No suppliers match your search',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: _loadSuppliers,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _suppliers.length,
-                    itemBuilder: (ctx, i) {
-                      final s = _suppliers[i];
+                      )
+                    : RefreshIndicator(
+                        onRefresh: _loadSuppliers,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: _filteredSuppliers.length,
+                          itemBuilder: (ctx, i) {
+                            final s = _filteredSuppliers[i];
                       return Card(
                         margin: const EdgeInsets.only(bottom: 8),
                         elevation: 2,
@@ -255,6 +305,9 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                     },
                   ),
                 ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.push(

@@ -15,7 +15,9 @@ class StockListScreen extends StatefulWidget {
 
 class _StockListScreenState extends State<StockListScreen> {
   List<StockTransaction> _transactions = [];
+  List<StockTransaction> _filteredTransactions = [];
   bool _loading = true;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -30,6 +32,7 @@ class _StockListScreenState extends State<StockListScreen> {
         _transactions = (res['data'] as List)
             .map((t) => StockTransaction.fromJson(t))
             .toList();
+        _filteredTransactions = _transactions;
         _loading = false;
       });
     } catch (e) {
@@ -49,6 +52,24 @@ class _StockListScreenState extends State<StockListScreen> {
     }
   }
 
+  void _filterTransactions(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (query.isEmpty) {
+        _filteredTransactions = _transactions;
+      } else {
+        _filteredTransactions = _transactions.where((transaction) {
+          return transaction.type.toLowerCase().contains(query.toLowerCase()) ||
+              transaction.date.toLowerCase().contains(query.toLowerCase()) ||
+              (transaction.remarks
+                      ?.toLowerCase()
+                      .contains(query.toLowerCase()) ??
+                  false);
+        }).toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,36 +87,60 @@ class _StockListScreenState extends State<StockListScreen> {
         ],
       ),
       drawer: const AppDrawer(),
-      body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
-          : _transactions.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.inventory,
-                        size: 64,
-                        color: Colors.grey[400],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No stock transactions found',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
+      body: Column(
+        children: [
+          // Search Bar
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.white,
+            child: TextField(
+              onChanged: _filterTransactions,
+              decoration: InputDecoration(
+                hintText: 'Search transactions...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                filled: true,
+                fillColor: Colors.grey[50],
+              ),
+            ),
+          ),
+
+          // Transactions List
+          Expanded(
+            child: _loading
+                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                : _filteredTransactions.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.inventory,
+                              size: 64,
+                              color: Colors.grey[400],
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              _searchQuery.isEmpty
+                                  ? 'No stock transactions found'
+                                  : 'No transactions match your search',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: _loadTransactions,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _transactions.length,
-                    itemBuilder: (ctx, i) {
-                      final t = _transactions[i];
+                      )
+                    : RefreshIndicator(
+                        onRefresh: _loadTransactions,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: _filteredTransactions.length,
+                          itemBuilder: (ctx, i) {
+                            final t = _filteredTransactions[i];
                       // Determine icon and color based on transaction type
                       IconData iconData;
                       Color iconColor;
@@ -269,6 +314,9 @@ class _StockListScreenState extends State<StockListScreen> {
                     },
                   ),
                 ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.push(

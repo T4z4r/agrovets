@@ -16,7 +16,9 @@ class SaleListScreen extends StatefulWidget {
 
 class _SaleListScreenState extends State<SaleListScreen> {
   List<Sale> _sales = [];
+  List<Sale> _filteredSales = [];
   bool _loading = true;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
       final res = await ApiService.get('/api/sales');
       setState(() {
         _sales = (res['data'] as List).map((s) => Sale.fromJson(s)).toList();
+        _filteredSales = _sales;
         _loading = false;
       });
     } catch (e) {
@@ -36,6 +39,20 @@ class _SaleListScreenState extends State<SaleListScreen> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+  }
+
+  void _filterSales(String query) {
+    setState(() {
+      _searchQuery = query;
+      if (query.isEmpty) {
+        _filteredSales = _sales;
+      } else {
+        _filteredSales = _sales.where((sale) {
+          return sale.id.toString().contains(query) ||
+              sale.saleDate.toLowerCase().contains(query.toLowerCase());
+        }).toList();
+      }
+    });
   }
 
   @override
@@ -55,132 +72,160 @@ class _SaleListScreenState extends State<SaleListScreen> {
         ],
       ),
       drawer: const AppDrawer(),
-      body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
-          : _sales.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.point_of_sale,
-                        size: 64,
-                        color: Colors.grey[400],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No sales found',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: _loadSales,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _sales.length,
-                    itemBuilder: (ctx, i) {
-                      final s = _sales[i];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(16),
-                          leading: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.green[100],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Icon(
+      body: Column(
+        children: [
+          // Search Bar
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.white,
+            child: TextField(
+              onChanged: _filterSales,
+              decoration: InputDecoration(
+                hintText: 'Search sales...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                filled: true,
+                fillColor: Colors.grey[50],
+              ),
+            ),
+          ),
+
+          // Sales List
+          Expanded(
+            child: _loading
+                ? Center(
+                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                : _filteredSales.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
                               Icons.point_of_sale,
-                              color: Colors.green[600],
+                              size: 64,
+                              color: Colors.grey[400],
                             ),
-                          ),
-                          title: Text(
-                            'Sale #${s.id}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                            const SizedBox(height: 16),
+                            Text(
+                              _searchQuery.isEmpty
+                                  ? 'No sales found'
+                                  : 'No sales match your search',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
                             ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_today,
-                                    size: 14,
-                                    color: Colors.grey[600],
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'Date: ${s.saleDate}',
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
+                          ],
+                        ),
+                      )
+                    : RefreshIndicator(
+                        onRefresh: _loadSales,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: _filteredSales.length,
+                          itemBuilder: (ctx, i) {
+                            final s = _filteredSales[i];
+                            return Card(
+                              margin: const EdgeInsets.only(bottom: 8),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              const SizedBox(height: 2),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart,
-                                    size: 14,
-                                    color: Colors.grey[600],
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(16),
+                                leading: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green[100],
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'Items: ${s.items.length}',
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 12,
+                                  child: Icon(
+                                    Icons.point_of_sale,
+                                    color: Colors.green[600],
+                                  ),
+                                ),
+                                title: Text(
+                                  'Sale #${s.id}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          size: 14,
+                                          color: Colors.grey[600],
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          'Date: ${s.saleDate}',
+                                          style: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          trailing: PopupMenuButton(
-                            itemBuilder: (context) => [
-                              const PopupMenuItem(
-                                value: 'receipt',
-                                child: ListTile(
-                                  leading: Icon(Icons.receipt),
-                                  title: Text('View Receipt'),
-                                  contentPadding: EdgeInsets.zero,
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.shopping_cart,
+                                          size: 14,
+                                          color: Colors.grey[600],
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          'Items: ${s.items.length}',
+                                          style: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                trailing: PopupMenuButton(
+                                  itemBuilder: (context) => [
+                                    const PopupMenuItem(
+                                      value: 'receipt',
+                                      child: ListTile(
+                                        leading: Icon(Icons.receipt),
+                                        title: Text('View Receipt'),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
+                                  ],
+                                  onSelected: (value) async {
+                                    if (value == 'receipt') {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              ReceiptViewScreen(saleId: s.id),
+                                        ),
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
-                            ],
-                            onSelected: (value) async {
-                              if (value == 'receipt') {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        ReceiptViewScreen(saleId: s.id),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.push(
