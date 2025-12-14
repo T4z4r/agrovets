@@ -233,7 +233,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Sales
                       _buildMetricCard(
                         'Total Sales',
-                        'KES ${NumberFormat('#,###').format(_report!.totalSales)}',
+                        'Tsh ${NumberFormat('#,###').format(_report!.totalSales)}',
                         Icons.point_of_sale,
                         Colors.green,
                         Colors.green[100]!,
@@ -243,7 +243,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Expenses
                       _buildMetricCard(
                         'Total Expenses',
-                        'KES ${NumberFormat('#,###').format(_report!.totalExpenses)}',
+                        'Tsh ${NumberFormat('#,###').format(_report!.totalExpenses)}',
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -283,7 +283,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               ),
                             ),
                             Text(
-                              'KES ${NumberFormat('#,###').format((_report!.totalSales - _report!.totalExpenses).abs())}',
+                              'Tsh ${NumberFormat('#,###').format((_report!.totalSales - _report!.totalExpenses).abs())}',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

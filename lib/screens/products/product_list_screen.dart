@@ -29,7 +29,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
     try {
       final res = await ApiService.get('/api/products');
       setState(() {
-        _products = (res['data'] as List).map((p) => Product.fromJson(p)).toList();
+        _products =
+            (res['data'] as List).map((p) => Product.fromJson(p)).toList();
         _filteredProducts = _products;
         _loading = false;
       });
@@ -52,8 +53,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
       } else {
         _filteredProducts = _products.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
-                 product.unit!.toLowerCase().contains(query.toLowerCase()) ||
-                 product.category!.toLowerCase().contains(query.toLowerCase());
+              product.unit!.toLowerCase().contains(query.toLowerCase()) ||
+              product.category!.toLowerCase().contains(query.toLowerCase());
         }).toList();
       }
     });
@@ -137,11 +138,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
               ),
             ),
           ),
-          
+
           // Products List
           Expanded(
             child: _loading
-                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                ? Center(
+                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
                 : _filteredProducts.isEmpty
                     ? Center(
                         child: Column(
@@ -230,7 +232,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Price: KES ${p.sellingPrice}',
+                                          'Price: Tsh ${p.sellingPrice}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -238,7 +240,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                       ],
                                     ),
-                                    if (p.category != null && p.category!.isNotEmpty) ...[
+                                    if (p.category != null &&
+                                        p.category!.isNotEmpty) ...[
                                       const SizedBox(height: 2),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
@@ -247,7 +250,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.blue[100],
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                         child: Text(
                                           p.category!,
@@ -273,8 +277,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                     const PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
-                                        leading: Icon(Icons.delete, color: Colors.red),
-                                        title: Text('Delete', style: TextStyle(color: Colors.red)),
+                                        leading: Icon(Icons.delete,
+                                            color: Colors.red),
+                                        title: Text('Delete',
+                                            style:
+                                                TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
@@ -303,7 +310,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           ),
         ],
       ),
-      
+
       // Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

@@ -118,17 +118,17 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                             Colors.blue),
                         _statCard(
                             'Today Sales',
-                            'KES ${dashboard['today_sales'] ?? 0}',
+                            'Tsh ${dashboard['today_sales'] ?? 0}',
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
                             'Total Sales',
-                            'KES ${dashboard['total_sales'] ?? 0}',
+                            'Tsh ${dashboard['total_sales'] ?? 0}',
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
                             'Total Expenses',
-                            'KES ${dashboard['total_expenses'] ?? 0}',
+                            'Tsh ${dashboard['total_expenses'] ?? 0}',
                             Icons.money_off,
                             Colors.red),
                       ],

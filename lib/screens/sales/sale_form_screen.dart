@@ -415,7 +415,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        'Price: KES ${product.sellingPrice}',
+                        'Price: Tsh ${product.sellingPrice}',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       value: isSelected,

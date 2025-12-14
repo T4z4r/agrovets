@@ -269,7 +269,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Revenue
                       _buildMetricCard(
                         'Total Revenue',
-                        'KES ${NumberFormat('#,###').format(_report!.revenue)}',
+                        'Tsh ${NumberFormat('#,###').format(_report!.revenue)}',
                         Icons.monetization_on,
                         Colors.green,
                         Colors.green[100]!,
@@ -279,7 +279,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Cost
                       _buildMetricCard(
                         'Total Cost',
-                        'KES ${NumberFormat('#,###').format(_report!.cost)}',
+                        'Tsh ${NumberFormat('#,###').format(_report!.cost)}',
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -289,7 +289,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Profit
                       _buildMetricCard(
                         'Net Profit',
-                        'KES ${NumberFormat('#,###').format(_report!.profit)}',
+                        'Tsh ${NumberFormat('#,###').format(_report!.profit)}',
                         Icons.trending_up,
                         _report!.profit >= 0 ? Colors.blue : Colors.orange,
                         _report!.profit >= 0

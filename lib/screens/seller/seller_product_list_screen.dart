@@ -173,7 +173,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Price: KES ${p.sellingPrice}',
+                                          'Price: Tsh ${p.sellingPrice}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

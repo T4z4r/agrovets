@@ -213,17 +213,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Colors.blue),
                         _statCard(
                             'Today Sales',
-                            'KES ${dashboard['today_sales'] ?? 0}',
+                            'Tsh ${dashboard['today_sales'] ?? 0}',
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
                             'Total Sales',
-                            'KES ${dashboard['total_sales'] ?? 0}',
+                            'Tsh ${dashboard['total_sales'] ?? 0}',
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
                             'Total Expenses',
-                            'KES ${dashboard['total_expenses'] ?? 0}',
+                            'Tsh ${dashboard['total_expenses'] ?? 0}',
                             Icons.money_off,
                             Colors.red),
                       ],
@@ -231,7 +231,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: 16),
                     _statCardFullWidth(
                         'Stock Value',
-                        'KES ${dashboard['stock_value'] ?? 0}',
+                        'Tsh ${dashboard['stock_value'] ?? 0}',
                         Icons.warehouse,
                         Colors.green),
                   ],

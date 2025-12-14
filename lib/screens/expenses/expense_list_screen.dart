@@ -181,7 +181,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'KES ${e.amount}',
+                                          'Tsh ${e.amount}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
