@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/auth_service.dart';
 import '../dashboard_screen.dart';
@@ -45,11 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } else {
-        setState(() => _error = response['message'] ?? 'Login failed');
-      }
-    } catch (e) {
-      setState(() => _error = 'Connection error. Please try again.');
-    }
+         setState(() => _error = response['message'] ?? AppLocalizations.of(context)!.loginFailed);
+       }
+     } catch (e) {
+       setState(() => _error = AppLocalizations.of(context)!.connectionError);
+     }
     setState(() => _loading = false);
   }
 
@@ -89,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // Welcome Text
                 Text(
-                  'AgroVet',
+                  AppLocalizations.of(context)!.appName,
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Welcome back! Please sign in to your account',
+                  AppLocalizations.of(context)!.welcomeBack,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -148,8 +149,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              labelText: 'Email Address',
-                              hintText: 'Enter your email',
+                              labelText:
+                                  AppLocalizations.of(context)!.emailAddress,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterEmail,
                               prefixIcon: const Icon(Icons.email),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -157,11 +160,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return 'Email is required';
+                                return AppLocalizations.of(context)!
+                                    .emailRequired;
                               }
                               if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                   .hasMatch(v)) {
-                                return 'Please enter a valid email';
+                                return AppLocalizations.of(context)!
+                                    .invalidEmail;
                               }
                               return null;
                             },
@@ -171,8 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: _passCtrl,
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
-                              labelText: 'Password',
-                              hintText: 'Enter your password',
+                              labelText: AppLocalizations.of(context)!.password,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterPassword,
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -191,10 +197,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return 'Password is required';
+                                return AppLocalizations.of(context)!
+                                    .passwordRequired;
                               }
                               if (v.length < 6) {
-                                return 'Password must be at least 6 characters';
+                                return AppLocalizations.of(context)!
+                                    .passwordMinLength;
                               }
                               return null;
                             },
@@ -218,8 +226,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: SpinKitWaveSpinner(
                                         color: Colors.white, size: 20.0),
                                   )
-                                : const Text(
-                                    'Sign In',
+                                : Text(
+                                    AppLocalizations.of(context)!.signIn,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,

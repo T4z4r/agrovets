@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
+import '../providers/locale_provider.dart';
 import '../services/api_service.dart';
 import '../utils/number_formatter.dart';
 import 'auth/login_screen.dart';
@@ -49,11 +51,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
+    final localeProvider = context.watch<LocaleProvider>();
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('AgroVet Dashboard'),
+        title: Text(AppLocalizations.of(context)!.appName +
+            ' ' +
+            AppLocalizations.of(context)!.dashboard),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -72,14 +77,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       borderRadius: BorderRadius.circular(16)),
                   backgroundColor: Colors.white,
                   title: Text(
-                    'Confirm Logout',
+                    AppLocalizations.of(context)!.confirmLogout,
                     style: TextStyle(
                         color: Colors.green[700],
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                   content: Text(
-                    'Are you sure you want to logout?',
+                    AppLocalizations.of(context)!.logoutMessage,
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   actionsPadding:
@@ -89,7 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onPressed: () => Navigator.of(context).pop(false),
                       style: TextButton.styleFrom(
                           foregroundColor: Colors.grey[600]),
-                      child: const Text('Cancel'),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
@@ -97,7 +102,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           foregroundColor: Colors.red[600],
                           textStyle:
                               const TextStyle(fontWeight: FontWeight.bold)),
-                      child: const Text('Logout'),
+                      child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ],
                 ),
@@ -133,8 +138,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Icon(Icons.person, size: 40, color: Colors.green[600]),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Welcome!',
+                  Text(
+                    AppLocalizations.of(context)!.welcome,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -148,41 +153,98 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             _drawerTile(
-                Icons.dashboard, 'Dashboard', () => Navigator.pop(context),
+                Icons.dashboard,
+                AppLocalizations.of(context)!.dashboard,
+                () => Navigator.pop(context),
                 isActive: true),
-            _drawerTile(Icons.inventory, 'Products', () {
+            _drawerTile(Icons.inventory, AppLocalizations.of(context)!.products,
+                () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ProductListScreen()));
             }),
-            _drawerTile(Icons.people, 'Suppliers', () {
+            _drawerTile(Icons.people, AppLocalizations.of(context)!.suppliers,
+                () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (_) => const SupplierListScreen()));
             }),
             if (auth.isOwner || auth.isAdmin || auth.isSeller)
-              _drawerTile(Icons.person, 'Sellers', () {
+              _drawerTile(Icons.person, AppLocalizations.of(context)!.sellers,
+                  () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (_) => const SellerListScreen()));
               }, isActive: false),
-            _drawerTile(Icons.storage, 'Stock', () {
+            _drawerTile(Icons.storage, AppLocalizations.of(context)!.stock, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const StockListScreen()));
             }),
-            _drawerTile(Icons.point_of_sale, 'Sales', () {
+            _drawerTile(
+                Icons.point_of_sale, AppLocalizations.of(context)!.sales, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const SaleListScreen()));
             }),
-            _drawerTile(Icons.money_off, 'Expenses', () {
+            _drawerTile(Icons.money_off, AppLocalizations.of(context)!.expenses,
+                () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ExpenseListScreen()));
             }),
-            _drawerTile(Icons.bar_chart, 'Reports', () {
+            _drawerTile(Icons.bar_chart, AppLocalizations.of(context)!.reports,
+                () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    localeProvider.locale.languageCode == 'en'
+                        ? 'Language'
+                        : 'Lugha',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => localeProvider.setLocale(const Locale('en')),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: localeProvider.locale.languageCode == 'en'
+                                ? Colors.blue[700]
+                                : Colors.blue,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('English'),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => localeProvider.setLocale(const Locale('sw')),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: localeProvider.locale.languageCode == 'sw'
+                                ? Colors.green[700]
+                                : Colors.green,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Kiswahili'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -210,20 +272,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
-                    children: const [
-                      Icon(Icons.waving_hand, size: 40, color: Colors.white),
-                      SizedBox(width: 16),
+                    children: [
+                      const Icon(Icons.waving_hand,
+                          size: 40, color: Colors.white),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Good Day!',
+                            Text(AppLocalizations.of(context)!.goodDay,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold)),
                             Text(
-                              'Here’s your business overview',
+                              AppLocalizations.of(context)!.businessOverview,
                               style: TextStyle(color: Colors.white70),
                             ),
                           ],
@@ -256,24 +319,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       childAspectRatio: 1.25,
                       children: [
                         _statCard(
-                            'Total Products',
+                            AppLocalizations.of(context)!.totalProducts,
                             dashboard['total_products']?.toString() ?? '0',
                             Icons.inventory,
                             Colors.blue),
                         _statCard(
-                            'Today Sales',
+                            AppLocalizations.of(context)!.todaySales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
-                            'Total Sales',
+                            AppLocalizations.of(context)!.totalSales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
-                            'Total Expenses',
+                            AppLocalizations.of(context)!.totalExpenses,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_expenses']?.toString() ??
                                     '0')),
@@ -283,7 +346,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     const SizedBox(height: 16),
                     _statCardFullWidth(
-                        'Stock Value',
+                        AppLocalizations.of(context)!.stockValue,
                         NumberFormatter.formatCurrency(num.tryParse(
                             dashboard['stock_value']?.toString() ?? '0')),
                         Icons.warehouse,
@@ -295,7 +358,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
               // ================= Quick Actions =================
               Text(
-                'Quick Actions',
+                AppLocalizations.of(context)!.quickActions,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -306,7 +369,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Expanded(
                     child: _quickActionCard(
-                      'Add Product',
+                      AppLocalizations.of(context)!.addProduct,
                       Icons.add_box,
                       Colors.blue,
                       () => Navigator.push(
@@ -318,7 +381,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: _quickActionCard(
-                      'New Sale',
+                      AppLocalizations.of(context)!.newSale,
                       Icons.point_of_sale,
                       Colors.green,
                       () => Navigator.push(

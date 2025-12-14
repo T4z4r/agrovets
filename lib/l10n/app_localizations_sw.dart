@@ -1,0 +1,407 @@
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Swahili (`sw`).
+class AppLocalizationsSw extends AppLocalizations {
+  AppLocalizationsSw([String locale = 'sw']) : super(locale);
+
+  @override
+  String get appName => 'AgroVet';
+
+  @override
+  String get welcomeBack => 'Karibu tena! Tafadhali ingia kwenye akaunti yako';
+
+  @override
+  String get emailAddress => 'Anwani ya Barua Pepe';
+
+  @override
+  String get enterEmail => 'Ingiza barua pepe yako';
+
+  @override
+  String get emailRequired => 'Barua pepe inahitajika';
+
+  @override
+  String get invalidEmail => 'Tafadhali ingiza barua pepe sahihi';
+
+  @override
+  String get password => 'Nenosiri';
+
+  @override
+  String get enterPassword => 'Ingiza nenosiri lako';
+
+  @override
+  String get passwordRequired => 'Nenosiri linahitajika';
+
+  @override
+  String get passwordMinLength => 'Nenosiri lazima iwe angalau herufi 6';
+
+  @override
+  String get signIn => 'Ingia';
+
+  @override
+  String get loginFailed => 'Kuingia kumeshindikana';
+
+  @override
+  String get connectionError => 'Kosa la muunganisho. Tafadhali jaribu tena.';
+
+  @override
+  String get dashboard => 'Dashibodi';
+
+  @override
+  String get products => 'Bidhaa';
+
+  @override
+  String get suppliers => 'Wasambazaji';
+
+  @override
+  String get sellers => 'Wauzaji';
+
+  @override
+  String get stock => 'Hekalu';
+
+  @override
+  String get sales => 'Mauzo';
+
+  @override
+  String get expenses => 'Matumizi';
+
+  @override
+  String get reports => 'Ripoti';
+
+  @override
+  String get welcome => 'Karibu!';
+
+  @override
+  String get goodDay => 'Habari ya siku!';
+
+  @override
+  String get businessOverview => 'Hapa kuna muhtasari wa biashara yako';
+
+  @override
+  String get totalProducts => 'Jumla ya Bidhaa';
+
+  @override
+  String get todaySales => 'Mauzo ya Leo';
+
+  @override
+  String get totalSales => 'Jumla ya Mauzo';
+
+  @override
+  String get totalExpenses => 'Jumla ya Matumizi';
+
+  @override
+  String get stockValue => 'Thamani ya Hekalu';
+
+  @override
+  String get quickActions => 'Vitendo vya Haraka';
+
+  @override
+  String get addProduct => 'Ongeza Bidhaa';
+
+  @override
+  String get newSale => 'Uuzaji Mpya';
+
+  @override
+  String get confirmLogout => 'Thibitisha Kutoka';
+
+  @override
+  String get logoutMessage => 'Je, una uhakika unataka kutoka?';
+
+  @override
+  String get cancel => 'Ghairi';
+
+  @override
+  String get logout => 'Toka';
+
+  @override
+  String get failedLoadDashboard => 'Imeshindikana kupakia dashibodi';
+
+  @override
+  String get supplierName => 'Jina la Msambazaji';
+
+  @override
+  String get enterSupplierName => 'Ingiza jina la msambazaji';
+
+  @override
+  String get contactPerson => 'Mtu wa Mawasiliano';
+
+  @override
+  String get enterContactPerson => 'Ingiza jina la mtu wa mawasiliano';
+
+  @override
+  String get phoneNumber => 'Nambari ya Simu';
+
+  @override
+  String get enterPhoneNumber => 'Ingiza nambari ya simu';
+
+  @override
+  String get enterEmailAddress => 'Ingiza anwani ya barua pepe';
+
+  @override
+  String get address => 'Anwani';
+
+  @override
+  String get enterSupplierAddress => 'Ingiza anwani ya msambazaji';
+
+  @override
+  String get supplierCreated => 'Msambazaji ameundwa kwa mafanikio!';
+
+  @override
+  String get supplierUpdated => 'Msambazaji amesasishwa kwa mafanikio!';
+
+  @override
+  String get failedSaveSupplier => 'Imeshindikana kuhifadhi msambazaji';
+
+  @override
+  String get deleteSupplier => 'Futa Msambazaji';
+
+  @override
+  String get delete => 'Futa';
+
+  @override
+  String get edit => 'Hariri';
+
+  @override
+  String get viewReceipt => 'Tazama Risiti';
+
+  @override
+  String get createSale => 'Unda Uuzaji';
+
+  @override
+  String get addItem => 'Ongeza Bidhaa';
+
+  @override
+  String get addSelected => 'Ongeza Zilizochaguliwa';
+
+  @override
+  String get product => 'Bidhaa';
+
+  @override
+  String get qty => 'Idadi';
+
+  @override
+  String get price => 'Bei';
+
+  @override
+  String get saleDate => 'Tarehe ya Uuzaji';
+
+  @override
+  String get selectProduct => 'Chagua Bidhaa';
+
+  @override
+  String get chooseProduct => 'Chagua bidhaa';
+
+  @override
+  String get transactionType => 'Aina ya Muamala';
+
+  @override
+  String get quantity => 'Idadi';
+
+  @override
+  String get enterQuantity => 'Ingiza idadi';
+
+  @override
+  String get supplierOptional => 'Msambazaji (Hiari)';
+
+  @override
+  String get selectSupplier => 'Chagua msambazaji';
+
+  @override
+  String get transactionDate => 'Tarehe ya Muamala';
+
+  @override
+  String get selectDate => 'Chagua tarehe';
+
+  @override
+  String get remarksOptional => 'Maoni (Hiari)';
+
+  @override
+  String get addNotes => 'Ongeza maoni yoyote';
+
+  @override
+  String get stockIn => 'Ingiza Hekalu';
+
+  @override
+  String get stockOut => 'Toa Hekalu';
+
+  @override
+  String get damage => 'Uharibifu';
+
+  @override
+  String get returnText => 'Rudi';
+
+  @override
+  String get stockTransactionSaved => 'Muamala wa hekalu umehifadhiwa kwa mafanikio!';
+
+  @override
+  String get failedSaveStock => 'Imeshindikana kuhifadhi muamala wa hekalu';
+
+  @override
+  String get createStockTransaction => 'Unda Muamala wa Hekalu';
+
+  @override
+  String get sellerName => 'Jina la Mwuza';
+
+  @override
+  String get enterSellerName => 'Ingiza jina la mwuza';
+
+  @override
+  String get sellerCreated => 'Mwuza ameundwa kwa mafanikio!';
+
+  @override
+  String get sellerUpdated => 'Mwuza amesasishwa kwa mafanikio!';
+
+  @override
+  String get failedSaveSeller => 'Imeshindikana kuhifadhi mwuza';
+
+  @override
+  String get deleteSeller => 'Futa Mwuza';
+
+  @override
+  String get accessDenied => 'Upatikanaji Umekataliwa';
+
+  @override
+  String get noPermission => 'Huna ruhusa ya kufikia ukurasa huu.';
+
+  @override
+  String get failedLoadProducts => 'Imeshindikana kupakia bidhaa';
+
+  @override
+  String get deleteProduct => 'Futa Bidhaa';
+
+  @override
+  String get productDeleted => 'Bidhaa imefutwa kwa mafanikio';
+
+  @override
+  String get failedDeleteProduct => 'Imeshindikana kufuta bidhaa';
+
+  @override
+  String get productName => 'Jina la Bidhaa';
+
+  @override
+  String get enterProductName => 'Ingiza jina la bidhaa';
+
+  @override
+  String get unit => 'Kipimo';
+
+  @override
+  String get enterUnit => 'mfano, kg, lita, vipande';
+
+  @override
+  String get category => 'Kategoria';
+
+  @override
+  String get enterCategory => 'mfano, Dawa, Chakula, Vifaa';
+
+  @override
+  String get initialStock => 'Hekalu la Awali';
+
+  @override
+  String get enterStockQuantity => 'Ingiza idadi ya hekalu';
+
+  @override
+  String get costPrice => 'Bei ya Ununuzi (Tsh)';
+
+  @override
+  String get enterCostPrice => 'Ingiza bei ya ununuzi';
+
+  @override
+  String get sellingPrice => 'Bei ya Uuzaji (Tsh)';
+
+  @override
+  String get enterSellingPrice => 'Ingiza bei ya uuzaji';
+
+  @override
+  String get expenseCategory => 'Kategoria ya Matumizi';
+
+  @override
+  String get enterExpenseCategory => 'mfano, Huduma, Vifaa, Matengenezo';
+
+  @override
+  String get amount => 'Kiasi (Tsh)';
+
+  @override
+  String get enterExpenseAmount => 'Ingiza kiasi cha matumizi';
+
+  @override
+  String get description => 'Maelezo';
+
+  @override
+  String get enterExpenseDescription => 'Ingiza maelezo ya matumizi';
+
+  @override
+  String get expenseDate => 'Tarehe ya Matumizi';
+
+  @override
+  String get expenseCreated => 'Matumizi yameundwa kwa mafanikio!';
+
+  @override
+  String get expenseUpdated => 'Matumizi yamesasishwa kwa mafanikio!';
+
+  @override
+  String get failedSaveExpense => 'Imeshindikana kuhifadhi matumizi';
+
+  @override
+  String get deleteExpense => 'Futa Matumizi';
+
+  @override
+  String get profitReport => 'Ripoti ya Faida';
+
+  @override
+  String get generatingReport => 'Inazalisha ripoti...';
+
+  @override
+  String get failedLoadProfitReport => 'Imeshindikana kupakia ripoti ya faida';
+
+  @override
+  String get startDate => 'Tarehe ya Kuanza';
+
+  @override
+  String get selectStartDate => 'Chagua tarehe ya kuanza';
+
+  @override
+  String get endDate => 'Tarehe ya Mwisho';
+
+  @override
+  String get selectEndDate => 'Chagua tarehe ya mwisho';
+
+  @override
+  String get dailyReport => 'Ripoti ya Kila Siku';
+
+  @override
+  String get generatingDailyReport => 'Inazalisha ripoti ya kila siku...';
+
+  @override
+  String get failedLoadDailyReport => 'Imeshindikana kupakia ripoti ya kila siku';
+
+  @override
+  String get reportDate => 'Tarehe ya Ripoti';
+
+  @override
+  String get selectReportDate => 'Chagua tarehe ya ripoti';
+
+  @override
+  String get stockTransactions => 'Miamala ya Hekalu';
+
+  @override
+  String get deleteTransaction => 'Futa Muamala';
+
+  @override
+  String get receipt => 'Risiti';
+
+  @override
+  String get totalSalesLabel => 'Jumla ya Mauzo';
+
+  @override
+  String get totalExpensesLabel => 'Jumla ya Matumizi';
+
+  @override
+  String get netProfit => 'Faida Halisi';
+
+  @override
+  String get failedLoadReport => 'Imeshindikana kupakia ripoti';
+
+  @override
+  String get agroVetSeller => 'AgroVet Mwuza';
+}
