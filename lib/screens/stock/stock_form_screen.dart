@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/supplier.dart';
+import '../../widgets/app_drawer.dart';
 
 class StockFormScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -111,6 +112,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      drawer: const AppDrawer(),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : SingleChildScrollView(

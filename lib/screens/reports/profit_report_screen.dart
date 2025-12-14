@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
+import '../../widgets/app_drawer.dart';
 
 class ProfitReportScreen extends StatefulWidget {
   const ProfitReportScreen({super.key});
@@ -84,6 +85,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -181,7 +183,8 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
+                              child: SpinKitWaveSpinner(
+                                  color: Colors.white, size: 20.0),
                             )
                           : const Text(
                               'Generate Report',

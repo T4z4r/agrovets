@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/supplier.dart';
+import '../../widgets/app_drawer.dart';
 import 'supplier_form_screen.dart';
 
 class SupplierListScreen extends StatefulWidget {
@@ -63,6 +64,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _suppliers.isEmpty

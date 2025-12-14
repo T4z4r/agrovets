@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../services/api_service.dart';
+import '../../widgets/app_drawer.dart';
 
 class ReceiptViewScreen extends StatefulWidget {
   final int saleId;
@@ -55,7 +56,13 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Receipt')),
+      appBar: AppBar(
+        title: const Text('Receipt'),
+        backgroundColor: Colors.green[600],
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
+      drawer: const AppDrawer(),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _error != null

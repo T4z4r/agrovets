@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AgroVet',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
       home: const AuthWrapper(),
     );
@@ -57,7 +58,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
   @override
   Widget build(BuildContext context) {
     if (!_checked) {
-      return Scaffold(body: Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0)));
+      return Scaffold(
+          body: Center(
+              child: SpinKitWaveSpinner(color: Colors.green, size: 50.0)));
     }
 
     final user = context.watch<AuthProvider>().user;

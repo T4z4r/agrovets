@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
+import '../../widgets/app_drawer.dart';
 
 class ExpenseFormScreen extends StatefulWidget {
   final Expense? expense;
@@ -103,6 +104,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -125,7 +127,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               // Form Fields Card
               Card(
                 elevation: 2,
@@ -138,7 +140,9 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        widget.expense == null ? 'Add New Expense' : 'Edit Expense',
+                        widget.expense == null
+                            ? 'Add New Expense'
+                            : 'Edit Expense',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -147,7 +151,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Category Field
                       TextFormField(
                         controller: _categoryCtrl,
@@ -169,7 +173,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Amount Field
                       TextFormField(
                         controller: _amountCtrl,
@@ -195,7 +199,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Description Field
                       TextFormField(
                         controller: _descriptionCtrl,
@@ -212,7 +216,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         maxLines: 3,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Date Field
                       TextFormField(
                         readOnly: true,
@@ -231,7 +235,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                             text: DateFormat('yyyy-MM-dd').format(_date)),
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Save Button
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
@@ -248,10 +252,13 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                             ? const SizedBox(
                                 height: 20,
                                 width: 20,
-                                child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
+                                child: SpinKitWaveSpinner(
+                                    color: Colors.white, size: 20.0),
                               )
                             : Text(
-                                widget.expense == null ? 'Create Expense' : 'Update Expense',
+                                widget.expense == null
+                                    ? 'Create Expense'
+                                    : 'Update Expense',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

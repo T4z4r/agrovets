@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/supplier.dart';
+import '../../widgets/app_drawer.dart';
 
 class SupplierFormScreen extends StatefulWidget {
   final Supplier? supplier;
@@ -95,6 +96,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

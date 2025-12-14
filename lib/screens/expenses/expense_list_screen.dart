@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
+import '../../widgets/app_drawer.dart';
 import 'expense_form_screen.dart';
 
 class ExpenseListScreen extends StatefulWidget {
@@ -63,6 +64,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _expenses.isEmpty

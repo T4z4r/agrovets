@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
+import '../../widgets/app_drawer.dart';
 
 class DailyReportScreen extends StatefulWidget {
   const DailyReportScreen({super.key});
@@ -69,6 +70,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -147,7 +149,8 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
+                              child: SpinKitWaveSpinner(
+                                  color: Colors.white, size: 20.0),
                             )
                           : const Text(
                               'Generate Report',
