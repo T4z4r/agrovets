@@ -9,6 +9,7 @@ import '../screens/stock/stock_list_screen.dart';
 import '../screens/sales/sale_list_screen.dart';
 import '../screens/expenses/expense_list_screen.dart';
 import '../screens/reports/daily_report_screen.dart';
+import '../screens/sellers/seller_list_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -69,6 +70,14 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }),
+          if (auth.isOwner || auth.isAdmin || auth.isSeller)
+            _drawerTile(Icons.person, 'Sellers', () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const SellerListScreen()),
+                (route) => false,
+              );
+            }),
           _drawerTile(Icons.storage, 'Stock', () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -92,7 +101,7 @@ class AppDrawer extends StatelessWidget {
           }),
           _drawerTile(Icons.bar_chart, 'Reports', () {
             Navigator.pushAndRemoveUntil(
-              context, 
+              context,
               MaterialPageRoute(builder: (_) => const DailyReportScreen()),
               (route) => false,
             );

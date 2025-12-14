@@ -51,6 +51,40 @@ class ApiService {
     return _handleResponse(response);
   }
 
+  static Future<dynamic> patch(String endpoint, Map<String, dynamic> data) async {
+    final response = await http.patch(
+      Uri.parse('$baseUrl$endpoint'),
+      headers: await getHeaders(),
+      body: jsonEncode(data),
+    );
+    return _handleResponse(response);
+  }
+
+  // Seller API methods
+  static Future<dynamic> getSellers() async {
+    return await get('/api/sellers');
+  }
+
+  static Future<dynamic> createSeller(Map<String, dynamic> data) async {
+    return await post('/api/sellers', data);
+  }
+
+  static Future<dynamic> getSeller(int id) async {
+    return await get('/api/sellers/$id');
+  }
+
+  static Future<dynamic> updateSeller(int id, Map<String, dynamic> data) async {
+    return await put('/api/sellers/$id', data);
+  }
+
+  static Future<dynamic> deleteSeller(int id) async {
+    return await delete('/api/sellers/$id');
+  }
+
+  static Future<dynamic> toggleBlockSeller(int id) async {
+    return await patch('/api/sellers/$id/block', {});
+  }
+
   static dynamic _handleResponse(http.Response response) {
     final json = jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {

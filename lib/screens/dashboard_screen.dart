@@ -10,6 +10,7 @@ import 'stock/stock_list_screen.dart';
 import 'sales/sale_list_screen.dart';
 import 'expenses/expense_list_screen.dart';
 import 'reports/daily_report_screen.dart';
+import 'sellers/seller_list_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -80,18 +81,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     'Are you sure you want to logout?',
                     style: TextStyle(color: Colors.grey[700]),
                   ),
-                  actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  actionsPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      style: TextButton.styleFrom(foregroundColor: Colors.grey[600]),
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.grey[600]),
                       child: const Text('Cancel'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
                       style: TextButton.styleFrom(
                           foregroundColor: Colors.red[600],
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold)),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.bold)),
                       child: const Text('Logout'),
                     ),
                   ],
@@ -154,6 +158,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   MaterialPageRoute(
                       builder: (_) => const SupplierListScreen()));
             }),
+            if (auth.isOwner || auth.isAdmin || auth.isSeller)
+              _drawerTile(Icons.person, 'Sellers', () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const SellerListScreen()));
+              }),
             _drawerTile(Icons.storage, 'Stock', () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const StockListScreen()));

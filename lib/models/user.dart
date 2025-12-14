@@ -19,7 +19,9 @@ class User {
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       role: json['role'] ?? '',
-      isActive: json['is_active'] ?? true,
+      isActive: json['is_active'] is bool
+          ? json['is_active'] as bool
+          : (json['is_active']?.toString() == '1'),
     );
   }
 }
