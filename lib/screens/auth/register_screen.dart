@@ -15,6 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   final _confirmPassCtrl = TextEditingController();
+  String? _selectedRole;
   bool _loading = false;
   String? _error;
 
@@ -27,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => _loading = true);
     try {
       final response = await AuthService.register(
-          _nameCtrl.text, _emailCtrl.text, _passCtrl.text);
+          _nameCtrl.text, _emailCtrl.text, _passCtrl.text, _selectedRole!);
       if (response['success']) {
         if (!mounted) return;
         Navigator.pushReplacement(
@@ -77,6 +78,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
                 validator: (v) => v!.isEmpty ? 'Required' : null,
+              ),
+              DropdownButtonFormField<String>(
+                value: _selectedRole,
+                decoration: const InputDecoration(labelText: 'Role'),
+                items: const [
+                  DropdownMenuItem(value: 'admin', child: Text('Admin')),
+                  DropdownMenuItem(value: 'owner', child: Text('Owner')),
+                  DropdownMenuItem(value: 'seller', child: Text('Seller')),
+                ],
+                onChanged: (value) => setState(() => _selectedRole = value),
+                validator: (v) => v == null ? 'Required' : null,
               ),
               const SizedBox(height: 20),
               ElevatedButton(

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://your-api-domain.com'; // CHANGE THIS
+  static const String baseUrl = 'http://agrovet.sudsudgroup.com'; // CHANGE THIS
 
   static Future<Map<String, String>> getHeaders() async {
     final prefs = await SharedPreferences.getInstance();

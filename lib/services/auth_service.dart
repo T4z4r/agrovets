@@ -18,11 +18,12 @@ class AuthService {
   }
 
   static Future<Map<String, dynamic>> register(
-      String name, String email, String password) async {
+      String name, String email, String password, String role) async {
     final response = await ApiService.post('/api/register', {
       'name': name,
       'email': email,
       'password': password,
+      'role': role,
     });
     if (response['success']) {
       final prefs = await SharedPreferences.getInstance();
@@ -39,10 +40,21 @@ class AuthService {
   }
 
   static Future<Map<String, dynamic>?> getUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userStr = prefs.getString('user');
-    if (userStr != null) {
-      return jsonDecode(userStr);
+    try {
+      final response = await ApiService.get('/api/me');
+      if (response['success']) {
+        final user = response['data'];
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user', jsonEncode(user));
+        return user;
+      }
+    } catch (e) {
+      // If API call fails, try to return stored user
+      final prefs = await SharedPreferences.getInstance();
+      final userStr = prefs.getString('user');
+      if (userStr != null) {
+        return jsonDecode(userStr);
+      }
     }
     return null;
   }
