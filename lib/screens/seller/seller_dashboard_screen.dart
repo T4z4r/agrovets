@@ -252,61 +252,49 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
   // ================= Widgets =================
 
   Widget _statCard(String title, String value, IconData icon, Color color) {
-    return Card(
-      elevation: 2,
-      shadowColor: color.withOpacity(0.2),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.2)),
       ),
-      clipBehavior: Clip.antiAlias, // 👈 important
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 14, 14, 12), // tighter bottom
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // 👈 prevents stretch overflow
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Icon badge
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: color, size: 24),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
-
-            const SizedBox(height: 8),
-
-            // Value (scales safely)
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                value,
-                maxLines: 1,
-                style: const TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
-                  height: 1.1, // 👈 fixes font descent overflow
+            child: Icon(icon, color: color, size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 4),
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-
-            const SizedBox(height: 4),
-
-            // Title
-            Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 12.5,
-                color: Colors.grey[600],
-                height: 1.1, // 👈 critical
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
