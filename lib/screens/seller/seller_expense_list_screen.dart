@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
-import '../../screens/expenses/expense_form_screen.dart';
+import 'seller_expense_form_screen.dart';
 
 class SellerExpenseListScreen extends StatefulWidget {
   const SellerExpenseListScreen({super.key});
@@ -223,7 +223,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => ExpenseFormScreen(onSave: _loadExpenses),
+              builder: (_) => SellerExpenseFormScreen(onSave: _loadExpenses),
             ),
           );
         },

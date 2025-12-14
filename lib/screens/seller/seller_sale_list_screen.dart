@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
-import '../../screens/sales/sale_form_screen.dart';
+import 'seller_sale_form_screen.dart';
 import '../../screens/sales/receipt_view_screen.dart';
 
 class SellerSaleListScreen extends StatefulWidget {
@@ -217,7 +217,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => SaleFormScreen(onSave: _loadSales),
+              builder: (_) => SellerSaleFormScreen(onSave: _loadSales),
             ),
           );
         },

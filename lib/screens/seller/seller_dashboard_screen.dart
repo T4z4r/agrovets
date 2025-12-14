@@ -134,11 +134,6 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    _statCardFullWidth(
-                        'Stock Value',
-                        'KES ${dashboard['stock_value'] ?? 0}',
-                        Icons.warehouse,
-                        Colors.green),
                   ],
                 ),
 
@@ -262,5 +257,4 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
       ),
     );
   }
-
 }

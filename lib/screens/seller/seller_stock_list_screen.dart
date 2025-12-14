@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/stock_transaction.dart';
-import '../../screens/stock/stock_form_screen.dart';
+import 'seller_stock_form_screen.dart';
 
 class SellerStockListScreen extends StatefulWidget {
   const SellerStockListScreen({super.key});
@@ -254,7 +254,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
           await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => StockFormScreen(onSave: _loadTransactions),
+              builder: (_) => SellerStockFormScreen(onSave: _loadTransactions),
             ),
           );
         },
