@@ -1,6 +1,8 @@
 // lib/screens/seller/seller_sale_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
 import 'seller_sale_form_screen.dart';
@@ -67,7 +69,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
             child: TextField(
               onChanged: _filterSales,
               decoration: InputDecoration(
-                hintText: 'Search sales...',
+                hintText: AppLocalizations.of(context)!.searchSales,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -153,7 +155,14 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${s.saleDate}',
+                                          'Date: ${(() {
+                                            try {
+                                              return DateFormat.yMMMd().format(
+                                                  DateTime.parse(s.saleDate));
+                                            } catch (_) {
+                                              return s.saleDate;
+                                            }
+                                          })()}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
