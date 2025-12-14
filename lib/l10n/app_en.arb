@@ -178,6 +178,7 @@
   "endDate": "End Date",
   "selectStartDate": "Select start date",
   "selectEndDate": "Select end date",
+  "selectDateRange": "Select date range",
   "generatingReport": "Generating report...",
   "failedLoadDailyReport": "Failed to load daily report",
   "failedLoadProfitReport": "Failed to load profit report",
@@ -203,5 +204,6 @@
   "totalSalesLabel": "Total Sales",
   "totalExpensesLabel": "Total Expenses",
   "netProfit": "Net Profit",
-  "failedLoadReport": "Failed to load report"
+  "failedLoadReport": "Failed to load report",
+  "selectDateRangeProfitReport": "Select a date range to generate profit report"
 }

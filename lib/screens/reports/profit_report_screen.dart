@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
+import '../../l10n/app_localizations.dart';
 
 class ProfitReportScreen extends StatefulWidget {
   const ProfitReportScreen({super.key});
@@ -120,9 +121,9 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Select Date Range',
+                      'Select date range',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey[800],
                       ),
@@ -323,7 +324,8 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                               ),
                             ),
                             Text(
-                              NumberFormatter.formatProfitMargin(_report!.profit, _report!.revenue),
+                              NumberFormatter.formatProfitMargin(
+                                  _report!.profit, _report!.revenue),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -354,7 +356,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Select a date range to generate profit report',
+                        AppLocalizations.of(context)!.selectDateRangeProfitReport,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],

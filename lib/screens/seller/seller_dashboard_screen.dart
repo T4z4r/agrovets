@@ -168,16 +168,8 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                   ],
                 ),
 
-              const SizedBox(height: 24),
-
               // Seller Day Summary
-              Text(
-                'Seller Day Summary',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
-                    ),
-              ),
+
               const SizedBox(height: 16),
               if (_reportLoading)
                 Padding(

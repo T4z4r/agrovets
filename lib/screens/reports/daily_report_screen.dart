@@ -109,7 +109,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                     Text(
                       AppLocalizations.of(context)!.selectDate,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey[800],
                       ),
