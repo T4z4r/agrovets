@@ -77,7 +77,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
             label: 'Stock',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money_off),
+            icon: Icon(Icons.calculate),
             label: 'Expenses',
           ),
         ],
