@@ -129,6 +129,7 @@
   "endDate": "Tarehe ya Mwisho",
   "selectEndDate": "Chagua tarehe ya mwisho",
   "dailyReport": "Ripoti ya Kila Siku",
+  "dailySummary": "Muhtasari wa Kila Siku",
   "generatingDailyReport": "Inazalisha ripoti ya kila siku...",
   "failedLoadDailyReport": "Imeshindikana kupakia ripoti ya kila siku",
   "reportDate": "Tarehe ya Ripoti",

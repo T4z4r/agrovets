@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
+import '../../l10n/app_localizations.dart';
 
 class DailyReportScreen extends StatefulWidget {
   const DailyReportScreen({super.key});
@@ -28,7 +29,8 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load daily report: $e'),
+          content: Text(
+              '${AppLocalizations.of(context)!.failedLoadDailyReport}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -60,7 +62,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Daily Report'),
+        title: Text(AppLocalizations.of(context)!.dailyReport),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -105,7 +107,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'Select Date',
+                      AppLocalizations.of(context)!.selectDate,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -119,8 +121,9 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                     TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(
-                        labelText: 'Report Date',
-                        hintText: 'Select date for report',
+                        labelText: AppLocalizations.of(context)!.reportDate,
+                        hintText:
+                            AppLocalizations.of(context)!.selectReportDate,
                         prefixIcon: const Icon(Icons.calendar_today),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -153,8 +156,8 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               child: SpinKitWaveSpinner(
                                   color: Colors.white, size: 20.0),
                             )
-                          : const Text(
-                              'Generate Report',
+                          : Text(
+                              AppLocalizations.of(context)!.generatingReport,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -180,7 +183,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                     children: [
                       SpinKitWaveSpinner(color: Colors.blue, size: 50.0),
                       const SizedBox(height: 16),
-                      const Text('Generating daily report...'),
+                      Text(AppLocalizations.of(context)!.generatingDailyReport),
                     ],
                   ),
                 ),
@@ -197,7 +200,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Daily Summary',
+                        AppLocalizations.of(context)!.dailyReport,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -233,8 +236,9 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
 
                       // Total Sales
                       _buildMetricCard(
-                        'Total Sales',
-                        NumberFormatter.formatCurrency(_report!.totalSales as num),
+                        AppLocalizations.of(context)!.totalSalesLabel,
+                        NumberFormatter.formatCurrency(
+                            _report!.totalSales as num),
                         Icons.point_of_sale,
                         Colors.green,
                         Colors.green[100]!,
@@ -243,8 +247,9 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
 
                       // Total Expenses
                       _buildMetricCard(
-                        'Total Expenses',
-                        NumberFormatter.formatCurrency(_report!.totalExpenses as num),
+                        AppLocalizations.of(context)!.totalExpensesLabel,
+                        NumberFormatter.formatCurrency(
+                            _report!.totalExpenses as num),
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -284,7 +289,9 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               ),
                             ),
                             Text(
-                              NumberFormatter.formatCurrency((_report!.totalSales - _report!.totalExpenses).abs() as num),
+                              NumberFormatter.formatCurrency(
+                                  (_report!.totalSales - _report!.totalExpenses)
+                                      .abs() as num),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

@@ -129,6 +129,7 @@
   "endDate": "End Date",
   "selectEndDate": "Select end date",
   "dailyReport": "Daily Report",
+  "dailySummary": "Daily Summary",
   "generatingDailyReport": "Generating daily report...",
   "failedLoadDailyReport": "Failed to load daily report",
   "reportDate": "Report Date",
