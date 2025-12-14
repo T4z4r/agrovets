@@ -126,10 +126,11 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
               // ================= Stats =================
               if (_loading)
                 Padding(
-                  padding: EdgeInsets.all(40),
+                  padding: const EdgeInsets.all(40),
                   child: Center(
-                      child:
-                          SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
+                      child: SpinKitWaveSpinner(
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 50.0)),
                 )
               else
                 Column(
@@ -179,14 +180,19 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                 Padding(
                   padding: const EdgeInsets.all(40),
                   child: Center(
-                      child:
-                          SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
+                      child: SpinKitWaveSpinner(
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 50.0)),
                 )
               else if (report != null)
                 Card(
+                  color:
+                      const Color.fromARGB(255, 220, 248, 221).withOpacity(0.5),
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
+                    side: BorderSide(
+                        color: Theme.of(context).primaryColor.withOpacity(0.2)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -230,8 +236,8 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                                 color: (report!.totalSales -
                                             report!.totalExpenses) >=
                                         0
-                                    ? Colors.green
-                                    : Colors.red,
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.secondary,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

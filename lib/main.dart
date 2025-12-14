@@ -31,7 +31,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AgroVet',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: ThemeData(
+        primaryColor: const Color(0xFF266a29),
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xFF266a29),
+          secondary: Color(0xFF741222),
+        ),
+      ),
       locale: localeProvider.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -69,7 +75,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
     if (!_checked) {
       return Scaffold(
           body: Center(
-              child: SpinKitWaveSpinner(color: Colors.green, size: 50.0)));
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).colorScheme.primary, size: 50.0)));
     }
 
     final user = context.watch<AuthProvider>().user;
