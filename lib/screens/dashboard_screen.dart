@@ -66,15 +66,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
               final shouldLogout = await showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Confirm Logout'),
-                  content: const Text('Are you sure you want to logout?'),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  backgroundColor: Colors.white,
+                  title: Text(
+                    'Confirm Logout',
+                    style: TextStyle(
+                        color: Colors.green[700],
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  content: Text(
+                    'Are you sure you want to logout?',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
+                      style: TextButton.styleFrom(foregroundColor: Colors.grey[600]),
                       child: const Text('Cancel'),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.red[600],
+                          textStyle: const TextStyle(fontWeight: FontWeight.bold)),
                       child: const Text('Logout'),
                     ),
                   ],

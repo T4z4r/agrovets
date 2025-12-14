@@ -94,7 +94,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.money_off,
+                              Icons.calculate,
                               size: 64,
                               color: Colors.grey[400],
                             ),

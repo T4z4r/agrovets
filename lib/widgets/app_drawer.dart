@@ -83,7 +83,7 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }),
-          _drawerTile(Icons.money_off, 'Expenses', () {
+          _drawerTile(Icons.calculate, 'Expenses', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const ExpenseListScreen()),
@@ -92,7 +92,7 @@ class AppDrawer extends StatelessWidget {
           }),
           _drawerTile(Icons.bar_chart, 'Reports', () {
             Navigator.pushAndRemoveUntil(
-              context,
+              context, 
               MaterialPageRoute(builder: (_) => const DailyReportScreen()),
               (route) => false,
             );

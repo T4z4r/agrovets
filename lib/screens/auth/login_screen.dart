@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../services/auth_service.dart';
 import '../dashboard_screen.dart';
+import '../seller/seller_home_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,11 +31,20 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final response = await AuthService.login(_emailCtrl.text, _passCtrl.text);
       if (response['success']) {
+        await context.read<AuthProvider>().loadUser();
         if (!mounted) return;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const DashboardScreen()),
-        );
+        final user = context.read<AuthProvider>().user;
+        if (user?['role'] == 'seller') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const SellerHomeScreen()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const DashboardScreen()),
+          );
+        }
       } else {
         setState(() => _error = response['message'] ?? 'Login failed');
       }
@@ -75,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Welcome Text
                 Text(
                   'AgroVet',
@@ -95,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Login Form
                 Card(
                   elevation: 4,
@@ -119,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: Row(
                                 children: [
-                                  Icon(Icons.error, color: Colors.red[600], size: 20),
+                                  Icon(Icons.error,
+                                      color: Colors.red[600], size: 20),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
@@ -132,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 16),
                           ],
-                          
                           TextFormField(
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
@@ -148,14 +160,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (v == null || v.isEmpty) {
                                 return 'Email is required';
                               }
-                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(v)) {
+                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(v)) {
                                 return 'Please enter a valid email';
                               }
                               return null;
                             },
                           ),
                           const SizedBox(height: 16),
-                          
                           TextFormField(
                             controller: _passCtrl,
                             obscureText: _obscurePassword,
@@ -165,10 +177,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                 ),
                                 onPressed: () {
-                                  setState(() => _obscurePassword = !_obscurePassword);
+                                  setState(() =>
+                                      _obscurePassword = !_obscurePassword);
                                 },
                               ),
                               border: OutlineInputBorder(
@@ -186,7 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 24),
-                          
                           ElevatedButton(
                             onPressed: _loading ? null : _login,
                             style: ElevatedButton.styleFrom(
@@ -202,7 +216,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? const SizedBox(
                                     height: 20,
                                     width: 20,
-                                    child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
+                                    child: SpinKitWaveSpinner(
+                                        color: Colors.white, size: 20.0),
                                   )
                                 : const Text(
                                     'Sign In',
@@ -218,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Register Link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -230,7 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextButton(
                       onPressed: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                        MaterialPageRoute(
+                            builder: (_) => const RegisterScreen()),
                       ),
                       child: Text(
                         'Sign Up',
