@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
+import '../providers/locale_provider.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/products/product_list_screen.dart';
@@ -36,8 +38,8 @@ class AppDrawer extends StatelessWidget {
                   child: Icon(Icons.person, size: 40, color: Colors.green[600]),
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'Welcome!',
+                Text(
+                  AppLocalizations.of(context)!.welcome,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -52,20 +54,22 @@ class AppDrawer extends StatelessWidget {
           ),
           _drawerTile(
               Icons.dashboard,
-              'Dashboard',
+              AppLocalizations.of(context)!.dashboard,
               () => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
                   )),
-          _drawerTile(Icons.inventory, 'Products', () {
+          _drawerTile(Icons.inventory, AppLocalizations.of(context)!.products,
+              () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const ProductListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'products'),
-          _drawerTile(Icons.people, 'Suppliers', () {
+          _drawerTile(Icons.people, AppLocalizations.of(context)!.suppliers,
+              () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const SupplierListScreen()),
@@ -73,35 +77,39 @@ class AppDrawer extends StatelessWidget {
             );
           }, isActive: activeScreen == 'suppliers'),
           if (auth.isOwner || auth.isAdmin || auth.isSeller)
-            _drawerTile(Icons.person, 'Sellers', () {
+            _drawerTile(Icons.person, AppLocalizations.of(context)!.sellers,
+                () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => const SellerListScreen()),
                 (route) => false,
               );
             }, isActive: activeScreen == 'sellers'),
-          _drawerTile(Icons.storage, 'Stock', () {
+          _drawerTile(Icons.storage, AppLocalizations.of(context)!.stock, () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const StockListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'stock'),
-          _drawerTile(Icons.point_of_sale, 'Sales', () {
+          _drawerTile(Icons.point_of_sale, AppLocalizations.of(context)!.sales,
+              () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const SaleListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'sales'),
-          _drawerTile(Icons.calculate, 'Expenses', () {
+          _drawerTile(Icons.money_off, AppLocalizations.of(context)!.expenses,
+              () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const ExpenseListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'expenses'),
-          _drawerTile(Icons.bar_chart, 'Reports', () {
+          _drawerTile(Icons.bar_chart, AppLocalizations.of(context)!.reports,
+              () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const DailyReportScreen()),
@@ -109,20 +117,80 @@ class AppDrawer extends StatelessWidget {
             );
           }, isActive: activeScreen == 'reports'),
           const Divider(),
-          _drawerTile(Icons.logout, 'Logout', () async {
+          // Language Switcher Section
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.localeName == 'sw' ? 'Lugha' : 'Language',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Consumer<LocaleProvider>(
+                  builder: (context, localeProvider, child) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () => localeProvider.setLocale(const Locale('en')),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: localeProvider.locale.languageCode == 'en'
+                                  ? Colors.green[600]
+                                  : Colors.grey[200],
+                              foregroundColor: localeProvider.locale.languageCode == 'en'
+                                  ? Colors.white
+                                  : Colors.black,
+                              elevation: localeProvider.locale.languageCode == 'en' ? 2 : 0,
+                            ),
+                            child: const Text('English'),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () => localeProvider.setLocale(const Locale('sw')),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: localeProvider.locale.languageCode == 'sw'
+                                  ? Colors.green[600]
+                                  : Colors.grey[200],
+                              foregroundColor: localeProvider.locale.languageCode == 'sw'
+                                  ? Colors.white
+                                  : Colors.black,
+                              elevation: localeProvider.locale.languageCode == 'sw' ? 2 : 0,
+                            ),
+                            child: const Text('Kiswahili'),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              
+              ],
+            ),
+          ),
+          const Divider(),
+          _drawerTile(Icons.logout, AppLocalizations.of(context)!.logout,
+              () async {
             final shouldLogout = await showDialog<bool>(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Confirm Logout'),
-                content: const Text('Are you sure you want to logout?'),
+                title: Text(AppLocalizations.of(context)!.confirmLogout),
+                content: Text(AppLocalizations.of(context)!.logoutMessage),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: const Text('Cancel'),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: const Text('Logout'),
+                    child: Text(AppLocalizations.of(context)!.logout),
                   ),
                 ],
               ),

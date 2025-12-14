@@ -1,6 +1,7 @@
 // lib/screens/suppliers/supplier_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/supplier.dart';
 import '../../widgets/app_drawer.dart';
@@ -79,7 +80,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Suppliers'),
+        title: Text(AppLocalizations.of(context)!.suppliers),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -100,7 +101,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
             child: TextField(
               onChanged: _filterSuppliers,
               decoration: InputDecoration(
-                hintText: 'Search suppliers...',
+                hintText: AppLocalizations.of(context)!.searchSuppliers,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -128,8 +129,8 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No suppliers found'
-                                  : 'No suppliers match your search',
+                                  ? AppLocalizations.of(context)!.noSuppliersFound
+                                  : AppLocalizations.of(context)!.noSuppliersMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -240,20 +241,20 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                           ),
                           trailing: PopupMenuButton(
                             itemBuilder: (context) => [
-                              const PopupMenuItem(
+                              PopupMenuItem(
                                 value: 'edit',
                                 child: ListTile(
                                   leading: Icon(Icons.edit),
-                                  title: Text('Edit'),
+                                  title: Text(AppLocalizations.of(context)!.edit),
                                   contentPadding: EdgeInsets.zero,
                                 ),
                               ),
-                              const PopupMenuItem(
+                              PopupMenuItem(
                                 value: 'delete',
                                 child: ListTile(
                                   leading:
                                       Icon(Icons.delete, color: Colors.red),
-                                  title: Text('Delete',
+                                  title: Text(AppLocalizations.of(context)!.delete,
                                       style: TextStyle(color: Colors.red)),
                                   contentPadding: EdgeInsets.zero,
                                 ),
@@ -275,21 +276,21 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                                 final confirmed = await showDialog<bool>(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                    title: const Text('Delete Supplier'),
+                                    title: Text(AppLocalizations.of(context)!.deleteSupplier),
                                     content: Text(
-                                        'Are you sure you want to delete "${s.name}"?'),
+                                        '${AppLocalizations.of(context)!.deleteProductConfirm} "${s.name}"?'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(context, false),
-                                        child: const Text('Cancel'),
+                                        child: Text(AppLocalizations.of(context)!.cancel),
                                       ),
                                       ElevatedButton(
                                         onPressed: () =>
                                             Navigator.pop(context, true),
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.red),
-                                        child: const Text('Delete'),
+                                        child: Text(AppLocalizations.of(context)!.delete),
                                       ),
                                     ],
                                   ),

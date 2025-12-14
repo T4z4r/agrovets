@@ -1,6 +1,7 @@
 // lib/screens/stock/stock_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/stock_transaction.dart';
 import '../../widgets/app_drawer.dart';
@@ -75,7 +76,7 @@ class _StockListScreenState extends State<StockListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Stock Transactions'),
+        title: Text(AppLocalizations.of(context)!.stockTransactions),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -96,7 +97,7 @@ class _StockListScreenState extends State<StockListScreen> {
             child: TextField(
               onChanged: _filterTransactions,
               decoration: InputDecoration(
-                hintText: 'Search transactions...',
+                hintText: AppLocalizations.of(context)!.searchTransactions,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),

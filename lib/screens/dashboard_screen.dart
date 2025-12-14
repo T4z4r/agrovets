@@ -197,54 +197,64 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
             const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(16),
+            // Language Switcher Section
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    localeProvider.locale.languageCode == 'en'
-                        ? 'Language'
-                        : 'Lugha',
+                    AppLocalizations.of(context)!.localeName == 'sw' ? 'Lugha' : 'Language',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[700],
+                      color: Colors.grey[600],
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => localeProvider.setLocale(const Locale('en')),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: localeProvider.locale.languageCode == 'en'
-                                ? Colors.blue[700]
-                                : Colors.blue,
-                            foregroundColor: Colors.white,
+                  Consumer<LocaleProvider>(
+                    builder: (context, localeProvider, child) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => localeProvider.setLocale(const Locale('en')),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: localeProvider.locale.languageCode == 'en'
+                                    ? Colors.green[600]
+                                    : Colors.grey[200],
+                                foregroundColor: localeProvider.locale.languageCode == 'en'
+                                    ? Colors.white
+                                    : Colors.black,
+                                elevation: localeProvider.locale.languageCode == 'en' ? 2 : 0,
+                              ),
+                              child: const Text('English'),
+                            ),
                           ),
-                          child: const Text('English'),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => localeProvider.setLocale(const Locale('sw')),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: localeProvider.locale.languageCode == 'sw'
-                                ? Colors.green[700]
-                                : Colors.green,
-                            foregroundColor: Colors.white,
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => localeProvider.setLocale(const Locale('sw')),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: localeProvider.locale.languageCode == 'sw'
+                                    ? Colors.green[600]
+                                    : Colors.grey[200],
+                                foregroundColor: localeProvider.locale.languageCode == 'sw'
+                                    ? Colors.white
+                                    : Colors.black,
+                                elevation: localeProvider.locale.languageCode == 'sw' ? 2 : 0,
+                              ),
+                              child: const Text('Kiswahili'),
+                            ),
                           ),
-                          child: const Text('Kiswahili'),
-                        ),
-                      ),
-                    ],
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
             ),
+          
           ],
         ),
       ),

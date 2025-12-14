@@ -403,7 +403,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get failedLoadReport => 'Imeshindikana kupakia ripoti';
 
   @override
-  String get agroVetSeller => 'AgroVet Mwuza';
+  String get agroVetSeller => 'AgroVet Seller';
 
   @override
   String get searchProducts => 'Tafuta bidhaa...';
@@ -425,4 +425,61 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get productDeletedSuccess => 'Bidhaa imefutwa kwa mafanikio';
+
+  @override
+  String get searchSuppliers => 'Tafuta wasambazaji...';
+
+  @override
+  String get noSuppliersFound => 'Hakuna wasambazaji waliopatikana';
+
+  @override
+  String get noSuppliersMatch => 'Hakuna wasambazaji wanaolingana na utafutaji wako';
+
+  @override
+  String get searchTransactions => 'Tafuta miamala...';
+
+  @override
+  String get noTransactionsFound => 'Hakuna miamala ya hekalu iliyopatikana';
+
+  @override
+  String get noTransactionsMatch => 'Hakuna miamala inayolingana na utafutaji wako';
+
+  @override
+  String get quantityLabel => 'Idadi';
+
+  @override
+  String get dateLabel => 'Tarehe';
+
+  @override
+  String get searchSales => 'Tafuta mauzo...';
+
+  @override
+  String get noSalesFound => 'Hakuna mauzo yaliyopatikana';
+
+  @override
+  String get noSalesMatch => 'Hakuna mauzo yanayolingana na utafutaji wako';
+
+  @override
+  String get totalLabel => 'Jumla';
+
+  @override
+  String get searchExpenses => 'Tafuta matumizi...';
+
+  @override
+  String get noExpensesFound => 'Hakuna matumizi yaliyopatikana';
+
+  @override
+  String get noExpensesMatch => 'Hakuna matumizi yanayolingana na utafutaji wako';
+
+  @override
+  String get amountLabel => 'Kiasi';
+
+  @override
+  String get searchSellers => 'Tafuta wauzaji...';
+
+  @override
+  String get noSellersFound => 'Hakuna wauzaji waliopatikana';
+
+  @override
+  String get noSellersMatch => 'Hakuna wauzaji wanaolingana na utafutaji wako';
 }

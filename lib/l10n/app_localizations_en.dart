@@ -425,4 +425,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get productDeletedSuccess => 'Product deleted successfully';
+
+  @override
+  String get searchSuppliers => 'Search suppliers...';
+
+  @override
+  String get noSuppliersFound => 'No suppliers found';
+
+  @override
+  String get noSuppliersMatch => 'No suppliers match your search';
+
+  @override
+  String get searchTransactions => 'Search transactions...';
+
+  @override
+  String get noTransactionsFound => 'No stock transactions found';
+
+  @override
+  String get noTransactionsMatch => 'No transactions match your search';
+
+  @override
+  String get quantityLabel => 'Quantity';
+
+  @override
+  String get dateLabel => 'Date';
+
+  @override
+  String get searchSales => 'Search sales...';
+
+  @override
+  String get noSalesFound => 'No sales found';
+
+  @override
+  String get noSalesMatch => 'No sales match your search';
+
+  @override
+  String get totalLabel => 'Total';
+
+  @override
+  String get searchExpenses => 'Search expenses...';
+
+  @override
+  String get noExpensesFound => 'No expenses found';
+
+  @override
+  String get noExpensesMatch => 'No expenses match your search';
+
+  @override
+  String get amountLabel => 'Amount';
+
+  @override
+  String get searchSellers => 'Search sellers...';
+
+  @override
+  String get noSellersFound => 'No sellers found';
+
+  @override
+  String get noSellersMatch => 'No sellers match your search';
 }

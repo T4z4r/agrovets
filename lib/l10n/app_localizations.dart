@@ -934,6 +934,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Product deleted successfully'**
   String get productDeletedSuccess;
+
+  /// No description provided for @searchSuppliers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search suppliers...'**
+  String get searchSuppliers;
+
+  /// No description provided for @noSuppliersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No suppliers found'**
+  String get noSuppliersFound;
+
+  /// No description provided for @noSuppliersMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No suppliers match your search'**
+  String get noSuppliersMatch;
+
+  /// No description provided for @searchTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Search transactions...'**
+  String get searchTransactions;
+
+  /// No description provided for @noTransactionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No stock transactions found'**
+  String get noTransactionsFound;
+
+  /// No description provided for @noTransactionsMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions match your search'**
+  String get noTransactionsMatch;
+
+  /// No description provided for @quantityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantityLabel;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
+
+  /// No description provided for @searchSales.
+  ///
+  /// In en, this message translates to:
+  /// **'Search sales...'**
+  String get searchSales;
+
+  /// No description provided for @noSalesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No sales found'**
+  String get noSalesFound;
+
+  /// No description provided for @noSalesMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No sales match your search'**
+  String get noSalesMatch;
+
+  /// No description provided for @totalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get totalLabel;
+
+  /// No description provided for @searchExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Search expenses...'**
+  String get searchExpenses;
+
+  /// No description provided for @noExpensesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses found'**
+  String get noExpensesFound;
+
+  /// No description provided for @noExpensesMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses match your search'**
+  String get noExpensesMatch;
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amountLabel;
+
+  /// No description provided for @searchSellers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search sellers...'**
+  String get searchSellers;
+
+  /// No description provided for @noSellersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No sellers found'**
+  String get noSellersFound;
+
+  /// No description provided for @noSellersMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No sellers match your search'**
+  String get noSellersMatch;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
