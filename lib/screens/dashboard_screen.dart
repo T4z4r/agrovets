@@ -286,23 +286,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _statCard(String title, String value, IconData icon, Color color) {
     return Card(
-      elevation: 3,
-      shadowColor: color.withOpacity(0.25),
+      elevation: 2,
+      shadowColor: color.withOpacity(0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border(
-            bottom: BorderSide(color: color, width: 4),
-          ),
-        ),
+      clipBehavior: Clip.antiAlias, // 👈 important
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 14, 14, 12), // tighter bottom
         child: Column(
+          mainAxisSize: MainAxisSize.min, // 👈 prevents stretch overflow
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
+            // Icon badge
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -312,9 +308,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Icon(icon, color: color, size: 24),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
-            // Value (auto scales)
+            // Value (scales safely)
             FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
@@ -322,13 +318,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 value,
                 maxLines: 1,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 19,
                   fontWeight: FontWeight.bold,
+                  height: 1.1, // 👈 fixes font descent overflow
                 ),
               ),
             ),
 
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
 
             // Title
             Text(
@@ -336,9 +333,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 12.5,
                 color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
+                height: 1.1, // 👈 critical
               ),
             ),
           ],
