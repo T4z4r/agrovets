@@ -497,4 +497,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveTransaction => 'Save Transaction';
+
+  @override
+  String get createExpense => 'Create Expense';
+
+  @override
+  String get editExpense => 'Edit Expense';
+
+  @override
+  String get addNewExpense => 'Add New Expense';
+
+  @override
+  String get editExpenseTitle => 'Edit Expense';
+
+  @override
+  String get categoryRequired => 'Category is required';
+
+  @override
+  String get amountRequired => 'Amount is required';
+
+  @override
+  String get enterValidAmount => 'Please enter a valid amount';
 }

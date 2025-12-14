@@ -1,6 +1,7 @@
 // lib/screens/seller/seller_expense_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
 import '../../utils/number_formatter.dart';
@@ -73,7 +74,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
             child: TextField(
               onChanged: _filterExpenses,
               decoration: InputDecoration(
-                hintText: 'Search expenses...',
+                hintText: AppLocalizations.of(context)!.searchExpenses,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -102,8 +103,8 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No expenses found'
-                                  : 'No expenses match your search',
+                                  ? AppLocalizations.of(context)!.noExpensesFound
+                                  : AppLocalizations.of(context)!.noExpensesMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -178,7 +179,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${e.date}',
+                                          '${AppLocalizations.of(context)!.dateLabel}: ${e.date}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

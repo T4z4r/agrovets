@@ -502,4 +502,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get saveTransaction => 'Hifadhi Muamala';
+
+  @override
+  String get createExpense => 'Unda Matumizi';
+
+  @override
+  String get editExpense => 'Hariri Matumizi';
+
+  @override
+  String get addNewExpense => 'Ongeza Matumizi Mapya';
+
+  @override
+  String get editExpenseTitle => 'Hariri Matumizi';
+
+  @override
+  String get categoryRequired => 'Kategoria inahitajika';
+
+  @override
+  String get amountRequired => 'Kiasi kinahitajika';
+
+  @override
+  String get enterValidAmount => 'Tafadhali ingiza kiasi sahihi';
 }

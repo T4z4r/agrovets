@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
 
@@ -9,10 +10,12 @@ class SellerExpenseFormScreen extends StatefulWidget {
   final Expense? expense;
   final VoidCallback onSave;
 
-  const SellerExpenseFormScreen({super.key, this.expense, required this.onSave});
+  const SellerExpenseFormScreen(
+      {super.key, this.expense, required this.onSave});
 
   @override
-  State<SellerExpenseFormScreen> createState() => _SellerExpenseFormScreenState();
+  State<SellerExpenseFormScreen> createState() =>
+      _SellerExpenseFormScreenState();
 }
 
 class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
@@ -47,8 +50,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
       if (widget.expense == null) {
         await ApiService.post('/api/expenses', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Expense created successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.expenseCreated),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 2),
           ),
@@ -56,8 +59,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
       } else {
         await ApiService.put('/api/expenses/${widget.expense!.id}', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Expense updated successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.expenseUpdated),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 2),
           ),
@@ -69,11 +72,11 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to save expense: $e'),
+          content: Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Retry',
+            label: AppLocalizations.of(context)!.retry,
             textColor: Colors.white,
             onPressed: _save,
           ),
@@ -98,7 +101,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(widget.expense == null ? 'Create Expense' : 'Edit Expense'),
+        title: Text(widget.expense == null ? AppLocalizations.of(context)!.createExpense : AppLocalizations.of(context)!.editExpense),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -139,8 +142,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                     children: [
                       Text(
                         widget.expense == null
-                            ? 'Add New Expense'
-                            : 'Edit Expense',
+                            ? AppLocalizations.of(context)!.addNewExpense
+                            : AppLocalizations.of(context)!.editExpenseTitle,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -154,8 +157,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         controller: _categoryCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Expense Category',
-                          hintText: 'e.g., Utilities, Supplies, Maintenance',
+                          labelText: AppLocalizations.of(context)!.expenseCategory,
+                          hintText: AppLocalizations.of(context)!.enterExpenseCategory,
                           prefixIcon: const Icon(Icons.category),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -165,7 +168,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Category is required';
+                            return AppLocalizations.of(context)!.categoryRequired;
                           }
                           return null;
                         },
@@ -176,8 +179,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         controller: _amountCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Amount (Tsh)',
-                          hintText: 'Enter expense amount',
+                          labelText: AppLocalizations.of(context)!.amount,
+                          hintText: AppLocalizations.of(context)!.enterExpenseAmount,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -188,10 +191,10 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Amount is required';
+                            return AppLocalizations.of(context)!.amountRequired;
                           }
                           if (int.tryParse(v) == null) {
-                            return 'Please enter a valid amount';
+                            return AppLocalizations.of(context)!.enterValidAmount;
                           }
                           return null;
                         },
@@ -202,8 +205,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         controller: _descriptionCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Description',
-                          hintText: 'Enter expense description',
+                          labelText: AppLocalizations.of(context)!.description,
+                          hintText: AppLocalizations.of(context)!.enterExpenseDescription,
                           prefixIcon: const Icon(Icons.description),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -219,8 +222,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: 'Expense Date',
-                          hintText: 'Select date',
+                          labelText: AppLocalizations.of(context)!.expenseDate,
+                          hintText: AppLocalizations.of(context)!.selectDate,
                           prefixIcon: const Icon(Icons.calendar_today),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -255,8 +258,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                               )
                             : Text(
                                 widget.expense == null
-                                    ? 'Create Expense'
-                                    : 'Update Expense',
+                                    ? AppLocalizations.of(context)!.createExpense
+                                    : AppLocalizations.of(context)!.editExpense,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

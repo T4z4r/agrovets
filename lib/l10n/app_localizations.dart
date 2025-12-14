@@ -1081,6 +1081,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save Transaction'**
   String get saveTransaction;
+
+  /// No description provided for @createExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Expense'**
+  String get createExpense;
+
+  /// No description provided for @editExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Expense'**
+  String get editExpense;
+
+  /// No description provided for @addNewExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Expense'**
+  String get addNewExpense;
+
+  /// No description provided for @editExpenseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Expense'**
+  String get editExpenseTitle;
+
+  /// No description provided for @categoryRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Category is required'**
+  String get categoryRequired;
+
+  /// No description provided for @amountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount is required'**
+  String get amountRequired;
+
+  /// No description provided for @enterValidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid amount'**
+  String get enterValidAmount;
 }
 
 class _AppLocalizationsDelegate
