@@ -1,5 +1,6 @@
 // lib/screens/suppliers/supplier_form_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/supplier.dart';
 
@@ -116,7 +117,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              
+
               // Form Fields Card
               Card(
                 elevation: 2,
@@ -129,7 +130,9 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        widget.supplier == null ? 'Add New Supplier' : 'Edit Supplier',
+                        widget.supplier == null
+                            ? 'Add New Supplier'
+                            : 'Edit Supplier',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -138,7 +141,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Supplier Name Field
                       TextFormField(
                         controller: _nameCtrl,
@@ -160,7 +163,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Contact Person Field
                       TextFormField(
                         controller: _contactCtrl,
@@ -176,7 +179,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Phone Field
                       TextFormField(
                         controller: _phoneCtrl,
@@ -193,7 +196,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         keyboardType: TextInputType.phone,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Email Field
                       TextFormField(
                         controller: _emailCtrl,
@@ -209,14 +212,17 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (v) {
-                          if (v != null && v.isNotEmpty && !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(v)) {
+                          if (v != null &&
+                              v.isNotEmpty &&
+                              !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(v)) {
                             return 'Please enter a valid email';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Address Field
                       TextFormField(
                         controller: _addressCtrl,
@@ -233,7 +239,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         maxLines: 3,
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Save Button
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
@@ -250,13 +256,13 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                             ? const SizedBox(
                                 height: 20,
                                 width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                ),
+                                child: SpinKitWaveSpinner(
+                                    color: Colors.white, size: 20.0),
                               )
                             : Text(
-                                widget.supplier == null ? 'Create Supplier' : 'Update Supplier',
+                                widget.supplier == null
+                                    ? 'Create Supplier'
+                                    : 'Update Supplier',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

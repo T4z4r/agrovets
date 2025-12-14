@@ -112,7 +112,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
         elevation: 0,
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -344,12 +344,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                   ? const SizedBox(
                                       height: 20,
                                       width: 20,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.white),
-                                      ),
+                                      child: SpinKitWaveSpinner(
+                                          color: Colors.white, size: 20.0),
                                     )
                                   : const Text(
                                       'Save Transaction',

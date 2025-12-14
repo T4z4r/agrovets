@@ -1,5 +1,6 @@
 // lib/screens/stock/stock_list_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/stock_transaction.dart';
 import 'stock_form_screen.dart';
@@ -64,7 +65,7 @@ class _StockListScreenState extends State<StockListScreen> {
         ],
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _transactions.isEmpty
               ? Center(
                   child: Column(
