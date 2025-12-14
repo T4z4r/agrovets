@@ -12,7 +12,9 @@ import '../screens/reports/daily_report_screen.dart';
 import '../screens/sellers/seller_list_screen.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({super.key});
+  final String? activeScreen;
+
+  const AppDrawer({super.key, this.activeScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +64,14 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const ProductListScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'products'),
           _drawerTile(Icons.people, 'Suppliers', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const SupplierListScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'suppliers'),
           if (auth.isOwner || auth.isAdmin || auth.isSeller)
             _drawerTile(Icons.person, 'Sellers', () {
               Navigator.pushAndRemoveUntil(
@@ -77,35 +79,35 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const SellerListScreen()),
                 (route) => false,
               );
-            }),
+            }, isActive: activeScreen == 'sellers'),
           _drawerTile(Icons.storage, 'Stock', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const StockListScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'stock'),
           _drawerTile(Icons.point_of_sale, 'Sales', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const SaleListScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'sales'),
           _drawerTile(Icons.calculate, 'Expenses', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const ExpenseListScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'expenses'),
           _drawerTile(Icons.bar_chart, 'Reports', () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const DailyReportScreen()),
               (route) => false,
             );
-          }),
+          }, isActive: activeScreen == 'reports'),
           const Divider(),
           _drawerTile(Icons.logout, 'Logout', () async {
             final shouldLogout = await showDialog<bool>(
@@ -140,11 +142,22 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _drawerTile(IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.green[600]),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-      onTap: onTap,
+  Widget _drawerTile(IconData icon, String title, VoidCallback onTap,
+      {bool isActive = false}) {
+    return Container(
+      color: isActive ? Colors.green[50] : null,
+      child: ListTile(
+        leading:
+            Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: isActive ? Colors.green[700] : null,
+          ),
+        ),
+        onTap: onTap,
+      ),
     );
   }
 }

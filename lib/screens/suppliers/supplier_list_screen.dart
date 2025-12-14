@@ -90,7 +90,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'suppliers'),
       body: Column(
         children: [
           // Search Bar

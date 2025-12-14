@@ -127,7 +127,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'sellers'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

@@ -114,7 +114,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'sellers'),
       body: Column(
         children: [
           // Search Bar

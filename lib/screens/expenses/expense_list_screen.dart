@@ -85,7 +85,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'expenses'),
       body: Column(
         children: [
           // Search Bar

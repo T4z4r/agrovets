@@ -118,7 +118,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'products'),
       body: Column(
         children: [
           // Search Bar

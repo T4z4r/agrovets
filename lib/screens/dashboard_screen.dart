@@ -147,7 +147,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             _drawerTile(
-                Icons.dashboard, 'Dashboard', () => Navigator.pop(context)),
+                Icons.dashboard, 'Dashboard', () => Navigator.pop(context), isActive: true),
             _drawerTile(Icons.inventory, 'Products', () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ProductListScreen()));
@@ -162,7 +162,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               _drawerTile(Icons.person, 'Sellers', () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => const SellerListScreen()));
-              }),
+              }, isActive: false),
             _drawerTile(Icons.storage, 'Stock', () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const StockListScreen()));
@@ -329,11 +329,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // ================= Widgets =================
 
-  Widget _drawerTile(IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.green[600]),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-      onTap: onTap,
+  Widget _drawerTile(IconData icon, String title, VoidCallback onTap, {bool isActive = false}) {
+    return Container(
+      color: isActive ? Colors.green[50] : null,
+      child: ListTile(
+        leading: Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: isActive ? Colors.green[700] : null,
+          ),
+        ),
+        onTap: onTap,
+      ),
     );
   }
 

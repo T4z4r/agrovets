@@ -70,7 +70,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'reports'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
