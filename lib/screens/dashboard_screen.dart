@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../services/api_service.dart';
+import '../utils/number_formatter.dart';
 import 'auth/login_screen.dart';
 import 'products/product_list_screen.dart';
 import 'suppliers/supplier_list_screen.dart';
@@ -258,17 +259,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Colors.blue),
                         _statCard(
                             'Today Sales',
-                            'Tsh ${dashboard['today_sales'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
                             'Total Sales',
-                            'Tsh ${dashboard['total_sales'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
                             'Total Expenses',
-                            'Tsh ${dashboard['total_expenses'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(dashboard['total_expenses']?.toString() ?? '0')),
                             Icons.money_off,
                             Colors.red),
                       ],
@@ -276,7 +277,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: 16),
                     _statCardFullWidth(
                         'Stock Value',
-                        'Tsh ${dashboard['stock_value'] ?? 0}',
+                        NumberFormatter.formatCurrency(dashboard['stock_value'] as num?),
                         Icons.warehouse,
                         Colors.green),
                   ],

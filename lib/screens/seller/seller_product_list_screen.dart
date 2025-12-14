@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
+import '../../utils/number_formatter.dart';
 
 class SellerProductListScreen extends StatefulWidget {
   const SellerProductListScreen({super.key});
@@ -173,7 +174,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Price: Tsh ${p.sellingPrice}',
+                                          'Price: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

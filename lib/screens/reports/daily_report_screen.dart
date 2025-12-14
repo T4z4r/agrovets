@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
+import '../../utils/number_formatter.dart';
 
 class DailyReportScreen extends StatefulWidget {
   const DailyReportScreen({super.key});
@@ -233,7 +234,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Sales
                       _buildMetricCard(
                         'Total Sales',
-                        'Tsh ${NumberFormat('#,###').format(_report!.totalSales)}',
+                        NumberFormatter.formatCurrency(_report!.totalSales),
                         Icons.point_of_sale,
                         Colors.green,
                         Colors.green[100]!,
@@ -243,7 +244,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       // Total Expenses
                       _buildMetricCard(
                         'Total Expenses',
-                        'Tsh ${NumberFormat('#,###').format(_report!.totalExpenses)}',
+                        NumberFormatter.formatCurrency(_report!.totalExpenses),
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -283,7 +284,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               ),
                             ),
                             Text(
-                              'Tsh ${NumberFormat('#,###').format((_report!.totalSales - _report!.totalExpenses).abs())}',
+                              NumberFormatter.formatCurrency((_report!.totalSales - _report!.totalExpenses).abs()),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

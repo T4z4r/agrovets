@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
+import '../../utils/number_formatter.dart';
 
 class SellerDashboardScreen extends StatefulWidget {
   const SellerDashboardScreen({super.key});
@@ -144,17 +145,21 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                             Colors.blue),
                         _statCard(
                             'Today Sales',
-                            'Tsh ${dashboard['today_sales'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
                             Colors.green),
                         _statCard(
                             'Total Sales',
-                            'Tsh ${dashboard['total_sales'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
                             Colors.orange),
                         _statCard(
                             'Total Expenses',
-                            'Tsh ${dashboard['total_expenses'] ?? 0}',
+                            NumberFormatter.formatCurrency(num.tryParse(
+                                dashboard['total_expenses']?.toString() ??
+                                    '0')),
                             Icons.money_off,
                             Colors.red),
                       ],
@@ -208,17 +213,20 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                       rows: [
                         DataRow(cells: [
                           const DataCell(Text('Total Sales')),
-                          DataCell(Text('Tsh ${report!.totalSales}')),
+                          DataCell(Text(NumberFormatter.formatCurrency(
+                              report!.totalSales))),
                         ]),
                         DataRow(cells: [
                           const DataCell(Text('Total Expenses')),
-                          DataCell(Text('Tsh ${report!.totalExpenses}')),
+                          DataCell(Text(NumberFormatter.formatCurrency(
+                              report!.totalExpenses))),
                         ]),
                         DataRow(cells: [
                           const DataCell(Text('Net Profit')),
                           DataCell(
                             Text(
-                              'Tsh ${report!.totalSales - report!.totalExpenses}',
+                              NumberFormatter.formatCurrency(
+                                  report!.totalSales - report!.totalExpenses),
                               style: TextStyle(
                                 color: (report!.totalSales -
                                             report!.totalExpenses) >=

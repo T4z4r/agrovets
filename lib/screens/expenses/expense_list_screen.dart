@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
 import '../../widgets/app_drawer.dart';
+import '../../utils/number_formatter.dart';
 import 'expense_form_screen.dart';
 
 class ExpenseListScreen extends StatefulWidget {
@@ -181,7 +182,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Tsh ${e.amount}',
+                                          NumberFormatter.formatCurrency(e.amount),
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
