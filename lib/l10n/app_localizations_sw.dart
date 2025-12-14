@@ -232,7 +232,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get returnText => 'Rudi';
 
   @override
-  String get stockTransactionSaved => 'Muamala wa hekalu umehifadhiwa kwa mafanikio!';
+  String get stockTransactionSaved =>
+      'Muamala wa hekalu umehifadhiwa kwa mafanikio!';
 
   @override
   String get failedSaveStock => 'Imeshindikana kuhifadhi muamala wa hekalu';
@@ -373,7 +374,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get generatingDailyReport => 'Inazalisha ripoti ya kila siku...';
 
   @override
-  String get failedLoadDailyReport => 'Imeshindikana kupakia ripoti ya kila siku';
+  String get failedLoadDailyReport =>
+      'Imeshindikana kupakia ripoti ya kila siku';
 
   @override
   String get reportDate => 'Tarehe ya Ripoti';
@@ -433,7 +435,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get noSuppliersFound => 'Hakuna wasambazaji waliopatikana';
 
   @override
-  String get noSuppliersMatch => 'Hakuna wasambazaji wanaolingana na utafutaji wako';
+  String get noSuppliersMatch =>
+      'Hakuna wasambazaji wanaolingana na utafutaji wako';
 
   @override
   String get searchTransactions => 'Tafuta miamala...';
@@ -442,7 +445,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get noTransactionsFound => 'Hakuna miamala ya hekalu iliyopatikana';
 
   @override
-  String get noTransactionsMatch => 'Hakuna miamala inayolingana na utafutaji wako';
+  String get noTransactionsMatch =>
+      'Hakuna miamala inayolingana na utafutaji wako';
 
   @override
   String get quantityLabel => 'Idadi';
@@ -469,7 +473,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get noExpensesFound => 'Hakuna matumizi yaliyopatikana';
 
   @override
-  String get noExpensesMatch => 'Hakuna matumizi yanayolingana na utafutaji wako';
+  String get noExpensesMatch =>
+      'Hakuna matumizi yanayolingana na utafutaji wako';
 
   @override
   String get amountLabel => 'Kiasi';
@@ -482,4 +487,10 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get noSellersMatch => 'Hakuna wauzaji wanaolingana na utafutaji wako';
+
+  @override
+  String get saleLabel => 'Uuzaji';
+
+  @override
+  String get itemsLabel => 'Bidhaa';
 }

@@ -482,4 +482,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSellersMatch => 'No sellers match your search';
+
+  @override
+  String get saleLabel => 'Sale';
+
+  @override
+  String get itemsLabel => 'Items';
 }

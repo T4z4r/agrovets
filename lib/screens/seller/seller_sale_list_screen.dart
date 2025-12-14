@@ -98,8 +98,8 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No sales found'
-                                  : 'No sales match your search',
+                                  ? AppLocalizations.of(context)!.noSalesFound
+                                  : AppLocalizations.of(context)!.noSalesMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -136,7 +136,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                   ),
                                 ),
                                 title: Text(
-                                  'Sale #${s.id}',
+                                  '${AppLocalizations.of(context)!.saleLabel} #${s.id}',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -155,7 +155,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${(() {
+                                          '${AppLocalizations.of(context)!.dateLabel}: ${(() {
                                             try {
                                               return DateFormat.yMMMd().format(
                                                   DateTime.parse(s.saleDate));
@@ -180,7 +180,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Items: ${s.items.length}',
+                                          '${s.items.length} items',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -192,11 +192,11 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'receipt',
                                       child: ListTile(
                                         leading: Icon(Icons.receipt),
-                                        title: Text('View Receipt'),
+                                        title: Text(AppLocalizations.of(context)!.viewReceipt),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),

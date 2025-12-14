@@ -159,7 +159,8 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          NumberFormatter.formatCurrency(e.amount),
+                                          NumberFormatter.formatCurrency(
+                                              e.amount),
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

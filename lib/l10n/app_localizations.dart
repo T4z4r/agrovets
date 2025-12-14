@@ -1048,6 +1048,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sellers match your search'**
   String get noSellersMatch;
+
+  /// No description provided for @saleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale'**
+  String get saleLabel;
+
+  /// No description provided for @itemsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get itemsLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
