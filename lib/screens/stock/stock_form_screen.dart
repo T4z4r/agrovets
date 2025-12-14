@@ -100,7 +100,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
                       hint: const Text('Select Product'),
                       items: _products
                           .map((p) => DropdownMenuItem(
-                              value: p.id, child: Text(p.name)))
+                              value: p.id, child: Text(p.name!)))
                           .toList(),
                       onChanged: (v) => setState(() => _productId = v),
                       validator: (v) => v == null ? 'Required' : null,

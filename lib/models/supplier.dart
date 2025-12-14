@@ -18,8 +18,8 @@ class Supplier {
 
   factory Supplier.fromJson(Map<String, dynamic> json) {
     return Supplier(
-      id: json['id'],
-      name: json['name'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
       contactPerson: json['contact_person'],
       phone: json['phone'],
       email: json['email'],

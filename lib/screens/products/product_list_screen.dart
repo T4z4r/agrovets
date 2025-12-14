@@ -68,7 +68,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               itemBuilder: (ctx, i) {
                 final p = _products[i];
                 return ListTile(
-                  title: Text(p.name),
+                  title: Text(p.name!),
                   subtitle:
                       Text('Stock: ${p.stock} | Price: ${p.sellingPrice}'),
                   trailing: Row(

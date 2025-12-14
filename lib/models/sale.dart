@@ -14,10 +14,12 @@ class Sale {
 
   factory Sale.fromJson(Map<String, dynamic> json) {
     return Sale(
-      id: json['id'],
-      sellerId: json['seller_id'],
-      saleDate: json['sale_date'],
-      items: (json['items'] as List).map((i) => SaleItem.fromJson(i)).toList(),
+      id: json['id'] ?? 0,
+      sellerId: int.tryParse(json['seller_id']?.toString() ?? '0') ?? 0,
+      saleDate: json['sale_date'] ?? '',
+      items:
+          (json['items'] as List?)?.map((i) => SaleItem.fromJson(i)).toList() ??
+              [],
     );
   }
 
@@ -43,9 +45,9 @@ class SaleItem {
 
   factory SaleItem.fromJson(Map<String, dynamic> json) {
     return SaleItem(
-      productId: json['product_id'],
-      quantity: json['quantity'],
-      price: json['price'],
+      productId: int.tryParse(json['product_id']?.toString() ?? '0') ?? 0,
+      quantity: int.tryParse(json['quantity']?.toString() ?? '0') ?? 0,
+      price: int.tryParse(json['price']?.toString() ?? '0') ?? 0,
     );
   }
 

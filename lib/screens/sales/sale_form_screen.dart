@@ -125,7 +125,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                               hint: const Text('Product'),
                               items: _products
                                   .map((p) => DropdownMenuItem(
-                                      value: p.id, child: Text(p.name)))
+                                      value: p.id, child: Text(p.name!)))
                                   .toList(),
                               onChanged: (v) =>
                                   setState(() => _items[idx]['product_id'] = v),

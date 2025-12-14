@@ -20,12 +20,14 @@ class StockTransaction {
 
   factory StockTransaction.fromJson(Map<String, dynamic> json) {
     return StockTransaction(
-      id: json['id'],
-      productId: json['product_id'],
-      type: json['type'],
-      quantity: json['quantity'],
-      supplierId: json['supplier_id'],
-      date: json['date'],
+      id: json['id'] ?? 0,
+      productId: int.tryParse(json['product_id']?.toString() ?? '0') ?? 0,
+      type: json['type'] ?? '',
+      quantity: int.tryParse(json['quantity']?.toString() ?? '0') ?? 0,
+      supplierId: json['supplier_id'] != null
+          ? int.tryParse(json['supplier_id'].toString())
+          : null,
+      date: json['date'] ?? '',
       remarks: json['remarks'],
     );
   }
