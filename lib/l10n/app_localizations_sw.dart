@@ -499,4 +499,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get retry => 'Jaribu Tena';
+
+  @override
+  String get saveTransaction => 'Hifadhi Muamala';
 }

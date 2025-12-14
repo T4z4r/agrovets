@@ -207,5 +207,6 @@
   "agroVetSeller": "AgroVet Mwuza",
   "saleLabel": "Uuzaji",
   "itemsLabel": "Bidhaa",
-  "stockTransactionTitle": "Muamala wa Hekalu"
+  "stockTransactionTitle": "Muamala wa Hekalu",
+  "saveTransaction": "Hifadhi Muamala"
 }

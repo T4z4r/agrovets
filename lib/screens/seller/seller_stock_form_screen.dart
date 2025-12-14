@@ -189,7 +189,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             DropdownButtonFormField<String>(
                               value: _type,
                               decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.transactionType,
+                                labelText: AppLocalizations.of(context)!
+                                    .transactionType,
                                 prefixIcon: const Icon(Icons.swap_vert),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -251,8 +252,10 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             TextFormField(
                               onChanged: (v) => _quantity = int.tryParse(v),
                               decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.quantity,
-                                hintText: AppLocalizations.of(context)!.enterQuantity,
+                                labelText:
+                                    AppLocalizations.of(context)!.quantity,
+                                hintText:
+                                    AppLocalizations.of(context)!.enterQuantity,
                                 prefixIcon:
                                     const Icon(Icons.format_list_numbered),
                                 border: OutlineInputBorder(
@@ -278,8 +281,10 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             DropdownButtonFormField<int>(
                               value: _supplierId,
                               decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.supplierOptional,
-                                hintText: AppLocalizations.of(context)!.selectSupplier,
+                                labelText: AppLocalizations.of(context)!
+                                    .supplierOptional,
+                                hintText: AppLocalizations.of(context)!
+                                    .selectSupplier,
                                 prefixIcon: const Icon(Icons.business),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -299,8 +304,10 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)!.transactionDate,
-                                hintText: AppLocalizations.of(context)!.selectDate,
+                                labelText: AppLocalizations.of(context)!
+                                    .transactionDate,
+                                hintText:
+                                    AppLocalizations.of(context)!.selectDate,
                                 prefixIcon: const Icon(Icons.calendar_today),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -318,8 +325,10 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             TextFormField(
                               onChanged: (v) => _remarks = v,
                               decoration: InputDecoration(
-                                labelText: 'Remarks (Optional)',
-                                hintText: 'Add any additional notes',
+                                labelText: AppLocalizations.of(context)!
+                                    .remarksOptional,
+                                hintText:
+                                    AppLocalizations.of(context)!.addNotes,
                                 prefixIcon: const Icon(Icons.note),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -351,8 +360,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                       child: SpinKitWaveSpinner(
                                           color: Colors.white, size: 20.0),
                                     )
-                                  : const Text(
-                                      'Save Transaction',
+                                  : Text(
+                                      AppLocalizations.of(context)!.saveTransaction,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,

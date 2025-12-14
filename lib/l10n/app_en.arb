@@ -208,5 +208,6 @@
   "selectDateRangeProfitReport": "Select a date range to generate profit report",
   "saleLabel": "Sale",
   "itemsLabel": "Items",
-  "stockTransactionTitle": "Stock Transaction"
+  "stockTransactionTitle": "Stock Transaction",
+  "saveTransaction": "Save Transaction"
 }
