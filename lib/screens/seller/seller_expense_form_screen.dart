@@ -176,7 +176,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         controller: _amountCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Amount (KES)',
+                          labelText: 'Amount (Tsh)',
                           hintText: 'Enter expense amount',
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(

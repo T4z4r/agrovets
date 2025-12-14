@@ -220,7 +220,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _costPriceCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Cost Price (KES)',
+                          labelText: 'Cost Price (Tsh)',
                           hintText: 'Enter cost price',
                           prefixIcon: const Icon(Icons.money_off),
                           border: OutlineInputBorder(
@@ -246,7 +246,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _sellingPriceCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Selling Price (KES)',
+                          labelText: 'Selling Price (Tsh)',
                           hintText: 'Enter selling price',
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
@@ -284,7 +284,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                             ? const SizedBox(
                                 height: 20,
                                 width: 20,
-                                child: SpinKitWaveSpinner(color: Colors.white, size: 20.0),
+                                child: SpinKitWaveSpinner(
+                                    color: Colors.white, size: 20.0),
                               )
                             : Text(
                                 widget.product == null
