@@ -131,5 +131,14 @@
   "totalExpensesLabel": "Total Expenses",
   "netProfit": "Net Profit",
   "failedLoadReport": "Failed to load report",
-  "agroVetSeller": "AgroVet Seller"
+  "agroVetSeller": "AgroVet Seller",
+  "failedLoadProducts": "Failed to load products",
+  "searchProducts": "Search products...",
+  "noProductsFound": "No products found",
+  "noProductsMatch": "No products match your search",
+  "stockLabel": "Stock",
+  "priceLabel": "Price",
+  "deleteProductConfirm": "Are you sure you want to delete",
+  "productDeletedSuccess": "Product deleted successfully",
+  "failedDeleteProduct": "Failed to delete product"
 }

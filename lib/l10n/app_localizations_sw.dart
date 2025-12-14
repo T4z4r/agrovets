@@ -404,4 +404,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get agroVetSeller => 'AgroVet Mwuza';
+
+  @override
+  String get searchProducts => 'Tafuta bidhaa...';
+
+  @override
+  String get noProductsFound => 'Hakuna bidhaa zilizopatikana';
+
+  @override
+  String get noProductsMatch => 'Hakuna bidhaa zinazolingana na utafutaji wako';
+
+  @override
+  String get stockLabel => 'Hekalu';
+
+  @override
+  String get priceLabel => 'Bei';
+
+  @override
+  String get deleteProductConfirm => 'Je, una uhakika unataka kufuta';
+
+  @override
+  String get productDeletedSuccess => 'Bidhaa imefutwa kwa mafanikio';
 }

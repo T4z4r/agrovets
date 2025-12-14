@@ -1,6 +1,7 @@
 // lib/screens/products/product_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
@@ -39,7 +40,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load products: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -66,17 +68,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Product'),
-        content: Text('Are you sure you want to delete "$productName"?'),
+        title: Text(AppLocalizations.of(context)!.deleteProduct),
+        content: Text(
+            '${AppLocalizations.of(context)!.deleteProductConfirm} "$productName"?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context, true),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),
@@ -86,8 +89,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
       try {
         await ApiService.delete('/api/products/$id');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Product deleted successfully'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.productDeletedSuccess),
             backgroundColor: Colors.green,
           ),
         );
@@ -95,7 +98,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to delete product: $e'),
+            content: Text(
+                '${AppLocalizations.of(context)!.failedDeleteProduct}: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -108,7 +112,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Products'),
+        title: Text(AppLocalizations.of(context)!.products),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -129,7 +133,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             child: TextField(
               onChanged: _filterProducts,
               decoration: InputDecoration(
-                hintText: 'Search products...',
+                hintText: AppLocalizations.of(context)!.searchProducts,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -158,8 +162,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No products found'
-                                  : 'No products match your search',
+                                  ? AppLocalizations.of(context)!.noProductsFound
+                                  : AppLocalizations.of(context)!.noProductsMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -215,7 +219,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Stock: ${p.stock} ${p.unit}',
+                                          '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -233,7 +237,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Price: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
+                                          '${AppLocalizations.of(context)!.priceLabel}: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -267,20 +271,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'edit',
                                       child: ListTile(
                                         leading: Icon(Icons.edit),
-                                        title: Text('Edit'),
+                                        title: Text(AppLocalizations.of(context)!.edit),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
                                         leading: Icon(Icons.delete,
                                             color: Colors.red),
-                                        title: Text('Delete',
+                                        title: Text(AppLocalizations.of(context)!.delete,
                                             style:
                                                 TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,

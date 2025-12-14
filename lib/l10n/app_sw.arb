@@ -131,5 +131,14 @@
   "totalExpensesLabel": "Jumla ya Matumizi",
   "netProfit": "Faida Halisi",
   "failedLoadReport": "Imeshindikana kupakia ripoti",
-  "agroVetSeller": "AgroVet Mwuza"
+  "agroVetSeller": "AgroVet Mwuza",
+  "failedLoadProducts": "Imeshindikana kupakia bidhaa",
+  "searchProducts": "Tafuta bidhaa...",
+  "noProductsFound": "Hakuna bidhaa zilizopatikana",
+  "noProductsMatch": "Hakuna bidhaa zinazolingana na utafutaji wako",
+  "stockLabel": "Hekalu",
+  "priceLabel": "Bei",
+  "deleteProductConfirm": "Je, una uhakika unataka kufuta",
+  "productDeletedSuccess": "Bidhaa imefutwa kwa mafanikio",
+  "failedDeleteProduct": "Imeshindikana kufuta bidhaa"
 }

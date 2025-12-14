@@ -404,4 +404,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get agroVetSeller => 'AgroVet Seller';
+
+  @override
+  String get searchProducts => 'Search products...';
+
+  @override
+  String get noProductsFound => 'No products found';
+
+  @override
+  String get noProductsMatch => 'No products match your search';
+
+  @override
+  String get stockLabel => 'Stock';
+
+  @override
+  String get priceLabel => 'Price';
+
+  @override
+  String get deleteProductConfirm => 'Are you sure you want to delete';
+
+  @override
+  String get productDeletedSuccess => 'Product deleted successfully';
 }
