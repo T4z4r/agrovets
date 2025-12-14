@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
+import '../../utils/number_formatter.dart';
 
 class SellerSaleFormScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -412,7 +413,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        'Price: Tsh ${product.sellingPrice}',
+                        'Price: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       value: isSelected,

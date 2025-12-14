@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/user.dart';
 import '../../widgets/app_drawer.dart';
+import '../../utils/number_formatter.dart';
 
 class SaleFormScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -415,7 +416,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        'Price: Tsh ${product.sellingPrice}',
+                        'Price: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       value: isSelected,

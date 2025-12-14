@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
+import '../../utils/number_formatter.dart';
 
 class ProfitReportScreen extends StatefulWidget {
   const ProfitReportScreen({super.key});
@@ -269,7 +270,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Revenue
                       _buildMetricCard(
                         'Total Revenue',
-                        'Tsh ${NumberFormat('#,###').format(_report!.revenue)}',
+                        NumberFormatter.formatCurrency(_report!.revenue),
                         Icons.monetization_on,
                         Colors.green,
                         Colors.green[100]!,
@@ -279,7 +280,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Cost
                       _buildMetricCard(
                         'Total Cost',
-                        'Tsh ${NumberFormat('#,###').format(_report!.cost)}',
+                        NumberFormatter.formatCurrency(_report!.cost),
                         Icons.money_off,
                         Colors.red,
                         Colors.red[100]!,
@@ -289,7 +290,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                       // Profit
                       _buildMetricCard(
                         'Net Profit',
-                        'Tsh ${NumberFormat('#,###').format(_report!.profit)}',
+                        NumberFormatter.formatCurrency(_report!.profit),
                         Icons.trending_up,
                         _report!.profit >= 0 ? Colors.blue : Colors.orange,
                         _report!.profit >= 0
@@ -322,7 +323,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                               ),
                             ),
                             Text(
-                              '${_report!.revenue > 0 ? ((_report!.profit / _report!.revenue) * 100).toStringAsFixed(1) : 0}%',
+                              NumberFormatter.formatProfitMargin(_report!.profit, _report!.revenue),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
