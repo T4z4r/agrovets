@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 
 class ProductFormScreen extends StatefulWidget {
   final Product? product;
@@ -128,8 +129,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _nameCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Product Name',
-                          hintText: 'Enter product name',
+                          labelText: AppLocalizations.of(context)!.productName,
+                          hintText:
+                              AppLocalizations.of(context)!.enterProductName,
                           prefixIcon: const Icon(Icons.inventory_2),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -150,8 +152,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _unitCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Unit',
-                          hintText: 'e.g., kg, liters, pieces',
+                          labelText: AppLocalizations.of(context)!.unit,
+                          hintText: AppLocalizations.of(context)!.enterUnit,
                           prefixIcon: const Icon(Icons.straighten),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -172,8 +174,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _categoryCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Category',
-                          hintText: 'e.g., Medicine, Feed, Equipment',
+                          labelText: AppLocalizations.of(context)!.category,
+                          hintText: AppLocalizations.of(context)!.enterCategory,
                           prefixIcon: const Icon(Icons.category),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -194,8 +196,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _stockCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Initial Stock',
-                          hintText: 'Enter stock quantity',
+                          labelText: AppLocalizations.of(context)!.initialStock,
+                          hintText:
+                              AppLocalizations.of(context)!.enterStockQuantity,
                           prefixIcon: const Icon(Icons.inventory),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -220,8 +223,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _costPriceCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Cost Price (Tsh)',
-                          hintText: 'Enter cost price',
+                          labelText: AppLocalizations.of(context)!.costPrice,
+                          hintText:
+                              AppLocalizations.of(context)!.enterCostPrice,
                           prefixIcon: const Icon(Icons.money_off),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -246,8 +250,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _sellingPriceCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Selling Price (Tsh)',
-                          hintText: 'Enter selling price',
+                          labelText: AppLocalizations.of(context)!.sellingPrice,
+                          hintText:
+                              AppLocalizations.of(context)!.enterSellingPrice,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),

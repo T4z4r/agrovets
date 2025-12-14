@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 
 class ExpenseFormScreen extends StatefulWidget {
   final Expense? expense;
@@ -48,19 +49,19 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
       if (widget.expense == null) {
         await ApiService.post('/api/expenses', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Expense created successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.expenseCreated),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       } else {
         await ApiService.put('/api/expenses/${widget.expense!.id}', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Expense updated successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.expenseUpdated),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -70,7 +71,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to save expense: $e'),
+          content: Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -156,8 +157,10 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                       TextFormField(
                         controller: _categoryCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Expense Category',
-                          hintText: 'e.g., Utilities, Supplies, Maintenance',
+                          labelText:
+                              AppLocalizations.of(context)!.expenseCategory,
+                          hintText: AppLocalizations.of(context)!
+                              .enterExpenseCategory,
                           prefixIcon: const Icon(Icons.category),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -178,8 +181,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                       TextFormField(
                         controller: _amountCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Amount (Tsh)',
-                          hintText: 'Enter expense amount',
+                          labelText: AppLocalizations.of(context)!.amount,
+                          hintText: AppLocalizations.of(context)!.enterExpenseAmount,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -204,8 +207,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                       TextFormField(
                         controller: _descriptionCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Description',
-                          hintText: 'Enter expense description',
+                          labelText: AppLocalizations.of(context)!.description,
+                          hintText: AppLocalizations.of(context)!.enterExpenseDescription,
                           prefixIcon: const Icon(Icons.description),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -221,8 +224,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                       TextFormField(
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: 'Expense Date',
-                          hintText: 'Select date',
+                          labelText: AppLocalizations.of(context)!.expenseDate,
+                          hintText: AppLocalizations.of(context)!.selectDate,
                           prefixIcon: const Icon(Icons.calendar_today),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),

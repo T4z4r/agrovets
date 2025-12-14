@@ -108,9 +108,18 @@
   "description": "Maelezo",
   "enterExpenseDescription": "Ingiza maelezo ya matumizi",
   "expenseDate": "Tarehe ya Matumizi",
+  "createExpense": "Unda Matumizi",
+  "editExpense": "Hariri Matumizi",
+  "addNewExpense": "Ongeza Matumizi Mapya",
+  "categoryRequired": "Kategoria inahitajika",
+  "amountRequired": "Kiasi kinahitajika",
+  "enterValidAmount": "Tafadhali ingiza kiasi sahihi",
+  "selectDate": "Chagua tarehe",
   "expenseCreated": "Matumizi yameundwa kwa mafanikio!",
   "expenseUpdated": "Matumizi yamesasishwa kwa mafanikio!",
   "failedSaveExpense": "Imeshindikana kuhifadhi matumizi",
+  "retry": "Jaribu Tena",
+  "editExpenseTitle": "Hariri Matumizi",
   "deleteExpense": "Futa Matumizi",
   "profitReport": "Ripoti ya Faida",
   "generatingReport": "Inazalisha ripoti...",
@@ -191,5 +200,6 @@
   "receipt": "Risiti",
   "totalSalesLabel": "Jumla ya Mauzo",
   "totalExpensesLabel": "Jumla ya Matumizi",
-  "netProfit": "Faida Halisi"
+  "netProfit": "Faida Halisi",
+  "agroVetSeller": "AgroVet Mwuza"
 }

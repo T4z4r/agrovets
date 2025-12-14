@@ -5,6 +5,7 @@ import '../../services/api_service.dart';
 import '../../models/expense.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
+import '../../l10n/app_localizations.dart';
 import 'expense_form_screen.dart';
 
 class ExpenseListScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Expenses'),
+        title: Text(AppLocalizations.of(context)!.expenses),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -96,7 +97,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
             child: TextField(
               onChanged: _filterExpenses,
               decoration: InputDecoration(
-                hintText: 'Search expenses...',
+                hintText: AppLocalizations.of(context)!.searchExpenses,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -125,8 +126,10 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No expenses found'
-                                  : 'No expenses match your search',
+                                  ? AppLocalizations.of(context)!
+                                      .noExpensesFound
+                                  : AppLocalizations.of(context)!
+                                      .noExpensesMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -182,7 +185,8 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          NumberFormatter.formatCurrency(e.amount),
+                                          NumberFormatter.formatCurrency(
+                                              e.amount),
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -200,7 +204,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${e.date}',
+                                          '${AppLocalizations.of(context)!.dateLabel}: ${e.date}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -236,20 +240,23 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'edit',
                                       child: ListTile(
                                         leading: Icon(Icons.edit),
-                                        title: Text('Edit'),
+                                        title: Text(
+                                            AppLocalizations.of(context)!.edit),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
                                         leading: Icon(Icons.delete,
                                             color: Colors.red),
-                                        title: Text('Delete',
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .delete,
                                             style:
                                                 TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
@@ -272,21 +279,27 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text('Delete Expense'),
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .deleteExpense),
                                           content: Text(
-                                              'Are you sure you want to delete this ${e.category} expense?'),
+                                              '${AppLocalizations.of(context)!.deleteProductConfirm} "${e.category}"?'),
                                           actions: [
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, false),
-                                              child: const Text('Cancel'),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
                                             ),
                                             ElevatedButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, true),
                                               style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.red),
-                                              child: const Text('Delete'),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .delete),
                                             ),
                                           ],
                                         ),
