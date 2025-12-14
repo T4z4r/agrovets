@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/api_service.dart';
+import '../../models/report.dart';
 
 class SellerDashboardScreen extends StatefulWidget {
   const SellerDashboardScreen({super.key});
@@ -15,11 +16,14 @@ class SellerDashboardScreen extends StatefulWidget {
 class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
   Map<String, dynamic> dashboard = {};
   bool _loading = false;
+  SellerDaySummary? report;
+  bool _reportLoading = false;
 
   @override
   void initState() {
     super.initState();
     _loadDashboard();
+    _loadReport();
   }
 
   Future<void> _loadDashboard() async {
@@ -38,6 +42,25 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     setState(() => _loading = false);
   }
 
+  Future<void> _loadReport() async {
+    final auth = context.read<AuthProvider>();
+    if (auth.user == null) return;
+
+    setState(() => _reportLoading = true);
+    try {
+      final res = await ApiService.get('/api/reports/seller/day-summary');
+      setState(() => report = SellerDaySummary.fromJson(res['data'] ?? {}));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to load report: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    setState(() => _reportLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
@@ -45,7 +68,10 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: RefreshIndicator(
-        onRefresh: _loadDashboard,
+        onRefresh: () async {
+          await _loadDashboard();
+          await _loadReport();
+        },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
@@ -138,6 +164,76 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                 ),
 
               const SizedBox(height: 24),
+
+              // Seller Day Summary
+              Text(
+                'Seller Day Summary',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+              ),
+              const SizedBox(height: 16),
+              if (_reportLoading)
+                Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: Center(
+                      child:
+                          SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
+                )
+              else if (report != null)
+                Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: DataTable(
+                      columnSpacing: 150, // Spread columns to cover full width
+                      columns: const [
+                        DataColumn(
+                          label: Text(
+                            'Category',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Amount',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                      rows: [
+                        DataRow(cells: [
+                          const DataCell(Text('Total Sales')),
+                          DataCell(Text('Tsh ${report!.totalSales}')),
+                        ]),
+                        DataRow(cells: [
+                          const DataCell(Text('Total Expenses')),
+                          DataCell(Text('Tsh ${report!.totalExpenses}')),
+                        ]),
+                        DataRow(cells: [
+                          const DataCell(Text('Net Profit')),
+                          DataCell(
+                            Text(
+                              'Tsh ${report!.totalSales - report!.totalExpenses}',
+                              style: TextStyle(
+                                color: (report!.totalSales -
+                                            report!.totalExpenses) >=
+                                        0
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

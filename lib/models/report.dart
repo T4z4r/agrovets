@@ -1,3 +1,8 @@
+import 'user.dart';
+import 'sale.dart';
+import 'expense.dart';
+import 'stock_transaction.dart';
+
 class DailyReport {
   final double totalSales;
   final double totalExpenses;
@@ -31,6 +36,35 @@ class ProfitReport {
       revenue: json['revenue']?.toDouble() ?? 0.0,
       cost: json['cost']?.toDouble() ?? 0.0,
       profit: json['profit']?.toDouble() ?? 0.0,
+    );
+  }
+}
+
+class SellerDaySummary {
+  final String date;
+  final List<Sale> sales;
+  final int totalSales;
+  final List<Expense> expenses;
+  final int totalExpenses;
+  final List<StockTransaction> stockTransactions;
+
+  SellerDaySummary({
+    required this.date,
+    required this.sales,
+    required this.totalSales,
+    required this.expenses,
+    required this.totalExpenses,
+    required this.stockTransactions,
+  });
+
+  factory SellerDaySummary.fromJson(Map<String, dynamic> json) {
+    return SellerDaySummary(
+      date: json['date'] ?? '',
+      sales: (json['sales'] as List?)?.map((s) => Sale.fromJson(s)).toList() ?? [],
+      totalSales: int.tryParse(json['total_sales']?.toString() ?? '0') ?? 0,
+      expenses: (json['expenses'] as List?)?.map((e) => Expense.fromJson(e)).toList() ?? [],
+      totalExpenses: int.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0,
+      stockTransactions: (json['stock_transactions'] as List?)?.map((st) => StockTransaction.fromJson(st)).toList() ?? [],
     );
   }
 }
