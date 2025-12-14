@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/seller/seller_home_screen.dart';
 import 'services/auth_service.dart';
 
 void main() {
@@ -64,6 +65,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
     }
 
     final user = context.watch<AuthProvider>().user;
-    return user != null ? const DashboardScreen() : const LoginScreen();
+    if (user == null) return const LoginScreen();
+
+    final role = user['role'];
+    if (role == 'seller') {
+      return const SellerHomeScreen();
+    } else {
+      return const DashboardScreen();
+    }
   }
 }
