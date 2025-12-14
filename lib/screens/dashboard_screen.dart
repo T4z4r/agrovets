@@ -191,42 +191,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
               if (_loading)
                 Padding(
                   padding: EdgeInsets.all(40),
-                  child: Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
+                  child: Center(
+                      child:
+                          SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
                 )
               else
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 1.25,
+                Column(
                   children: [
-                    _statCard(
-                        'Total Products',
-                        dashboard['total_products']?.toString() ?? '0',
-                        Icons.inventory,
-                        Colors.blue),
-                    _statCard(
-                        'Today Sales',
-                        'KES ${dashboard['today_sales'] ?? 0}',
-                        Icons.trending_up,
-                        Colors.green),
-                    _statCard(
-                        'Total Sales',
-                        'KES ${dashboard['total_sales'] ?? 0}',
-                        Icons.monetization_on,
-                        Colors.orange),
-                    _statCard(
-                        'Total Expenses',
-                        'KES ${dashboard['total_expenses'] ?? 0}',
-                        Icons.money_off,
-                        Colors.red),
-                    _statCard(
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 1.25,
+                      children: [
+                        _statCard(
+                            'Total Products',
+                            dashboard['total_products']?.toString() ?? '0',
+                            Icons.inventory,
+                            Colors.blue),
+                        _statCard(
+                            'Today Sales',
+                            'KES ${dashboard['today_sales'] ?? 0}',
+                            Icons.trending_up,
+                            Colors.green),
+                        _statCard(
+                            'Total Sales',
+                            'KES ${dashboard['total_sales'] ?? 0}',
+                            Icons.monetization_on,
+                            Colors.orange),
+                        _statCard(
+                            'Total Expenses',
+                            'KES ${dashboard['total_expenses'] ?? 0}',
+                            Icons.money_off,
+                            Colors.red),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    _statCardFullWidth(
                         'Stock Value',
                         'KES ${dashboard['stock_value'] ?? 0}',
                         Icons.warehouse,
-                        Colors.purple),
+                        Colors.green),
                   ],
                 ),
 
@@ -337,6 +344,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fontSize: 12.5,
                 color: Colors.grey[600],
                 height: 1.1, // 👈 critical
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _statCardFullWidth(
+      String title, String value, IconData icon, Color color) {
+    return Card(
+      elevation: 2,
+      shadowColor: color.withOpacity(0.2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.12),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 32),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
