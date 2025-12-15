@@ -16,6 +16,7 @@ import 'sales/sale_list_screen.dart';
 import 'expenses/expense_list_screen.dart';
 import 'reports/daily_report_screen.dart';
 import 'sellers/seller_list_screen.dart';
+import 'about_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -207,6 +208,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
+            _drawerTile(Icons.info, 'About', () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const AboutScreen()));
+            }),
             const Divider(),
             // Language Switcher Section
             Container(
@@ -393,7 +398,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: 16),
                     _statCardFullWidth(
                         'Low Stock Products',
-                        dashboard['low_stock_products_count']?.toString() ?? '0',
+                        dashboard['low_stock_products_count']?.toString() ??
+                            '0',
                         Icons.warning,
                         Colors.orange,
                         'lowStockProducts'),
