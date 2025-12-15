@@ -27,11 +27,24 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
   List<Product> _products = [];
   List<Supplier> _suppliers = [];
   bool _loading = true;
+  String? _selectedProductName;
+  late TextEditingController _productController;
+  late TextEditingController _searchController;
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
+    _productController = TextEditingController();
+    _searchController = TextEditingController();
     _loadData();
+  }
+
+  @override
+  void dispose() {
+    _productController.dispose();
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadData() async {
@@ -50,6 +63,14 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+  }
+
+  List<Product> get _filteredProducts {
+    if (_searchQuery.isEmpty) return _products;
+    return _products
+        .where(
+            (p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
   }
 
   Future<void> _save() async {
@@ -100,6 +121,58 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       lastDate: DateTime(2100),
     );
     if (picked != null) setState(() => _date = picked);
+  }
+
+  Future<void> _selectProduct() async {
+    _searchQuery = '';
+    _searchController.clear();
+    final selectedProduct = await showDialog<Product>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: Text(AppLocalizations.of(context)!.selectProduct),
+          content: SizedBox(
+            height: 400,
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    labelText: 'Search Products',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onChanged: (value) => setState(() => _searchQuery = value),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      final product = _filteredProducts[index];
+                      return ListTile(
+                        title: Text(product.name ?? 'Unknown Product'),
+                        onTap: () => Navigator.pop(context, product),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    if (selectedProduct != null) {
+      setState(() {
+        _productId = selectedProduct.id;
+        _selectedProductName = selectedProduct.name;
+        _productController.text = selectedProduct.name!;
+      });
+    }
   }
 
   @override
@@ -161,27 +234,26 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             const SizedBox(height: 24),
 
                             // Product Selection
-                            DropdownButtonFormField<int>(
-                              value: _productId,
+                            TextFormField(
+                              readOnly: true,
                               decoration: InputDecoration(
                                 labelText:
                                     AppLocalizations.of(context)!.selectProduct,
                                 hintText:
                                     AppLocalizations.of(context)!.chooseProduct,
                                 prefixIcon: const Icon(Icons.inventory_2),
+                                suffixIcon: const Icon(Icons.arrow_drop_down),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[50],
                               ),
-                              items: _products
-                                  .map((p) => DropdownMenuItem(
-                                      value: p.id, child: Text(p.name!)))
-                                  .toList(),
-                              onChanged: (v) => setState(() => _productId = v),
-                              validator: (v) =>
-                                  v == null ? 'Product is required' : null,
+                              controller: _productController,
+                              onTap: _selectProduct,
+                              validator: (v) => _productId == null
+                                  ? 'Product is required'
+                                  : null,
                             ),
                             const SizedBox(height: 16),
 
@@ -361,7 +433,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                           color: Colors.white, size: 20.0),
                                     )
                                   : Text(
-                                      AppLocalizations.of(context)!.saveTransaction,
+                                      AppLocalizations.of(context)!
+                                          .saveTransaction,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,

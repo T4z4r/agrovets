@@ -7,7 +7,9 @@ import '../providers/locale_provider.dart';
 import '../services/api_service.dart';
 import '../utils/number_formatter.dart';
 import 'auth/login_screen.dart';
+import 'products/product_form_screen.dart';
 import 'products/product_list_screen.dart';
+import 'sales/sale_form_screen.dart';
 import 'suppliers/supplier_list_screen.dart';
 import 'stock/stock_list_screen.dart';
 import 'sales/sale_list_screen.dart';
@@ -411,7 +413,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const ProductListScreen())),
+                              builder: (_) => ProductFormScreen(
+                                  onSave: () => _loadDashboard()))),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -423,7 +426,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const SaleListScreen())),
+                              builder: (_) => SaleFormScreen(
+                                  onSave: () => _loadDashboard()))),
                     ),
                   ),
                 ],

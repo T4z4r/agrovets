@@ -27,10 +27,16 @@ class _StockFormScreenState extends State<StockFormScreen> {
   List<Product> _products = [];
   List<Supplier> _suppliers = [];
   bool _loading = true;
+  String? _selectedProductName;
+  late TextEditingController _productController;
+  late TextEditingController _searchController;
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
+    _productController = TextEditingController();
+    _searchController = TextEditingController();
     _loadData();
   }
 
@@ -50,6 +56,14 @@ class _StockFormScreenState extends State<StockFormScreen> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+  }
+
+  List<Product> get _filteredProducts {
+    if (_searchQuery.isEmpty) return _products;
+    return _products
+        .where(
+            (p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
   }
 
   Future<void> _save() async {
@@ -100,6 +114,65 @@ class _StockFormScreenState extends State<StockFormScreen> {
       lastDate: DateTime(2100),
     );
     if (picked != null) setState(() => _date = picked);
+  }
+
+  Future<void> _selectProduct() async {
+    _searchQuery = '';
+    _searchController.clear();
+    final selectedProduct = await showDialog<Product>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: const Text('Select Product'),
+          content: SizedBox(
+            height: 400,
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    labelText: 'Search Products',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onChanged: (value) => setState(() => _searchQuery = value),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      final product = _filteredProducts[index];
+                      return ListTile(
+                        title: Text(product.name ?? 'Unknown Product'),
+                        onTap: () => Navigator.pop(context, product),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    if (selectedProduct != null) {
+      setState(() {
+        _productId = selectedProduct.id;
+        _selectedProductName = selectedProduct.name;
+        _productController.text = selectedProduct.name!;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _productController.dispose();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -161,25 +234,24 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             const SizedBox(height: 24),
 
                             // Product Selection
-                            DropdownButtonFormField<int>(
-                              value: _productId,
+                            TextFormField(
+                              readOnly: true,
                               decoration: InputDecoration(
                                 labelText: 'Select Product',
                                 hintText: 'Choose a product',
                                 prefixIcon: const Icon(Icons.inventory_2),
+                                suffixIcon: const Icon(Icons.arrow_drop_down),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[50],
                               ),
-                              items: _products
-                                  .map((p) => DropdownMenuItem(
-                                      value: p.id, child: Text(p.name!)))
-                                  .toList(),
-                              onChanged: (v) => setState(() => _productId = v),
-                              validator: (v) =>
-                                  v == null ? 'Product is required' : null,
+                              controller: _productController,
+                              onTap: _selectProduct,
+                              validator: (v) => _productId == null
+                                  ? 'Product is required'
+                                  : null,
                             ),
                             const SizedBox(height: 16),
 
