@@ -38,3 +38,6 @@ flutter:
   generate: true
 assets:
     - assets/images/
+    - assets/logo.png
+    - assets/images/logo.png
+    

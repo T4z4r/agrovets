@@ -124,7 +124,9 @@ class AppDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.localeName == 'sw' ? 'Lugha' : 'Language',
+                  AppLocalizations.of(context)!.localeName == 'sw'
+                      ? 'Lugha'
+                      : 'Language',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -138,15 +140,21 @@ class AppDrawer extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () => localeProvider.setLocale(const Locale('en')),
+                            onPressed: () =>
+                                localeProvider.setLocale(const Locale('en')),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: localeProvider.locale.languageCode == 'en'
-                                  ? Colors.green[600]
-                                  : Colors.grey[200],
-                              foregroundColor: localeProvider.locale.languageCode == 'en'
-                                  ? Colors.white
-                                  : Colors.black,
-                              elevation: localeProvider.locale.languageCode == 'en' ? 2 : 0,
+                              backgroundColor:
+                                  localeProvider.locale.languageCode == 'en'
+                                      ? Colors.green[600]
+                                      : Colors.grey[200],
+                              foregroundColor:
+                                  localeProvider.locale.languageCode == 'en'
+                                      ? Colors.white
+                                      : Colors.black,
+                              elevation:
+                                  localeProvider.locale.languageCode == 'en'
+                                      ? 2
+                                      : 0,
                             ),
                             child: const Text('English'),
                           ),
@@ -154,15 +162,21 @@ class AppDrawer extends StatelessWidget {
                         const SizedBox(width: 8),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () => localeProvider.setLocale(const Locale('sw')),
+                            onPressed: () =>
+                                localeProvider.setLocale(const Locale('sw')),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: localeProvider.locale.languageCode == 'sw'
-                                  ? Colors.green[600]
-                                  : Colors.grey[200],
-                              foregroundColor: localeProvider.locale.languageCode == 'sw'
-                                  ? Colors.white
-                                  : Colors.black,
-                              elevation: localeProvider.locale.languageCode == 'sw' ? 2 : 0,
+                              backgroundColor:
+                                  localeProvider.locale.languageCode == 'sw'
+                                      ? Colors.green[600]
+                                      : Colors.grey[200],
+                              foregroundColor:
+                                  localeProvider.locale.languageCode == 'sw'
+                                      ? Colors.white
+                                      : Colors.black,
+                              elevation:
+                                  localeProvider.locale.languageCode == 'sw'
+                                      ? 2
+                                      : 0,
                             ),
                             child: const Text('Kiswahili'),
                           ),
@@ -171,7 +185,6 @@ class AppDrawer extends StatelessWidget {
                     );
                   },
                 ),
-              
               ],
             ),
           ),

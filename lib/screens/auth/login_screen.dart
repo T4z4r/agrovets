@@ -46,11 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } else {
-         setState(() => _error = response['message'] ?? AppLocalizations.of(context)!.loginFailed);
-       }
-     } catch (e) {
-       setState(() => _error = AppLocalizations.of(context)!.connectionError);
-     }
+        setState(() => _error =
+            response['message'] ?? AppLocalizations.of(context)!.loginFailed);
+      }
+    } catch (e) {
+      setState(() => _error = AppLocalizations.of(context)!.connectionError);
+    }
     setState(() => _loading = false);
   }
 
@@ -65,27 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // App Logo/Icon
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.green[500],
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.green.withOpacity(0.3),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.agriculture,
-                    size: 60,
-                    color: Colors.white,
-                  ),
-                ),
                 const SizedBox(height: 40),
 
                 // Welcome Text

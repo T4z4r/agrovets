@@ -89,18 +89,21 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                     AppLocalizations.of(context)!.logoutMessage,
                     style: TextStyle(color: Colors.grey[700]),
                   ),
-                  actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  actionsPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      style: TextButton.styleFrom(foregroundColor: Colors.grey[600]),
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.grey[600]),
                       child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
                       style: TextButton.styleFrom(
                           foregroundColor: Colors.red[600],
-                          textStyle: const TextStyle(fontWeight: FontWeight.bold)),
+                          textStyle:
+                              const TextStyle(fontWeight: FontWeight.bold)),
                       child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ],
