@@ -20,10 +20,19 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
   bool _loading = false;
   SellerDaySummary? report;
   bool _reportLoading = false;
+  Map<String, bool> _cardVisibility = {};
 
   @override
   void initState() {
     super.initState();
+    _cardVisibility = {
+      'totalProducts': false,
+      'todaySales': false,
+      'totalSales': false,
+      'totalExpenses': false,
+      'stockValue': false,
+      'lowStockProducts': false,
+    };
     _loadDashboard();
     _loadReport();
   }
@@ -147,29 +156,26 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                             AppLocalizations.of(context)!.totalProducts,
                             dashboard['total_products']?.toString() ?? '0',
                             Icons.inventory,
-                            Colors.blue),
+                            Colors.blue,
+                            'totalProducts'),
                         _statCard(
-                            AppLocalizations.of(context)!.todaySales,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['today_sales']?.toString() ?? '0')),
-                            Icons.trending_up,
-                            Colors.green),
-                        _statCard(
-                            AppLocalizations.of(context)!.totalSales,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['total_sales']?.toString() ?? '0')),
-                            Icons.monetization_on,
-                            Colors.orange),
-                        _statCard(
-                            AppLocalizations.of(context)!.totalExpenses,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['total_expenses']?.toString() ??
-                                    '0')),
-                            Icons.money_off,
-                            Colors.red),
+                            'Low Stock Products',
+                            (dashboard['low_stock_products_count'] as num?)
+                                    ?.toString() ??
+                                '0',
+                            Icons.warning,
+                            Colors.red,
+                            'lowStockProducts'),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 10),
+                    _statCardFullWidth(
+                        AppLocalizations.of(context)!.todaySales,
+                        NumberFormatter.formatCurrency(num.tryParse(
+                            dashboard['today_sales']?.toString() ?? '0')),
+                        Icons.inventory,
+                        Colors.green,
+                        'lowStockProducts'),
                   ],
                 ),
 
@@ -256,64 +262,99 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
 
   // ================= Widgets =================
 
-  Widget _statCard(String title, String value, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2)),
+  Widget _statCard(
+      String title, String value, IconData icon, Color color, String key) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
       ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, color: color, size: 24),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.1), color.withOpacity(0.05)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: color, size: 24),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  _cardVisibility[key]! ? value : '****',
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 2),
                 Text(
                   title,
                   style: TextStyle(
                     color: Colors.grey[700],
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
-          ),
-        ],
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                icon: Icon(
+                  _cardVisibility[key]!
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  size: 16,
+                  color: Colors.grey[600],
+                ),
+                onPressed: () => setState(
+                    () => _cardVisibility[key] = !_cardVisibility[key]!),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _statCardFullWidth(
-      String title, String value, IconData icon, Color color) {
+      String title, String value, IconData icon, Color color, String key) {
     return Card(
       elevation: 2,
       shadowColor: color.withOpacity(0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.1), color.withOpacity(0.05)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Row(
           children: [
             Container(
@@ -339,15 +380,24 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    value,
+                    _cardVisibility[key]! ? value : '****',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: color,
                     ),
                   ),
                 ],
               ),
+            ),
+            IconButton(
+              icon: Icon(
+                _cardVisibility[key]! ? Icons.visibility : Icons.visibility_off,
+                size: 16,
+                color: Colors.grey[600],
+              ),
+              onPressed: () =>
+                  setState(() => _cardVisibility[key] = !_cardVisibility[key]!),
             ),
           ],
         ),

@@ -28,6 +28,7 @@
   "totalSales": "Total Sales",
   "totalExpenses": "Total Expenses",
   "stockValue": "Stock Value",
+  "lowStockProducts": "Low Stock Products",
   "quickActions": "Quick Actions",
   "addProduct": "Add Product",
   "newSale": "New Sale",

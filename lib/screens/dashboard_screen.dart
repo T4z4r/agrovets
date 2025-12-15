@@ -38,6 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'totalSales': false,
       'totalExpenses': false,
       'stockValue': false,
+      'lowStockProducts': false,
     };
     _loadDashboard();
   }
@@ -389,6 +390,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Icons.warehouse,
                         Colors.green,
                         'stockValue'),
+                    const SizedBox(height: 16),
+                    _statCardFullWidth(
+                        'Low Stock Products',
+                        dashboard['low_stock_products_count']?.toString() ?? '0',
+                        Icons.warning,
+                        Colors.orange,
+                        'lowStockProducts'),
                   ],
                 ),
 
