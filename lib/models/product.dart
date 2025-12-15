@@ -4,9 +4,9 @@ class Product {
   final String? name;
   final String? unit;
   final String? category;
-  final int? stock;
-  final int? costPrice;
-  final int? sellingPrice;
+  final double? stock;
+  final double? costPrice;
+  final double? sellingPrice;
 
   Product({
     required this.id,
@@ -25,9 +25,10 @@ class Product {
       name: map['name'] ?? '',
       unit: map['unit'] ?? '',
       category: map['category'] ?? '',
-      stock: int.tryParse(map['stock']?.toString() ?? '0') ?? 0,
-      costPrice: int.tryParse(map['cost_price']?.toString() ?? '0') ?? 0,
-      sellingPrice: int.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
+      stock: double.tryParse(map['stock']?.toString() ?? '0') ?? 0,
+      costPrice: double.tryParse(map['cost_price']?.toString() ?? '0') ?? 0,
+      sellingPrice:
+          double.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
     );
   }
 

@@ -47,9 +47,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       'name': _nameCtrl.text,
       'unit': _unitCtrl.text,
       'category': _categoryCtrl.text,
-      'stock': int.parse(_stockCtrl.text),
-      'cost_price': int.parse(_costPriceCtrl.text),
-      'selling_price': int.parse(_sellingPriceCtrl.text),
+      'stock': double.parse(_stockCtrl.text),
+      'cost_price': double.parse(_costPriceCtrl.text),
+      'selling_price': double.parse(_sellingPriceCtrl.text),
     };
     try {
       if (widget.product == null) {
@@ -211,7 +211,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           if (v == null || v.isEmpty) {
                             return 'Stock quantity is required';
                           }
-                          if (int.tryParse(v) == null) {
+                          if (double.tryParse(v) == null) {
                             return 'Please enter a valid number';
                           }
                           return null;
@@ -238,7 +238,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           if (v == null || v.isEmpty) {
                             return 'Cost price is required';
                           }
-                          if (int.tryParse(v) == null) {
+                          if (double.tryParse(v) == null) {
                             return 'Please enter a valid amount';
                           }
                           return null;
@@ -265,7 +265,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           if (v == null || v.isEmpty) {
                             return 'Selling price is required';
                           }
-                          if (int.tryParse(v) == null) {
+                          if (double.tryParse(v) == null) {
                             return 'Please enter a valid amount';
                           }
                           return null;
