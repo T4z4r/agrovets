@@ -25,10 +25,18 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   Map<String, dynamic> dashboard = {};
   bool _loading = false;
+  Map<String, bool> _cardVisibility = {};
 
   @override
   void initState() {
     super.initState();
+    _cardVisibility = {
+      'totalProducts': false,
+      'todaySales': false,
+      'totalSales': false,
+      'totalExpenses': false,
+      'stockValue': false,
+    };
     _loadDashboard();
   }
 
@@ -345,26 +353,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             AppLocalizations.of(context)!.totalProducts,
                             dashboard['total_products']?.toString() ?? '0',
                             Icons.inventory,
-                            Colors.blue),
+                            Colors.blue,
+                            'totalProducts'),
                         _statCard(
                             AppLocalizations.of(context)!.todaySales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
-                            Colors.green),
+                            Colors.green,
+                            'todaySales'),
                         _statCard(
                             AppLocalizations.of(context)!.totalSales,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_sales']?.toString() ?? '0')),
                             Icons.monetization_on,
-                            Colors.orange),
+                            Colors.orange,
+                            'totalSales'),
                         _statCard(
                             AppLocalizations.of(context)!.totalExpenses,
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['total_expenses']?.toString() ??
                                     '0')),
                             Icons.money_off,
-                            Colors.red),
+                            Colors.red,
+                            'totalExpenses'),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -373,7 +385,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         NumberFormatter.formatCurrency(num.tryParse(
                             dashboard['stock_value']?.toString() ?? '0')),
                         Icons.warehouse,
-                        Colors.green),
+                        Colors.green,
+                        'stockValue'),
                   ],
                 ),
 
@@ -443,7 +456,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _statCard(String title, String value, IconData icon, Color color) {
+  Widget _statCard(
+      String title, String value, IconData icon, Color color, String key) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -476,7 +490,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  value,
+                  _cardVisibility[key]! ? value : '****',
                   style: TextStyle(
                     color: color,
                     fontSize: 14,
@@ -486,13 +500,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
+          IconButton(
+            icon: Icon(
+              _cardVisibility[key]! ? Icons.visibility : Icons.visibility_off,
+              size: 16,
+              color: Colors.grey[600],
+            ),
+            onPressed: () =>
+                setState(() => _cardVisibility[key] = !_cardVisibility[key]!),
+          ),
         ],
       ),
     );
   }
 
   Widget _statCardFullWidth(
-      String title, String value, IconData icon, Color color) {
+      String title, String value, IconData icon, Color color, String key) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -525,7 +548,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  value,
+                  _cardVisibility[key]! ? value : '****',
                   style: TextStyle(
                     color: color,
                     fontSize: 18,
@@ -534,6 +557,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ],
             ),
+          ),
+          IconButton(
+            icon: Icon(
+              _cardVisibility[key]! ? Icons.visibility : Icons.visibility_off,
+              size: 16,
+              color: Colors.grey[600],
+            ),
+            onPressed: () =>
+                setState(() => _cardVisibility[key] = !_cardVisibility[key]!),
           ),
         ],
       ),
