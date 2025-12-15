@@ -2,7 +2,7 @@
 class Expense {
   final int id;
   final String category;
-  final int amount;
+  final double amount;
   final String? description;
   final String date;
 
@@ -18,7 +18,7 @@ class Expense {
     return Expense(
       id: json['id'] ?? 0,
       category: json['category'] ?? '',
-      amount: int.tryParse(json['amount']?.toString() ?? '0') ?? 0,
+      amount: double.tryParse(json['amount']?.toString() ?? '0') ?? 0.0,
       description: json['description'],
       date: json['date'] ?? '',
     );

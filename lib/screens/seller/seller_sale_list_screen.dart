@@ -6,7 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
 import 'seller_sale_form_screen.dart';
-import '../../screens/sales/receipt_view_screen.dart';
+import 'seller_receipt_view_screen.dart';
 
 class SellerSaleListScreen extends StatefulWidget {
   const SellerSaleListScreen({super.key});
@@ -207,7 +207,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (_) =>
-                                              ReceiptViewScreen(saleId: s.id),
+                                              SellerReceiptViewScreen(saleId: s.id),
                                         ),
                                       );
                                     }

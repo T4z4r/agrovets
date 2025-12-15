@@ -41,7 +41,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     setState(() => _loading = true);
     final data = {
       'category': _categoryCtrl.text,
-      'amount': int.parse(_amountCtrl.text),
+      'amount': double.parse(_amountCtrl.text),
       'description': _descriptionCtrl.text,
       'date': DateFormat('yyyy-MM-dd').format(_date),
     };
@@ -195,7 +195,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                           if (v == null || v.isEmpty) {
                             return 'Amount is required';
                           }
-                          if (int.tryParse(v) == null) {
+                          if (double.tryParse(v) == null) {
                             return 'Please enter a valid amount';
                           }
                           return null;
@@ -234,8 +234,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                           fillColor: Colors.grey[50],
                         ),
                         onTap: _selectDate,
-                        controller: TextEditingController(
-                            text: DateFormat('yyyy-MM-dd').format(_date)),
+                        initialValue: DateFormat('yyyy-MM-dd').format(_date),
                       ),
                       const SizedBox(height: 24),
 

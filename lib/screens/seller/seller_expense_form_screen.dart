@@ -42,7 +42,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
     setState(() => _loading = true);
     final data = {
       'category': _categoryCtrl.text,
-      'amount': int.parse(_amountCtrl.text),
+      'amount': double.parse(_amountCtrl.text),
       'description': _descriptionCtrl.text,
       'date': DateFormat('yyyy-MM-dd').format(_date),
     };
@@ -193,7 +193,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                           if (v == null || v.isEmpty) {
                             return AppLocalizations.of(context)!.amountRequired;
                           }
-                          if (int.tryParse(v) == null) {
+                          if (double.tryParse(v) == null) {
                             return AppLocalizations.of(context)!.enterValidAmount;
                           }
                           return null;
@@ -232,8 +232,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                           fillColor: Colors.grey[50],
                         ),
                         onTap: _selectDate,
-                        controller: TextEditingController(
-                            text: DateFormat('yyyy-MM-dd').format(_date)),
+                        initialValue: DateFormat('yyyy-MM-dd').format(_date),
                       ),
                       const SizedBox(height: 24),
 
