@@ -24,6 +24,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   late TextEditingController _stockCtrl;
   late TextEditingController _costPriceCtrl;
   late TextEditingController _sellingPriceCtrl;
+  late TextEditingController _minimumQuantityCtrl;
   bool _loading = false;
 
   @override
@@ -38,6 +39,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         TextEditingController(text: widget.product?.costPrice.toString() ?? '');
     _sellingPriceCtrl = TextEditingController(
         text: widget.product?.sellingPrice.toString() ?? '');
+    _minimumQuantityCtrl = TextEditingController(
+        text: widget.product?.minimumQuantity.toString() ?? '');
   }
 
   Future<void> _save() async {
@@ -50,6 +53,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       'stock': double.parse(_stockCtrl.text),
       'cost_price': double.parse(_costPriceCtrl.text),
       'selling_price': double.parse(_sellingPriceCtrl.text),
+      'minimum_quantity': double.parse(_minimumQuantityCtrl.text),
     };
     try {
       if (widget.product == null) {
@@ -210,6 +214,32 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         validator: (v) {
                           if (v == null || v.isEmpty) {
                             return 'Stock quantity is required';
+                          }
+                          if (double.tryParse(v) == null) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Minimum Quantity Field
+                      TextFormField(
+                        controller: _minimumQuantityCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Minimum Quantity',
+                          hintText: 'Enter minimum quantity',
+                          prefixIcon: const Icon(Icons.warning),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return 'Minimum quantity is required';
                           }
                           if (double.tryParse(v) == null) {
                             return 'Please enter a valid number';

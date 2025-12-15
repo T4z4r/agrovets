@@ -7,6 +7,7 @@ class Product {
   final double? stock;
   final double? costPrice;
   final double? sellingPrice;
+  final double? minimumQuantity;
 
   Product({
     required this.id,
@@ -16,6 +17,7 @@ class Product {
     required this.stock,
     required this.costPrice,
     required this.sellingPrice,
+    required this.minimumQuantity,
   });
 
   factory Product.fromJson(dynamic json) {
@@ -29,6 +31,7 @@ class Product {
       costPrice: double.tryParse(map['cost_price']?.toString() ?? '0') ?? 0,
       sellingPrice:
           double.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
+      minimumQuantity: double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
     );
   }
 
@@ -40,6 +43,7 @@ class Product {
       'stock': stock,
       'cost_price': costPrice,
       'selling_price': sellingPrice,
+      'minimum_quantity': minimumQuantity,
     };
   }
 }

@@ -215,16 +215,25 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         Icon(
                                           Icons.inventory,
                                           size: 14,
-                                          color: Colors.grey[600],
+                                          color: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? Colors.red : Colors.grey[600],
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
                                           '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
-                                            color: Colors.grey[600],
+                                            color: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? Colors.red : Colors.grey[600],
                                             fontSize: 12,
+                                            fontWeight: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? FontWeight.bold : FontWeight.normal,
                                           ),
                                         ),
+                                        if ((p.stock ?? 0) <= (p.minimumQuantity ?? 0)) ...[
+                                          const SizedBox(width: 4),
+                                          Icon(
+                                            Icons.warning,
+                                            size: 14,
+                                            color: Colors.red,
+                                          ),
+                                        ],
                                       ],
                                     ),
                                     const SizedBox(height: 2),
