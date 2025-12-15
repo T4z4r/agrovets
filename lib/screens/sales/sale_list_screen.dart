@@ -56,6 +56,15 @@ class _SaleListScreenState extends State<SaleListScreen> {
     });
   }
 
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +177,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${s.saleDate}',
+                                          'Date: ${_formatDate(s.saleDate)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -202,7 +211,9 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                       value: 'receipt',
                                       child: ListTile(
                                         leading: Icon(Icons.receipt),
-                                        title: Text(AppLocalizations.of(context)!.viewReceipt),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewReceipt),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
