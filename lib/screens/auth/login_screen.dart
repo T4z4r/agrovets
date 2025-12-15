@@ -68,6 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 40),
 
+                // App Icon
+                Icon(
+                  Icons.agriculture,
+                  size: 80,
+                  color: Colors.green[700],
+                ),
+                const SizedBox(height: 20),
+
                 // Welcome Text
                 Text(
                   AppLocalizations.of(context)!.appName,
