@@ -153,8 +153,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                 prefixIcon: const Icon(Icons.calendar_today),
                               ),
                               onTap: _selectDate,
-                              controller: TextEditingController(
-                                  text: DateFormat('yyyy-MM-dd').format(_date)),
+                              initialValue:
+                                  DateFormat('yyyy-MM-dd').format(_date),
                             ),
                           ],
                         ),
@@ -250,17 +250,29 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                 value: p.id,
                                                 child: Text(p.name!)))
                                             .toList(),
-                                        onChanged: (v) => setState(() =>
-                                            _items[idx]['product_id'] = v),
+                                        onChanged: (v) {
+                                          if (v != null) {
+                                            final product = _products
+                                                .firstWhere((p) => p.id == v);
+                                            setState(() {
+                                              _items[idx]['product_id'] = v;
+                                              _items[idx]['price'] =
+                                                  product.sellingPrice;
+                                            });
+                                          }
+                                        },
                                       ),
                                       const SizedBox(height: 12),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: TextFormField(
+                                              initialValue: _items[idx]
+                                                      ['quantity']
+                                                  .toString(),
                                               onChanged: (v) => _items[idx]
                                                       ['quantity'] =
-                                                  int.tryParse(v),
+                                                  int.tryParse(v) ?? 1,
                                               decoration: const InputDecoration(
                                                 labelText: 'Qty',
                                                 border: OutlineInputBorder(),
@@ -276,8 +288,11 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                           const SizedBox(width: 12),
                                           Expanded(
                                             child: TextFormField(
+                                              initialValue: _items[idx]['price']
+                                                  .toString(),
                                               onChanged: (v) => _items[idx]
-                                                  ['price'] = int.tryParse(v),
+                                                      ['price'] =
+                                                  int.tryParse(v) ?? 0,
                                               decoration: const InputDecoration(
                                                 labelText: 'Price',
                                                 border: OutlineInputBorder(),
