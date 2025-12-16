@@ -41,6 +41,13 @@ class Product {
           double.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
       minimumQuantity:
           double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
+      stockTransactions: map['stock_transactions'] != null
+          ? (map['stock_transactions'] as List)
+              .map((e) => StockTransaction.fromJson(e))
+              .toList()
+          : null,
+      createdAt: map['created_at'],
+      updatedAt: map['updated_at'],
     );
   }
 

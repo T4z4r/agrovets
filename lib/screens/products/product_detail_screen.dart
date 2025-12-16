@@ -45,6 +45,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     }
   }
 
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,9 +267,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 if (_product!.createdAt != null)
-                                  Text('Created: ${_product!.createdAt}'),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'Created: ${_formatDate(_product!.createdAt!)}',
+                                        style: TextStyle(color: Colors.grey[700]),
+                                      ),
+                                    ],
+                                  ),
                                 if (_product!.updatedAt != null)
-                                  Text('Updated: ${_product!.updatedAt}'),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.update, size: 16, color: Colors.grey[600]),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        'Updated: ${_formatDate(_product!.updatedAt!)}',
+                                        style: TextStyle(color: Colors.grey[700]),
+                                      ),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
