@@ -32,7 +32,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     super.initState();
     _nameCtrl = TextEditingController(text: widget.product?.name ?? '');
     _unitCtrl = TextEditingController(text: widget.product?.unit ?? '');
-    _categoryCtrl = TextEditingController(text: widget.product?.category ?? '');
+    _categoryCtrl =
+        TextEditingController(text: widget.product?.category ?? '--');
     _stockCtrl =
         TextEditingController(text: widget.product?.stock.toString() ?? '');
     _costPriceCtrl =
