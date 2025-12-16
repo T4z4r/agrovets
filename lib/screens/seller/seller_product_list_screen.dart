@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
+import '../../screens/products/product_detail_screen.dart';
 
 class SellerProductListScreen extends StatefulWidget {
   const SellerProductListScreen({super.key});
@@ -157,18 +158,28 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         Icon(
                                           Icons.inventory,
                                           size: 14,
-                                          color: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? Colors.red : Colors.grey[600],
+                                          color: (p.stock ?? 0) <=
+                                                  (p.minimumQuantity ?? 0)
+                                              ? Colors.red
+                                              : Colors.grey[600],
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
                                           '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
-                                            color: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? Colors.red : Colors.grey[600],
+                                            color: (p.stock ?? 0) <=
+                                                    (p.minimumQuantity ?? 0)
+                                                ? Colors.red
+                                                : Colors.grey[600],
                                             fontSize: 12,
-                                            fontWeight: (p.stock ?? 0) <= (p.minimumQuantity ?? 0) ? FontWeight.bold : FontWeight.normal,
+                                            fontWeight: (p.stock ?? 0) <=
+                                                    (p.minimumQuantity ?? 0)
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
                                           ),
                                         ),
-                                        if ((p.stock ?? 0) <= (p.minimumQuantity ?? 0)) ...[
+                                        if ((p.stock ?? 0) <=
+                                            (p.minimumQuantity ?? 0)) ...[
                                           const SizedBox(width: 4),
                                           Icon(
                                             Icons.warning,
@@ -220,6 +231,14 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                     ],
                                   ],
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ProductDetailScreen(productId: p.id),
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           },
