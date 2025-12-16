@@ -7,6 +7,7 @@ import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
 import 'product_form_screen.dart';
+import 'product_detail_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});

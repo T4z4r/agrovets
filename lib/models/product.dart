@@ -1,4 +1,6 @@
 // lib/models/product.dart
+import 'stock_transaction.dart';
+
 class Product {
   final int id;
   final String? name;
@@ -8,6 +10,9 @@ class Product {
   final double? costPrice;
   final double? sellingPrice;
   final double? minimumQuantity;
+  final List<StockTransaction>? stockTransactions;
+  final String? createdAt;
+  final String? updatedAt;
 
   Product({
     required this.id,
@@ -18,6 +23,9 @@ class Product {
     required this.costPrice,
     required this.sellingPrice,
     required this.minimumQuantity,
+    this.stockTransactions,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Product.fromJson(dynamic json) {
@@ -31,7 +39,8 @@ class Product {
       costPrice: double.tryParse(map['cost_price']?.toString() ?? '0') ?? 0,
       sellingPrice:
           double.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
-      minimumQuantity: double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
+      minimumQuantity:
+          double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
     );
   }
 
