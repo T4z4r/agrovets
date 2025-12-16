@@ -1,4 +1,8 @@
 // lib/models/stock_transaction.dart
+import 'product.dart';
+import 'supplier.dart';
+import 'user.dart';
+
 class StockTransaction {
   final int id;
   final int productId;
@@ -7,6 +11,9 @@ class StockTransaction {
   final int? supplierId;
   final String date;
   final String? remarks;
+  final Product? product;
+  final Supplier? supplier;
+  final User? user;
 
   StockTransaction({
     required this.id,
@@ -16,6 +23,9 @@ class StockTransaction {
     this.supplierId,
     required this.date,
     this.remarks,
+    this.product,
+    this.supplier,
+    this.user,
   });
 
   factory StockTransaction.fromJson(Map<String, dynamic> json) {
@@ -29,6 +39,9 @@ class StockTransaction {
           : null,
       date: json['date'] ?? '',
       remarks: json['remarks'],
+      product: json['product'] != null ? Product.fromJson(json['product']) : null,
+      supplier: json['supplier'] != null ? Supplier.fromJson(json['supplier']) : null,
+      user: json['user'] != null ? User.fromJson(json['user']) : null,
     );
   }
 

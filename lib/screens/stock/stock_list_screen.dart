@@ -53,6 +53,51 @@ class _StockListScreenState extends State<StockListScreen> {
     }
   }
 
+  void _showTransactionDetails(BuildContext context, StockTransaction t) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('${t.type.replaceAll('_', ' ').toUpperCase()} Details'),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (t.product != null) ...[
+                Text('Product: ${t.product!.name}'),
+                const SizedBox(height: 8),
+              ],
+              Text('Type: ${t.type.replaceAll('_', ' ')}'),
+              const SizedBox(height: 8),
+              Text('Quantity: ${t.quantity}'),
+              const SizedBox(height: 8),
+              Text('Date: ${t.date}'),
+              const SizedBox(height: 8),
+              if (t.supplier != null) ...[
+                Text('Supplier: ${t.supplier!.name}'),
+                const SizedBox(height: 8),
+              ],
+              if (t.user != null) ...[
+                Text('Recorded By: ${t.user!.name} (${t.user!.role})'),
+                const SizedBox(height: 8),
+              ],
+              if (t.remarks != null && t.remarks!.isNotEmpty) ...[
+                Text('Remarks: ${t.remarks}'),
+                const SizedBox(height: 8),
+              ],
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _filterTransactions(String query) {
     setState(() {
       _searchQuery = query;
@@ -206,6 +251,29 @@ class _StockListScreenState extends State<StockListScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 4),
+                                    if (t.product != null) ...[
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.inventory,
+                                            size: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Expanded(
+                                            child: Text(
+                                              'Product: ${t.product!.name}',
+                                              style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 12,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 2),
+                                    ],
                                     Row(
                                       children: [
                                         Icon(
@@ -270,6 +338,17 @@ class _StockListScreenState extends State<StockListScreen> {
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
                                     const PopupMenuItem(
+                                      value: 'view_details',
+                                      child: ListTile(
+                                        leading: Icon(Icons.visibility,
+                                            color: Colors.blue),
+                                        title: Text('View Details',
+                                            style:
+                                                TextStyle(color: Colors.blue)),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
+                                    const PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
                                         leading: Icon(Icons.delete,
@@ -282,7 +361,9 @@ class _StockListScreenState extends State<StockListScreen> {
                                     ),
                                   ],
                                   onSelected: (value) async {
-                                    if (value == 'delete') {
+                                    if (value == 'view_details') {
+                                      _showTransactionDetails(context, t);
+                                    } else if (value == 'delete') {
                                       // Show confirmation dialog
                                       final confirmed = await showDialog<bool>(
                                         context: context,
