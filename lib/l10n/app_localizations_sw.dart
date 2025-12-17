@@ -685,7 +685,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get netLoss => 'Hasara Halisi';
 
   @override
-  String get selectDateToGenerateDailyReport => 'Chagua tarehe ili kutengeneza ripoti ya kila siku';
+  String get selectDateToGenerateDailyReport =>
+      'Chagua tarehe ili kutengeneza ripoti ya kila siku';
 
   @override
   String get sellerNameRequired => 'Jina la mfanyabiashara linahitajika';

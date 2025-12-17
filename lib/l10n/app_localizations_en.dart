@@ -680,7 +680,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get netLoss => 'Net Loss';
 
   @override
-  String get selectDateToGenerateDailyReport => 'Select a date to generate daily report';
+  String get selectDateToGenerateDailyReport =>
+      'Select a date to generate daily report';
 
   @override
   String get sellerNameRequired => 'Seller name is required';
