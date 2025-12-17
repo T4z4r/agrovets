@@ -244,5 +244,11 @@
   "enterConfirmPassword": "Thibitisha nenosiri",
   "leaveEmptyNotChanging": "Acha tupu ikiwa hautabadilisha",
   "passwordConfirmationRequired": "Uthibitishaji wa nenosiri unahitajika",
-  "passwordsDoNotMatch": "Manenosiri hayalingani"
+  "passwordsDoNotMatch": "Manenosiri hayalingani",
+  "details": "Maelezo",
+  "type": "Aina",
+  "supplier": "Msambazaji",
+  "recordedBy": "Imerekodiwa na",
+  "viewDetails": "Tazama Maelezo",
+  "close": "Funga"
 }

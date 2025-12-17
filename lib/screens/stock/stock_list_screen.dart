@@ -57,32 +57,37 @@ class _StockListScreenState extends State<StockListScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${t.type.replaceAll('_', ' ').toUpperCase()} Details'),
+        title: Text(
+            '${t.type.replaceAll('_', ' ').toUpperCase()} ${AppLocalizations.of(context)!.details}'),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               if (t.product != null) ...[
-                Text('Product: ${t.product!.name}'),
+                Text(
+                    '${AppLocalizations.of(context)!.product}: ${t.product!.name}'),
                 const SizedBox(height: 8),
               ],
-              Text('Type: ${t.type.replaceAll('_', ' ')}'),
+              Text(
+                  '${AppLocalizations.of(context)!.type}: ${t.type.replaceAll('_', ' ')}'),
               const SizedBox(height: 8),
-              Text('Quantity: ${t.quantity}'),
+              Text('${AppLocalizations.of(context)!.quantity}: ${t.quantity}'),
               const SizedBox(height: 8),
-              Text('Date: ${t.date}'),
+              Text('${AppLocalizations.of(context)!.date}: ${t.date}'),
               const SizedBox(height: 8),
               if (t.supplier != null) ...[
-                Text('Supplier: ${t.supplier!.name}'),
+                Text(
+                    '${AppLocalizations.of(context)!.supplier}: ${t.supplier!.name}'),
                 const SizedBox(height: 8),
               ],
               if (t.user != null) ...[
-                Text('Recorded By: ${t.user!.name} (${t.user!.role})'),
+                Text(
+                    '${AppLocalizations.of(context)!.recordedBy}: ${t.user!.name} (${t.user!.role})'),
                 const SizedBox(height: 8),
               ],
               if (t.remarks != null && t.remarks!.isNotEmpty) ...[
-                Text('Remarks: ${t.remarks}'),
+                Text('${AppLocalizations.of(context)!.remarks}: ${t.remarks}'),
                 const SizedBox(height: 8),
               ],
             ],
@@ -91,7 +96,7 @@ class _StockListScreenState extends State<StockListScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
         ],
       ),
@@ -171,8 +176,10 @@ class _StockListScreenState extends State<StockListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No stock transactions found'
-                                  : 'No transactions match your search',
+                                  ? AppLocalizations.of(context)!
+                                      .noTransactionsFound
+                                  : AppLocalizations.of(context)!
+                                      .noTransactionsMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -262,7 +269,7 @@ class _StockListScreenState extends State<StockListScreen> {
                                           const SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
-                                              'Product: ${t.product!.name}',
+                                              '${AppLocalizations.of(context)!.product}: ${t.product!.name}',
                                               style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 12,
@@ -283,7 +290,7 @@ class _StockListScreenState extends State<StockListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Quantity: ${t.quantity}',
+                                          '${AppLocalizations.of(context)!.quantity}: ${t.quantity}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -301,7 +308,7 @@ class _StockListScreenState extends State<StockListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${t.date}',
+                                          '${AppLocalizations.of(context)!.date}: ${t.date}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -322,7 +329,7 @@ class _StockListScreenState extends State<StockListScreen> {
                                           const SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
-                                              t.remarks!,
+                                              '${AppLocalizations.of(context)!.remarks}: ${t.remarks!}',
                                               style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 12,
@@ -337,23 +344,27 @@ class _StockListScreenState extends State<StockListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'view_details',
                                       child: ListTile(
                                         leading: Icon(Icons.visibility,
                                             color: Colors.blue),
-                                        title: Text('View Details',
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewDetails,
                                             style:
                                                 TextStyle(color: Colors.blue)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
                                         leading: Icon(Icons.delete,
                                             color: Colors.red),
-                                        title: Text('Delete',
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .delete,
                                             style:
                                                 TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
@@ -368,22 +379,27 @@ class _StockListScreenState extends State<StockListScreen> {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title:
-                                              const Text('Delete Transaction'),
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .deleteTransaction),
                                           content: Text(
-                                              'Are you sure you want to delete this ${t.type.replaceAll('_', ' ')} transaction?'),
+                                              '${AppLocalizations.of(context)!.deleteProductConfirm} ${t.type.replaceAll('_', ' ')} transaction?'),
                                           actions: [
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, false),
-                                              child: const Text('Cancel'),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
                                             ),
                                             ElevatedButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, true),
                                               style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.red),
-                                              child: const Text('Delete'),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .delete),
                                             ),
                                           ],
                                         ),

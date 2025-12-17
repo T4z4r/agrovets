@@ -632,4 +632,19 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'Manenosiri hayalingani';
+
+  @override
+  String get details => 'Maelezo';
+
+  @override
+  String get type => 'Aina';
+
+  @override
+  String get supplier => 'Msambazaji';
+
+  @override
+  String get viewDetails => 'Tazama Maelezo';
+
+  @override
+  String get close => 'Funga';
 }

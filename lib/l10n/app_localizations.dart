@@ -1339,6 +1339,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordsDoNotMatch;
+
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier'**
+  String get supplier;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewDetails;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 }
 
 class _AppLocalizationsDelegate

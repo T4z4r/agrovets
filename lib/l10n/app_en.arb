@@ -245,5 +245,11 @@
   "enterConfirmPassword": "Confirm password",
   "leaveEmptyNotChanging": "Leave empty if not changing",
   "passwordConfirmationRequired": "Password confirmation is required",
-  "passwordsDoNotMatch": "Passwords do not match"
+  "passwordsDoNotMatch": "Passwords do not match",
+  "details": "Details",
+  "type": "Type",
+  "supplier": "Supplier",
+  "recordedBy": "Recorded By",
+  "viewDetails": "View Details",
+  "close": "Close"
 }
