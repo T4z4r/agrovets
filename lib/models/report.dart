@@ -14,8 +14,10 @@ class DailyReport {
 
   factory DailyReport.fromJson(Map<String, dynamic> json) {
     return DailyReport(
-      totalSales: double.tryParse(json['total_sales']?.toString() ?? '0') ?? 0.0,
-      totalExpenses: double.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0.0,
+      totalSales:
+          double.tryParse(json['total_sales']?.toString() ?? '0') ?? 0.0,
+      totalExpenses:
+          double.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0.0,
     );
   }
 }
@@ -60,11 +62,19 @@ class SellerDaySummary {
   factory SellerDaySummary.fromJson(Map<String, dynamic> json) {
     return SellerDaySummary(
       date: json['date'] ?? '',
-      sales: (json['sales'] as List?)?.map((s) => Sale.fromJson(s)).toList() ?? [],
+      sales:
+          (json['sales'] as List?)?.map((s) => Sale.fromJson(s)).toList() ?? [],
       totalSales: int.tryParse(json['total_sales']?.toString() ?? '0') ?? 0,
-      expenses: (json['expenses'] as List?)?.map((e) => Expense.fromJson(e)).toList() ?? [],
-      totalExpenses: int.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0,
-      stockTransactions: (json['stock_transactions'] as List?)?.map((st) => StockTransaction.fromJson(st)).toList() ?? [],
+      expenses: (json['expenses'] as List?)
+              ?.map((e) => Expense.fromJson(e))
+              .toList() ??
+          [],
+      totalExpenses:
+          int.tryParse(json['total_expenses']?.toString() ?? '0') ?? 0,
+      stockTransactions: (json['stock_transactions'] as List?)
+              ?.map((st) => StockTransaction.fromJson(st))
+              .toList() ??
+          [],
     );
   }
 }

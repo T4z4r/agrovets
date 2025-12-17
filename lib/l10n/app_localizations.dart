@@ -1414,6 +1414,9 @@ abstract class AppLocalizations {
   String get sale;
   String get items;
   String get updateExpense;
+  String get netIncome;
+  String get netLoss;
+  String get selectDateToGenerateDailyReport;
 }
 
 class _AppLocalizationsDelegate

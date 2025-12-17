@@ -677,4 +677,13 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get updateExpense => 'Sasisha Matumizi';
+
+  @override
+  String get netIncome => 'Mapato Halisi';
+
+  @override
+  String get netLoss => 'Hasara Halisi';
+
+  @override
+  String get selectDateToGenerateDailyReport => 'Chagua tarehe ili kutengeneza ripoti ya kila siku';
 }

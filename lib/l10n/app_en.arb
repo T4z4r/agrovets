@@ -262,5 +262,8 @@
   "sale": "Sale",
   "date": "Date",
   "items": "Items",
-  "updateExpense": "Update Expense"
+  "updateExpense": "Update Expense",
+  "netIncome": "Net Income",
+  "netLoss": "Net Loss",
+  "selectDateToGenerateDailyReport": "Select a date to generate daily report"
 }

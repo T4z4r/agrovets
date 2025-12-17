@@ -261,5 +261,8 @@
   "sale": "Uuzaji",
   "date": "Tarehe",
   "items": "Bidhaa",
-  "updateExpense": "Sasisha Matumizi"
+  "updateExpense": "Sasisha Matumizi",
+  "netIncome": "Mapato Halisi",
+  "netLoss": "Hasara Halisi",
+  "selectDateToGenerateDailyReport": "Chagua tarehe ili kutengeneza ripoti ya kila siku"
 }

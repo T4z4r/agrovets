@@ -278,10 +278,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              (_report!.totalSales - _report!.totalExpenses) >=
-                                      0
-                                  ? 'Net Income:'
-                                  : 'Net Loss:',
+                              '${(_report!.totalSales - _report!.totalExpenses) >= 0 ? AppLocalizations.of(context)!.netIncome : AppLocalizations.of(context)!.netLoss}:',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -322,7 +319,8 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Select a date to generate daily report',
+                        AppLocalizations.of(context)!
+                            .selectDateToGenerateDailyReport,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],

@@ -672,4 +672,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateExpense => 'Update Expense';
+
+  @override
+  String get netIncome => 'Net Income';
+
+  @override
+  String get netLoss => 'Net Loss';
+
+  @override
+  String get selectDateToGenerateDailyReport => 'Select a date to generate daily report';
 }
