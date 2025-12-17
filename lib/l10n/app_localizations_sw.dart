@@ -58,7 +58,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get sellers => 'Wauzaji';
 
   @override
-  String get stock => 'Hekalu';
+  String get stock => 'Stoki';
 
   @override
   String get sales => 'Mauzo';
@@ -91,7 +91,10 @@ class AppLocalizationsSw extends AppLocalizations {
   String get totalExpenses => 'Jumla ya Matumizi';
 
   @override
-  String get stockValue => 'Thamani ya Hekalu';
+  String get stockValue => 'Thamani ya Stoki';
+
+  @override
+  String get lowStockProducts => 'Bidhaa za Stoki Kidogo';
 
   @override
   String get quickActions => 'Vitendo vya Haraka';
@@ -220,10 +223,10 @@ class AppLocalizationsSw extends AppLocalizations {
   String get addNotes => 'Ongeza maoni yoyote';
 
   @override
-  String get stockIn => 'Ingiza Hekalu';
+  String get stockIn => 'Ingiza Stoki';
 
   @override
-  String get stockOut => 'Toa Hekalu';
+  String get stockOut => 'Toa Stoki';
 
   @override
   String get damage => 'Uharibifu';
@@ -233,13 +236,13 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get stockTransactionSaved =>
-      'Muamala wa hekalu umehifadhiwa kwa mafanikio!';
+      'Muamala wa Stoki umehifadhiwa kwa mafanikio!';
 
   @override
-  String get failedSaveStock => 'Imeshindikana kuhifadhi muamala wa hekalu';
+  String get failedSaveStock => 'Imeshindikana kuhifadhi muamala wa Stoki';
 
   @override
-  String get createStockTransaction => 'Unda Muamala wa Hekalu';
+  String get createStockTransaction => 'Unda Muamala wa Stoki';
 
   @override
   String get sellerName => 'Jina la Mwuza';
@@ -296,10 +299,10 @@ class AppLocalizationsSw extends AppLocalizations {
   String get enterCategory => 'mfano, Dawa, Chakula, Vifaa';
 
   @override
-  String get initialStock => 'Hekalu la Awali';
+  String get initialStock => 'Stoki la Awali';
 
   @override
-  String get enterStockQuantity => 'Ingiza idadi ya hekalu';
+  String get enterStockQuantity => 'Ingiza idadi ya Stoki';
 
   @override
   String get costPrice => 'Bei ya Ununuzi (Tsh)';
@@ -384,7 +387,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get selectReportDate => 'Chagua tarehe ya ripoti';
 
   @override
-  String get stockTransactions => 'Miamala ya Hekalu';
+  String get stockTransactions => 'Miamala ya Stoki';
 
   @override
   String get deleteTransaction => 'Futa Muamala';
@@ -417,7 +420,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get noProductsMatch => 'Hakuna bidhaa zinazolingana na utafutaji wako';
 
   @override
-  String get stockLabel => 'Hekalu';
+  String get stockLabel => 'Stoki';
 
   @override
   String get priceLabel => 'Bei';
@@ -442,7 +445,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get searchTransactions => 'Tafuta miamala...';
 
   @override
-  String get noTransactionsFound => 'Hakuna miamala ya hekalu iliyopatikana';
+  String get noTransactionsFound => 'Hakuna miamala ya Stoki iliyopatikana';
 
   @override
   String get noTransactionsMatch =>
@@ -495,7 +498,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get itemsLabel => 'Bidhaa';
 
   @override
-  String get stockTransactionTitle => 'Muamala wa Hekalu';
+  String get stockTransactionTitle => 'Muamala wa Stoki';
 
   @override
   String get retry => 'Jaribu Tena';

@@ -272,6 +272,12 @@ abstract class AppLocalizations {
   /// **'Stock Value'**
   String get stockValue;
 
+  /// No description provided for @lowStockProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock Products'**
+  String get lowStockProducts;
+
   /// No description provided for @quickActions.
   ///
   /// In en, this message translates to:

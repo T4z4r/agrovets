@@ -159,7 +159,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                             Colors.blue,
                             'totalProducts'),
                         _statCard(
-                            'Low Stock Products',
+                            AppLocalizations.of(context)!.lowStockProducts,
                             (dashboard['low_stock_products_count'] as num?)
                                     ?.toString() ??
                                 '0',

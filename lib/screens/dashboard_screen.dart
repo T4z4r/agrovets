@@ -397,7 +397,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         'stockValue'),
                     const SizedBox(height: 16),
                     _statCardFullWidth(
-                        'Low Stock Products',
+                        AppLocalizations.of(context)!.lowStockProducts,
                         dashboard['low_stock_products_count']?.toString() ??
                             '0',
                         Icons.warning,

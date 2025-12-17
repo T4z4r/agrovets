@@ -94,6 +94,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stockValue => 'Stock Value';
 
   @override
+  String get lowStockProducts => 'Low Stock Products';
+
+  @override
   String get quickActions => 'Quick Actions';
 
   @override
