@@ -99,7 +99,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'suppliers'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

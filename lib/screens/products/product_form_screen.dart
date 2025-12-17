@@ -161,7 +161,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'products'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

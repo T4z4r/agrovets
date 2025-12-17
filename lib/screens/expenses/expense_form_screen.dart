@@ -108,7 +108,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'expenses'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(

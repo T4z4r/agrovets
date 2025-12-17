@@ -238,7 +238,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'sales'),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : SingleChildScrollView(

@@ -293,7 +293,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: const AppDrawer(activeScreen: 'stock'),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : SingleChildScrollView(
