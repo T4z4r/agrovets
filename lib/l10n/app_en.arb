@@ -265,5 +265,7 @@
   "updateExpense": "Update Expense",
   "netIncome": "Net Income",
   "netLoss": "Net Loss",
-  "selectDateToGenerateDailyReport": "Select a date to generate daily report"
+  "selectDateToGenerateDailyReport": "Select a date to generate daily report",
+  "updateSeller": "Update Seller",
+  "sellerNameRequired": "Seller name is required"
 }

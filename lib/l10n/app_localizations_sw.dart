@@ -686,4 +686,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get selectDateToGenerateDailyReport => 'Chagua tarehe ili kutengeneza ripoti ya kila siku';
+
+  @override
+  String get sellerNameRequired => 'Jina la mfanyabiashara linahitajika';
 }

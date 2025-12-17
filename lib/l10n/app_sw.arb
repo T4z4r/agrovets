@@ -264,5 +264,7 @@
   "updateExpense": "Sasisha Matumizi",
   "netIncome": "Mapato Halisi",
   "netLoss": "Hasara Halisi",
-  "selectDateToGenerateDailyReport": "Chagua tarehe ili kutengeneza ripoti ya kila siku"
+  "selectDateToGenerateDailyReport": "Chagua tarehe ili kutengeneza ripoti ya kila siku",
+  "updateSeller": "Sasisha Mfanyabiashara",
+  "sellerNameRequired": "Jina la mfanyabiashara linahitajika"
 }

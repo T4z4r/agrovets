@@ -195,7 +195,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         validator: (v) {
                           if (v == null || v.isEmpty) {
                             return AppLocalizations.of(context)!
-                                .supplierNameRequired;
+                                .sellerNameRequired;
                           }
                           return null;
                         },

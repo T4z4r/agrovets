@@ -180,7 +180,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${s.items.length} items',
+                                          '${s.items.length} ${AppLocalizations.of(context)!.items}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -196,7 +196,9 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                       value: 'receipt',
                                       child: ListTile(
                                         leading: Icon(Icons.receipt),
-                                        title: Text(AppLocalizations.of(context)!.viewReceipt),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewReceipt),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
@@ -207,7 +209,8 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (_) =>
-                                              SellerReceiptViewScreen(saleId: s.id),
+                                              SellerReceiptViewScreen(
+                                                  saleId: s.id),
                                         ),
                                       );
                                     }
