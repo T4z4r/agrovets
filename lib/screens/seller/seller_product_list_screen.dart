@@ -5,7 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
-import '../../screens/products/product_detail_screen.dart';
+import '../../screens/products/seller_product_detail_screen.dart';
 
 class SellerProductListScreen extends StatefulWidget {
   const SellerProductListScreen({super.key});
@@ -231,14 +231,30 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                     ],
                                   ],
                                 ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ProductDetailScreen(productId: p.id),
+                                trailing: PopupMenuButton(
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      value: 'view',
+                                      child: ListTile(
+                                        leading: Icon(Icons.visibility),
+                                        title: Text('View Details'),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
                                     ),
-                                  );
-                                },
+                                  ],
+                                  onSelected: (value) async {
+                                    if (value == 'view') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              SellerProductDetailScreen(
+                                                  productId: p.id),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
                             );
                           },

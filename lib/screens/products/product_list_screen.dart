@@ -7,7 +7,7 @@ import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
 import 'product_form_screen.dart';
-import 'product_detail_screen.dart';
+import 'owner_product_detail_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -297,13 +297,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) =>
-                                          ProductDetailScreen(productId: p.id),
+                                      builder: (_) => OwnerProductDetailScreen(
+                                          productId: p.id),
                                     ),
                                   );
                                 },
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      value: 'view',
+                                      child: ListTile(
+                                        leading: Icon(Icons.visibility),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewDetails),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
                                     PopupMenuItem(
                                       value: 'edit',
                                       child: ListTile(
@@ -328,7 +338,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                     ),
                                   ],
                                   onSelected: (value) async {
-                                    if (value == 'edit') {
+                                    if (value == 'view') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              OwnerProductDetailScreen(
+                                                  productId: p.id),
+                                        ),
+                                      );
+                                    } else if (value == 'edit') {
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
