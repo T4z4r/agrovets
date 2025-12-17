@@ -1,6 +1,8 @@
 // lib/screens/products/product_form_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
@@ -25,6 +27,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   late TextEditingController _costPriceCtrl;
   late TextEditingController _sellingPriceCtrl;
   late TextEditingController _minimumQuantityCtrl;
+  late TextEditingController _barcodeCtrl;
   bool _loading = false;
 
   @override
@@ -42,6 +45,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         text: widget.product?.sellingPrice.toString() ?? '');
     _minimumQuantityCtrl = TextEditingController(
         text: widget.product?.minimumQuantity.toString() ?? '');
+    _barcodeCtrl = TextEditingController(text: widget.product?.barcode ?? '');
   }
 
   Future<void> _save() async {
@@ -55,6 +59,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       'cost_price': double.parse(_costPriceCtrl.text),
       'selling_price': double.parse(_sellingPriceCtrl.text),
       'minimum_quantity': double.parse(_minimumQuantityCtrl.text),
+      'barcode': _barcodeCtrl.text.isEmpty ? null : _barcodeCtrl.text,
     };
     try {
       if (widget.product == null) {
@@ -70,6 +75,78 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
     setState(() => _loading = false);
+  }
+
+  Future<void> _scanBarcode() async {
+    // Check camera permission
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes'),
+            action: SnackBarAction(
+              label: 'Settings',
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Camera permission is permanently denied. Please enable it in settings.'),
+          action: SnackBarAction(
+            label: 'Settings',
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => Dialog(
+        child: SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('Scan Barcode'),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    if (barcodes.isNotEmpty) {
+                      final barcode = barcodes.first.rawValue;
+                      if (barcode != null) {
+                        Navigator.pop(context, barcode);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (result != null) {
+      setState(() {
+        _barcodeCtrl.text = result;
+      });
+    }
   }
 
   @override
@@ -196,6 +273,27 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           }
                           return null;
                         },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Barcode Field
+                      TextFormField(
+                        controller: _barcodeCtrl,
+                        decoration: InputDecoration(
+                          labelText: 'Barcode',
+                          hintText: 'Barcode',
+                          prefixIcon: const Icon(Icons.qr_code),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.camera_alt),
+                            onPressed: _scanBarcode,
+                            tooltip: 'Scan Barcode',
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
                       ),
                       const SizedBox(height: 16),
 

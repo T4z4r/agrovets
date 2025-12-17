@@ -58,7 +58,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
         _filteredProducts = _products.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
               product.unit!.toLowerCase().contains(query.toLowerCase()) ||
-              product.category!.toLowerCase().contains(query.toLowerCase());
+              product.category!.toLowerCase().contains(query.toLowerCase()) ||
+              (product.barcode?.toLowerCase().contains(query.toLowerCase()) ??
+                  false);
         }).toList();
       }
     });

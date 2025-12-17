@@ -170,6 +170,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   ),
                                 ),
                               ],
+                              if (_product!.barcode != null &&
+                                  _product!.barcode!.isNotEmpty) ...[
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    Icon(Icons.qr_code,
+                                        color: Colors.grey[600]),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Barcode: ${_product!.barcode}',
+                                      style: TextStyle(color: Colors.grey[600]),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ],
                           ),
                         ),

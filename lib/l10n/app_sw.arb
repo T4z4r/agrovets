@@ -269,5 +269,7 @@
   "sellerNameRequired": "Jina la mfanyabiashara linahitajika",
   "receipt": "Risiti",
   "recordedBy": "Imeandikishwa na",
-  "viewDetails": "Tazama Maelezo"
+  "viewDetails": "Tazama Maelezo",
+  "barcode": "Barcode",
+  "scanBarcode": "Skani Barcode"
 }

@@ -10,6 +10,7 @@ class Product {
   final double? costPrice;
   final double? sellingPrice;
   final double? minimumQuantity;
+  final String? barcode;
   final List<StockTransaction>? stockTransactions;
   final String? createdAt;
   final String? updatedAt;
@@ -23,6 +24,7 @@ class Product {
     required this.costPrice,
     required this.sellingPrice,
     required this.minimumQuantity,
+    this.barcode,
     this.stockTransactions,
     this.createdAt,
     this.updatedAt,
@@ -41,6 +43,7 @@ class Product {
           double.tryParse(map['selling_price']?.toString() ?? '0') ?? 0,
       minimumQuantity:
           double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
+      barcode: map['barcode'],
       stockTransactions: map['stock_transactions'] != null
           ? (map['stock_transactions'] as List)
               .map((e) => StockTransaction.fromJson(e))
@@ -60,6 +63,7 @@ class Product {
       'cost_price': costPrice,
       'selling_price': sellingPrice,
       'minimum_quantity': minimumQuantity,
+      'barcode': barcode,
     };
   }
 }

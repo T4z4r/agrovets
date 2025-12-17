@@ -270,5 +270,7 @@
   "sellerNameRequired": "Seller name is required",
   "receipt": "Receipt",
   "recordedBy": "Recorded by",
-  "viewDetails": "View Details"
+  "viewDetails": "View Details",
+  "barcode": "Barcode",
+  "scanBarcode": "Scan Barcode"
 }

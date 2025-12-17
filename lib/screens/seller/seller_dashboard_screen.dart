@@ -175,7 +175,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                             dashboard['today_sales']?.toString() ?? '0')),
                         Icons.inventory,
                         Colors.green,
-                        'lowStockProducts'),
+                        'todaySales'),
                   ],
                 ),
 
