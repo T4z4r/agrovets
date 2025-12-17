@@ -191,65 +191,71 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                           size: 50.0)),
                 )
               else if (report != null)
-                Card(
-                  color:
-                      const Color.fromARGB(255, 220, 248, 221).withOpacity(0.5),
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(
-                        color: Theme.of(context).primaryColor.withOpacity(0.2)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: DataTable(
-                      columnSpacing: 150, // Spread columns to cover full width
-                      columns: [
-                        DataColumn(
-                          label: Text(
-                            'Category',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'Amount',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                      rows: [
-                        DataRow(cells: [
-                          DataCell(Text(
-                              AppLocalizations.of(context)!.totalSalesLabel)),
-                          DataCell(Text(NumberFormatter.formatCurrency(
-                              report!.totalSales))),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text(AppLocalizations.of(context)!
-                              .totalExpensesLabel)),
-                          DataCell(Text(NumberFormatter.formatCurrency(
-                              report!.totalExpenses))),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(
-                              Text(AppLocalizations.of(context)!.netProfit)),
-                          DataCell(
-                            Text(
-                              NumberFormatter.formatCurrency(
-                                  report!.totalSales - report!.totalExpenses),
-                              style: TextStyle(
-                                color: (report!.totalSales -
-                                            report!.totalExpenses) >=
-                                        0
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Card(
+                    color: const Color.fromARGB(255, 220, 248, 221)
+                        .withOpacity(0.5),
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.2)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: DataTable(
+                        columnSpacing: 50,
+                        columns: [
+                          DataColumn(
+                            label: Text(
+                              AppLocalizations.of(context)!.category,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ]),
-                      ],
+                          DataColumn(
+                            label: Text(
+                              AppLocalizations.of(context)!.amount,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                        rows: [
+                          DataRow(cells: [
+                            DataCell(Text(
+                                AppLocalizations.of(context)!.totalSalesLabel)),
+                            DataCell(Text(NumberFormatter.formatCurrency(
+                                report!.totalSales))),
+                          ]),
+                          DataRow(cells: [
+                            DataCell(Text(AppLocalizations.of(context)!
+                                .totalExpensesLabel)),
+                            DataCell(Text(NumberFormatter.formatCurrency(
+                                report!.totalExpenses))),
+                          ]),
+                          DataRow(cells: [
+                            DataCell(
+                                Text(AppLocalizations.of(context)!.netProfit)),
+                            DataCell(
+                              Text(
+                                NumberFormatter.formatCurrency(
+                                    report!.totalSales - report!.totalExpenses),
+                                style: TextStyle(
+                                  color: (report!.totalSales -
+                                              report!.totalExpenses) >=
+                                          0
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.secondary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ],
+                      ),
                     ),
                   ),
                 ),
