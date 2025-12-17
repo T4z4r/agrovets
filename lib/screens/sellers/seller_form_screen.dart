@@ -35,6 +35,50 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
     _confirmPasswordCtrl = TextEditingController();
   }
 
+  void _showSuccessDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 64,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Success!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[700],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // close form
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -59,30 +103,12 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
     try {
       if (widget.seller == null) {
         await ApiService.createSeller(data);
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.sellerCreated),
-              backgroundColor: Colors.green,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
+        _showSuccessDialog(AppLocalizations.of(context)!.sellerCreated);
       } else {
         await ApiService.updateSeller(widget.seller!.id, data);
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context)!.sellerUpdated),
-              backgroundColor: Colors.green,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
+        _showSuccessDialog(AppLocalizations.of(context)!.sellerUpdated);
       }
       widget.onSave();
-      if (!mounted) return;
-      Navigator.pop(context);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -98,8 +124,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
           ),
         );
       }
+      setState(() => _loading = false);
     }
-    setState(() => _loading = false);
   }
 
   @override

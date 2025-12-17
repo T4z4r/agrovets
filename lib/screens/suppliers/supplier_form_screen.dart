@@ -36,6 +36,50 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
     _addressCtrl = TextEditingController(text: widget.supplier?.address ?? '');
   }
 
+  void _showSuccessDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 64,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Success!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[700],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // close form
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -49,26 +93,12 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
     try {
       if (widget.supplier == null) {
         await ApiService.post('/api/suppliers', data);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.supplierCreated),
-            backgroundColor: Colors.green,
-            duration: const Duration(seconds: 2),
-          ),
-        );
+        _showSuccessDialog(AppLocalizations.of(context)!.supplierCreated);
       } else {
         await ApiService.put('/api/suppliers/${widget.supplier!.id}', data);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.supplierUpdated),
-            backgroundColor: Colors.green,
-            duration: const Duration(seconds: 2),
-          ),
-        );
+        _showSuccessDialog(AppLocalizations.of(context)!.supplierUpdated);
       }
       widget.onSave();
-      if (!mounted) return;
-      Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -83,8 +113,8 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
           ),
         ),
       );
+      setState(() => _loading = false);
     }
-    setState(() => _loading = false);
   }
 
   @override

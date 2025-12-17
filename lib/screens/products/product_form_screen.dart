@@ -48,6 +48,50 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     _barcodeCtrl = TextEditingController(text: widget.product?.barcode ?? '');
   }
 
+  void _showSuccessDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 64,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Success!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[700],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // close form
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -64,17 +108,17 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     try {
       if (widget.product == null) {
         await ApiService.post('/api/products', data);
+        _showSuccessDialog('Product created successfully.');
       } else {
         await ApiService.put('/api/products/${widget.product!.id}', data);
+        _showSuccessDialog('Product updated successfully.');
       }
       widget.onSave();
-      if (!mounted) return;
-      Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
+      setState(() => _loading = false);
     }
-    setState(() => _loading = false);
   }
 
   Future<void> _scanBarcode() async {

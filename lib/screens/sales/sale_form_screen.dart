@@ -183,6 +183,50 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
     }
   }
 
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 64,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Success!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[700],
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Sale saved successfully.',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // close form
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -195,12 +239,12 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       await ApiService.post('/api/sales', data);
       widget.onSave();
       if (!mounted) return;
-      Navigator.pop(context);
+      _showSuccessDialog();
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
+      setState(() => _loading = false);
     }
-    setState(() => _loading = false);
   }
 
   List<Product> get _filteredProducts => _products
@@ -208,8 +252,10 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           p.name!.toLowerCase().contains(_productSearchQuery.toLowerCase()))
       .toList();
 
-  double get _totalAmount => _items.fold(0.0, (sum, item) =>
-      sum + ((item['quantity'] as int) * (item['price'] as num)));
+  double get _totalAmount => _items.fold(
+      0.0,
+      (sum, item) =>
+          sum + ((item['quantity'] as int) * (item['price'] as num)));
 
   Future<void> _selectDate() async {
     final picked = await showDatePicker(
