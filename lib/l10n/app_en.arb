@@ -268,5 +268,7 @@
   "selectDateToGenerateDailyReport": "Select a date to generate daily report",
   "updateSeller": "Update Seller",
   "sellerNameRequired": "Seller name is required",
-  "receipt": "Receipt"
+  "receipt": "Receipt",
+  "recordedBy": "Recorded by",
+  "viewDetails": "View Details"
 }

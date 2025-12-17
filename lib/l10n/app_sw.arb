@@ -267,5 +267,7 @@
   "selectDateToGenerateDailyReport": "Chagua tarehe ili kutengeneza ripoti ya kila siku",
   "updateSeller": "Sasisha Mfanyabiashara",
   "sellerNameRequired": "Jina la mfanyabiashara linahitajika",
-  "receipt": "Risiti"
+  "receipt": "Risiti",
+  "recordedBy": "Imeandikishwa na",
+  "viewDetails": "Tazama Maelezo"
 }

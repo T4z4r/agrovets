@@ -68,32 +68,37 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${t.type.replaceAll('_', ' ').toUpperCase()} Details'),
+        title: Text(
+            '${t.type.replaceAll('_', ' ').toUpperCase()} ${AppLocalizations.of(context)!.details}'),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               if (t.product != null) ...[
-                Text('Product: ${t.product!.name}'),
+                Text(
+                    '${AppLocalizations.of(context)!.product}: ${t.product!.name}'),
                 const SizedBox(height: 8),
               ],
-              Text('Type: ${t.type.replaceAll('_', ' ')}'),
+              Text(
+                  '${AppLocalizations.of(context)!.type}: ${t.type.replaceAll('_', ' ')}'),
               const SizedBox(height: 8),
-              Text('Quantity: ${t.quantity}'),
+              Text('${AppLocalizations.of(context)!.quantity}: ${t.quantity}'),
               const SizedBox(height: 8),
-              Text('Date: ${t.date}'),
+              Text('${AppLocalizations.of(context)!.date}: ${t.date}'),
               const SizedBox(height: 8),
               if (t.supplier != null) ...[
-                Text('Supplier: ${t.supplier!.name}'),
+                Text(
+                    '${AppLocalizations.of(context)!.supplier}: ${t.supplier!.name}'),
                 const SizedBox(height: 8),
               ],
               if (t.user != null) ...[
-                Text('Recorded By: ${t.user!.name} (${t.user!.role})'),
+                Text(
+                    '${AppLocalizations.of(context)!.recordedBy}: ${t.user!.name} (${t.user!.role})'),
                 const SizedBox(height: 8),
               ],
               if (t.remarks != null && t.remarks!.isNotEmpty) ...[
-                Text('Remarks: ${t.remarks}'),
+                Text('${AppLocalizations.of(context)!.remarks}: ${t.remarks}'),
                 const SizedBox(height: 8),
               ],
             ],
@@ -102,7 +107,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: Text(AppLocalizations.of(context)!.close),
           ),
         ],
       ),
@@ -319,12 +324,14 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'view_details',
                                       child: ListTile(
                                         leading: Icon(Icons.visibility,
                                             color: Colors.blue),
-                                        title: Text('View Details',
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewDetails,
                                             style:
                                                 TextStyle(color: Colors.blue)),
                                         contentPadding: EdgeInsets.zero,
