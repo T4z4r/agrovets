@@ -254,5 +254,13 @@
   "close": "Close",
   "stockTransaction": "Stock Transaction",
   "productRequired": "Product is required",
-  "quantityRequired": "Quantity is required"
+  "quantityRequired": "Quantity is required",
+  "saleDetails": "Sale Details",
+  "saleItems": "Sale Items",
+  "noItemsAddedYet": "No items added yet",
+  "selectProducts": "Select Products",
+  "sale": "Sale",
+  "date": "Date",
+  "items": "Items",
+  "updateExpense": "Update Expense"
 }

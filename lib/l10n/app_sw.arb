@@ -253,5 +253,13 @@
   "close": "Funga",
   "stockTransaction": "Muamala wa Stoki",
   "productRequired": "Bidhaa inahitajika",
-  "quantityRequired": "Idadi inahitajika"
+  "quantityRequired": "Idadi inahitajika",
+  "saleDetails": "Maelezo ya Uuzaji",
+  "saleItems": "Bidhaa za Uuzaji",
+  "noItemsAddedYet": "Hakuna bidhaa zilizowekwa bado",
+  "selectProducts": "Chagua Bidhaa",
+  "sale": "Uuzaji",
+  "date": "Tarehe",
+  "items": "Bidhaa",
+  "updateExpense": "Sasisha Matumizi"
 }

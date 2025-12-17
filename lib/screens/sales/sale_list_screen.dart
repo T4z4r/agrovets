@@ -158,7 +158,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                   ),
                                 ),
                                 title: Text(
-                                  'Sale #${s.id}',
+                                  '${AppLocalizations.of(context)!.sale} #${s.id}',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -177,7 +177,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Date: ${_formatDate(s.saleDate)}',
+                                          '${AppLocalizations.of(context)!.date}: ${_formatDate(s.saleDate)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
@@ -195,7 +195,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          'Items: ${s.items.length}',
+                                          '${AppLocalizations.of(context)!.items}: ${s.items.length}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

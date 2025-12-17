@@ -651,4 +651,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quantityRequired => 'Quantity is required';
+
+  @override
+  String get saleDetails => 'Sale Details';
+
+  @override
+  String get saleItems => 'Sale Items';
+
+  @override
+  String get noItemsAddedYet => 'No items added yet';
+
+  @override
+  String get selectProducts => 'Select Products';
+
+  @override
+  String get sale => 'Sale';
+
+  @override
+  String get items => 'Items';
+
+  @override
+  String get updateExpense => 'Update Expense';
 }

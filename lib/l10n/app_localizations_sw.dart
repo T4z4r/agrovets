@@ -656,4 +656,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get quantityRequired => 'Idadi inahitajika';
+
+  @override
+  String get saleDetails => 'Maelezo ya Uuzaji';
+
+  @override
+  String get saleItems => 'Bidhaa za Uuzaji';
+
+  @override
+  String get noItemsAddedYet => 'Hakuna bidhaa zilizowekwa bado';
+
+  @override
+  String get selectProducts => 'Chagua Bidhaa';
+
+  @override
+  String get sale => 'Uuzaji';
+
+  @override
+  String get items => 'Bidhaa';
+
+  @override
+  String get updateExpense => 'Sasisha Matumizi';
 }

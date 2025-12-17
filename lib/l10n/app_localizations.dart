@@ -1387,6 +1387,33 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quantity is required'**
   String get quantityRequired;
+
+  /// No description provided for @saleDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Details'**
+  String get saleDetails;
+
+  /// No description provided for @saleItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Items'**
+  String get saleItems;
+
+  /// No description provided for @noItemsAddedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No items added yet'**
+  String get noItemsAddedYet;
+
+  /// No description provided for @selectProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Products'**
+  String get selectProducts;
+  String get sale;
+  String get items;
+  String get updateExpense;
 }
 
 class _AppLocalizationsDelegate

@@ -71,7 +71,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -100,7 +101,9 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(widget.expense == null ? 'Create Expense' : 'Edit Expense'),
+        title: Text(widget.expense == null
+            ? AppLocalizations.of(context)!.createExpense
+            : AppLocalizations.of(context)!.editExpense),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -142,8 +145,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                     children: [
                       Text(
                         widget.expense == null
-                            ? 'Add New Expense'
-                            : 'Edit Expense',
+                            ? AppLocalizations.of(context)!.addNewExpense
+                            : AppLocalizations.of(context)!.editExpense,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -170,7 +173,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Category is required';
+                            return AppLocalizations.of(context)!
+                                .categoryRequired;
                           }
                           return null;
                         },
@@ -182,7 +186,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         controller: _amountCtrl,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.amount,
-                          hintText: AppLocalizations.of(context)!.enterExpenseAmount,
+                          hintText:
+                              AppLocalizations.of(context)!.enterExpenseAmount,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -193,10 +198,11 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Amount is required';
+                            return AppLocalizations.of(context)!.amountRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return 'Please enter a valid amount';
+                            return AppLocalizations.of(context)!
+                                .enterValidAmount;
                           }
                           return null;
                         },
@@ -208,7 +214,8 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                         controller: _descriptionCtrl,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.description,
-                          hintText: AppLocalizations.of(context)!.enterExpenseDescription,
+                          hintText: AppLocalizations.of(context)!
+                              .enterExpenseDescription,
                           prefixIcon: const Icon(Icons.description),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -259,8 +266,10 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                               )
                             : Text(
                                 widget.expense == null
-                                    ? 'Create Expense'
-                                    : 'Update Expense',
+                                    ? AppLocalizations.of(context)!
+                                        .createExpense
+                                    : AppLocalizations.of(context)!
+                                        .updateExpense,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
