@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
@@ -103,7 +104,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Create Sale'),
+        title: Text(AppLocalizations.of(context)!.createSale),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -128,7 +129,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Sale Details',
+                              AppLocalizations.of(context)!.saleDetails,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -140,7 +141,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                labelText: 'Sale Date',
+                                labelText:
+                                    AppLocalizations.of(context)!.saleDate,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -171,7 +173,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Sale Items',
+                                  AppLocalizations.of(context)!.saleItems,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -185,7 +187,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                     size: 16,
                                     color: Colors.white,
                                   ),
-                                  label: const Text('Add Item'),
+                                  label: Text(
+                                      AppLocalizations.of(context)!.addItem),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green[600],
                                     foregroundColor: Colors.white,
@@ -210,7 +213,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      'No items added yet',
+                                      AppLocalizations.of(context)!
+                                          .noItemsAddedYet,
                                       style: TextStyle(
                                         color: Colors.grey[600],
                                         fontSize: 14,
@@ -235,8 +239,10 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                     children: [
                                       DropdownButtonFormField<int>(
                                         value: _items[idx]['product_id'],
-                                        decoration: const InputDecoration(
-                                          labelText: 'Product',
+                                        decoration: InputDecoration(
+                                          labelText:
+                                              AppLocalizations.of(context)!
+                                                  .product,
                                           border: OutlineInputBorder(),
                                           contentPadding: EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
@@ -263,10 +269,16 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                         children: [
                                           Expanded(
                                             child: TextFormField(
-                                              initialValue: _items[idx]['quantity'].toString(),
-                                              onChanged: (v) => _items[idx]['quantity'] = int.tryParse(v) ?? 1,
-                                              decoration: const InputDecoration(
-                                                labelText: 'Qty',
+                                              initialValue: _items[idx]
+                                                      ['quantity']
+                                                  .toString(),
+                                              onChanged: (v) => _items[idx]
+                                                      ['quantity'] =
+                                                  int.tryParse(v) ?? 1,
+                                              decoration: InputDecoration(
+                                                labelText: AppLocalizations.of(
+                                                        context)!
+                                                    .qty,
                                                 border: OutlineInputBorder(),
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
@@ -280,10 +292,15 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                           const SizedBox(width: 12),
                                           Expanded(
                                             child: TextFormField(
-                                              initialValue: _items[idx]['price'].toString(),
-                                              onChanged: (v) => _items[idx]['price'] = int.tryParse(v) ?? 0,
-                                              decoration: const InputDecoration(
-                                                labelText: 'Price',
+                                              initialValue: _items[idx]['price']
+                                                  .toString(),
+                                              onChanged: (v) => _items[idx]
+                                                      ['price'] =
+                                                  int.tryParse(v) ?? 0,
+                                              decoration: InputDecoration(
+                                                labelText: AppLocalizations.of(
+                                                        context)!
+                                                    .price,
                                                 border: OutlineInputBorder(),
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
@@ -331,8 +348,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                               child: SpinKitWaveSpinner(
                                   color: Colors.white, size: 20.0),
                             )
-                          : const Text(
-                              'Create Sale',
+                          : Text(
+                              AppLocalizations.of(context)!.createSale,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -378,8 +395,8 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
           color: Colors.green[600],
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Text(
-          'Select Products',
+        child: Text(
+          AppLocalizations.of(context)!.selectProducts,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -395,7 +412,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
             TextField(
               onChanged: (value) => setState(() => _searchQuery = value),
               decoration: InputDecoration(
-                hintText: 'Search products...',
+                hintText: AppLocalizations.of(context)!.searchProducts,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -421,7 +438,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        'Price: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
+                        '${AppLocalizations.of(context)!.price}: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                       value: isSelected,
@@ -449,7 +466,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
           style: TextButton.styleFrom(
             foregroundColor: Colors.grey[600],
           ),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -465,7 +482,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: const Text('Add Selected'),
+          child: Text(AppLocalizations.of(context)!.addSelected),
         ),
       ],
     );
