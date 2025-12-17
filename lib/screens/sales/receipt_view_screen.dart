@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
@@ -54,6 +55,43 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
     }
   }
 
+  Future<void> _downloadAndOpenPdf() async {
+    if (_pdfPath == null) return;
+
+    try {
+      // Save to documents directory
+      final docsDir = await getApplicationDocumentsDirectory();
+      final fileName = 'receipt_${widget.saleId}.pdf';
+      final savedFile = File('${docsDir.path}/$fileName');
+      await File(_pdfPath!).copy(savedFile.path);
+
+      // Open the file
+      final result = await OpenFile.open(savedFile.path);
+      if (result.type != ResultType.done) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to open file: ${result.message}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('File downloaded successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to download file: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +100,14 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          if (!_loading && _pdfPath != null)
+            IconButton(
+              icon: const Icon(Icons.download),
+              onPressed: _downloadAndOpenPdf,
+              tooltip: 'Download',
+            ),
+        ],
       ),
       drawer: const AppDrawer(),
       body: _loading
