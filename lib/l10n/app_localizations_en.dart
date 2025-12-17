@@ -642,4 +642,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get close => 'Close';
+
+  @override
+  String get stockTransaction => 'Stock Transaction';
+
+  @override
+  String get productRequired => 'Product is required';
+
+  @override
+  String get quantityRequired => 'Quantity is required';
 }

@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/supplier.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 
 class StockFormScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -80,10 +81,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
     try {
       await ApiService.post('/api/stock', data);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Stock transaction saved successfully!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.stockTransactionSaved),
           backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
       widget.onSave();
@@ -92,11 +93,11 @@ class _StockFormScreenState extends State<StockFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to save stock transaction: $e'),
+          content: Text('${AppLocalizations.of(context)!.failedSaveStock}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Retry',
+            label: AppLocalizations.of(context)!.retry,
             textColor: Colors.white,
             onPressed: _save,
           ),
@@ -123,7 +124,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text('Select Product'),
+          title: Text(AppLocalizations.of(context)!.selectProduct),
           content: SizedBox(
             height: 400,
             width: double.maxFinite,
@@ -132,7 +133,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    labelText: 'Search Products',
+                    labelText: AppLocalizations.of(context)!.searchProducts,
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -180,7 +181,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Create Stock Transaction'),
+        title: Text(AppLocalizations.of(context)!.createStockTransaction),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -223,7 +224,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Stock Transaction',
+                              AppLocalizations.of(context)!.stockTransaction,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -237,8 +238,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                labelText: 'Select Product',
-                                hintText: 'Choose a product',
+                                labelText:
+                                    AppLocalizations.of(context)!.selectProduct,
+                                hintText:
+                                    AppLocalizations.of(context)!.chooseProduct,
                                 prefixIcon: const Icon(Icons.inventory_2),
                                 suffixIcon: const Icon(Icons.arrow_drop_down),
                                 border: OutlineInputBorder(
@@ -250,7 +253,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                               controller: _productController,
                               onTap: _selectProduct,
                               validator: (v) => _productId == null
-                                  ? 'Product is required'
+                                  ? AppLocalizations.of(context)!
+                                      .productRequired
                                   : null,
                             ),
                             const SizedBox(height: 16),
@@ -259,7 +263,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             DropdownButtonFormField<String>(
                               value: _type,
                               decoration: InputDecoration(
-                                labelText: 'Transaction Type',
+                                labelText: AppLocalizations.of(context)!
+                                    .transactionType,
                                 prefixIcon: const Icon(Icons.swap_vert),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -275,7 +280,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                       Icon(Icons.trending_up,
                                           color: Colors.green[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Stock In'),
+                                      Text(AppLocalizations.of(context)!
+                                          .stockIn),
                                     ],
                                   ),
                                 ),
@@ -286,7 +292,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                       Icon(Icons.trending_down,
                                           color: Colors.red[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Stock Out'),
+                                      Text(AppLocalizations.of(context)!
+                                          .stockOut),
                                     ],
                                   ),
                                 ),
@@ -297,7 +304,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                       Icon(Icons.error,
                                           color: Colors.orange[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Damage'),
+                                      Text(
+                                          AppLocalizations.of(context)!.damage),
                                     ],
                                   ),
                                 ),
@@ -308,7 +316,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                       Icon(Icons.keyboard_return,
                                           color: Colors.blue[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Return'),
+                                      Text(AppLocalizations.of(context)!
+                                          .returnText),
                                     ],
                                   ),
                                 ),
@@ -321,8 +330,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             TextFormField(
                               onChanged: (v) => _quantity = int.tryParse(v),
                               decoration: InputDecoration(
-                                labelText: 'Quantity',
-                                hintText: 'Enter quantity',
+                                labelText:
+                                    AppLocalizations.of(context)!.quantity,
+                                hintText:
+                                    AppLocalizations.of(context)!.enterQuantity,
                                 prefixIcon:
                                     const Icon(Icons.format_list_numbered),
                                 border: OutlineInputBorder(
@@ -334,10 +345,12 @@ class _StockFormScreenState extends State<StockFormScreen> {
                               keyboardType: TextInputType.number,
                               validator: (v) {
                                 if (v == null || v.isEmpty) {
-                                  return 'Quantity is required';
+                                  return AppLocalizations.of(context)!
+                                      .quantityRequired;
                                 }
                                 if (int.tryParse(v) == null) {
-                                  return 'Please enter a valid number';
+                                  return AppLocalizations.of(context)!
+                                      .enterValidAmount;
                                 }
                                 return null;
                               },
@@ -348,8 +361,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             DropdownButtonFormField<int>(
                               value: _supplierId,
                               decoration: InputDecoration(
-                                labelText: 'Supplier (Optional)',
-                                hintText: 'Select supplier',
+                                labelText: AppLocalizations.of(context)!
+                                    .supplierOptional,
+                                hintText: AppLocalizations.of(context)!
+                                    .selectSupplier,
                                 prefixIcon: const Icon(Icons.business),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -369,8 +384,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                labelText: 'Transaction Date',
-                                hintText: 'Select date',
+                                labelText: AppLocalizations.of(context)!
+                                    .transactionDate,
+                                hintText:
+                                    AppLocalizations.of(context)!.selectDate,
                                 prefixIcon: const Icon(Icons.calendar_today),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -388,8 +405,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             TextFormField(
                               onChanged: (v) => _remarks = v,
                               decoration: InputDecoration(
-                                labelText: 'Remarks (Optional)',
-                                hintText: 'Add any additional notes',
+                                labelText: AppLocalizations.of(context)!
+                                    .remarksOptional,
+                                hintText:
+                                    AppLocalizations.of(context)!.addNotes,
                                 prefixIcon: const Icon(Icons.note),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -421,9 +440,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                       child: SpinKitWaveSpinner(
                                           color: Colors.white, size: 20.0),
                                     )
-                                  : const Text(
-                                      'Save Transaction',
-                                      style: TextStyle(
+                                  : Text(
+                                      AppLocalizations.of(context)!
+                                          .saveTransaction,
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),

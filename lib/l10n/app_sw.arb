@@ -250,5 +250,8 @@
   "supplier": "Msambazaji",
   "recordedBy": "Imerekodiwa na",
   "viewDetails": "Tazama Maelezo",
-  "close": "Funga"
+  "close": "Funga",
+  "stockTransaction": "Muamala wa Stoki",
+  "productRequired": "Bidhaa inahitajika",
+  "quantityRequired": "Idadi inahitajika"
 }

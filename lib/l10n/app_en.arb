@@ -251,5 +251,8 @@
   "supplier": "Supplier",
   "recordedBy": "Recorded By",
   "viewDetails": "View Details",
-  "close": "Close"
+  "close": "Close",
+  "stockTransaction": "Stock Transaction",
+  "productRequired": "Product is required",
+  "quantityRequired": "Quantity is required"
 }

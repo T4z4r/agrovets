@@ -647,4 +647,13 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get close => 'Funga';
+
+  @override
+  String get stockTransaction => 'Muamala wa Stoki';
+
+  @override
+  String get productRequired => 'Bidhaa inahitajika';
+
+  @override
+  String get quantityRequired => 'Idadi inahitajika';
 }

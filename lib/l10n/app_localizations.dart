@@ -1369,6 +1369,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get close;
+
+  /// No description provided for @stockTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Transaction'**
+  String get stockTransaction;
+
+  /// No description provided for @productRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Product is required'**
+  String get productRequired;
+
+  /// No description provided for @quantityRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity is required'**
+  String get quantityRequired;
 }
 
 class _AppLocalizationsDelegate
