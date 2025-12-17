@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
@@ -47,20 +49,130 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
   }
 
   void _addItem() async {
-    final selectedProducts = await showDialog<List<Product>>(
+     final selectedProducts = await showDialog<List<Product>>(
+       context: context,
+       builder: (context) => _ProductSelectionDialog(products: _products),
+     );
+     if (selectedProducts != null && selectedProducts.isNotEmpty) {
+       setState(() {
+         for (final product in selectedProducts) {
+           _items.add({
+             'product_id': product.id,
+             'quantity': 1,
+             'price': product.sellingPrice,
+           });
+         }
+       });
+     }
+   }
+
+  Future<void> _scanBarcode() async {
+    // Check camera permission
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes'),
+            action: SnackBarAction(
+              label: 'Settings',
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+          action: SnackBarAction(
+            label: 'Settings',
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    final scannedBarcode = await showDialog<String>(
       context: context,
-      builder: (context) => _ProductSelectionDialog(products: _products),
+      builder: (context) => Dialog(
+        child: SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('Scan Barcode'),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    if (barcodes.isNotEmpty) {
+                      final barcode = barcodes.first.rawValue;
+                      if (barcode != null) {
+                        Navigator.pop(context, barcode);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
-    if (selectedProducts != null && selectedProducts.isNotEmpty) {
-      setState(() {
-        for (final product in selectedProducts) {
-          _items.add({
-            'product_id': product.id,
-            'quantity': 1,
-            'price': product.sellingPrice,
+
+    if (scannedBarcode != null) {
+      try {
+        // Get product by barcode from API
+        final response = await ApiService.get('/api/products/barcode/$scannedBarcode');
+
+        if (response['success'] == true) {
+          final product = Product.fromJson(response['data']);
+
+          setState(() {
+            // Check if product is already in the items list
+            final existingItemIndex = _items.indexWhere(
+              (item) => item['product_id'] == product.id,
+            );
+
+            if (existingItemIndex != -1) {
+              // Increment quantity if product already exists
+              _items[existingItemIndex]['quantity'] = (_items[existingItemIndex]['quantity'] as int) + 1;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Increased quantity of ${product.name}')),
+              );
+            } else {
+              // Add new item if product doesn't exist
+              _items.add({
+                'product_id': product.id,
+                'quantity': 1,
+                'price': product.sellingPrice,
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Added ${product.name} to sale')),
+              );
+            }
           });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Product not found for scanned barcode')),
+          );
         }
-      });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error finding product: $e')),
+        );
+      }
     }
   }
 
@@ -89,6 +201,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           p.name!.toLowerCase().contains(_productSearchQuery.toLowerCase()))
       .toList();
 
+  double get _totalAmount => _items.fold(0.0, (sum, item) =>
+      sum + ((item['quantity'] as int) * (item['price'] as num)));
+
   Future<void> _selectDate() async {
     final picked = await showDatePicker(
       context: context,
@@ -108,6 +223,13 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
+            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            onPressed: _scanBarcode,
+          ),
+        ],
       ),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
@@ -227,6 +349,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                               ..._items.asMap().entries.map((entry) {
                                 int idx = entry.key;
                                 return Container(
+                                  key: ValueKey('item_${idx}_${_items[idx]['quantity']}'),
                                   margin: const EdgeInsets.only(bottom: 12),
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
@@ -329,6 +452,38 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    if (_items.isNotEmpty)
+                      Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total Amount',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                              Text(
+                                NumberFormatter.formatCurrency(_totalAmount),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: _loading ? null : _save,
