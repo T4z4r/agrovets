@@ -256,22 +256,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                         const SizedBox(height: 8),
                         // Search Bar for Transactions
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[50],
-                            borderRadius: BorderRadius.circular(8),
+                        Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child: TextField(
-                            onChanged: _filterTransactions,
-                            decoration: InputDecoration(
-                              hintText: 'Search transactions...',
-                              prefixIcon: const Icon(Icons.search, size: 20),
-                              border: InputBorder.none,
-                              isDense: true,
-                              contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 8),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            child: TextField(
+                              onChanged: _filterTransactions,
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!
+                                    .searchTransactions,
+                                prefixIcon: Icon(Icons.search,
+                                    color: Colors.green[600]),
+                                border: InputBorder.none,
+                                isDense: true,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                              ),
                             ),
                           ),
                         ),
