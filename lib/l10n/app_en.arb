@@ -210,5 +210,12 @@
   "saleLabel": "Sale",
   "itemsLabel": "Items",
   "stockTransactionTitle": "Stock Transaction",
-  "saveTransaction": "Save Transaction"
+  "saveTransaction": "Save Transaction",
+  "createProduct": "Create Product",
+  "editProduct": "Edit Product",
+  "addNewProduct": "Add New Product",
+  "updateProduct": "Update Product",
+  "minimumQuantity": "Minimum Quantity",
+  "enterMinimumQuantity": "Enter minimum quantity",
+  "minimumQuantityRequired": "Minimum quantity is required"
 }

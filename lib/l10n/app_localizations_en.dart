@@ -521,4 +521,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterValidAmount => 'Please enter a valid amount';
+
+  @override
+  String get createProduct => 'Create Product';
+
+  @override
+  String get editProduct => 'Edit Product';
+
+  @override
+  String get addNewProduct => 'Add New Product';
+
+  @override
+  String get minimumQuantity => 'Minimum Quantity';
+
+  @override
+  String get enterMinimumQuantity => 'Enter minimum quantity';
+
+  @override
+  String get minimumQuantityRequired => 'Minimum quantity is required';
+
+  @override
+  String get updateProduct => 'Update Product';
 }

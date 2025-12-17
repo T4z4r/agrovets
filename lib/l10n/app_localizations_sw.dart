@@ -526,4 +526,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get enterValidAmount => 'Tafadhali ingiza kiasi sahihi';
+
+  @override
+  String get createProduct => 'Unda Bidhaa';
+
+  @override
+  String get editProduct => 'Hariri Bidhaa';
+
+  @override
+  String get addNewProduct => 'Ongeza Bidhaa Mpya';
+
+  @override
+  String get minimumQuantity => 'Idadi ya Chini';
+
+  @override
+  String get enterMinimumQuantity => 'Ingiza idadi ya chini';
+
+  @override
+  String get minimumQuantityRequired => 'Idadi ya chini inahitajika';
+
+  @override
+  String get updateProduct => 'Sasisha Bidhaa';
 }

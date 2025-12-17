@@ -209,5 +209,12 @@
   "saleLabel": "Uuzaji",
   "itemsLabel": "Bidhaa",
   "stockTransactionTitle": "Muamala wa Stoki",
-  "saveTransaction": "Hifadhi Muamala"
+  "saveTransaction": "Hifadhi Muamala",
+  "createProduct": "Unda Bidhaa",
+  "editProduct": "Hariri Bidhaa",
+  "addNewProduct": "Ongeza Bidhaa Mpya",
+  "updateProduct": "Sasisha Bidhaa",
+  "minimumQuantity": "Idadi ya Chini",
+  "enterMinimumQuantity": "Ingiza idadi ya chini",
+  "minimumQuantityRequired": "Idadi ya chini inahitajika"
 }

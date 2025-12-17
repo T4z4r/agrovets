@@ -1129,6 +1129,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid amount'**
   String get enterValidAmount;
+
+  /// No description provided for @createProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Product'**
+  String get createProduct;
+
+  /// No description provided for @editProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Product'**
+  String get editProduct;
+
+  /// No description provided for @addNewProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Product'**
+  String get addNewProduct;
+
+  /// No description provided for @minimumQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Quantity'**
+  String get minimumQuantity;
+
+  /// No description provided for @enterMinimumQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter minimum quantity'**
+  String get enterMinimumQuantity;
+
+  /// No description provided for @minimumQuantityRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum quantity is required'**
+  String get minimumQuantityRequired;
+
+  /// No description provided for @updateProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Product'**
+  String get updateProduct;
 }
 
 class _AppLocalizationsDelegate

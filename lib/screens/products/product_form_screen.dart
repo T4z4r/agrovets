@@ -77,7 +77,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(widget.product == null ? 'Create Product' : 'Edit Product'),
+        title: Text(widget.product == null
+            ? AppLocalizations.of(context)!.createProduct
+            : AppLocalizations.of(context)!.editProduct),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -119,8 +121,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                     children: [
                       Text(
                         widget.product == null
-                            ? 'Add New Product'
-                            : 'Edit Product',
+                            ? AppLocalizations.of(context)!.addNewProduct
+                            : AppLocalizations.of(context)!.editProduct,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -228,8 +230,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _minimumQuantityCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Minimum Quantity',
-                          hintText: 'Enter minimum quantity',
+                          labelText:
+                              AppLocalizations.of(context)!.minimumQuantity,
+                          hintText: AppLocalizations.of(context)!
+                              .enterMinimumQuantity,
                           prefixIcon: const Icon(Icons.warning),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -240,10 +244,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Minimum quantity is required';
+                            return AppLocalizations.of(context)!
+                                .minimumQuantityRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return 'Please enter a valid number';
+                            return AppLocalizations.of(context)!
+                                .enterValidAmount;
                           }
                           return null;
                         },
@@ -325,8 +331,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                               )
                             : Text(
                                 widget.product == null
-                                    ? 'Create Product'
-                                    : 'Update Product',
+                                    ? AppLocalizations.of(context)!
+                                        .createProduct
+                                    : AppLocalizations.of(context)!
+                                        .updateProduct,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
