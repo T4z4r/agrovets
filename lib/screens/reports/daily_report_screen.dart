@@ -7,6 +7,7 @@ import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
 import '../../l10n/app_localizations.dart';
+import 'daily_report_pdf_view_screen.dart';
 
 class DailyReportScreen extends StatefulWidget {
   const DailyReportScreen({super.key});
@@ -296,6 +297,31 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // View More Button
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DailyReportPdfViewScreen(
+                                  date: DateFormat('yyyy-MM-dd').format(_date)),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.visibility),
+                        label: Text(AppLocalizations.of(context)!.viewDetails),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[600],
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ],

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
@@ -175,6 +177,101 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     }
   }
 
+  Future<void> _scanBarcode() async {
+    // Check camera permission
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes'),
+            action: SnackBarAction(
+              label: 'Settings',
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+          action: SnackBarAction(
+            label: 'Settings',
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    final scannedBarcode = await showDialog<String>(
+      context: context,
+      builder: (context) => Dialog(
+        child: SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('Scan Barcode'),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    if (barcodes.isNotEmpty) {
+                      final barcode = barcodes.first.rawValue;
+                      if (barcode != null) {
+                        Navigator.pop(context, barcode);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    if (scannedBarcode != null) {
+      try {
+        // Get product by barcode from API
+        final response = await ApiService.get('/api/products/barcode/$scannedBarcode');
+
+        if (response['success'] == true) {
+          final product = Product.fromJson(response['data']);
+
+          setState(() {
+            _productId = product.id;
+            _selectedProductName = product.name;
+            _productController.text = product.name!;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Selected ${product.name}')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Product not found for scanned barcode')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error finding product: $e')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,6 +281,13 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
+            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            onPressed: _scanBarcode,
+          ),
+        ],
       ),
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
