@@ -547,4 +547,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get updateProduct => 'Sasisha Bidhaa';
+
+  @override
+  String get prices => 'Bei';
+
+  @override
+  String get timestamps => 'Muda';
+
+  @override
+  String get created => 'Imeundwa';
+
+  @override
+  String get updated => 'Imesasishwa';
+
+  @override
+  String get date => 'Tarehe';
+
+  @override
+  String get remarks => 'Maoni';
+
+  @override
+  String get recordedBy => 'Imerekodiwa na';
 }

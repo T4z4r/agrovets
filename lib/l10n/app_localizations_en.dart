@@ -542,4 +542,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateProduct => 'Update Product';
+
+  @override
+  String get prices => 'Prices';
+
+  @override
+  String get timestamps => 'Timestamps';
+
+  @override
+  String get created => 'Created';
+
+  @override
+  String get updated => 'Updated';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get remarks => 'Remarks';
+
+  @override
+  String get recordedBy => 'Recorded by';
 }

@@ -216,5 +216,12 @@
   "updateProduct": "Sasisha Bidhaa",
   "minimumQuantity": "Idadi ya Chini",
   "enterMinimumQuantity": "Ingiza idadi ya chini",
-  "minimumQuantityRequired": "Idadi ya chini inahitajika"
+  "minimumQuantityRequired": "Idadi ya chini inahitajika",
+  "prices": "Bei",
+  "timestamps": "Muda",
+  "created": "Imeundwa",
+  "updated": "Imesasishwa",
+  "date": "Tarehe",
+  "remarks": "Maoni",
+  "recordedBy": "Imerekodiwa na"
 }

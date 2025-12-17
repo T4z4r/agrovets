@@ -217,5 +217,12 @@
   "updateProduct": "Update Product",
   "minimumQuantity": "Minimum Quantity",
   "enterMinimumQuantity": "Enter minimum quantity",
-  "minimumQuantityRequired": "Minimum quantity is required"
+  "minimumQuantityRequired": "Minimum quantity is required",
+  "prices": "Prices",
+  "timestamps": "Timestamps",
+  "created": "Created",
+  "updated": "Updated",
+  "date": "Date",
+  "remarks": "Remarks",
+  "recordedBy": "Recorded by"
 }

@@ -1171,6 +1171,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update Product'**
   String get updateProduct;
+
+  /// No description provided for @prices.
+  ///
+  /// In en, this message translates to:
+  /// **'Prices'**
+  String get prices;
+
+  /// No description provided for @timestamps.
+  ///
+  /// In en, this message translates to:
+  /// **'Timestamps'**
+  String get timestamps;
+
+  /// No description provided for @created.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get created;
+
+  /// No description provided for @updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get updated;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @remarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Remarks'**
+  String get remarks;
+
+  /// No description provided for @recordedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded by'**
+  String get recordedBy;
 }
 
 class _AppLocalizationsDelegate

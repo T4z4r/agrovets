@@ -189,7 +189,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Prices',
+                                AppLocalizations.of(context)!.prices,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -234,7 +234,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Minimum Quantity'),
+                              Text(AppLocalizations.of(context)!
+                                  .minimumQuantity),
                               Text(
                                   '${_product!.minimumQuantity} ${_product!.unit}'),
                             ],
@@ -308,13 +309,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Date: ${transaction.date}'),
+                                    Text(
+                                        '${AppLocalizations.of(context)!.date}: ${transaction.date}'),
                                     if (transaction.remarks != null &&
                                         transaction.remarks!.isNotEmpty)
-                                      Text('Remarks: ${transaction.remarks}'),
+                                      Text(
+                                          '${AppLocalizations.of(context)!.remarks}: ${transaction.remarks}'),
                                     if (transaction.user != null)
                                       Text(
-                                          'Recorded by: ${transaction.user!.name}'),
+                                          '${AppLocalizations.of(context)!.recordedBy}: ${transaction.user!.name}'),
                                   ],
                                 ),
                               ),
@@ -338,7 +341,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Timestamps',
+                                  AppLocalizations.of(context)!.timestamps,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -352,7 +355,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           size: 16, color: Colors.grey[600]),
                                       const SizedBox(width: 8),
                                       Text(
-                                        'Created: ${_formatDate(_product!.createdAt!)}',
+                                        '${AppLocalizations.of(context)!.created}: ${_formatDate(_product!.createdAt!)}',
                                         style:
                                             TextStyle(color: Colors.grey[700]),
                                       ),
@@ -365,7 +368,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           size: 16, color: Colors.grey[600]),
                                       const SizedBox(width: 8),
                                       Text(
-                                        'Updated: ${_formatDate(_product!.updatedAt!)}',
+                                        '${AppLocalizations.of(context)!.updated}: ${_formatDate(_product!.updatedAt!)}',
                                         style:
                                             TextStyle(color: Colors.grey[700]),
                                       ),
