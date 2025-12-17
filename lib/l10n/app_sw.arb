@@ -228,5 +228,9 @@
   "editSupplier": "Hariri Msambazaji",
   "addNewSupplier": "Ongeza Msambazaji Mpya",
   "updateSupplier": "Sasisha Msambazaji",
-  "supplierNameRequired": "Jina la msambazaji linahitajika"
+  "supplierNameRequired": "Jina la msambazaji linahitajika",
+  "active": "Amilifu",
+  "blocked": "Amezuiwa",
+  "block": "Zuia",
+  "unblock": "Ondoa kizuizi"
 }

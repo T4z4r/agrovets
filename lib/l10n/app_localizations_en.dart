@@ -578,4 +578,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supplierNameRequired => 'Supplier name is required';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get blocked => 'Blocked';
+
+  @override
+  String get block => 'Block';
+
+  @override
+  String get unblock => 'Unblock';
 }

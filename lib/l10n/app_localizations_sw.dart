@@ -583,4 +583,16 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get supplierNameRequired => 'Jina la msambazaji linahitajika';
+
+  @override
+  String get active => 'Amilifu';
+
+  @override
+  String get blocked => 'Amezuiwa';
+
+  @override
+  String get block => 'Zuia';
+
+  @override
+  String get unblock => 'Ondoa kizuizi';
 }

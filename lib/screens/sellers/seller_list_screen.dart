@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/user.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 import 'seller_form_screen.dart';
 
 class SellerListScreen extends StatefulWidget {
@@ -90,12 +91,12 @@ class _SellerListScreenState extends State<SellerListScreen> {
     if (!isOwnerOrAdmin) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Access Denied'),
+          title: Text(AppLocalizations.of(context)!.accessDenied),
           backgroundColor: Colors.red[600],
           foregroundColor: Colors.white,
         ),
-        body: const Center(
-          child: Text('You do not have permission to access this page.'),
+        body: Center(
+          child: Text(AppLocalizations.of(context)!.noPermission),
         ),
       );
     }
@@ -103,7 +104,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Sellers'),
+        title: Text(AppLocalizations.of(context)!.sellers),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -124,7 +125,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
             child: TextField(
               onChanged: _filterSellers,
               decoration: InputDecoration(
-                hintText: 'Search sellers...',
+                hintText: AppLocalizations.of(context)!.searchSellers,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -138,7 +139,8 @@ class _SellerListScreenState extends State<SellerListScreen> {
           // Sellers List
           Expanded(
             child: _loading
-                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                ? Center(
+                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
                 : _filteredSellers.isEmpty
                     ? Center(
                         child: Column(
@@ -152,8 +154,9 @@ class _SellerListScreenState extends State<SellerListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No sellers found'
-                                  : 'No sellers match your search',
+                                  ? AppLocalizations.of(context)!.noSellersFound
+                                  : AppLocalizations.of(context)!
+                                      .noSellersMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -181,12 +184,16 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: s.isActive ? Colors.green[100] : Colors.red[100],
+                                    color: s.isActive
+                                        ? Colors.green[100]
+                                        : Colors.red[100],
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.person,
-                                    color: s.isActive ? Colors.green[600] : Colors.red[600],
+                                    color: s.isActive
+                                        ? Colors.green[600]
+                                        : Colors.red[600],
                                   ),
                                 ),
                                 title: Text(
@@ -221,15 +228,25 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                     Row(
                                       children: [
                                         Icon(
-                                          s.isActive ? Icons.check_circle : Icons.block,
+                                          s.isActive
+                                              ? Icons.check_circle
+                                              : Icons.block,
                                           size: 14,
-                                          color: s.isActive ? Colors.green[600] : Colors.red[600],
+                                          color: s.isActive
+                                              ? Colors.green[600]
+                                              : Colors.red[600],
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          s.isActive ? 'Active' : 'Blocked',
+                                          s.isActive
+                                              ? AppLocalizations.of(context)!
+                                                  .active
+                                              : AppLocalizations.of(context)!
+                                                  .blocked,
                                           style: TextStyle(
-                                            color: s.isActive ? Colors.green[600] : Colors.red[600],
+                                            color: s.isActive
+                                                ? Colors.green[600]
+                                                : Colors.red[600],
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -240,11 +257,12 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                 ),
                                 trailing: PopupMenuButton(
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'edit',
                                       child: ListTile(
                                         leading: Icon(Icons.edit),
-                                        title: Text('Edit'),
+                                        title: Text(
+                                            AppLocalizations.of(context)!.edit),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
@@ -252,23 +270,38 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                       value: 'toggle_block',
                                       child: ListTile(
                                         leading: Icon(
-                                          s.isActive ? Icons.block : Icons.check_circle,
-                                          color: s.isActive ? Colors.orange : Colors.green,
+                                          s.isActive
+                                              ? Icons.block
+                                              : Icons.check_circle,
+                                          color: s.isActive
+                                              ? Colors.orange
+                                              : Colors.green,
                                         ),
                                         title: Text(
-                                          s.isActive ? 'Block' : 'Unblock',
+                                          s.isActive
+                                              ? AppLocalizations.of(context)!
+                                                  .block
+                                              : AppLocalizations.of(context)!
+                                                  .unblock,
                                           style: TextStyle(
-                                            color: s.isActive ? Colors.orange : Colors.green,
+                                            color: s.isActive
+                                                ? Colors.orange
+                                                : Colors.green,
                                           ),
                                         ),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
-                                    const PopupMenuItem(
+                                    PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
-                                        leading: Icon(Icons.delete, color: Colors.red),
-                                        title: Text('Delete', style: TextStyle(color: Colors.red)),
+                                        leading: Icon(Icons.delete,
+                                            color: Colors.red),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .delete,
+                                            style:
+                                                TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
@@ -291,17 +324,27 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text('Delete Seller'),
-                                          content: Text('Are you sure you want to delete "${s.name}"?'),
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .deleteSeller),
+                                          content: Text(
+                                              '${AppLocalizations.of(context)!.deleteProductConfirm} "${s.name}"?'),
                                           actions: [
                                             TextButton(
-                                              onPressed: () => Navigator.pop(context, false),
-                                              child: const Text('Cancel'),
+                                              onPressed: () =>
+                                                  Navigator.pop(context, false),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
                                             ),
                                             ElevatedButton(
-                                              onPressed: () => Navigator.pop(context, true),
-                                              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                                              child: const Text('Delete'),
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true),
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.red),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .delete),
                                             ),
                                           ],
                                         ),

@@ -229,5 +229,9 @@
   "editSupplier": "Edit Supplier",
   "addNewSupplier": "Add New Supplier",
   "updateSupplier": "Update Supplier",
-  "supplierNameRequired": "Supplier name is required"
+  "supplierNameRequired": "Supplier name is required",
+  "active": "Active",
+  "blocked": "Blocked",
+  "block": "Block",
+  "unblock": "Unblock"
 }
