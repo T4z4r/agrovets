@@ -1213,6 +1213,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recorded by'**
   String get recordedBy;
+
+  /// No description provided for @createSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Supplier'**
+  String get createSupplier;
+
+  /// No description provided for @editSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Supplier'**
+  String get editSupplier;
+
+  /// No description provided for @addNewSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Supplier'**
+  String get addNewSupplier;
+
+  /// No description provided for @updateSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Supplier'**
+  String get updateSupplier;
+
+  /// No description provided for @supplierNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier name is required'**
+  String get supplierNameRequired;
 }
 
 class _AppLocalizationsDelegate

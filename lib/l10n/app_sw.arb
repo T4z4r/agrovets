@@ -223,5 +223,10 @@
   "updated": "Imesasishwa",
   "date": "Tarehe",
   "remarks": "Maoni",
-  "recordedBy": "Imerekodiwa na"
+  "recordedBy": "Imerekodiwa na",
+  "createSupplier": "Unda Msambazaji",
+  "editSupplier": "Hariri Msambazaji",
+  "addNewSupplier": "Ongeza Msambazaji Mpya",
+  "updateSupplier": "Sasisha Msambazaji",
+  "supplierNameRequired": "Jina la msambazaji linahitajika"
 }

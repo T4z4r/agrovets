@@ -563,4 +563,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordedBy => 'Recorded by';
+
+  @override
+  String get createSupplier => 'Create Supplier';
+
+  @override
+  String get editSupplier => 'Edit Supplier';
+
+  @override
+  String get addNewSupplier => 'Add New Supplier';
+
+  @override
+  String get updateSupplier => 'Update Supplier';
+
+  @override
+  String get supplierNameRequired => 'Supplier name is required';
 }

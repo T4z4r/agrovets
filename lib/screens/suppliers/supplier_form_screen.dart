@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/api_service.dart';
 import '../../models/supplier.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 
 class SupplierFormScreen extends StatefulWidget {
   final Supplier? supplier;
@@ -49,19 +50,19 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
       if (widget.supplier == null) {
         await ApiService.post('/api/suppliers', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Supplier created successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.supplierCreated),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       } else {
         await ApiService.put('/api/suppliers/${widget.supplier!.id}', data);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Supplier updated successfully!'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.supplierUpdated),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -71,11 +72,12 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to save supplier: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedSaveSupplier}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Retry',
+            label: AppLocalizations.of(context)!.retry,
             textColor: Colors.white,
             onPressed: _save,
           ),
@@ -90,8 +92,9 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title:
-            Text(widget.supplier == null ? 'Create Supplier' : 'Edit Supplier'),
+        title: Text(widget.supplier == null
+            ? AppLocalizations.of(context)!.createSupplier
+            : AppLocalizations.of(context)!.editSupplier),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -133,8 +136,8 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                     children: [
                       Text(
                         widget.supplier == null
-                            ? 'Add New Supplier'
-                            : 'Edit Supplier',
+                            ? AppLocalizations.of(context)!.addNewSupplier
+                            : AppLocalizations.of(context)!.editSupplier,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -148,8 +151,9 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       TextFormField(
                         controller: _nameCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Supplier Name',
-                          hintText: 'Enter supplier name',
+                          labelText: AppLocalizations.of(context)!.supplierName,
+                          hintText:
+                              AppLocalizations.of(context)!.enterSupplierName,
                           prefixIcon: const Icon(Icons.business),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -159,7 +163,8 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Supplier name is required';
+                            return AppLocalizations.of(context)!
+                                .supplierNameRequired;
                           }
                           return null;
                         },
@@ -170,8 +175,10 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       TextFormField(
                         controller: _contactCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Contact Person',
-                          hintText: 'Enter contact person name',
+                          labelText:
+                              AppLocalizations.of(context)!.contactPerson,
+                          hintText:
+                              AppLocalizations.of(context)!.enterContactPerson,
                           prefixIcon: const Icon(Icons.person),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -186,8 +193,9 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       TextFormField(
                         controller: _phoneCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Phone Number',
-                          hintText: 'Enter phone number',
+                          labelText: AppLocalizations.of(context)!.phoneNumber,
+                          hintText:
+                              AppLocalizations.of(context)!.enterPhoneNumber,
                           prefixIcon: const Icon(Icons.phone),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -203,8 +211,10 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       TextFormField(
                         controller: _emailCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Email Address',
-                          hintText: 'Enter email address',
+                          labelText:
+                              AppLocalizations.of(context)!.enterEmailAddress,
+                          hintText:
+                              AppLocalizations.of(context)!.enterEmailAddress,
                           prefixIcon: const Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -218,7 +228,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                               v.isNotEmpty &&
                               !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                   .hasMatch(v)) {
-                            return 'Please enter a valid email';
+                            return AppLocalizations.of(context)!.invalidEmail;
                           }
                           return null;
                         },
@@ -229,8 +239,9 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       TextFormField(
                         controller: _addressCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Address',
-                          hintText: 'Enter supplier address',
+                          labelText: AppLocalizations.of(context)!.address,
+                          hintText: AppLocalizations.of(context)!
+                              .enterSupplierAddress,
                           prefixIcon: const Icon(Icons.location_on),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -263,8 +274,10 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                               )
                             : Text(
                                 widget.supplier == null
-                                    ? 'Create Supplier'
-                                    : 'Update Supplier',
+                                    ? AppLocalizations.of(context)!
+                                        .createSupplier
+                                    : AppLocalizations.of(context)!
+                                        .updateSupplier,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

@@ -224,5 +224,10 @@
   "updated": "Updated",
   "date": "Date",
   "remarks": "Remarks",
-  "recordedBy": "Recorded by"
+  "recordedBy": "Recorded by",
+  "createSupplier": "Create Supplier",
+  "editSupplier": "Edit Supplier",
+  "addNewSupplier": "Add New Supplier",
+  "updateSupplier": "Update Supplier",
+  "supplierNameRequired": "Supplier name is required"
 }

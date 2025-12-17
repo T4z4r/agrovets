@@ -568,4 +568,19 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get recordedBy => 'Imerekodiwa na';
+
+  @override
+  String get createSupplier => 'Unda Msambazaji';
+
+  @override
+  String get editSupplier => 'Hariri Msambazaji';
+
+  @override
+  String get addNewSupplier => 'Ongeza Msambazaji Mpya';
+
+  @override
+  String get updateSupplier => 'Sasisha Msambazaji';
+
+  @override
+  String get supplierNameRequired => 'Jina la msambazaji linahitajika';
 }
