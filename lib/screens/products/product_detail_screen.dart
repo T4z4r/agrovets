@@ -20,6 +20,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Product? _product;
   bool _loading = true;
+  List<StockTransaction> _filteredTransactions = [];
+  String _transactionSearchQuery = '';
 
   @override
   void initState() {
@@ -32,17 +34,42 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       final res = await ApiService.get('/api/products/${widget.productId}');
       setState(() {
         _product = Product.fromJson(res['data']);
+        _filteredTransactions = _product!.stockTransactions ?? [];
         _loading = false;
       });
     } catch (e) {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
           backgroundColor: Colors.red,
         ),
       );
     }
+  }
+
+  void _filterTransactions(String query) {
+    setState(() {
+      _transactionSearchQuery = query;
+      if (query.isEmpty) {
+        _filteredTransactions = _product!.stockTransactions ?? [];
+      } else {
+        _filteredTransactions =
+            (_product!.stockTransactions ?? []).where((transaction) {
+          return transaction.type.toLowerCase().contains(query.toLowerCase()) ||
+              transaction.date.toLowerCase().contains(query.toLowerCase()) ||
+              transaction.remarks
+                      ?.toLowerCase()
+                      .contains(query.toLowerCase()) ==
+                  true ||
+              transaction.user?.name
+                      .toLowerCase()
+                      .contains(query.toLowerCase()) ==
+                  true;
+        }).toList();
+      }
+    });
   }
 
   String _formatDate(String dateString) {
@@ -66,8 +93,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'products'),
       body: _loading
-          ? Center(
-              child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _product == null
               ? Center(
                   child: Text(AppLocalizations.of(context)!.noProductsFound),
@@ -98,18 +124,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               const SizedBox(height: 8),
                               Row(
                                 children: [
-                                  Icon(Icons.inventory, color: Colors.grey[600]),
+                                  Icon(Icons.inventory,
+                                      color: Colors.grey[600]),
                                   const SizedBox(width: 8),
                                   Text(
                                     '${AppLocalizations.of(context)!.stockLabel}: ${_product!.stock} ${_product!.unit}',
                                     style: TextStyle(
-                                      color: (_product!.stock ?? 0) <= (_product!.minimumQuantity ?? 0) ? Colors.red : Colors.grey[600],
-                                      fontWeight: (_product!.stock ?? 0) <= (_product!.minimumQuantity ?? 0) ? FontWeight.bold : FontWeight.normal,
+                                      color: (_product!.stock ?? 0) <=
+                                              (_product!.minimumQuantity ?? 0)
+                                          ? Colors.red
+                                          : Colors.grey[600],
+                                      fontWeight: (_product!.stock ?? 0) <=
+                                              (_product!.minimumQuantity ?? 0)
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
                                     ),
                                   ),
-                                  if ((_product!.stock ?? 0) <= (_product!.minimumQuantity ?? 0)) ...[
+                                  if ((_product!.stock ?? 0) <=
+                                      (_product!.minimumQuantity ?? 0)) ...[
                                     const SizedBox(width: 4),
-                                    Icon(Icons.warning, color: Colors.red, size: 16),
+                                    Icon(Icons.warning,
+                                        color: Colors.red, size: 16),
                                   ],
                                 ],
                               ),
@@ -118,17 +153,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 '${AppLocalizations.of(context)!.unit}: ${_product!.unit}',
                                 style: TextStyle(color: Colors.grey[600]),
                               ),
-                              if (_product!.category != null && _product!.category!.isNotEmpty) ...[
+                              if (_product!.category != null &&
+                                  _product!.category!.isNotEmpty) ...[
                                 const SizedBox(height: 4),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: Colors.blue[100],
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
                                     _product!.category!,
-                                    style: TextStyle(color: Colors.blue[700], fontSize: 12),
+                                    style: TextStyle(
+                                        color: Colors.blue[700], fontSize: 12),
                                   ),
                                 ),
                               ],
@@ -159,18 +197,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                               const SizedBox(height: 8),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(AppLocalizations.of(context)!.costPrice),
-                                  Text(NumberFormatter.formatCurrency(_product!.costPrice)),
+                                  Text(NumberFormatter.formatCurrency(
+                                      _product!.costPrice)),
                                 ],
                               ),
                               const SizedBox(height: 4),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(AppLocalizations.of(context)!.sellingPrice),
-                                  Text(NumberFormatter.formatCurrency(_product!.sellingPrice)),
+                                  Text(AppLocalizations.of(context)!
+                                      .sellingPrice),
+                                  Text(NumberFormatter.formatCurrency(
+                                      _product!.sellingPrice)),
                                 ],
                               ),
                             ],
@@ -192,7 +235,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Minimum Quantity'),
-                              Text('${_product!.minimumQuantity} ${_product!.unit}'),
+                              Text(
+                                  '${_product!.minimumQuantity} ${_product!.unit}'),
                             ],
                           ),
                         ),
@@ -201,7 +245,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       const SizedBox(height: 16),
 
                       // Stock Transactions
-                      if (_product!.stockTransactions != null && _product!.stockTransactions!.isNotEmpty) ...[
+                      if (_product!.stockTransactions != null &&
+                          _product!.stockTransactions!.isNotEmpty) ...[
                         Text(
                           AppLocalizations.of(context)!.stockTransactions,
                           style: const TextStyle(
@@ -210,12 +255,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                         const SizedBox(height: 8),
+                        // Search Bar for Transactions
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[50],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: TextField(
+                            onChanged: _filterTransactions,
+                            decoration: InputDecoration(
+                              hintText: 'Search transactions...',
+                              prefixIcon: const Icon(Icons.search, size: 20),
+                              border: InputBorder.none,
+                              isDense: true,
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 8),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: _product!.stockTransactions!.length,
+                          itemCount: _filteredTransactions.length,
                           itemBuilder: (ctx, i) {
-                            final transaction = _product!.stockTransactions![i];
+                            final transaction = _filteredTransactions[i];
                             return Card(
                               margin: const EdgeInsets.only(bottom: 8),
                               elevation: 1,
@@ -224,19 +290,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                               child: ListTile(
                                 leading: Icon(
-                                  transaction.type == 'stock_in' ? Icons.add_circle : 
-                                  transaction.type == 'damage' ? Icons.warning : Icons.remove_circle,
-                                  color: transaction.type == 'stock_in' ? Colors.green : Colors.red,
+                                  transaction.type == 'stock_in'
+                                      ? Icons.add_circle
+                                      : transaction.type == 'damage'
+                                          ? Icons.warning
+                                          : Icons.remove_circle,
+                                  color: transaction.type == 'stock_in'
+                                      ? Colors.green
+                                      : Colors.red,
                                 ),
-                                title: Text('${transaction.type.replaceAll('_', ' ').toUpperCase()} - ${transaction.quantity}'),
+                                title: Text(
+                                    '${transaction.type.replaceAll('_', ' ').toUpperCase()} - ${transaction.quantity}'),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Date: ${transaction.date}'),
-                                    if (transaction.remarks != null && transaction.remarks!.isNotEmpty)
+                                    if (transaction.remarks != null &&
+                                        transaction.remarks!.isNotEmpty)
                                       Text('Remarks: ${transaction.remarks}'),
                                     if (transaction.user != null)
-                                      Text('Recorded by: ${transaction.user!.name}'),
+                                      Text(
+                                          'Recorded by: ${transaction.user!.name}'),
                                   ],
                                 ),
                               ),
@@ -246,7 +320,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
 
                       // Timestamps
-                      if (_product!.createdAt != null || _product!.updatedAt != null) ...[
+                      if (_product!.createdAt != null ||
+                          _product!.updatedAt != null) ...[
                         const SizedBox(height: 16),
                         Card(
                           elevation: 2,
@@ -269,22 +344,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 if (_product!.createdAt != null)
                                   Row(
                                     children: [
-                                      Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                                      Icon(Icons.calendar_today,
+                                          size: 16, color: Colors.grey[600]),
                                       const SizedBox(width: 8),
                                       Text(
                                         'Created: ${_formatDate(_product!.createdAt!)}',
-                                        style: TextStyle(color: Colors.grey[700]),
+                                        style:
+                                            TextStyle(color: Colors.grey[700]),
                                       ),
                                     ],
                                   ),
                                 if (_product!.updatedAt != null)
                                   Row(
                                     children: [
-                                      Icon(Icons.update, size: 16, color: Colors.grey[600]),
+                                      Icon(Icons.update,
+                                          size: 16, color: Colors.grey[600]),
                                       const SizedBox(width: 8),
                                       Text(
                                         'Updated: ${_formatDate(_product!.updatedAt!)}',
-                                        style: TextStyle(color: Colors.grey[700]),
+                                        style:
+                                            TextStyle(color: Colors.grey[700]),
                                       ),
                                     ],
                                   ),
