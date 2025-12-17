@@ -595,4 +595,41 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get unblock => 'Ondoa kizuizi';
+
+  @override
+  String get createSeller => 'Unda Mwuza';
+
+  @override
+  String get editSeller => 'Hariri Mwuza';
+
+  @override
+  String get addNewSeller => 'Ongeza Mwuza Mpya';
+
+  @override
+  String get updateSeller => 'Sasisha Mwuza';
+
+  @override
+  String get newPasswordOptional => 'Nenosiri Jipya (hiari)';
+
+  @override
+  String get leaveEmptyKeepCurrent => 'Acha tupu ili kuhifadhi ya sasa';
+
+  @override
+  String get confirmPassword => 'Thibitisha Nenosiri';
+
+  @override
+  String get confirmNewPassword => 'Thibitisha Nenosiri Jipya';
+
+  @override
+  String get enterConfirmPassword => 'Thibitisha nenosiri';
+
+  @override
+  String get leaveEmptyNotChanging => 'Acha tupu ikiwa hautabadilisha';
+
+  @override
+  String get passwordConfirmationRequired =>
+      'Uthibitishaji wa nenosiri unahitajika';
+
+  @override
+  String get passwordsDoNotMatch => 'Manenosiri hayalingani';
 }

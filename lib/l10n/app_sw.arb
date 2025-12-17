@@ -232,5 +232,17 @@
   "active": "Amilifu",
   "blocked": "Amezuiwa",
   "block": "Zuia",
-  "unblock": "Ondoa kizuizi"
+  "unblock": "Ondoa kizuizi",
+  "createSeller": "Unda Mwuza",
+  "editSeller": "Hariri Mwuza",
+  "addNewSeller": "Ongeza Mwuza Mpya",
+  "updateSeller": "Sasisha Mwuza",
+  "newPasswordOptional": "Nenosiri Jipya (hiari)",
+  "leaveEmptyKeepCurrent": "Acha tupu ili kuhifadhi ya sasa",
+  "confirmPassword": "Thibitisha Nenosiri",
+  "confirmNewPassword": "Thibitisha Nenosiri Jipya",
+  "enterConfirmPassword": "Thibitisha nenosiri",
+  "leaveEmptyNotChanging": "Acha tupu ikiwa hautabadilisha",
+  "passwordConfirmationRequired": "Uthibitishaji wa nenosiri unahitajika",
+  "passwordsDoNotMatch": "Manenosiri hayalingani"
 }

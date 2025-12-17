@@ -233,5 +233,17 @@
   "active": "Active",
   "blocked": "Blocked",
   "block": "Block",
-  "unblock": "Unblock"
+  "unblock": "Unblock",
+  "createSeller": "Create Seller",
+  "editSeller": "Edit Seller",
+  "addNewSeller": "Add New Seller",
+  "updateSeller": "Update Seller",
+  "newPasswordOptional": "New Password (optional)",
+  "leaveEmptyKeepCurrent": "Leave empty to keep current",
+  "confirmPassword": "Confirm Password",
+  "confirmNewPassword": "Confirm New Password",
+  "enterConfirmPassword": "Confirm password",
+  "leaveEmptyNotChanging": "Leave empty if not changing",
+  "passwordConfirmationRequired": "Password confirmation is required",
+  "passwordsDoNotMatch": "Passwords do not match"
 }

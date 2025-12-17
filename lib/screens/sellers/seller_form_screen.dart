@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/user.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/app_drawer.dart';
+import '../../l10n/app_localizations.dart';
 
 class SellerFormScreen extends StatefulWidget {
   final User? seller;
@@ -60,10 +61,10 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
         await ApiService.createSeller(data);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Seller created successfully!'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.sellerCreated),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -71,10 +72,10 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
         await ApiService.updateSeller(widget.seller!.id, data);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Seller updated successfully!'),
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.sellerUpdated),
               backgroundColor: Colors.green,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -86,11 +87,11 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to save seller: $e'),
+            content: Text('${AppLocalizations.of(context)!.failedSaveSeller}: $e'),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 3),
             action: SnackBarAction(
-              label: 'Retry',
+              label: AppLocalizations.of(context)!.retry,
               textColor: Colors.white,
               onPressed: _save,
             ),
@@ -109,12 +110,12 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
     if (!isOwnerOrAdmin) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Access Denied'),
+          title: Text(AppLocalizations.of(context)!.accessDenied),
           backgroundColor: Colors.red[600],
           foregroundColor: Colors.white,
         ),
-        body: const Center(
-          child: Text('You do not have permission to access this page.'),
+        body: Center(
+          child: Text(AppLocalizations.of(context)!.noPermission),
         ),
       );
     }
@@ -122,7 +123,9 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(widget.seller == null ? 'Create Seller' : 'Edit Seller'),
+        title: Text(widget.seller == null
+            ? AppLocalizations.of(context)!.createSeller
+            : AppLocalizations.of(context)!.editSeller),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -164,8 +167,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                     children: [
                       Text(
                         widget.seller == null
-                            ? 'Add New Seller'
-                            : 'Edit Seller',
+                            ? AppLocalizations.of(context)!.addNewSeller
+                            : AppLocalizations.of(context)!.editSeller,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -179,8 +182,9 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                       TextFormField(
                         controller: _nameCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Seller Name',
-                          hintText: 'Enter seller name',
+                          labelText: AppLocalizations.of(context)!.sellerName,
+                          hintText:
+                              AppLocalizations.of(context)!.enterSellerName,
                           prefixIcon: const Icon(Icons.person),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -190,7 +194,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Seller name is required';
+                            return AppLocalizations.of(context)!
+                                .supplierNameRequired;
                           }
                           return null;
                         },
@@ -201,8 +206,10 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                       TextFormField(
                         controller: _emailCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Email Address',
-                          hintText: 'Enter email address',
+                          labelText:
+                              AppLocalizations.of(context)!.enterEmailAddress,
+                          hintText:
+                              AppLocalizations.of(context)!.enterEmailAddress,
                           prefixIcon: const Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -213,11 +220,11 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Email is required';
+                            return AppLocalizations.of(context)!.emailRequired;
                           }
                           if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                               .hasMatch(v)) {
-                            return 'Please enter a valid email';
+                            return AppLocalizations.of(context)!.invalidEmail;
                           }
                           return null;
                         },
@@ -229,11 +236,13 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         controller: _passwordCtrl,
                         decoration: InputDecoration(
                           labelText: widget.seller == null
-                              ? 'Password'
-                              : 'New Password (optional)',
+                              ? AppLocalizations.of(context)!.password
+                              : AppLocalizations.of(context)!
+                                  .newPasswordOptional,
                           hintText: widget.seller == null
-                              ? 'Enter password'
-                              : 'Leave empty to keep current',
+                              ? AppLocalizations.of(context)!.enterPassword
+                              : AppLocalizations.of(context)!
+                                  .leaveEmptyKeepCurrent,
                           prefixIcon: const Icon(Icons.lock),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -245,10 +254,12 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         validator: (v) {
                           if (widget.seller == null &&
                               (v == null || v.isEmpty)) {
-                            return 'Password is required';
+                            return AppLocalizations.of(context)!
+                                .passwordRequired;
                           }
                           if (v != null && v.isNotEmpty && v.length < 6) {
-                            return 'Password must be at least 6 characters';
+                            return AppLocalizations.of(context)!
+                                .passwordMinLength;
                           }
                           return null;
                         },
@@ -260,11 +271,14 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         controller: _confirmPasswordCtrl,
                         decoration: InputDecoration(
                           labelText: widget.seller == null
-                              ? 'Confirm Password'
-                              : 'Confirm New Password',
+                              ? AppLocalizations.of(context)!.confirmPassword
+                              : AppLocalizations.of(context)!
+                                  .confirmNewPassword,
                           hintText: widget.seller == null
-                              ? 'Confirm password'
-                              : 'Leave empty if not changing',
+                              ? AppLocalizations.of(context)!
+                                  .enterConfirmPassword
+                              : AppLocalizations.of(context)!
+                                  .leaveEmptyNotChanging,
                           prefixIcon: const Icon(Icons.lock_outline),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -276,10 +290,12 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                         validator: (v) {
                           if (widget.seller == null &&
                               (v == null || v.isEmpty)) {
-                            return 'Password confirmation is required';
+                            return AppLocalizations.of(context)!
+                                .passwordConfirmationRequired;
                           }
                           if (_passwordCtrl.text != v) {
-                            return 'Passwords do not match';
+                            return AppLocalizations.of(context)!
+                                .passwordsDoNotMatch;
                           }
                           return null;
                         },
@@ -307,8 +323,9 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                               )
                             : Text(
                                 widget.seller == null
-                                    ? 'Create Seller'
-                                    : 'Update Seller',
+                                    ? AppLocalizations.of(context)!.createSeller
+                                    : AppLocalizations.of(context)!
+                                        .updateSeller,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

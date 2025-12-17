@@ -1267,6 +1267,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unblock'**
   String get unblock;
+
+  /// No description provided for @createSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Seller'**
+  String get createSeller;
+
+  /// No description provided for @editSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Seller'**
+  String get editSeller;
+
+  /// No description provided for @addNewSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Seller'**
+  String get addNewSeller;
+
+  /// No description provided for @updateSeller.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Seller'**
+  String get updateSeller;
+
+  /// No description provided for @newPasswordOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password (optional)'**
+  String get newPasswordOptional;
+
+  /// No description provided for @leaveEmptyKeepCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to keep current'**
+  String get leaveEmptyKeepCurrent;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @confirmNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get confirmNewPassword;
+
+  /// No description provided for @enterConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get enterConfirmPassword;
+
+  /// No description provided for @leaveEmptyNotChanging.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty if not changing'**
+  String get leaveEmptyNotChanging;
+
+  /// No description provided for @passwordConfirmationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password confirmation is required'**
+  String get passwordConfirmationRequired;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
 }
 
 class _AppLocalizationsDelegate

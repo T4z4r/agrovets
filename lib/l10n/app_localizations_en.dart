@@ -590,4 +590,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unblock => 'Unblock';
+
+  @override
+  String get createSeller => 'Create Seller';
+
+  @override
+  String get editSeller => 'Edit Seller';
+
+  @override
+  String get addNewSeller => 'Add New Seller';
+
+  @override
+  String get updateSeller => 'Update Seller';
+
+  @override
+  String get newPasswordOptional => 'New Password (optional)';
+
+  @override
+  String get leaveEmptyKeepCurrent => 'Leave empty to keep current';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get confirmNewPassword => 'Confirm New Password';
+
+  @override
+  String get enterConfirmPassword => 'Confirm password';
+
+  @override
+  String get leaveEmptyNotChanging => 'Leave empty if not changing';
+
+  @override
+  String get passwordConfirmationRequired =>
+      'Password confirmation is required';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
 }
