@@ -1,10 +1,12 @@
 // lib/screens/sales/sale_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
 import '../../widgets/app_drawer.dart';
+import '../../providers/auth_provider.dart';
 import 'sale_form_screen.dart';
 import 'receipt_view_screen.dart';
 
@@ -67,6 +69,9 @@ class _SaleListScreenState extends State<SaleListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final isOwner = authProvider.isOwner;
+
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
@@ -217,6 +222,19 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
+                                    if (isOwner)
+                                      PopupMenuItem(
+                                        value: 'delete',
+                                        child: ListTile(
+                                          leading: Icon(Icons.delete,
+                                              color: Colors.red),
+                                          title: Text(
+                                            'Delete Sale',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
                                   ],
                                   onSelected: (value) async {
                                     if (value == 'receipt') {
@@ -227,6 +245,49 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                               ReceiptViewScreen(saleId: s.id),
                                         ),
                                       );
+                                    } else if (value == 'delete') {
+                                      final confirmed = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text('Delete Sale'),
+                                          content: Text(
+                                              'Are you sure you want to delete this sale? This action cannot be undone.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, false),
+                                              child: Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true),
+                                              style: TextButton.styleFrom(
+                                                  foregroundColor: Colors.red),
+                                              child: Text('Delete'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      if (confirmed == true) {
+                                        try {
+                                          await ApiService.delete(
+                                              '/api/sales/${s.id}');
+                                          _loadSales();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    'Sale deleted successfully')),
+                                          );
+                                        } catch (e) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    'Failed to delete sale: $e')),
+                                          );
+                                        }
+                                      }
                                     }
                                   },
                                 ),

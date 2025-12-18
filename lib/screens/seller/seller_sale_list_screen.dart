@@ -202,6 +202,17 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
+                                    PopupMenuItem(
+                                      value: 'delete',
+                                      child: ListTile(
+                                        leading: Icon(Icons.delete, color: Colors.red),
+                                        title: Text(
+                                          'Delete Sale',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
                                   ],
                                   onSelected: (value) async {
                                     if (value == 'receipt') {
@@ -213,6 +224,38 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                                   saleId: s.id),
                                         ),
                                       );
+                                    } else if (value == 'delete') {
+                                      final confirmed = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text('Delete Sale'),
+                                          content: Text('Are you sure you want to delete this sale? This action cannot be undone.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context, false),
+                                              child: Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context, true),
+                                              style: TextButton.styleFrom(foregroundColor: Colors.red),
+                                              child: Text('Delete'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      if (confirmed == true) {
+                                        try {
+                                          await ApiService.delete('/api/sales/${s.id}');
+                                          _loadSales();
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Sale deleted successfully')),
+                                          );
+                                        } catch (e) {
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Failed to delete sale: $e')),
+                                          );
+                                        }
+                                      }
                                     }
                                   },
                                 ),
