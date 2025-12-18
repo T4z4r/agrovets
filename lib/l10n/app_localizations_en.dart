@@ -274,6 +274,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedLoadSuppliers => 'Failed to load suppliers';
 
   @override
+  String get failedLoadStock => 'Failed to load stock transactions';
+
+  @override
   String get deleteProduct => 'Delete Product';
 
   @override

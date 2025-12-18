@@ -88,6 +88,7 @@
   "noPermission": "You do not have permission to access this page.",
   "failedLoadProducts": "Failed to load products",
   "failedLoadSuppliers": "Failed to load suppliers",
+  "failedLoadStock": "Failed to load stock transactions",
   "deleteProduct": "Delete Product",
   "productDeleted": "Product deleted successfully",
   "failedDeleteProduct": "Failed to delete product",

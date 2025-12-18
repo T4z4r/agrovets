@@ -38,8 +38,9 @@ class _StockListScreenState extends State<StockListScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadStock}: $e')));
     }
   }
 
@@ -48,8 +49,9 @@ class _StockListScreenState extends State<StockListScreen> {
       await ApiService.delete('/api/stock/$id');
       _loadTransactions();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              '${AppLocalizations.of(context)!.failedDeleteProduct}: $e')));
     }
   }
 
