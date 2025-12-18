@@ -87,6 +87,7 @@
   "accessDenied": "Upatikanaji Umekataliwa",
   "noPermission": "Huna ruhusa ya kufikia ukurasa huu.",
   "failedLoadProducts": "Imeshindikana kupakia bidhaa",
+  "failedLoadSuppliers": "Imeshindikana kupakia wasambazaji",
   "deleteProduct": "Futa Bidhaa",
   "productDeleted": "Bidhaa imefutwa kwa mafanikio",
   "failedDeleteProduct": "Imeshindikana kufuta bidhaa",

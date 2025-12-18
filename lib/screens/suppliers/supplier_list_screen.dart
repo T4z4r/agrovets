@@ -37,8 +37,9 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              '${AppLocalizations.of(context)!.failedLoadSuppliers}: $e')));
     }
   }
 
@@ -115,7 +116,8 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
           // Suppliers List
           Expanded(
             child: _loading
-                ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                ? Center(
+                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
                 : _filteredSuppliers.isEmpty
                     ? Center(
                         child: Column(
@@ -129,8 +131,10 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? AppLocalizations.of(context)!.noSuppliersFound
-                                  : AppLocalizations.of(context)!.noSuppliersMatch,
+                                  ? AppLocalizations.of(context)!
+                                      .noSuppliersFound
+                                  : AppLocalizations.of(context)!
+                                      .noSuppliersMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -146,166 +150,178 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
                           itemCount: _filteredSuppliers.length,
                           itemBuilder: (ctx, i) {
                             final s = _filteredSuppliers[i];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(16),
-                          leading: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.blue[100],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Icon(
-                              Icons.business,
-                              color: Colors.blue[600],
-                            ),
-                          ),
-                          title: Text(
-                            s.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 4),
-                              if (s.contactPerson != null &&
-                                  s.contactPerson!.isNotEmpty) ...[
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      size: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      s.contactPerson!,
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 2),
-                              ],
-                              if (s.phone != null && s.phone!.isNotEmpty) ...[
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.phone,
-                                      size: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      s.phone!,
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 2),
-                              ],
-                              if (s.email != null && s.email!.isNotEmpty) ...[
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.email,
-                                      size: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      s.email!,
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ],
-                          ),
-                          trailing: PopupMenuButton(
-                            itemBuilder: (context) => [
-                              PopupMenuItem(
-                                value: 'edit',
-                                child: ListTile(
-                                  leading: Icon(Icons.edit),
-                                  title: Text(AppLocalizations.of(context)!.edit),
-                                  contentPadding: EdgeInsets.zero,
-                                ),
+                            return Card(
+                              margin: const EdgeInsets.only(bottom: 8),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              PopupMenuItem(
-                                value: 'delete',
-                                child: ListTile(
-                                  leading:
-                                      Icon(Icons.delete, color: Colors.red),
-                                  title: Text(AppLocalizations.of(context)!.delete,
-                                      style: TextStyle(color: Colors.red)),
-                                  contentPadding: EdgeInsets.zero,
-                                ),
-                              ),
-                            ],
-                            onSelected: (value) async {
-                              if (value == 'edit') {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => SupplierFormScreen(
-                                      supplier: s,
-                                      onSave: _loadSuppliers,
-                                    ),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(16),
+                                leading: Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue[100],
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                );
-                              } else if (value == 'delete') {
-                                // Show confirmation dialog
-                                final confirmed = await showDialog<bool>(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text(AppLocalizations.of(context)!.deleteSupplier),
-                                    content: Text(
-                                        '${AppLocalizations.of(context)!.deleteProductConfirm} "${s.name}"?'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, false),
-                                        child: Text(AppLocalizations.of(context)!.cancel),
+                                  child: Icon(
+                                    Icons.business,
+                                    color: Colors.blue[600],
+                                  ),
+                                ),
+                                title: Text(
+                                  s.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 4),
+                                    if (s.contactPerson != null &&
+                                        s.contactPerson!.isNotEmpty) ...[
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.person,
+                                            size: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            s.contactPerson!,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, true),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red),
-                                        child: Text(AppLocalizations.of(context)!.delete),
+                                      const SizedBox(height: 2),
+                                    ],
+                                    if (s.phone != null &&
+                                        s.phone!.isNotEmpty) ...[
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.phone,
+                                            size: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            s.phone!,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 2),
+                                    ],
+                                    if (s.email != null &&
+                                        s.email!.isNotEmpty) ...[
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.email,
+                                            size: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            s.email!,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
-                                  ),
-                                );
-                                if (confirmed == true) {
-                                  await _deleteSupplier(s.id);
-                                }
-                              }
-                            },
-                          ),
+                                  ],
+                                ),
+                                trailing: PopupMenuButton(
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      value: 'edit',
+                                      child: ListTile(
+                                        leading: Icon(Icons.edit),
+                                        title: Text(
+                                            AppLocalizations.of(context)!.edit),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
+                                    PopupMenuItem(
+                                      value: 'delete',
+                                      child: ListTile(
+                                        leading: Icon(Icons.delete,
+                                            color: Colors.red),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .delete,
+                                            style:
+                                                TextStyle(color: Colors.red)),
+                                        contentPadding: EdgeInsets.zero,
+                                      ),
+                                    ),
+                                  ],
+                                  onSelected: (value) async {
+                                    if (value == 'edit') {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => SupplierFormScreen(
+                                            supplier: s,
+                                            onSave: _loadSuppliers,
+                                          ),
+                                        ),
+                                      );
+                                    } else if (value == 'delete') {
+                                      // Show confirmation dialog
+                                      final confirmed = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .deleteSupplier),
+                                          content: Text(
+                                              '${AppLocalizations.of(context)!.deleteProductConfirm} "${s.name}"?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, false),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true),
+                                              style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.red),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .delete),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      if (confirmed == true) {
+                                        await _deleteSupplier(s.id);
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
           ),
         ],
       ),

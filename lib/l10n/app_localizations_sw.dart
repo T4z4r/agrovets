@@ -272,6 +272,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get failedLoadProducts => 'Imeshindikana kupakia bidhaa';
 
   @override
+  String get failedLoadSuppliers => 'Imeshindikana kupakia wasambazaji';
+
+  @override
   String get deleteProduct => 'Futa Bidhaa';
 
   @override

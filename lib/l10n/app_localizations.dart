@@ -626,6 +626,12 @@ abstract class AppLocalizations {
   /// **'Failed to load products'**
   String get failedLoadProducts;
 
+  /// No description provided for @failedLoadSuppliers.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load suppliers'**
+  String get failedLoadSuppliers;
+
   /// No description provided for @deleteProduct.
   ///
   /// In en, this message translates to:
