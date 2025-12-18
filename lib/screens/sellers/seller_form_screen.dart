@@ -52,7 +52,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -113,7 +113,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.failedSaveSeller}: $e'),
+            content:
+                Text('${AppLocalizations.of(context)!.failedSaveSeller}: $e'),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 3),
             action: SnackBarAction(
