@@ -288,5 +288,9 @@
   "cameraPermissionRequired": "Camera permission is required to scan barcodes",
   "cameraPermissionPermanentlyDenied": "Camera permission is permanently denied. Please enable it in settings.",
   "ok": "OK",
-  "outOfStock": "Out of Stock"
+  "outOfStock": "Out of Stock",
+  "scan": "Scan",
+  "selected": "Selected",
+  "productNotFoundForBarcode": "Product not found for scanned barcode",
+  "errorFindingProduct": "Error finding product"
 }

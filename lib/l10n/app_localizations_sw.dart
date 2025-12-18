@@ -743,4 +743,16 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get outOfStock => 'Hakuna Stoki';
+
+  @override
+  String get scan => 'Skani';
+
+  @override
+  String get selected => 'Imechaguliwa';
+
+  @override
+  String get productNotFoundForBarcode => 'Bidhaa haijapatikana kwa barcode iliyoskaniwa';
+
+  @override
+  String get errorFindingProduct => 'Kosa katika kutafuta bidhaa';
 }

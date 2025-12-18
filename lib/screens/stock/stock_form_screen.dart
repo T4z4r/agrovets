@@ -86,7 +86,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -214,8 +214,9 @@ class _StockFormScreenState extends State<StockFormScreen> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -228,9 +229,9 @@ class _StockFormScreenState extends State<StockFormScreen> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-              'Camera permission is permanently denied. Please enable it in settings.'),
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -248,7 +249,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -289,17 +290,22 @@ class _StockFormScreenState extends State<StockFormScreen> {
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Selected ${product.name}')),
+            SnackBar(
+                content: Text(
+                    '${AppLocalizations.of(context)!.selected} ${product.name}')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Product not found for scanned barcode')),
+            SnackBar(
+                content: Text(
+                    AppLocalizations.of(context)!.productNotFoundForBarcode)),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error finding product: $e')),
+          SnackBar(
+              content: Text(
+                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
         );
       }
     }
@@ -324,7 +330,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
-            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            label: Text(AppLocalizations.of(context)!.scan,
+                style: TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],

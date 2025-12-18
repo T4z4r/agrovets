@@ -1445,6 +1445,10 @@ abstract class AppLocalizations {
   String get barcode;
   String get scanBarcode;
   String get outOfStock;
+  String get scan;
+  String get selected;
+  String get productNotFoundForBarcode;
+  String get errorFindingProduct;
 }
 
 class _AppLocalizationsDelegate

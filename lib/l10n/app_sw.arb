@@ -287,5 +287,9 @@
   "cameraPermissionRequired": "Ruhusa ya kamera inahitajika ili kuskeni barcodes",
   "cameraPermissionPermanentlyDenied": "Ruhusa ya kamera imekataliwa kabisa. Tafadhali wezesha katika mipangilio.",
   "ok": "Sawa",
-  "outOfStock": "Hakuna Stoki"
+  "outOfStock": "Hakuna Stoki",
+  "scan": "Skani",
+  "selected": "Imechaguliwa",
+  "productNotFoundForBarcode": "Bidhaa haijapatikana kwa barcode iliyoskaniwa",
+  "errorFindingProduct": "Kosa katika kutafuta bidhaa"
 }

@@ -738,4 +738,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get outOfStock => 'Out of Stock';
+
+  @override
+  String get scan => 'Scan';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get productNotFoundForBarcode => 'Product not found for scanned barcode';
+
+  @override
+  String get errorFindingProduct => 'Error finding product';
 }
