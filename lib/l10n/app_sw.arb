@@ -291,5 +291,12 @@
   "scan": "Skani",
   "selected": "Imechaguliwa",
   "productNotFoundForBarcode": "Bidhaa haijapatikana kwa barcode iliyoskaniwa",
-  "errorFindingProduct": "Kosa katika kutafuta bidhaa"
+  "errorFindingProduct": "Kosa katika kutafuta bidhaa",
+  "increasedQuantityOf": "Imeongezeka idadi ya",
+  "addedToSale": "Imeongezwa kwenye uuzaji",
+  "saleSavedSuccessfully": "Uuzaji umehifadhiwa kwa mafanikio.",
+  "insufficientStockFor": "Stoki haitoshi kwa",
+  "available": "Inapatikana",
+  "totalAmount": "Jumla ya Kiasi",
+  "saleSaved": "Uuzaji umehifadhiwa kwa mafanikio."
 }

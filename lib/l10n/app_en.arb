@@ -292,5 +292,12 @@
   "scan": "Scan",
   "selected": "Selected",
   "productNotFoundForBarcode": "Product not found for scanned barcode",
-  "errorFindingProduct": "Error finding product"
+  "errorFindingProduct": "Error finding product",
+  "increasedQuantityOf": "Increased quantity of",
+  "addedToSale": "Added to sale",
+  "saleSavedSuccessfully": "Sale saved successfully.",
+  "insufficientStockFor": "Insufficient stock for",
+  "available": "Available",
+  "totalAmount": "Total Amount",
+  "saleSaved": "Sale saved successfully."
 }

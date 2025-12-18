@@ -750,4 +750,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorFindingProduct => 'Error finding product';
+
+  @override
+  String get increasedQuantityOf => 'Increased quantity of';
+
+  @override
+  String get addedToSale => 'Added to sale';
+
+  @override
+  String get saleSavedSuccessfully => 'Sale saved successfully.';
+
+  @override
+  String get insufficientStockFor => 'Insufficient stock for';
+
+  @override
+  String get available => 'Available';
+
+  @override
+  String get totalAmount => 'Total Amount';
+
+  @override
+  String get saleSaved => 'Sale saved successfully.';
 }

@@ -75,8 +75,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -89,9 +90,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-              'Camera permission is permanently denied. Please enable it in settings.'),
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -109,7 +110,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -155,7 +156,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                   (_items[existingItemIndex]['quantity'] as int) + 1;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text('Increased quantity of ${product.name}')),
+                    content: Text(
+                        '${AppLocalizations.of(context)!.increasedQuantityOf} ${product.name}')),
               );
             } else {
               // Add new item if product doesn't exist
@@ -165,19 +167,24 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                 'price': product.sellingPrice,
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Added ${product.name} to sale')),
+                SnackBar(
+                    content: Text(
+                        '${product.name} ${AppLocalizations.of(context)!.addedToSale}')),
               );
             }
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Product not found for scanned barcode')),
+            SnackBar(
+                content: Text(
+                    AppLocalizations.of(context)!.productNotFoundForBarcode)),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error finding product: $e')),
+          SnackBar(
+              content: Text(
+                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
         );
       }
     }
@@ -200,7 +207,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -208,8 +215,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Sale saved successfully.',
+            Text(
+              AppLocalizations.of(context)!.saleSavedSuccessfully,
               textAlign: TextAlign.center,
             ),
           ],
@@ -220,7 +227,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -236,7 +243,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       if (item['quantity'] > product.stock) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Insufficient stock for ${product.name}. Available: ${product.stock}'),
+            content: Text(
+                '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -294,7 +302,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
-            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            label: Text(AppLocalizations.of(context)!.scan,
+                style: TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -535,7 +544,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Total Amount',
+                                AppLocalizations.of(context)!.totalAmount,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -617,8 +626,10 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
   }
 
   List<Product> get _filteredProducts => widget.products
-      .where((p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-                    (p.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false))
+      .where((p) =>
+          p.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          (p.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+              false))
       .toList();
 
   Future<void> _scanBarcode() async {
@@ -628,8 +639,9 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -642,8 +654,9 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+        SnackBar(
+          content: Text(
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -661,7 +674,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -740,7 +753,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                 IconButton(
                   icon: const Icon(Icons.qr_code_scanner),
                   onPressed: _scanBarcode,
-                  tooltip: 'Scan Barcode',
+                  tooltip: AppLocalizations.of(context)!.scanBarcode,
                 ),
               ],
             ),
@@ -772,7 +785,9 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                                 ? 'Stock: Out of Stock'
                                 : 'Stock: ${product.stock} ${product.unit}',
                             style: TextStyle(
-                              color: product.stock == 0 ? Colors.red : Colors.grey[600],
+                              color: product.stock == 0
+                                  ? Colors.red
+                                  : Colors.grey[600],
                               fontSize: 12,
                             ),
                           ),

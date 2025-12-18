@@ -1449,6 +1449,13 @@ abstract class AppLocalizations {
   String get selected;
   String get productNotFoundForBarcode;
   String get errorFindingProduct;
+  String get increasedQuantityOf;
+  String get addedToSale;
+  String get saleSavedSuccessfully;
+  String get insufficientStockFor;
+  String get available;
+  String get totalAmount;
+  String get saleSaved;
 }
 
 class _AppLocalizationsDelegate
