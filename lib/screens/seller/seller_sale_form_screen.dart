@@ -49,22 +49,22 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
   }
 
   void _addItem() async {
-     final selectedProducts = await showDialog<List<Product>>(
-       context: context,
-       builder: (context) => _ProductSelectionDialog(products: _products),
-     );
-     if (selectedProducts != null && selectedProducts.isNotEmpty) {
-       setState(() {
-         for (final product in selectedProducts) {
-           _items.add({
-             'product_id': product.id,
-             'quantity': 1,
-             'price': product.sellingPrice,
-           });
-         }
-       });
-     }
-   }
+    final selectedProducts = await showDialog<List<Product>>(
+      context: context,
+      builder: (context) => _ProductSelectionDialog(products: _products),
+    );
+    if (selectedProducts != null && selectedProducts.isNotEmpty) {
+      setState(() {
+        for (final product in selectedProducts) {
+          _items.add({
+            'product_id': product.id,
+            'quantity': 1,
+            'price': product.sellingPrice,
+          });
+        }
+      });
+    }
+  }
 
   Future<void> _scanBarcode() async {
     // Check camera permission
@@ -88,7 +88,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+          content: Text(
+              'Camera permission is permanently denied. Please enable it in settings.'),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -134,7 +135,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
     if (scannedBarcode != null) {
       try {
         // Get product by barcode from API
-        final response = await ApiService.get('/api/products/barcode/$scannedBarcode');
+        final response =
+            await ApiService.get('/api/products/barcode/$scannedBarcode');
 
         if (response['success'] == true) {
           final product = Product.fromJson(response['data']);
@@ -147,9 +149,11 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
 
             if (existingItemIndex != -1) {
               // Increment quantity if product already exists
-              _items[existingItemIndex]['quantity'] = (_items[existingItemIndex]['quantity'] as int) + 1;
+              _items[existingItemIndex]['quantity'] =
+                  (_items[existingItemIndex]['quantity'] as int) + 1;
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Increased quantity of ${product.name}')),
+                SnackBar(
+                    content: Text('Increased quantity of ${product.name}')),
               );
             } else {
               // Add new item if product doesn't exist
@@ -165,7 +169,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Product not found for scanned barcode')),
+            const SnackBar(
+                content: Text('Product not found for scanned barcode')),
           );
         }
       } catch (e) {
@@ -229,7 +234,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       if (item['quantity'] > product.stock) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Insufficient stock for ${product.name}. Available: ${product.stock}'),
+            content: Text(
+                'Insufficient stock for ${product.name}. Available: ${product.stock}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -260,8 +266,10 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           p.name!.toLowerCase().contains(_productSearchQuery.toLowerCase()))
       .toList();
 
-  double get _totalAmount => _items.fold(0.0, (sum, item) =>
-      sum + ((item['quantity'] as int) * (item['price'] as num)));
+  double get _totalAmount => _items.fold(
+      0.0,
+      (sum, item) =>
+          sum + ((item['quantity'] as int) * (item['price'] as num)));
 
   Future<void> _selectDate() async {
     final picked = await showDatePicker(
@@ -408,7 +416,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                               ..._items.asMap().entries.map((entry) {
                                 int idx = entry.key;
                                 return Container(
-                                  key: ValueKey('item_${idx}_${_items[idx]['quantity']}'),
+                                  key: ValueKey(
+                                      'item_${idx}_${_items[idx]['quantity']}'),
                                   margin: const EdgeInsets.only(bottom: 12),
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
@@ -591,10 +600,98 @@ class _ProductSelectionDialog extends StatefulWidget {
 class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
   String _searchQuery = '';
   final Set<int> _selectedProductIds = {};
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   List<Product> get _filteredProducts => widget.products
-      .where((p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+      .where((p) =>
+          p.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          (p.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+              false))
       .toList();
+
+  Future<void> _scanBarcode() async {
+    // Check camera permission
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes'),
+            action: SnackBarAction(
+              label: 'Settings',
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Camera permission is permanently denied. Please enable it in settings.'),
+          action: SnackBarAction(
+            label: 'Settings',
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    final scannedBarcode = await showDialog<String>(
+      context: context,
+      builder: (context) => Dialog(
+        child: SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('Scan Barcode'),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    if (barcodes.isNotEmpty) {
+                      final barcode = barcodes.first.rawValue;
+                      if (barcode != null) {
+                        Navigator.pop(context, barcode);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    if (scannedBarcode != null) {
+      _searchController.text = scannedBarcode;
+      setState(() => _searchQuery = scannedBarcode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -623,17 +720,30 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
         height: 400,
         child: Column(
           children: [
-            TextField(
-              onChanged: (value) => setState(() => _searchQuery = value),
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.searchProducts,
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) => setState(() => _searchQuery = value),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.searchProducts,
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
                 ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.qr_code_scanner),
+                  onPressed: _scanBarcode,
+                  tooltip: 'Scan Barcode',
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -651,9 +761,25 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         product.name!,
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      subtitle: Text(
-                        '${AppLocalizations.of(context)!.price}: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
-                        style: TextStyle(color: Colors.grey[600]),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${AppLocalizations.of(context)!.price}: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Text(
+                            product.stock == 0
+                                ? 'Stock: Out of Stock'
+                                : 'Stock: ${product.stock} ${product.unit}',
+                            style: TextStyle(
+                              color: product.stock == 0
+                                  ? Colors.red
+                                  : Colors.grey[600],
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                       value: isSelected,
                       activeColor: Colors.green[600],

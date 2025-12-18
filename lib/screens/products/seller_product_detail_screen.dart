@@ -155,7 +155,9 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                                   Expanded(
                                     child: _buildInfoItem(
                                       'Current Stock',
-                                      '${_product!.stock} ${_product!.unit}',
+                                      (_product!.stock ?? 0) == 0
+                                          ? 'Out of Stock'
+                                          : '${_product!.stock} ${_product!.unit}',
                                       Icons.inventory,
                                       (_product!.stock ?? 0) <=
                                               (_product!.minimumQuantity ?? 0)

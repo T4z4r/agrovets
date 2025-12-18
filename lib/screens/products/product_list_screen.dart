@@ -322,15 +322,20 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
+                                          (p.stock ?? 0) == 0
+                                              ? '${AppLocalizations.of(context)!.stockLabel}: Out of Stock'
+                                              : '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
-                                            color: (p.stock ?? 0) <=
-                                                    (p.minimumQuantity ?? 0)
+                                            color: (p.stock ?? 0) == 0
                                                 ? Colors.red
-                                                : Colors.grey[600],
+                                                : (p.stock ?? 0) <=
+                                                        (p.minimumQuantity ?? 0)
+                                                    ? Colors.red
+                                                    : Colors.grey[600],
                                             fontSize: 12,
-                                            fontWeight: (p.stock ?? 0) <=
-                                                    (p.minimumQuantity ?? 0)
+                                            fontWeight: (p.stock ?? 0) == 0 ||
+                                                    (p.stock ?? 0) <=
+                                                        (p.minimumQuantity ?? 0)
                                                 ? FontWeight.bold
                                                 : FontWeight.normal,
                                           ),

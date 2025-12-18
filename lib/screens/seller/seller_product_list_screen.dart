@@ -260,7 +260,9 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
+                                          (p.stock ?? 0) == 0
+                                              ? '${AppLocalizations.of(context)!.stockLabel}: Out of Stock'
+                                              : '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
                                             color: (p.stock ?? 0) <=
                                                     (p.minimumQuantity ?? 0)

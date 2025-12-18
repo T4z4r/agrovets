@@ -602,10 +602,95 @@ class _ProductSelectionDialog extends StatefulWidget {
 class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
   String _searchQuery = '';
   final Set<int> _selectedProductIds = {};
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   List<Product> get _filteredProducts => widget.products
-      .where((p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()))
+      .where((p) => p.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                    (p.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false))
       .toList();
+
+  Future<void> _scanBarcode() async {
+    // Check camera permission
+    var status = await Permission.camera.status;
+    if (status.isDenied) {
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Camera permission is required to scan barcodes'),
+            action: SnackBarAction(
+              label: 'Settings',
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+        return;
+      }
+    }
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+          action: SnackBarAction(
+            label: 'Settings',
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    final scannedBarcode = await showDialog<String>(
+      context: context,
+      builder: (context) => Dialog(
+        child: SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('Scan Barcode'),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    if (barcodes.isNotEmpty) {
+                      final barcode = barcodes.first.rawValue;
+                      if (barcode != null) {
+                        Navigator.pop(context, barcode);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    if (scannedBarcode != null) {
+      _searchController.text = scannedBarcode;
+      setState(() => _searchQuery = scannedBarcode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -634,17 +719,30 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
         height: 400,
         child: Column(
           children: [
-            TextField(
-              onChanged: (value) => setState(() => _searchQuery = value),
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.searchProducts,
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    onChanged: (value) => setState(() => _searchQuery = value),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.searchProducts,
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
                 ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.qr_code_scanner),
+                  onPressed: _scanBarcode,
+                  tooltip: 'Scan Barcode',
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -662,9 +760,23 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         product.name!,
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      subtitle: Text(
-                        '${AppLocalizations.of(context)!.price}: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
-                        style: TextStyle(color: Colors.grey[600]),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${AppLocalizations.of(context)!.price}: ${NumberFormatter.formatCurrency(product.sellingPrice)}',
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Text(
+                            product.stock == 0
+                                ? 'Stock: Out of Stock'
+                                : 'Stock: ${product.stock} ${product.unit}',
+                            style: TextStyle(
+                              color: product.stock == 0 ? Colors.red : Colors.grey[600],
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
                       value: isSelected,
                       activeColor: Colors.green[600],
