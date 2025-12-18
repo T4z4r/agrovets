@@ -271,5 +271,19 @@
   "recordedBy": "Imeandikishwa na",
   "viewDetails": "Tazama Maelezo",
   "barcode": "Barcode",
-  "scanBarcode": "Skani Barcode"
+  "scanBarcode": "Skani Barcode",
+  "success": "Mafanikio!",
+  "productCreated": "Bidhaa imeundwa kwa mafanikio.",
+  "productUpdated": "Bidhaa imesasishwa kwa mafanikio.",
+  "productNameRequired": "Jina la bidhaa linahitajika",
+  "unitRequired": "Kipimo kinahitajika",
+  "categoryRequired": "Kategoria inahitajika",
+  "stockRequired": "Idadi ya stoki inahitajika",
+  "enterValidNumber": "Tafadhali ingiza nambari sahihi",
+  "costPriceRequired": "Bei ya ununuzi inahitajika",
+  "sellingPriceRequired": "Bei ya uuzaji inahitajika",
+  "cameraPermissionRequired": "Ruhusa ya kamera inahitajika ili kuskeni barcodes",
+  "cameraPermissionPermanentlyDenied": "Ruhusa ya kamera imekataliwa kabisa. Tafadhali wezesha katika mipangilio.",
+  "ok": "Sawa",
+  "outOfStock": "Hakuna Stoki"
 }

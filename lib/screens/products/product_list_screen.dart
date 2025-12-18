@@ -83,8 +83,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -97,9 +98,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-              'Camera permission is permanently denied. Please enable it in settings.'),
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -117,7 +118,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -236,7 +237,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 IconButton(
                   icon: const Icon(Icons.qr_code_scanner),
                   onPressed: _scanBarcode,
-                  tooltip: 'Scan Barcode',
+                  tooltip: AppLocalizations.of(context)!.scanBarcode,
                 ),
               ],
             ),
@@ -323,7 +324,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         const SizedBox(width: 4),
                                         Text(
                                           (p.stock ?? 0) == 0
-                                              ? '${AppLocalizations.of(context)!.stockLabel}: Out of Stock'
+                                              ? '${AppLocalizations.of(context)!.stockLabel}: ${AppLocalizations.of(context)!.outOfStock}'
                                               : '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
                                           style: TextStyle(
                                             color: (p.stock ?? 0) == 0

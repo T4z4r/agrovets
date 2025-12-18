@@ -272,5 +272,19 @@
   "recordedBy": "Recorded by",
   "viewDetails": "View Details",
   "barcode": "Barcode",
-  "scanBarcode": "Scan Barcode"
+  "scanBarcode": "Scan Barcode",
+  "success": "Success!",
+  "productCreated": "Product created successfully.",
+  "productUpdated": "Product updated successfully.",
+  "productNameRequired": "Product name is required",
+  "unitRequired": "Unit is required",
+  "categoryRequired": "Category is required",
+  "stockRequired": "Stock quantity is required",
+  "enterValidNumber": "Please enter a valid number",
+  "costPriceRequired": "Cost price is required",
+  "sellingPriceRequired": "Selling price is required",
+  "cameraPermissionRequired": "Camera permission is required to scan barcodes",
+  "cameraPermissionPermanentlyDenied": "Camera permission is permanently denied. Please enable it in settings.",
+  "ok": "OK",
+  "outOfStock": "Out of Stock"
 }

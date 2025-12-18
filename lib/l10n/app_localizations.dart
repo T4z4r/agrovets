@@ -1418,6 +1418,21 @@ abstract class AppLocalizations {
   String get netLoss;
   String get selectDateToGenerateDailyReport;
   String get sellerNameRequired;
+  String get success;
+  String get productCreated;
+  String get productUpdated;
+  String get productNameRequired;
+  String get unitRequired;
+  String get stockRequired;
+  String get enterValidNumber;
+  String get costPriceRequired;
+  String get sellingPriceRequired;
+  String get cameraPermissionRequired;
+  String get cameraPermissionPermanentlyDenied;
+  String get ok;
+  String get barcode;
+  String get scanBarcode;
+  String get outOfStock;
 }
 
 class _AppLocalizationsDelegate

@@ -690,4 +690,51 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get sellerNameRequired => 'Jina la mfanyabiashara linahitajika';
+
+  @override
+  String get success => 'Mafanikio!';
+
+  @override
+  String get productCreated => 'Bidhaa imeundwa kwa mafanikio.';
+
+  @override
+  String get productUpdated => 'Bidhaa imesasishwa kwa mafanikio.';
+
+  @override
+  String get productNameRequired => 'Jina la bidhaa linahitajika';
+
+  @override
+  String get unitRequired => 'Kipimo kinahitajika';
+
+  @override
+  String get stockRequired => 'Idadi ya stoki inahitajika';
+
+  @override
+  String get enterValidNumber => 'Tafadhali ingiza nambari sahihi';
+
+  @override
+  String get costPriceRequired => 'Bei ya ununuzi inahitajika';
+
+  @override
+  String get sellingPriceRequired => 'Bei ya uuzaji inahitajika';
+
+  @override
+  String get cameraPermissionRequired =>
+      'Ruhusa ya kamera inahitajika ili kuskeni barcodes';
+
+  @override
+  String get cameraPermissionPermanentlyDenied =>
+      'Ruhusa ya kamera imekataliwa kabisa. Tafadhali wezesha katika mipangilio.';
+
+  @override
+  String get ok => 'Sawa';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get scanBarcode => 'Skani Barcode';
+
+  @override
+  String get outOfStock => 'Hakuna Stoki';
 }

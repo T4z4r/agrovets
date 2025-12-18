@@ -65,7 +65,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -85,7 +85,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -108,10 +108,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     try {
       if (widget.product == null) {
         await ApiService.post('/api/products', data);
-        _showSuccessDialog('Product created successfully.');
+        _showSuccessDialog(AppLocalizations.of(context)!.productCreated);
       } else {
         await ApiService.put('/api/products/${widget.product!.id}', data);
-        _showSuccessDialog('Product updated successfully.');
+        _showSuccessDialog(AppLocalizations.of(context)!.productUpdated);
       }
       widget.onSave();
     } catch (e) {
@@ -128,8 +128,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -142,9 +143,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-              'Camera permission is permanently denied. Please enable it in settings.'),
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -162,7 +163,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -269,7 +270,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Product name is required';
+                            return AppLocalizations.of(context)!
+                                .productNameRequired;
                           }
                           return null;
                         },
@@ -291,7 +293,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Unit is required';
+                            return AppLocalizations.of(context)!.unitRequired;
                           }
                           return null;
                         },
@@ -313,7 +315,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Category is required';
+                            return AppLocalizations.of(context)!
+                                .categoryRequired;
                           }
                           return null;
                         },
@@ -324,13 +327,13 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _barcodeCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Barcode',
-                          hintText: 'Barcode',
+                          labelText: AppLocalizations.of(context)!.barcode,
+                          hintText: AppLocalizations.of(context)!.barcode,
                           prefixIcon: const Icon(Icons.qr_code),
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.camera_alt),
                             onPressed: _scanBarcode,
-                            tooltip: 'Scan Barcode',
+                            tooltip: AppLocalizations.of(context)!.scanBarcode,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -358,10 +361,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Stock quantity is required';
+                            return AppLocalizations.of(context)!.stockRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return 'Please enter a valid number';
+                            return AppLocalizations.of(context)!
+                                .enterValidNumber;
                           }
                           return null;
                         },
@@ -415,10 +419,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Cost price is required';
+                            return AppLocalizations.of(context)!.costPriceRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return 'Please enter a valid amount';
+                            return AppLocalizations.of(context)!.enterValidAmount;
                           }
                           return null;
                         },
@@ -442,10 +446,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return 'Selling price is required';
+                            return AppLocalizations.of(context)!.sellingPriceRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return 'Please enter a valid amount';
+                            return AppLocalizations.of(context)!.enterValidAmount;
                           }
                           return null;
                         },

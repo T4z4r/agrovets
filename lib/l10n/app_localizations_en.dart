@@ -685,4 +685,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sellerNameRequired => 'Seller name is required';
+
+  @override
+  String get success => 'Success!';
+
+  @override
+  String get productCreated => 'Product created successfully.';
+
+  @override
+  String get productUpdated => 'Product updated successfully.';
+
+  @override
+  String get productNameRequired => 'Product name is required';
+
+  @override
+  String get unitRequired => 'Unit is required';
+
+  @override
+  String get stockRequired => 'Stock quantity is required';
+
+  @override
+  String get enterValidNumber => 'Please enter a valid number';
+
+  @override
+  String get costPriceRequired => 'Cost price is required';
+
+  @override
+  String get sellingPriceRequired => 'Selling price is required';
+
+  @override
+  String get cameraPermissionRequired =>
+      'Camera permission is required to scan barcodes';
+
+  @override
+  String get cameraPermissionPermanentlyDenied =>
+      'Camera permission is permanently denied. Please enable it in settings.';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get scanBarcode => 'Scan Barcode';
+
+  @override
+  String get outOfStock => 'Out of Stock';
 }
