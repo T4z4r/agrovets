@@ -222,6 +222,21 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
+
+    // Validate stock availability
+    for (final item in _items) {
+      final product = _products.firstWhere((p) => p.id == item['product_id']);
+      if (item['quantity'] > product.stock) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Insufficient stock for ${product.name}. Available: ${product.stock}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+    }
+
     setState(() => _loading = true);
     final data = {
       'seller_id': _sellerId,
