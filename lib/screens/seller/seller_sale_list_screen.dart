@@ -247,8 +247,43 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         try {
                                           await ApiService.delete('/api/sales/${s.id}');
                                           _loadSales();
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text('Sale deleted successfully')),
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(16),
+                                              ),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green,
+                                                    size: 64,
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Text(
+                                                    'Success!',
+                                                    style: TextStyle(
+                                                      fontSize: 24,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.green[700],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 8),
+                                                  const Text(
+                                                    'Sale deleted successfully.',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(context),
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         } catch (e) {
                                           ScaffoldMessenger.of(context).showSnackBar(
