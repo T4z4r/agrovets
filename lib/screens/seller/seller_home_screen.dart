@@ -63,9 +63,49 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                 child: Text('Swahili'),
               ),
             ],
-            onChanged: (String? newValue) {
+            onChanged: (String? newValue) async {
               if (newValue != null) {
-                localeProvider.setLocale(Locale(newValue));
+                final shouldChange = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    backgroundColor: Colors.white,
+                    title: Text(
+                      'Confirm Language Change',
+                      style: TextStyle(
+                          color: Colors.green[700],
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    content: Text(
+                      'Are you sure you want to change the language?',
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
+                    actionsPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        style: TextButton.styleFrom(
+                            foregroundColor: Colors.grey[600]),
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: TextButton.styleFrom(
+                            foregroundColor: Colors.green[600],
+                            textStyle:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        child: Text(
+                            'Yes'), // Since 'yes' is not localized, but 'ok' could be used, but for now 'Yes'
+                      ),
+                    ],
+                  ),
+                );
+                if (shouldChange == true) {
+                  localeProvider.setLocale(Locale(newValue));
+                }
               }
             },
           ),

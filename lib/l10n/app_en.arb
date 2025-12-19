@@ -314,5 +314,7 @@
   "sellingPrice": "Selling Price",
   "additionalInformation": "Additional Information",
   "unit": "Unit",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "confirmLanguageChange": "Confirm Language Change",
+  "languageChangeMessage": "Are you sure you want to change the language?"
 }

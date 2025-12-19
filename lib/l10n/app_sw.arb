@@ -313,5 +313,7 @@
   "sellingPrice": "Bei ya Uuzaji",
   "additionalInformation": "Maelezo ya Ziada",
   "unit": "Kipimo",
-  "barcode": "Barcode"
+  "barcode": "Barcode",
+  "confirmLanguageChange": "Thibitisha Kubadilisha Lugha",
+  "languageChangeMessage": "Je, una uhakika unataka kubadilisha lugha?"
 }
