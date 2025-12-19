@@ -68,7 +68,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
               product.unit!.toLowerCase().contains(query.toLowerCase()) ||
               product.category!.toLowerCase().contains(query.toLowerCase()) ||
-              (product.barcode?.toLowerCase().contains(query.toLowerCase()) ?? false);
+              (product.barcode?.toLowerCase().contains(query.toLowerCase()) ??
+                  false);
         }).toList();
       }
     });
@@ -81,8 +82,9 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
       status = await Permission.camera.request();
       if (status.isDenied) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Camera permission is required to scan barcodes'),
+          SnackBar(
+            content:
+                Text(AppLocalizations.of(context)!.cameraPermissionRequired),
             action: SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
@@ -95,8 +97,9 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
 
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+        SnackBar(
+          content: Text(
+              AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -114,7 +117,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: Text(AppLocalizations.of(context)!.scanBarcode),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -176,7 +179,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                 IconButton(
                   icon: const Icon(Icons.qr_code_scanner),
                   onPressed: _scanBarcode,
-                  tooltip: 'Scan Barcode',
+                  tooltip: AppLocalizations.of(context)!.scanBarcode,
                 ),
               ],
             ),
@@ -334,7 +337,9 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                       value: 'view',
                                       child: ListTile(
                                         leading: Icon(Icons.visibility),
-                                        title: Text('View Details'),
+                                        title: Text(
+                                            AppLocalizations.of(context)!
+                                                .viewDetails),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
