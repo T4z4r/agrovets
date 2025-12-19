@@ -153,7 +153,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                   (_items[existingItemIndex]['quantity'] as int) + 1;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text('Increased quantity of ${product.name}')),
+                    content: Text(
+                        '${AppLocalizations.of(context)!.increasedQuantityOf} ${product.name}')),
               );
             } else {
               // Add new item if product doesn't exist
@@ -163,19 +164,24 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                 'price': product.sellingPrice,
               });
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Added ${product.name} to sale')),
+                SnackBar(
+                    content: Text(
+                        '${AppLocalizations.of(context)!.addedToSale} ${product.name}')),
               );
             }
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Product not found for scanned barcode')),
+            SnackBar(
+                content: Text(
+                    AppLocalizations.of(context)!.productNotFoundForBarcode)),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error finding product: $e')),
+          SnackBar(
+              content: Text(
+                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
         );
       }
     }
@@ -206,8 +212,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Sale saved successfully.',
+            Text(
+              AppLocalizations.of(context)!.saleSavedSuccessfully,
               textAlign: TextAlign.center,
             ),
           ],
@@ -235,7 +241,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                'Insufficient stock for ${product.name}. Available: ${product.stock}'),
+                '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -293,7 +299,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
-            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            label: Text(AppLocalizations.of(context)!.scan,
+                style: TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -533,7 +540,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Total Amount',
+                                AppLocalizations.of(context)!.totalAmount,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -770,8 +777,8 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                           ),
                           Text(
                             product.stock == 0
-                                ? 'Stock: Out of Stock'
-                                : 'Stock: ${product.stock} ${product.unit}',
+                                ? '${AppLocalizations.of(context)!.stockLabel}: ${AppLocalizations.of(context)!.outOfStock}'
+                                : '${AppLocalizations.of(context)!.stockLabel}: ${product.stock} ${product.unit}',
                             style: TextStyle(
                               color: product.stock == 0
                                   ? Colors.red
