@@ -92,7 +92,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -177,7 +177,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    labelText: 'Search Products',
+                    labelText: AppLocalizations.of(context)!.searchProducts,
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -235,7 +235,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Camera permission is permanently denied. Please enable it in settings.'),
+          content: Text(
+              'Camera permission is permanently denied. Please enable it in settings.'),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
@@ -281,7 +282,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     if (scannedBarcode != null) {
       try {
         // Get product by barcode from API
-        final response = await ApiService.get('/api/products/barcode/$scannedBarcode');
+        final response =
+            await ApiService.get('/api/products/barcode/$scannedBarcode');
 
         if (response['success'] == true) {
           final product = Product.fromJson(response['data']);
@@ -293,16 +295,22 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
           });
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Selected ${product.name}')),
+            SnackBar(
+                content: Text(
+                    '${AppLocalizations.of(context)!.selected} ${product.name}')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Product not found for scanned barcode')),
+            SnackBar(
+                content: Text(
+                    AppLocalizations.of(context)!.productNotFoundForBarcode)),
           );
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error finding product: $e')),
+          SnackBar(
+              content: Text(
+                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
         );
       }
     }
@@ -320,7 +328,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
-            label: const Text('Scan', style: TextStyle(color: Colors.white)),
+            label: Text(AppLocalizations.of(context)!.scan,
+                style: TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -392,7 +401,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                               controller: _productController,
                               onTap: _selectProduct,
                               validator: (v) => _productId == null
-                                  ? 'Product is required'
+                                  ? AppLocalizations.of(context)!
+                                      .productRequired
                                   : null,
                             ),
                             const SizedBox(height: 16),
@@ -418,7 +428,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                       Icon(Icons.trending_up,
                                           color: Colors.green[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Stock In'),
+                                      Text(AppLocalizations.of(context)!
+                                          .stockIn),
                                     ],
                                   ),
                                 ),
@@ -429,7 +440,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                       Icon(Icons.trending_down,
                                           color: Colors.red[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Stock Out'),
+                                      Text(AppLocalizations.of(context)!
+                                          .stockOut),
                                     ],
                                   ),
                                 ),
@@ -440,7 +452,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                       Icon(Icons.error,
                                           color: Colors.orange[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Damage'),
+                                      Text(
+                                          AppLocalizations.of(context)!.damage),
                                     ],
                                   ),
                                 ),
@@ -451,7 +464,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                       Icon(Icons.keyboard_return,
                                           color: Colors.blue[600]),
                                       const SizedBox(width: 8),
-                                      const Text('Return'),
+                                      Text(AppLocalizations.of(context)!
+                                          .returnText),
                                     ],
                                   ),
                                 ),
@@ -479,10 +493,12 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                               keyboardType: TextInputType.number,
                               validator: (v) {
                                 if (v == null || v.isEmpty) {
-                                  return 'Quantity is required';
+                                  return AppLocalizations.of(context)!
+                                      .quantityRequired;
                                 }
                                 if (int.tryParse(v) == null) {
-                                  return 'Please enter a valid number';
+                                  return AppLocalizations.of(context)!
+                                      .enterValidNumber;
                                 }
                                 return null;
                               },
