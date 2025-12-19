@@ -54,7 +54,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -74,7 +74,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
