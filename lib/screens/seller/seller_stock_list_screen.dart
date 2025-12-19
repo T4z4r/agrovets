@@ -19,6 +19,21 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
   bool _loading = true;
   String _searchQuery = '';
 
+  String _getLocalizedTransactionType(String type) {
+    switch (type) {
+      case 'stock_in':
+        return AppLocalizations.of(context)!.stockIn;
+      case 'stock_out':
+        return AppLocalizations.of(context)!.stockOut;
+      case 'damage':
+        return AppLocalizations.of(context)!.damage;
+      case 'return':
+        return AppLocalizations.of(context)!.returnText;
+      default:
+        return type.replaceAll('_', ' ').toUpperCase();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -69,7 +84,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-            '${t.type.replaceAll('_', ' ').toUpperCase()} ${AppLocalizations.of(context)!.details}'),
+            '${_getLocalizedTransactionType(t.type)} ${AppLocalizations.of(context)!.details}'),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +96,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                 const SizedBox(height: 8),
               ],
               Text(
-                  '${AppLocalizations.of(context)!.type}: ${t.type.replaceAll('_', ' ')}'),
+                  '${AppLocalizations.of(context)!.type}: ${_getLocalizedTransactionType(t.type)}'),
               const SizedBox(height: 8),
               Text('${AppLocalizations.of(context)!.quantity}: ${t.quantity}'),
               const SizedBox(height: 8),
@@ -228,7 +243,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                   ),
                                 ),
                                 title: Text(
-                                  t.type.replaceAll('_', ' ').toUpperCase(),
+                                  _getLocalizedTransactionType(t.type),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -249,7 +264,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                           const SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
-                                              'Product: ${t.product!.name}',
+                                              '${AppLocalizations.of(context)!.product}: ${t.product!.name}',
                                               style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 12,
