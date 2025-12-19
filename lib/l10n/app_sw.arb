@@ -298,5 +298,9 @@
   "insufficientStockFor": "Stoki haitoshi kwa",
   "available": "Inapatikana",
   "totalAmount": "Jumla ya Kiasi",
-  "saleSaved": "Uuzaji umehifadhiwa kwa mafanikio."
+  "saleSaved": "Uuzaji umehifadhiwa kwa mafanikio.",
+  "deleteSale": "Futa Uuzaji",
+  "deleteSaleConfirm": "Je, una uhakika unataka kufuta uuzaji huu? Kitendo hiki hakiwezi kutenduliwa.",
+  "saleDeletedSuccessfully": "Uuzaji umefutwa kwa mafanikio.",
+  "failedDeleteSale": "Imeshindikana kufuta uuzaji"
 }

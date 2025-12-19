@@ -771,4 +771,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saleSaved => 'Sale saved successfully.';
+
+  @override
+  String get deleteSale => 'Delete Sale';
+
+  @override
+  String get deleteSaleConfirm => 'Are you sure you want to delete this sale? This action cannot be undone.';
+
+  @override
+  String get saleDeletedSuccessfully => 'Sale deleted successfully.';
+
+  @override
+  String get failedDeleteSale => 'Failed to delete sale';
 }

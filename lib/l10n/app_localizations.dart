@@ -1456,6 +1456,10 @@ abstract class AppLocalizations {
   String get available;
   String get totalAmount;
   String get saleSaved;
+  String get deleteSale;
+  String get deleteSaleConfirm;
+  String get saleDeletedSuccessfully;
+  String get failedDeleteSale;
 }
 
 class _AppLocalizationsDelegate

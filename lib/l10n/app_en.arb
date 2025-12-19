@@ -299,5 +299,9 @@
   "insufficientStockFor": "Insufficient stock for",
   "available": "Available",
   "totalAmount": "Total Amount",
-  "saleSaved": "Sale saved successfully."
+  "saleSaved": "Sale saved successfully.",
+  "deleteSale": "Delete Sale",
+  "deleteSaleConfirm": "Are you sure you want to delete this sale? This action cannot be undone.",
+  "saleDeletedSuccessfully": "Sale deleted successfully.",
+  "failedDeleteSale": "Failed to delete sale"
 }

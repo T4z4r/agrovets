@@ -776,4 +776,16 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get saleSaved => 'Uuzaji umehifadhiwa kwa mafanikio.';
+
+  @override
+  String get deleteSale => 'Futa Uuzaji';
+
+  @override
+  String get deleteSaleConfirm => 'Je, una uhakika unataka kufuta uuzaji huu? Kitendo hiki hakiwezi kutenduliwa.';
+
+  @override
+  String get saleDeletedSuccessfully => 'Uuzaji umefutwa kwa mafanikio.';
+
+  @override
+  String get failedDeleteSale => 'Imeshindikana kufuta uuzaji';
 }
