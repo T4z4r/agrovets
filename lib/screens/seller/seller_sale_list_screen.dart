@@ -205,9 +205,11 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                     PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
-                                        leading: Icon(Icons.delete, color: Colors.red),
+                                        leading: Icon(Icons.delete,
+                                            color: Colors.red),
                                         title: Text(
-                                          'Delete Sale',
+                                          AppLocalizations.of(context)!
+                                              .deleteSale,
                                           style: TextStyle(color: Colors.red),
                                         ),
                                         contentPadding: EdgeInsets.zero,
@@ -228,30 +230,36 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: Text('Delete Sale'),
-                                          content: Text('Are you sure you want to delete this sale? This action cannot be undone.'),
+                                          title: Text(AppLocalizations.of(context)!.deleteSale),
+                                          content: Text(
+                                              AppLocalizations.of(context)!.deleteSaleConfirm),
                                           actions: [
                                             TextButton(
-                                              onPressed: () => Navigator.pop(context, false),
-                                              child: Text('Cancel'),
+                                              onPressed: () =>
+                                                  Navigator.pop(context, false),
+                                              child: Text(AppLocalizations.of(context)!.cancel),
                                             ),
                                             TextButton(
-                                              onPressed: () => Navigator.pop(context, true),
-                                              style: TextButton.styleFrom(foregroundColor: Colors.red),
-                                              child: Text('Delete'),
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true),
+                                              style: TextButton.styleFrom(
+                                                  foregroundColor: Colors.red),
+                                              child: Text(AppLocalizations.of(context)!.delete),
                                             ),
                                           ],
                                         ),
                                       );
                                       if (confirmed == true) {
                                         try {
-                                          await ApiService.delete('/api/sales/${s.id}');
+                                          await ApiService.delete(
+                                              '/api/sales/${s.id}');
                                           _loadSales();
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(16),
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
                                               ),
                                               content: Column(
                                                 mainAxisSize: MainAxisSize.min,
@@ -263,31 +271,36 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                                   ),
                                                   const SizedBox(height: 16),
                                                   Text(
-                                                    'Success!',
+                                                    AppLocalizations.of(context)!.success,
                                                     style: TextStyle(
                                                       fontSize: 24,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Colors.green[700],
                                                     ),
                                                   ),
                                                   const SizedBox(height: 8),
-                                                  const Text(
-                                                    'Sale deleted successfully.',
+                                                  Text(
+                                                    AppLocalizations.of(context)!.saleDeletedSuccessfully,
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ],
                                               ),
                                               actions: [
                                                 TextButton(
-                                                  onPressed: () => Navigator.pop(context),
-                                                  child: const Text('OK'),
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text(AppLocalizations.of(context)!.ok),
                                                 ),
                                               ],
                                             ),
                                           );
                                         } catch (e) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text('Failed to delete sale: $e')),
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    '${AppLocalizations.of(context)!.failedDeleteSale}: $e')),
                                           );
                                         }
                                       }
