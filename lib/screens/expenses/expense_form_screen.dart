@@ -53,7 +53,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Success!',
+              AppLocalizations.of(context)!.success,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
               Navigator.pop(context); // close dialog
               Navigator.pop(context); // close form
             },
-            child: const Text('OK'),
+            child: Text(AppLocalizations.of(context)!.ok),
           ),
         ],
       ),
@@ -106,7 +106,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
-            label: 'Retry',
+            label: AppLocalizations.of(context)!.retry,
             textColor: Colors.white,
             onPressed: _save,
           ),
