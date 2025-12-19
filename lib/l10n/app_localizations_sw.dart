@@ -788,4 +788,25 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get failedDeleteSale => 'Imeshindikana kufuta uuzaji';
+
+  @override
+  String get productDetails => 'Maelezo ya Bidhaa';
+
+  @override
+  String get failedLoadProduct => 'Imeshindikana kupakia bidhaa';
+
+  @override
+  String get productNotFound => 'Bidhaa haijapatikana';
+
+  @override
+  String get stockInformation => 'Maelezo ya Stoki';
+
+  @override
+  String get currentStock => 'Stoki ya Sasa';
+
+  @override
+  String get pricingInformation => 'Maelezo ya Bei';
+
+  @override
+  String get additionalInformation => 'Maelezo ya Ziada';
 }

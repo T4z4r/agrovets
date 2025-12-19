@@ -1460,6 +1460,13 @@ abstract class AppLocalizations {
   String get deleteSaleConfirm;
   String get saleDeletedSuccessfully;
   String get failedDeleteSale;
+  String get productDetails;
+  String get failedLoadProduct;
+  String get productNotFound;
+  String get stockInformation;
+  String get currentStock;
+  String get pricingInformation;
+  String get additionalInformation;
 }
 
 class _AppLocalizationsDelegate

@@ -303,5 +303,16 @@
   "deleteSale": "Delete Sale",
   "deleteSaleConfirm": "Are you sure you want to delete this sale? This action cannot be undone.",
   "saleDeletedSuccessfully": "Sale deleted successfully.",
-  "failedDeleteSale": "Failed to delete sale"
+  "failedDeleteSale": "Failed to delete sale",
+  "productDetails": "Product Details",
+  "failedLoadProduct": "Failed to load product",
+  "productNotFound": "Product not found",
+  "stockInformation": "Stock Information",
+  "currentStock": "Current Stock",
+  "minimumQuantity": "Minimum Quantity",
+  "pricingInformation": "Pricing Information",
+  "sellingPrice": "Selling Price",
+  "additionalInformation": "Additional Information",
+  "unit": "Unit",
+  "barcode": "Barcode"
 }

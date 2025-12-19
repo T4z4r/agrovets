@@ -783,4 +783,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedDeleteSale => 'Failed to delete sale';
+
+  @override
+  String get productDetails => 'Product Details';
+
+  @override
+  String get failedLoadProduct => 'Failed to load product';
+
+  @override
+  String get productNotFound => 'Product not found';
+
+  @override
+  String get stockInformation => 'Stock Information';
+
+  @override
+  String get currentStock => 'Current Stock';
+
+  @override
+  String get pricingInformation => 'Pricing Information';
+
+  @override
+  String get additionalInformation => 'Additional Information';
 }

@@ -37,7 +37,8 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load product: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadProduct}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -49,7 +50,7 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text('Product Details'),
+        title: Text(AppLocalizations.of(context)!.productDetails),
         backgroundColor: Colors.green[600],
         foregroundColor: Colors.white,
         elevation: 0,
@@ -57,7 +58,8 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
           : _product == null
-              ? Center(child: Text('Product not found'))
+              ? Center(
+                  child: Text(AppLocalizations.of(context)!.productNotFound))
               : SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -142,7 +144,7 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Stock Information',
+                                AppLocalizations.of(context)!.stockInformation,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -154,9 +156,11 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                                 children: [
                                   Expanded(
                                     child: _buildInfoItem(
-                                      'Current Stock',
+                                      AppLocalizations.of(context)!
+                                          .currentStock,
                                       (_product!.stock ?? 0) == 0
-                                          ? 'Out of Stock'
+                                          ? AppLocalizations.of(context)!
+                                              .outOfStock
                                           : '${_product!.stock} ${_product!.unit}',
                                       Icons.inventory,
                                       (_product!.stock ?? 0) <=
@@ -168,7 +172,8 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                                   const SizedBox(width: 16),
                                   Expanded(
                                     child: _buildInfoItem(
-                                      'Minimum Quantity',
+                                      AppLocalizations.of(context)!
+                                          .minimumQuantity,
                                       '${_product!.minimumQuantity ?? 0} ${_product!.unit}',
                                       Icons.warning,
                                       Colors.orange,
@@ -195,7 +200,8 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Pricing Information',
+                                AppLocalizations.of(context)!
+                                    .pricingInformation,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -204,7 +210,7 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                               ),
                               const SizedBox(height: 16),
                               _buildInfoItem(
-                                'Selling Price',
+                                AppLocalizations.of(context)!.sellingPrice,
                                 NumberFormatter.formatCurrency(
                                     _product!.sellingPrice),
                                 Icons.attach_money,
@@ -229,7 +235,8 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Additional Information',
+                                AppLocalizations.of(context)!
+                                    .additionalInformation,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -238,7 +245,7 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                               ),
                               const SizedBox(height: 16),
                               _buildInfoItem(
-                                'Unit',
+                                AppLocalizations.of(context)!.unit,
                                 _product!.unit!,
                                 Icons.scale,
                                 Colors.blue,
@@ -247,7 +254,7 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                                   _product!.barcode!.isNotEmpty) ...[
                                 const SizedBox(height: 12),
                                 _buildInfoItem(
-                                  'Barcode',
+                                  AppLocalizations.of(context)!.barcode,
                                   _product!.barcode!,
                                   Icons.qr_code,
                                   Colors.purple,

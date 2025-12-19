@@ -302,5 +302,16 @@
   "deleteSale": "Futa Uuzaji",
   "deleteSaleConfirm": "Je, una uhakika unataka kufuta uuzaji huu? Kitendo hiki hakiwezi kutenduliwa.",
   "saleDeletedSuccessfully": "Uuzaji umefutwa kwa mafanikio.",
-  "failedDeleteSale": "Imeshindikana kufuta uuzaji"
+  "failedDeleteSale": "Imeshindikana kufuta uuzaji",
+  "productDetails": "Maelezo ya Bidhaa",
+  "failedLoadProduct": "Imeshindikana kupakia bidhaa",
+  "productNotFound": "Bidhaa haijapatikana",
+  "stockInformation": "Maelezo ya Stoki",
+  "currentStock": "Stoki ya Sasa",
+  "minimumQuantity": "Idadi ya Chini",
+  "pricingInformation": "Maelezo ya Bei",
+  "sellingPrice": "Bei ya Uuzaji",
+  "additionalInformation": "Maelezo ya Ziada",
+  "unit": "Kipimo",
+  "barcode": "Barcode"
 }
