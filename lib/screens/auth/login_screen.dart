@@ -46,9 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } else {
-        setState(() => _error =
-            response['message'] ?? AppLocalizations.of(context)!.loginFailed);
-      }
+         setState(() => _error = AppLocalizations.of(context)!.loginFailed);
+       }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
     }

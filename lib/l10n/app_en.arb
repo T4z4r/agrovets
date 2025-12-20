@@ -316,5 +316,6 @@
   "unit": "Unit",
   "barcode": "Barcode",
   "confirmLanguageChange": "Confirm Language Change",
-  "languageChangeMessage": "Are you sure you want to change the language?"
+  "languageChangeMessage": "Are you sure you want to change the language?",
+  "operationFailed": "Operation failed. Please try again."
 }

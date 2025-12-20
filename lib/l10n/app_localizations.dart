@@ -1469,6 +1469,7 @@ abstract class AppLocalizations {
   String get additionalInformation;
   String get confirmLanguageChange;
   String get languageChangeMessage;
+  String get operationFailed;
 }
 
 class _AppLocalizationsDelegate

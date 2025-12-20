@@ -815,4 +815,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get languageChangeMessage => 'Je, una uhakika unataka kubadilisha lugha?';
+
+  @override
+  String get operationFailed => 'Operesheni imeshindikana. Tafadhali jaribu tena.';
 }

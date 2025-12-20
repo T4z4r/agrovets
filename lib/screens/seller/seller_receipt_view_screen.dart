@@ -49,7 +49,7 @@ class _SellerReceiptViewScreenState extends State<SellerReceiptViewScreen> {
       }
     } catch (e) {
       setState(() {
-        _error = e.toString();
+        _error = AppLocalizations.of(context)!.operationFailed;
         _loading = false;
       });
     }

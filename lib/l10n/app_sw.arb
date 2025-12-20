@@ -315,5 +315,6 @@
   "unit": "Kipimo",
   "barcode": "Barcode",
   "confirmLanguageChange": "Thibitisha Kubadilisha Lugha",
-  "languageChangeMessage": "Je, una uhakika unataka kubadilisha lugha?"
+  "languageChangeMessage": "Je, una uhakika unataka kubadilisha lugha?",
+  "operationFailed": "Operesheni imeshindikana. Tafadhali jaribu tena."
 }

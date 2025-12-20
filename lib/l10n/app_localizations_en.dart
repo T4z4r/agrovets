@@ -810,4 +810,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageChangeMessage => 'Are you sure you want to change the language?';
+
+  @override
+  String get operationFailed => 'Operation failed. Please try again.';
 }

@@ -90,7 +90,7 @@ class ApiService {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json;
     } else {
-      throw Exception(json['message'] ?? 'API Error');
+      throw Exception('An error occurred. Please try again.');
     }
   }
 }

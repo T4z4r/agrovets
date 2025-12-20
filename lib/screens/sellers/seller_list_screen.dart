@@ -40,7 +40,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
       setState(() => _loading = false);
       if (mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.noSellersFound)));
       }
     }
   }
@@ -52,7 +52,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
       }
     }
   }
@@ -64,7 +64,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+            .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
       }
     }
   }
