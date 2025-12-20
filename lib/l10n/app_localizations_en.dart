@@ -804,4 +804,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get additionalInformation => 'Additional Information';
+
+  @override
+  String get confirmLanguageChange => 'Confirm Language Change';
+
+  @override
+  String get languageChangeMessage => 'Are you sure you want to change the language?';
 }

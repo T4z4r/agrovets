@@ -809,4 +809,10 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get additionalInformation => 'Maelezo ya Ziada';
+
+  @override
+  String get confirmLanguageChange => 'Thibitisha Kubadilisha Lugha';
+
+  @override
+  String get languageChangeMessage => 'Je, una uhakika unataka kubadilisha lugha?';
 }

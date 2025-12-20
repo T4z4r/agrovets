@@ -72,14 +72,14 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                         borderRadius: BorderRadius.circular(16)),
                     backgroundColor: Colors.white,
                     title: Text(
-                      'Confirm Language Change',
+                      AppLocalizations.of(context)!.confirmLanguageChange,
                       style: TextStyle(
                           color: Colors.green[700],
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     content: Text(
-                      'Are you sure you want to change the language?',
+                      AppLocalizations.of(context)!.languageChangeMessage,
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     actionsPadding:

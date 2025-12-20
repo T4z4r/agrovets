@@ -1467,6 +1467,8 @@ abstract class AppLocalizations {
   String get currentStock;
   String get pricingInformation;
   String get additionalInformation;
+  String get confirmLanguageChange;
+  String get languageChangeMessage;
 }
 
 class _AppLocalizationsDelegate
