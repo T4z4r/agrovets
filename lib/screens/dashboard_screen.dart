@@ -71,7 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text(AppLocalizations.of(context)!.appName +
             ' ' +
             AppLocalizations.of(context)!.dashboard),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -91,7 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   title: Text(
                     AppLocalizations.of(context)!.confirmLogout,
                     style: TextStyle(
-                        color: Colors.green[700],
+                        color: Theme.of(context).primaryColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
@@ -139,15 +139,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-              color: Colors.green[600],
+              color: Theme.of(context).primaryColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
-                    child:
-                        Icon(Icons.person, size: 40, color: Colors.green[600]),
+                    child: Icon(Icons.person,
+                        size: 40, color: Theme.of(context).primaryColor),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -165,16 +165,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             _drawerTile(
+                context,
                 Icons.dashboard,
                 AppLocalizations.of(context)!.dashboard,
                 () => Navigator.pop(context),
                 isActive: true),
-            _drawerTile(Icons.inventory, AppLocalizations.of(context)!.products,
-                () {
+            _drawerTile(context, Icons.inventory,
+                AppLocalizations.of(context)!.products, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ProductListScreen()));
             }),
-            _drawerTile(Icons.people, AppLocalizations.of(context)!.suppliers,
+            _drawerTile(
+                context, Icons.people, AppLocalizations.of(context)!.suppliers,
                 () {
               Navigator.push(
                   context,
@@ -182,33 +184,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       builder: (_) => const SupplierListScreen()));
             }),
             if (auth.isOwner || auth.isAdmin || auth.isSeller)
-              _drawerTile(Icons.person, AppLocalizations.of(context)!.sellers,
+              _drawerTile(
+                  context, Icons.person, AppLocalizations.of(context)!.sellers,
                   () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (_) => const SellerListScreen()));
               }, isActive: false),
-            _drawerTile(Icons.storage, AppLocalizations.of(context)!.stock, () {
+            _drawerTile(
+                context, Icons.storage, AppLocalizations.of(context)!.stock,
+                () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const StockListScreen()));
             }),
-            _drawerTile(
-                Icons.point_of_sale, AppLocalizations.of(context)!.sales, () {
+            _drawerTile(context, Icons.point_of_sale,
+                AppLocalizations.of(context)!.sales, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const SaleListScreen()));
             }),
-            _drawerTile(Icons.money_off, AppLocalizations.of(context)!.expenses,
-                () {
+            _drawerTile(context, Icons.money_off,
+                AppLocalizations.of(context)!.expenses, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ExpenseListScreen()));
             }),
-            _drawerTile(Icons.bar_chart, AppLocalizations.of(context)!.reports,
+            _drawerTile(
+                context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
                 () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
-            _drawerTile(Icons.info, 'About', () {
+            _drawerTile(context, Icons.info, 'About', () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const AboutScreen()));
             }),
@@ -241,7 +247,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     localeProvider.locale.languageCode == 'en'
-                                        ? Colors.green[600]
+                                        ? Theme.of(context).primaryColor
                                         : Colors.grey[200],
                                 foregroundColor:
                                     localeProvider.locale.languageCode == 'en'
@@ -263,7 +269,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     localeProvider.locale.languageCode == 'sw'
-                                        ? Colors.green[600]
+                                        ? Theme.of(context).primaryColor
                                         : Colors.grey[200],
                                 foregroundColor:
                                     localeProvider.locale.languageCode == 'sw'
@@ -306,7 +312,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.green[400]!, Colors.green[600]!],
+                      colors: [
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColor
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -343,8 +352,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Padding(
                   padding: EdgeInsets.all(40),
                   child: Center(
-                      child:
-                          SpinKitWaveSpinner(color: Colors.green, size: 50.0)),
+                      child: SpinKitWaveSpinner(
+                          color: Theme.of(context).primaryColor, size: 50.0)),
                 )
               else
                 Column(
@@ -368,7 +377,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             NumberFormatter.formatCurrency(num.tryParse(
                                 dashboard['today_sales']?.toString() ?? '0')),
                             Icons.trending_up,
-                            Colors.green,
+                            Theme.of(context).primaryColor,
                             'todaySales'),
                         _statCard(
                             AppLocalizations.of(context)!.totalSales,
@@ -393,7 +402,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         NumberFormatter.formatCurrency(num.tryParse(
                             dashboard['stock_value']?.toString() ?? '0')),
                         Icons.warehouse,
-                        Colors.green,
+                        Theme.of(context).primaryColor,
                         'stockValue'),
                     const SizedBox(height: 16),
                     _statCardFullWidth(
@@ -436,7 +445,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: _quickActionCard(
                       AppLocalizations.of(context)!.newSale,
                       Icons.point_of_sale,
-                      Colors.green,
+                      Theme.of(context).primaryColor,
                       () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -455,18 +464,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // ================= Widgets =================
 
-  Widget _drawerTile(IconData icon, String title, VoidCallback onTap,
+  Widget _drawerTile(
+      BuildContext context, IconData icon, String title, VoidCallback onTap,
       {bool isActive = false}) {
     return Container(
-      color: isActive ? Colors.green[50] : null,
+      color: isActive
+          ? Theme.of(context).primaryColorLight.withOpacity(0.1)
+          : null,
       child: ListTile(
-        leading:
-            Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
+        leading: Icon(icon, color: Theme.of(context).primaryColor),
         title: Text(
           title,
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: isActive ? Colors.green[700] : null,
+            color: isActive ? Theme.of(context).primaryColor : null,
           ),
         ),
         onTap: onTap,

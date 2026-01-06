@@ -78,7 +78,7 @@ class _SellerReceiptViewScreenState extends State<SellerReceiptViewScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('File downloaded successfully'),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
       }
@@ -97,7 +97,7 @@ class _SellerReceiptViewScreenState extends State<SellerReceiptViewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.receipt),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -110,7 +110,9 @@ class _SellerReceiptViewScreenState extends State<SellerReceiptViewScreen> {
         ],
       ),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).primaryColor, size: 50.0))
           : _error != null
               ? Center(child: Text(_error!))
               : SfPdfViewer.file(File(_pdfPath!)),

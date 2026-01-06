@@ -85,9 +85,9 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.check_circle,
-              color: Colors.green,
+              color: Theme.of(context).primaryColor,
               size: 64,
             ),
             const SizedBox(height: 16),
@@ -96,7 +96,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.green[700],
+                color: Theme.of(context).primaryColor,
               ),
             ),
             const SizedBox(height: 8),
@@ -322,7 +322,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.createStockTransaction),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -335,7 +335,9 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
         ],
       ),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -426,7 +428,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.trending_up,
-                                          color: Colors.green[600]),
+                                          color:
+                                              Theme.of(context).primaryColor),
                                       const SizedBox(width: 8),
                                       Text(AppLocalizations.of(context)!
                                           .stockIn),
@@ -572,7 +575,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                             ElevatedButton(
                               onPressed: _loading ? null : _save,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green[600],
+                                backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16),

@@ -47,9 +47,9 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.check_circle,
-              color: Colors.green,
+              color: Theme.of(context).primaryColor,
               size: 64,
             ),
             const SizedBox(height: 16),
@@ -58,7 +58,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.green[700],
+                color: Theme.of(context).primaryColor,
               ),
             ),
             const SizedBox(height: 8),
@@ -102,7 +102,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -131,8 +132,10 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(widget.expense == null ? AppLocalizations.of(context)!.createExpense : AppLocalizations.of(context)!.editExpense),
-        backgroundColor: Colors.green[600],
+        title: Text(widget.expense == null
+            ? AppLocalizations.of(context)!.createExpense
+            : AppLocalizations.of(context)!.editExpense),
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -187,8 +190,10 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       TextFormField(
                         controller: _categoryCtrl,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.expenseCategory,
-                          hintText: AppLocalizations.of(context)!.enterExpenseCategory,
+                          labelText:
+                              AppLocalizations.of(context)!.expenseCategory,
+                          hintText: AppLocalizations.of(context)!
+                              .enterExpenseCategory,
                           prefixIcon: const Icon(Icons.category),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -198,7 +203,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return AppLocalizations.of(context)!.categoryRequired;
+                            return AppLocalizations.of(context)!
+                                .categoryRequired;
                           }
                           return null;
                         },
@@ -210,7 +216,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                         controller: _amountCtrl,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.amount,
-                          hintText: AppLocalizations.of(context)!.enterExpenseAmount,
+                          hintText:
+                              AppLocalizations.of(context)!.enterExpenseAmount,
                           prefixIcon: const Icon(Icons.attach_money),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -224,7 +231,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                             return AppLocalizations.of(context)!.amountRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return AppLocalizations.of(context)!.enterValidAmount;
+                            return AppLocalizations.of(context)!
+                                .enterValidAmount;
                           }
                           return null;
                         },
@@ -236,7 +244,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                         controller: _descriptionCtrl,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.description,
-                          hintText: AppLocalizations.of(context)!.enterExpenseDescription,
+                          hintText: AppLocalizations.of(context)!
+                              .enterExpenseDescription,
                           prefixIcon: const Icon(Icons.description),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -270,7 +279,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[600],
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
@@ -287,7 +296,8 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
                               )
                             : Text(
                                 widget.expense == null
-                                    ? AppLocalizations.of(context)!.createExpense
+                                    ? AppLocalizations.of(context)!
+                                        .createExpense
                                     : AppLocalizations.of(context)!.editExpense,
                                 style: const TextStyle(
                                   fontSize: 16,

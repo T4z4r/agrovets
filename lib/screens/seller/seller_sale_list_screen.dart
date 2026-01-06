@@ -84,7 +84,8 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredSales.isEmpty
                     ? Center(
                         child: Column(
@@ -127,12 +128,14 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.green[100],
+                                    color: Theme.of(context)
+                                        .primaryColorLight
+                                        .withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.point_of_sale,
-                                    color: Colors.green[600],
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 title: Text(
@@ -230,21 +233,28 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: Text(AppLocalizations.of(context)!.deleteSale),
+                                          title: Text(
+                                              AppLocalizations.of(context)!
+                                                  .deleteSale),
                                           content: Text(
-                                              AppLocalizations.of(context)!.deleteSaleConfirm),
+                                              AppLocalizations.of(context)!
+                                                  .deleteSaleConfirm),
                                           actions: [
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, false),
-                                              child: Text(AppLocalizations.of(context)!.cancel),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .cancel),
                                             ),
                                             TextButton(
                                               onPressed: () =>
                                                   Navigator.pop(context, true),
                                               style: TextButton.styleFrom(
                                                   foregroundColor: Colors.red),
-                                              child: Text(AppLocalizations.of(context)!.delete),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .delete),
                                             ),
                                           ],
                                         ),
@@ -264,24 +274,30 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                               content: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.check_circle,
-                                                    color: Colors.green,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
                                                     size: 64,
                                                   ),
                                                   const SizedBox(height: 16),
                                                   Text(
-                                                    AppLocalizations.of(context)!.success,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .success,
                                                     style: TextStyle(
                                                       fontSize: 24,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.green[700],
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 8),
                                                   Text(
-                                                    AppLocalizations.of(context)!.saleDeletedSuccessfully,
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .saleDeletedSuccessfully,
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ],
@@ -290,7 +306,10 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                                 TextButton(
                                                   onPressed: () =>
                                                       Navigator.pop(context),
-                                                  child: Text(AppLocalizations.of(context)!.ok),
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .ok),
                                                 ),
                                               ],
                                             ),
@@ -324,7 +343,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

@@ -157,7 +157,8 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredTransactions.isEmpty
                     ? Center(
                         child: Column(
@@ -198,8 +199,10 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                             switch (t.type) {
                               case 'stock_in':
                                 iconData = Icons.trending_up;
-                                iconColor = Colors.green[600]!;
-                                cardColor = Colors.green[50]!;
+                                iconColor = Theme.of(context).primaryColor;
+                                cardColor = Theme.of(context)
+                                    .primaryColorLight
+                                    .withOpacity(0.3);
                                 break;
                               case 'stock_out':
                                 iconData = Icons.trending_down;
@@ -376,7 +379,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

@@ -43,14 +43,14 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.agroVetSeller),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
           DropdownButton<String>(
             value: localeProvider.locale.languageCode,
             icon: const Icon(Icons.language, color: Colors.white),
-            dropdownColor: Colors.green[700],
+            dropdownColor: Theme.of(context).primaryColor,
             style: const TextStyle(color: Colors.white),
             underline: Container(),
             items: const [
@@ -74,7 +74,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                     title: Text(
                       AppLocalizations.of(context)!.confirmLanguageChange,
                       style: TextStyle(
-                          color: Colors.green[700],
+                          color: Theme.of(context).primaryColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
@@ -94,7 +94,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(true),
                         style: TextButton.styleFrom(
-                            foregroundColor: Colors.green[600],
+                            foregroundColor: Theme.of(context).primaryColor,
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.bold)),
                         child: Text(
@@ -186,7 +186,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green[600],
+        selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: true,

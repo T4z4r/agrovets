@@ -197,9 +197,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.check_circle,
-              color: Colors.green,
+              color: Theme.of(context).primaryColor,
               size: 64,
             ),
             const SizedBox(height: 16),
@@ -208,7 +208,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.green[700],
+                color: Theme.of(context).primaryColor,
               ),
             ),
             const SizedBox(height: 8),
@@ -293,7 +293,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.createSale),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -306,7 +306,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         ],
       ),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(

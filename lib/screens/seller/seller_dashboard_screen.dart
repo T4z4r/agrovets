@@ -100,7 +100,10 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.green[400]!, Colors.green[600]!],
+                      colors: [
+                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColor
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -174,7 +177,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                         NumberFormatter.formatCurrency(num.tryParse(
                             dashboard['today_sales']?.toString() ?? '0')),
                         Icons.inventory,
-                        Colors.green,
+                        Theme.of(context).primaryColor,
                         'todaySales'),
                   ],
                 ),

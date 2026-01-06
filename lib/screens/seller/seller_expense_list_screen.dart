@@ -89,7 +89,8 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredExpenses.isEmpty
                     ? Center(
                         child: Column(
@@ -103,8 +104,10 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? AppLocalizations.of(context)!.noExpensesFound
-                                  : AppLocalizations.of(context)!.noExpensesMatch,
+                                  ? AppLocalizations.of(context)!
+                                      .noExpensesFound
+                                  : AppLocalizations.of(context)!
+                                      .noExpensesMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -230,7 +233,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

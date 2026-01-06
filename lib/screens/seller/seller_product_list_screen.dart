@@ -189,7 +189,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredProducts.isEmpty
                     ? Center(
                         child: Column(
@@ -232,12 +233,14 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.green[100],
+                                    color: Theme.of(context)
+                                        .primaryColorLight
+                                        .withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.inventory,
-                                    color: Colors.green[600],
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 title: Text(

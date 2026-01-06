@@ -28,14 +28,15 @@ class AppDrawer extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-            color: Colors.green[600],
+            color: Theme.of(context).primaryColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 40, color: Colors.green[600]),
+                  child: Icon(Icons.person,
+                      size: 40, color: Theme.of(context).primaryColor),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -53,6 +54,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           _drawerTile(
+              context,
               Icons.dashboard,
               AppLocalizations.of(context)!.dashboard,
               () => Navigator.pushAndRemoveUntil(
@@ -60,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
                   )),
-          _drawerTile(Icons.inventory, AppLocalizations.of(context)!.products,
+          _drawerTile(context, Icons.inventory, AppLocalizations.of(context)!.products,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -68,7 +70,7 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'products'),
-          _drawerTile(Icons.people, AppLocalizations.of(context)!.suppliers,
+          _drawerTile(context, Icons.people, AppLocalizations.of(context)!.suppliers,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -77,7 +79,7 @@ class AppDrawer extends StatelessWidget {
             );
           }, isActive: activeScreen == 'suppliers'),
           if (auth.isOwner || auth.isAdmin || auth.isSeller)
-            _drawerTile(Icons.person, AppLocalizations.of(context)!.sellers,
+            _drawerTile(context, Icons.person, AppLocalizations.of(context)!.sellers,
                 () {
               Navigator.pushAndRemoveUntil(
                 context,
@@ -85,14 +87,14 @@ class AppDrawer extends StatelessWidget {
                 (route) => false,
               );
             }, isActive: activeScreen == 'sellers'),
-          _drawerTile(Icons.storage, AppLocalizations.of(context)!.stock, () {
+          _drawerTile(context, Icons.storage, AppLocalizations.of(context)!.stock, () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const StockListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'stock'),
-          _drawerTile(Icons.point_of_sale, AppLocalizations.of(context)!.sales,
+          _drawerTile(context, Icons.point_of_sale, AppLocalizations.of(context)!.sales,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -100,7 +102,7 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'sales'),
-          _drawerTile(Icons.money_off, AppLocalizations.of(context)!.expenses,
+          _drawerTile(context, Icons.money_off, AppLocalizations.of(context)!.expenses,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -108,7 +110,7 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'expenses'),
-          _drawerTile(Icons.bar_chart, AppLocalizations.of(context)!.reports,
+          _drawerTile(context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -145,7 +147,7 @@ class AppDrawer extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   localeProvider.locale.languageCode == 'en'
-                                      ? Colors.green[600]
+                                      ? Theme.of(context).primaryColor
                                       : Colors.grey[200],
                               foregroundColor:
                                   localeProvider.locale.languageCode == 'en'
@@ -167,7 +169,7 @@ class AppDrawer extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   localeProvider.locale.languageCode == 'sw'
-                                      ? Colors.green[600]
+                                      ? Theme.of(context).primaryColor
                                       : Colors.grey[200],
                               foregroundColor:
                                   localeProvider.locale.languageCode == 'sw'
@@ -189,7 +191,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           const Divider(),
-          _drawerTile(Icons.logout, AppLocalizations.of(context)!.logout,
+          _drawerTile(context, Icons.logout, AppLocalizations.of(context)!.logout,
               () async {
             final shouldLogout = await showDialog<bool>(
               context: context,
@@ -223,18 +225,20 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _drawerTile(IconData icon, String title, VoidCallback onTap,
+  Widget _drawerTile(
+      BuildContext context, IconData icon, String title, VoidCallback onTap,
       {bool isActive = false}) {
     return Container(
-      color: isActive ? Colors.green[50] : null,
+      color: isActive
+          ? Theme.of(context).primaryColorLight.withOpacity(0.1)
+          : null,
       child: ListTile(
-        leading:
-            Icon(icon, color: isActive ? Colors.green[700] : Colors.green[600]),
+        leading: Icon(icon, color: Theme.of(context).primaryColor),
         title: Text(
           title,
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: isActive ? Colors.green[700] : null,
+            color: isActive ? Theme.of(context).primaryColor : null,
           ),
         ),
         onTap: onTap,
