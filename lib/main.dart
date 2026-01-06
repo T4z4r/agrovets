@@ -29,13 +29,14 @@ class MyApp extends StatelessWidget {
     final localeProvider = context.watch<LocaleProvider>();
 
     return MaterialApp(
-      title: 'AgroVet',
+      title: 'Apex',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color(0xFF266a29),
+        primaryColor: const Color(0xFF72140C),
+        primaryColorLight: const Color(0xFFFBF5F5),
         colorScheme: const ColorScheme.light(
-          primary: Color(0xFF266a29),
-          secondary: Color(0xFF741222),
+          primary: Color(0xFF72140C),
+          secondary: Color(0xFF72140C),
         ),
       ),
       locale: localeProvider.locale,

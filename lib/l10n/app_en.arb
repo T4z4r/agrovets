@@ -1,5 +1,5 @@
 {
-  "appName": "AgroVet",
+  "appName": "Apex",
   "welcomeBack": "Welcome back! Please sign in to your account",
   "emailAddress": "Email Address",
   "enterEmail": "Enter your email",
@@ -144,7 +144,7 @@
   "totalExpensesLabel": "Total Expenses",
   "netProfit": "Net Profit",
   "failedLoadReport": "Failed to load report",
-  "agroVetSeller": "AgroVet Seller",
+  "agroVetSeller": "Apex Seller",
   "failedLoadProducts": "Failed to load products",
   "searchProducts": "Search products...",
   "noProductsFound": "No products found",

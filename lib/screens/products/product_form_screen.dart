@@ -419,10 +419,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return AppLocalizations.of(context)!.costPriceRequired;
+                            return AppLocalizations.of(context)!
+                                .costPriceRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return AppLocalizations.of(context)!.enterValidAmount;
+                            return AppLocalizations.of(context)!
+                                .enterValidAmount;
                           }
                           return null;
                         },
@@ -446,10 +448,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         keyboardType: TextInputType.number,
                         validator: (v) {
                           if (v == null || v.isEmpty) {
-                            return AppLocalizations.of(context)!.sellingPriceRequired;
+                            return AppLocalizations.of(context)!
+                                .sellingPriceRequired;
                           }
                           if (double.tryParse(v) == null) {
-                            return AppLocalizations.of(context)!.enterValidAmount;
+                            return AppLocalizations.of(context)!
+                                .enterValidAmount;
                           }
                           return null;
                         },

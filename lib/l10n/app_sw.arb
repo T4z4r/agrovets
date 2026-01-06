@@ -1,5 +1,5 @@
 {
-  "appName": "AgroVet",
+  "appName": "Apex",
   "welcomeBack": "Karibu tena! Tafadhali ingia kwenye akaunti yako",
   "emailAddress": "Anwani ya Barua Pepe",
   "enterEmail": "Ingiza barua pepe yako",
@@ -207,7 +207,7 @@
   "totalExpensesLabel": "Jumla ya Matumizi",
   "netProfit": "Faida Halisi",
   "selectDateRangeProfitReport": "Chagua muda wa tarehe ili kuzalisha ripoti ya faida",
-  "agroVetSeller": "AgroVet Mwuza",
+  "agroVetSeller": "Apex Mwuza",
   "saleLabel": "Uuzaji",
   "itemsLabel": "Bidhaa",
   "stockTransactionTitle": "Muamala wa Stoki",
