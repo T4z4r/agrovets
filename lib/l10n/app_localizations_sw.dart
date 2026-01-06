@@ -7,7 +7,7 @@ class AppLocalizationsSw extends AppLocalizations {
   AppLocalizationsSw([String locale = 'sw']) : super(locale);
 
   @override
-  String get appName => 'AgroVet';
+  String get appName => 'Apex';
 
   @override
   String get welcomeBack => 'Karibu tena! Tafadhali ingia kwenye akaunti yako';
@@ -414,7 +414,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get failedLoadReport => 'Imeshindikana kupakia ripoti';
 
   @override
-  String get agroVetSeller => 'AgroVet Seller';
+  String get agroVetSeller => 'Apex Seller';
 
   @override
   String get searchProducts => 'Tafuta bidhaa...';
@@ -751,7 +751,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get selected => 'Imechaguliwa';
 
   @override
-  String get productNotFoundForBarcode => 'Bidhaa haijapatikana kwa barcode iliyoskaniwa';
+  String get productNotFoundForBarcode =>
+      'Bidhaa haijapatikana kwa barcode iliyoskaniwa';
 
   @override
   String get errorFindingProduct => 'Kosa katika kutafuta bidhaa';
@@ -781,7 +782,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get deleteSale => 'Futa Uuzaji';
 
   @override
-  String get deleteSaleConfirm => 'Je, una uhakika unataka kufuta uuzaji huu? Kitendo hiki hakiwezi kutenduliwa.';
+  String get deleteSaleConfirm =>
+      'Je, una uhakika unataka kufuta uuzaji huu? Kitendo hiki hakiwezi kutenduliwa.';
 
   @override
   String get saleDeletedSuccessfully => 'Uuzaji umefutwa kwa mafanikio.';
@@ -814,8 +816,10 @@ class AppLocalizationsSw extends AppLocalizations {
   String get confirmLanguageChange => 'Thibitisha Kubadilisha Lugha';
 
   @override
-  String get languageChangeMessage => 'Je, una uhakika unataka kubadilisha lugha?';
+  String get languageChangeMessage =>
+      'Je, una uhakika unataka kubadilisha lugha?';
 
   @override
-  String get operationFailed => 'Operesheni imeshindikana. Tafadhali jaribu tena.';
+  String get operationFailed =>
+      'Operesheni imeshindikana. Tafadhali jaribu tena.';
 }

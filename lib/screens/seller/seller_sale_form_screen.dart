@@ -306,7 +306,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         ],
       ),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
+          ? Center(
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -386,7 +388,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                   label: Text(
                                       AppLocalizations.of(context)!.addItem),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green[600],
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
                                     foregroundColor: Colors.white,
                                   ),
                                 ),
@@ -552,7 +555,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green[600],
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ],
@@ -563,7 +566,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                     ElevatedButton(
                       onPressed: _loading ? null : _save,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
+                        backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -710,7 +713,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
       title: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.green[600],
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
@@ -789,7 +792,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                         ],
                       ),
                       value: isSelected,
-                      activeColor: Colors.green[600],
+                      activeColor: Theme.of(context).primaryColor,
                       onChanged: (value) {
                         setState(() {
                           if (value == true) {
@@ -823,7 +826,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
             Navigator.pop(context, selectedProducts);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green[600],
+            backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

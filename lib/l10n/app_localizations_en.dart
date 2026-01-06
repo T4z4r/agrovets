@@ -7,7 +7,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'AgroVet';
+  String get appName => 'Apex';
 
   @override
   String get welcomeBack => 'Welcome back! Please sign in to your account';
@@ -412,7 +412,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedLoadReport => 'Failed to load report';
 
   @override
-  String get agroVetSeller => 'AgroVet Seller';
+  String get agroVetSeller => 'Apex Seller';
 
   @override
   String get searchProducts => 'Search products...';
@@ -746,7 +746,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selected => 'Selected';
 
   @override
-  String get productNotFoundForBarcode => 'Product not found for scanned barcode';
+  String get productNotFoundForBarcode =>
+      'Product not found for scanned barcode';
 
   @override
   String get errorFindingProduct => 'Error finding product';
@@ -776,7 +777,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteSale => 'Delete Sale';
 
   @override
-  String get deleteSaleConfirm => 'Are you sure you want to delete this sale? This action cannot be undone.';
+  String get deleteSaleConfirm =>
+      'Are you sure you want to delete this sale? This action cannot be undone.';
 
   @override
   String get saleDeletedSuccessfully => 'Sale deleted successfully.';
@@ -809,7 +811,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmLanguageChange => 'Confirm Language Change';
 
   @override
-  String get languageChangeMessage => 'Are you sure you want to change the language?';
+  String get languageChangeMessage =>
+      'Are you sure you want to change the language?';
 
   @override
   String get operationFailed => 'Operation failed. Please try again.';
