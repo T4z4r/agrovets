@@ -35,8 +35,7 @@ class AppDrawer extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.person,
-                      size: 40, color: Theme.of(context).primaryColor),
+                  backgroundImage: AssetImage('assets/images/logo.png'),
                 ),
                 const SizedBox(height: 12),
                 Text(
