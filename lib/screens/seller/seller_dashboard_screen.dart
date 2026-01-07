@@ -197,7 +197,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Card(
-                    color: const Color.fromARGB(255, 220, 248, 221)
+                    color: const Color.fromARGB(255, 255, 214, 214)
                         .withOpacity(0.5),
                     elevation: 2,
                     shape: RoundedRectangleBorder(
