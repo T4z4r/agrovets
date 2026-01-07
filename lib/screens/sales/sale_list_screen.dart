@@ -76,7 +76,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.sales),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -111,7 +111,8 @@ class _SaleListScreenState extends State<SaleListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredSales.isEmpty
                     ? Center(
                         child: Column(
@@ -154,12 +155,12 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.green[100],
+                                    color: Theme.of(context).primaryColorLight,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.point_of_sale,
-                                    color: Colors.green[600],
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 title: Text(
@@ -305,7 +306,8 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                                       fontSize: 24,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.green[700],
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 8),
@@ -358,7 +360,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

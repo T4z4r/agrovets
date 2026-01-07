@@ -125,7 +125,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
         title: Text(widget.supplier == null
             ? AppLocalizations.of(context)!.createSupplier
             : AppLocalizations.of(context)!.editSupplier),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -142,13 +142,13 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.green[100],
+                  color: Theme.of(context).primaryColorLight,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
                   widget.supplier == null ? Icons.business : Icons.edit,
                   size: 40,
-                  color: Colors.green[600],
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               const SizedBox(height: 24),
@@ -287,7 +287,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[600],
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(

@@ -87,13 +87,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.products),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       drawer: const AppDrawer(activeScreen: 'products'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : _product == null
               ? Center(
                   child: Text(AppLocalizations.of(context)!.noProductsFound),
@@ -288,7 +288,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 hintText: AppLocalizations.of(context)!
                                     .searchTransactions,
                                 prefixIcon: Icon(Icons.search,
-                                    color: Colors.green[600]),
+                                    color: Theme.of(context).primaryColor),
                                 border: InputBorder.none,
                                 isDense: true,
                                 contentPadding:

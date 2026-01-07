@@ -77,7 +77,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text('Profit Report'),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -98,13 +98,13 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.green[100],
+                color: Theme.of(context).primaryColorLight,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Icon(
                 Icons.trending_up,
                 size: 40,
-                color: Colors.green[600],
+                color: Theme.of(context).primaryColor,
               ),
             ),
             const SizedBox(height: 24),
@@ -173,7 +173,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                     ElevatedButton(
                       onPressed: _loading ? null : _loadReport,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
+                        backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -213,7 +213,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                   padding: const EdgeInsets.all(40),
                   child: Column(
                     children: [
-                      SpinKitWaveSpinner(color: Colors.green, size: 50.0),
+                      SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0),
                       const SizedBox(height: 16),
                       const Text('Generating report...'),
                     ],
@@ -274,7 +274,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                         NumberFormatter.formatCurrency(_report!.revenue),
                         Icons.monetization_on,
                         Colors.green,
-                        Colors.green[100]!,
+                        Theme.of(context).primaryColorLight!,
                       ),
                       const SizedBox(height: 12),
 
@@ -307,7 +307,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                           gradient: LinearGradient(
                             colors: [
                               Colors.green[400]!,
-                              Colors.green[600]!,
+                              Theme.of(context).primaryColor!,
                             ],
                           ),
                           borderRadius: BorderRadius.circular(12),

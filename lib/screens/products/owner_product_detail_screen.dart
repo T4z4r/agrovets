@@ -109,7 +109,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.productDeletedSuccess),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
         Navigator.pop(context, true); // Return true to indicate deletion
@@ -131,7 +131,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.details),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -162,7 +162,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'products'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : _product == null
               ? Center(child: Text('Product not found'))
               : SingleChildScrollView(
@@ -410,7 +410,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
                                 hintText: AppLocalizations.of(context)!
                                     .searchTransactions,
                                 prefixIcon: Icon(Icons.search,
-                                    color: Colors.green[600]),
+                                    color: Theme.of(context).primaryColor),
                                 border: InputBorder.none,
                                 isDense: true,
                                 contentPadding:

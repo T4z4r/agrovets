@@ -81,7 +81,7 @@ class _DailyReportPdfViewScreenState extends State<DailyReportPdfViewScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('File downloaded successfully'),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
       }
@@ -101,7 +101,7 @@ class _DailyReportPdfViewScreenState extends State<DailyReportPdfViewScreen> {
       appBar: AppBar(
         title: Text(
             '${AppLocalizations.of(context)!.dailyReport} - ${DateFormat('yyyy-MM-dd').format(DateTime.parse(widget.date))}'),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -115,7 +115,7 @@ class _DailyReportPdfViewScreenState extends State<DailyReportPdfViewScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'reports'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : _error != null
               ? Center(child: Text(_error!))
               : SfPdfViewer.file(File(_pdfPath!)),

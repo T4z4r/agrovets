@@ -44,7 +44,7 @@ class _AboutScreenState extends State<AboutScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.appName),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),

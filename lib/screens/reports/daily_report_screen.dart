@@ -64,7 +64,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.dailyReport),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -142,7 +142,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                     ElevatedButton(
                       onPressed: _loading ? null : _loadReport,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green[600],
+                        backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -242,7 +242,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                             _report!.totalSales as num),
                         Icons.point_of_sale,
                         Colors.green,
-                        Colors.green[100]!,
+                        Theme.of(context).primaryColorLight!,
                       ),
                       const SizedBox(height: 12),
 
@@ -269,7 +269,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                                   : Colors.red[400]!,
                               (_report!.totalSales - _report!.totalExpenses) >=
                                       0
-                                  ? Colors.green[600]!
+                                  ? Theme.of(context).primaryColor!
                                   : Colors.red[600]!,
                             ],
                           ),

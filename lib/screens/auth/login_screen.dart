@@ -46,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } else {
-         setState(() => _error = AppLocalizations.of(context)!.loginFailed);
-       }
+        setState(() => _error = AppLocalizations.of(context)!.loginFailed);
+      }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
     }
@@ -69,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // App Icon
                 Icon(
-                  Icons.agriculture,
+                  Icons.point_of_sale,
                   size: 80,
-                  color: Colors.green[700],
+                  color: Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: 20),
 
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green[700],
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -198,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ElevatedButton(
                             onPressed: _loading ? null : _login,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green[600],
+                              backgroundColor: Theme.of(context).primaryColor,
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(

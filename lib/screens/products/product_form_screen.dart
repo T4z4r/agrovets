@@ -202,7 +202,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         title: Text(widget.product == null
             ? AppLocalizations.of(context)!.createProduct
             : AppLocalizations.of(context)!.editProduct),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -219,13 +219,13 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.green[100],
+                  color: Theme.of(context).primaryColorLight,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
                   widget.product == null ? Icons.add_box : Icons.edit,
                   size: 40,
-                  color: Colors.green[600],
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               const SizedBox(height: 24),
@@ -464,7 +464,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[600],
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(

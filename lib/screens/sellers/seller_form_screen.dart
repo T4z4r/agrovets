@@ -153,7 +153,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
         title: Text(widget.seller == null
             ? AppLocalizations.of(context)!.createSeller
             : AppLocalizations.of(context)!.editSeller),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -170,13 +170,13 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                 width: 80,
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.green[100],
+                  color: Theme.of(context).primaryColorLight,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
                   widget.seller == null ? Icons.person_add : Icons.edit,
                   size: 40,
-                  color: Colors.green[600],
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               const SizedBox(height: 24),
@@ -333,7 +333,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[600],
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(

@@ -77,7 +77,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.expenses),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -112,7 +112,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredExpenses.isEmpty
                     ? Center(
                         child: Column(
@@ -327,7 +327,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

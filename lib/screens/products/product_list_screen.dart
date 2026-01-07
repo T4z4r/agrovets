@@ -177,7 +177,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalizations.of(context)!.productDeletedSuccess),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         );
         _loadProducts();
@@ -199,7 +199,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.products),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -247,7 +247,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredProducts.isEmpty
                     ? Center(
                         child: Column(
@@ -292,12 +293,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.green[100],
+                                    color: Theme.of(context).primaryColorLight,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.inventory,
-                                    color: Colors.green[600],
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                                 title: Text(
@@ -482,7 +483,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

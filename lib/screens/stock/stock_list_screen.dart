@@ -129,7 +129,7 @@ class _StockListScreenState extends State<StockListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.stockTransactions),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -164,7 +164,8 @@ class _StockListScreenState extends State<StockListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredTransactions.isEmpty
                     ? Center(
                         child: Column(
@@ -205,7 +206,7 @@ class _StockListScreenState extends State<StockListScreen> {
                             switch (t.type) {
                               case 'stock_in':
                                 iconData = Icons.trending_up;
-                                iconColor = Colors.green[600]!;
+                                iconColor = Theme.of(context).primaryColor!;
                                 cardColor = Colors.green[50]!;
                                 break;
                               case 'stock_out':
@@ -429,7 +430,7 @@ class _StockListScreenState extends State<StockListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

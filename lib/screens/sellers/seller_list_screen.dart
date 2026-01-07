@@ -105,7 +105,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.sellers),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -140,7 +140,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredSellers.isEmpty
                     ? Center(
                         child: Column(
@@ -185,14 +185,14 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                   height: 50,
                                   decoration: BoxDecoration(
                                     color: s.isActive
-                                        ? Colors.green[100]
+                                        ? Theme.of(context).primaryColorLight
                                         : Colors.red[100],
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(
                                     Icons.person,
                                     color: s.isActive
-                                        ? Colors.green[600]
+                                        ? Theme.of(context).primaryColor
                                         : Colors.red[600],
                                   ),
                                 ),
@@ -233,7 +233,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                               : Icons.block,
                                           size: 14,
                                           color: s.isActive
-                                              ? Colors.green[600]
+                                              ? Theme.of(context).primaryColor
                                               : Colors.red[600],
                                         ),
                                         const SizedBox(width: 4),
@@ -245,7 +245,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                                   .blocked,
                                           style: TextStyle(
                                             color: s.isActive
-                                                ? Colors.green[600]
+                                                ? Theme.of(context).primaryColor
                                                 : Colors.red[600],
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
@@ -372,7 +372,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

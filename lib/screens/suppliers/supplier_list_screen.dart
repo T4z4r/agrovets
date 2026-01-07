@@ -82,7 +82,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.suppliers),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -117,7 +117,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+                    child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredSuppliers.isEmpty
                     ? Center(
                         child: Column(
@@ -334,7 +334,7 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
             ),
           );
         },
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );

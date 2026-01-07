@@ -134,7 +134,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
         title: Text(widget.expense == null
             ? AppLocalizations.of(context)!.createExpense
             : AppLocalizations.of(context)!.editExpense),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -279,7 +279,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                       ElevatedButton(
                         onPressed: _loading ? null : _save,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[600],
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(

@@ -313,7 +313,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Theme.of(context).primaryColorLight,
+                        Theme.of(context).primaryColor.withOpacity(0.8),
                         Theme.of(context).primaryColor
                       ],
                     ),

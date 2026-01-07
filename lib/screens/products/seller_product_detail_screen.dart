@@ -51,12 +51,12 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.productDetails),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : _product == null
               ? Center(
                   child: Text(AppLocalizations.of(context)!.productNotFound))
@@ -79,13 +79,13 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                                 width: 60,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: Colors.green[100],
+                                  color: Theme.of(context).primaryColorLight,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Icon(
                                   Icons.inventory,
                                   size: 30,
-                                  color: Colors.green[600],
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                               const SizedBox(width: 16),

@@ -324,7 +324,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.createStockTransaction),
-        backgroundColor: Colors.green[600],
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -338,7 +338,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'stock'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Colors.green, size: 50.0))
+          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -428,7 +428,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.trending_up,
-                                          color: Colors.green[600]),
+                                          color: Theme.of(context).primaryColor),
                                       const SizedBox(width: 8),
                                       Text(AppLocalizations.of(context)!
                                           .stockIn),
@@ -574,7 +574,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             ElevatedButton(
                               onPressed: _loading ? null : _save,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green[600],
+                                backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16),
