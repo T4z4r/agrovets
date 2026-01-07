@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String baseUrl =
-      'https://agrovet.sudsudgroup.com'; // CHANGE THIS
+  static const String baseUrl = 'https://pos.sudsudgroup.com'; // CHANGE THIS
 
   static Future<Map<String, String>> getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
@@ -51,7 +50,8 @@ class ApiService {
     return _handleResponse(response);
   }
 
-  static Future<dynamic> patch(String endpoint, Map<String, dynamic> data) async {
+  static Future<dynamic> patch(
+      String endpoint, Map<String, dynamic> data) async {
     final response = await http.patch(
       Uri.parse('$baseUrl$endpoint'),
       headers: await getHeaders(),
