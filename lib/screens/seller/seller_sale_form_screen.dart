@@ -439,6 +439,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                   child: Column(
                                     children: [
                                       DropdownButtonFormField<int>(
+                                        isExpanded: true,
                                         value: _items[idx]['product_id'],
                                         decoration: InputDecoration(
                                           labelText:
@@ -448,6 +449,15 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                           contentPadding: EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
                                         ),
+                                        selectedItemBuilder: (context) =>
+                                            _filteredProducts
+                                                .map((p) => Text(
+                                                      p.name!,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ))
+                                                .toList(),
                                         items: _filteredProducts
                                             .map((p) => DropdownMenuItem(
                                                 value: p.id,
@@ -466,61 +476,69 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                         },
                                       ),
                                       const SizedBox(height: 12),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextFormField(
-                                              initialValue: _items[idx]
-                                                      ['quantity']
-                                                  .toString(),
-                                              onChanged: (v) => _items[idx]
-                                                      ['quantity'] =
-                                                  int.tryParse(v) ?? 1,
-                                              decoration: InputDecoration(
-                                                labelText: AppLocalizations.of(
-                                                        context)!
-                                                    .qty,
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 80,
+                                              child: TextFormField(
+                                                initialValue: _items[idx]
+                                                        ['quantity']
+                                                    .toString(),
+                                                onChanged: (v) => _items[idx]
+                                                        ['quantity'] =
+                                                    int.tryParse(v) ?? 1,
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .qty,
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 12,
+                                                          vertical: 8),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
                                               ),
-                                              keyboardType:
-                                                  TextInputType.number,
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Expanded(
-                                            child: TextFormField(
-                                              initialValue: _items[idx]['price']
-                                                  .toString(),
-                                              onChanged: (v) => _items[idx]
-                                                      ['price'] =
-                                                  int.tryParse(v) ?? 0,
-                                              decoration: InputDecoration(
-                                                labelText: AppLocalizations.of(
-                                                        context)!
-                                                    .price,
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8),
+                                            const SizedBox(width: 12),
+                                            SizedBox(
+                                              width: 100,
+                                              child: TextFormField(
+                                                initialValue: _items[idx]
+                                                        ['price']
+                                                    .toString(),
+                                                onChanged: (v) => _items[idx]
+                                                        ['price'] =
+                                                    int.tryParse(v) ?? 0,
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .price,
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 12,
+                                                          vertical: 8),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
                                               ),
-                                              keyboardType:
-                                                  TextInputType.number,
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          IconButton(
-                                            icon: const Icon(
-                                                Icons.remove_circle,
-                                                color: Colors.red),
-                                            onPressed: () => setState(
-                                                () => _items.removeAt(idx)),
-                                          ),
-                                        ],
+                                            const SizedBox(width: 12),
+                                            IconButton(
+                                              icon: const Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.red),
+                                              onPressed: () => setState(
+                                                  () => _items.removeAt(idx)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),

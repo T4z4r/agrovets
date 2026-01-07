@@ -310,7 +310,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'sales'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
+          ? Center(
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -390,7 +392,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                   label: Text(
                                       AppLocalizations.of(context)!.addItem),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
                                     foregroundColor: Colors.white,
                                   ),
                                 ),
@@ -440,6 +443,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                   child: Column(
                                     children: [
                                       DropdownButtonFormField<int>(
+                                        isExpanded: true,
                                         value: _items[idx]['product_id'],
                                         decoration: InputDecoration(
                                           labelText:
@@ -449,6 +453,13 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                           contentPadding: EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
                                         ),
+                                        selectedItemBuilder: (context) => _filteredProducts
+                                            .map((p) => Text(
+                                                  p.name!,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ))
+                                            .toList(),
                                         items: _filteredProducts
                                             .map((p) => DropdownMenuItem(
                                                 value: p.id,
@@ -467,61 +478,69 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                         },
                                       ),
                                       const SizedBox(height: 12),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextFormField(
-                                              initialValue: _items[idx]
-                                                      ['quantity']
-                                                  .toString(),
-                                              onChanged: (v) => _items[idx]
-                                                      ['quantity'] =
-                                                  int.tryParse(v) ?? 1,
-                                              decoration: InputDecoration(
-                                                labelText: AppLocalizations.of(
-                                                        context)!
-                                                    .qty,
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 80,
+                                              child: TextFormField(
+                                                initialValue: _items[idx]
+                                                        ['quantity']
+                                                    .toString(),
+                                                onChanged: (v) => _items[idx]
+                                                        ['quantity'] =
+                                                    int.tryParse(v) ?? 1,
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .qty,
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 12,
+                                                          vertical: 8),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
                                               ),
-                                              keyboardType:
-                                                  TextInputType.number,
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          Expanded(
-                                            child: TextFormField(
-                                              initialValue: _items[idx]['price']
-                                                  .toString(),
-                                              onChanged: (v) => _items[idx]
-                                                      ['price'] =
-                                                  int.tryParse(v) ?? 0,
-                                              decoration: InputDecoration(
-                                                labelText: AppLocalizations.of(
-                                                        context)!
-                                                    .price,
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal: 12,
-                                                        vertical: 8),
+                                            const SizedBox(width: 12),
+                                            SizedBox(
+                                              width: 100,
+                                              child: TextFormField(
+                                                initialValue: _items[idx]
+                                                        ['price']
+                                                    .toString(),
+                                                onChanged: (v) => _items[idx]
+                                                        ['price'] =
+                                                    int.tryParse(v) ?? 0,
+                                                decoration: InputDecoration(
+                                                  labelText:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .price,
+                                                  border: OutlineInputBorder(),
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          horizontal: 12,
+                                                          vertical: 8),
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
                                               ),
-                                              keyboardType:
-                                                  TextInputType.number,
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          IconButton(
-                                            icon: const Icon(
-                                                Icons.remove_circle,
-                                                color: Colors.red),
-                                            onPressed: () => setState(
-                                                () => _items.removeAt(idx)),
-                                          ),
-                                        ],
+                                            const SizedBox(width: 12),
+                                            IconButton(
+                                              icon: const Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.red),
+                                              onPressed: () => setState(
+                                                  () => _items.removeAt(idx)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
