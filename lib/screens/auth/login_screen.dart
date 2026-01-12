@@ -48,9 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } else {
-        // Check if user is not verified
-        final message = response['message']?.toString().toLowerCase() ?? '';
-        if (message.contains('not verified') || message.contains('verify')) {
+        // Check the response message to determine the action
+        final message = response['message']?.toString() ?? '';
+        if (message.contains('Invalid credentials')) {
+          setState(() => _error = 'Invalid credentials');
+        } else if (message.contains('not verified') ||
+            message.contains('verify')) {
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
@@ -243,7 +246,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                                MaterialPageRoute(
+                                    builder: (_) => const RegisterScreen()),
                               );
                             },
                             child: Text(

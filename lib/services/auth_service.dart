@@ -18,10 +18,9 @@ class AuthService {
       }
       return response;
     } catch (e) {
-      // Handle 403 response for unverified accounts
-      if (e.toString().contains('403') ||
-          e.toString().contains('An error occurred')) {
-        // For unverified accounts, we need to manually make the request to get the response
+      // Handle 401 (invalid credentials) and 403 (unverified account) responses
+      if (e.toString().contains('An error occurred')) {
+        // For both 401 and 403, we need to manually make the request to get the response
         try {
           final client = http.Client();
           final headers = await ApiService.getHeaders();
@@ -36,9 +35,12 @@ class AuthService {
           client.close();
 
           final jsonResponse = jsonDecode(apiResponse.body);
-          if (apiResponse.statusCode == 403 &&
-              jsonResponse['message']?.contains('not verified') == true) {
-            return jsonResponse; // Return the response for unverified account
+          if (apiResponse.statusCode == 401 && jsonResponse['message']?.contains('Invalid credentials') == true) {
+            // Return invalid credentials response
+            return jsonResponse;
+          } else if (apiResponse.statusCode == 403 && jsonResponse['message']?.contains('not verified') == true) {
+            // Return unverified account response
+            return jsonResponse;
           }
           throw Exception('Login failed');
         } catch (innerError) {
