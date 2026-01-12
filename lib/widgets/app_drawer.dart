@@ -12,6 +12,7 @@ import '../screens/sales/sale_list_screen.dart';
 import '../screens/expenses/expense_list_screen.dart';
 import '../screens/reports/daily_report_screen.dart';
 import '../screens/sellers/seller_list_screen.dart';
+import '../screens/privacy_policy_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final String? activeScreen;
@@ -61,7 +62,8 @@ class AppDrawer extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
                   )),
-          _drawerTile(context, Icons.inventory, AppLocalizations.of(context)!.products,
+          _drawerTile(
+              context, Icons.inventory, AppLocalizations.of(context)!.products,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -69,7 +71,8 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'products'),
-          _drawerTile(context, Icons.people, AppLocalizations.of(context)!.suppliers,
+          _drawerTile(
+              context, Icons.people, AppLocalizations.of(context)!.suppliers,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -78,7 +81,8 @@ class AppDrawer extends StatelessWidget {
             );
           }, isActive: activeScreen == 'suppliers'),
           if (auth.isOwner || auth.isAdmin || auth.isSeller)
-            _drawerTile(context, Icons.person, AppLocalizations.of(context)!.sellers,
+            _drawerTile(
+                context, Icons.person, AppLocalizations.of(context)!.sellers,
                 () {
               Navigator.pushAndRemoveUntil(
                 context,
@@ -86,14 +90,16 @@ class AppDrawer extends StatelessWidget {
                 (route) => false,
               );
             }, isActive: activeScreen == 'sellers'),
-          _drawerTile(context, Icons.storage, AppLocalizations.of(context)!.stock, () {
+          _drawerTile(
+              context, Icons.storage, AppLocalizations.of(context)!.stock, () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const StockListScreen()),
               (route) => false,
             );
           }, isActive: activeScreen == 'stock'),
-          _drawerTile(context, Icons.point_of_sale, AppLocalizations.of(context)!.sales,
+          _drawerTile(
+              context, Icons.point_of_sale, AppLocalizations.of(context)!.sales,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -101,7 +107,8 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'sales'),
-          _drawerTile(context, Icons.money_off, AppLocalizations.of(context)!.expenses,
+          _drawerTile(
+              context, Icons.money_off, AppLocalizations.of(context)!.expenses,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -109,7 +116,8 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'expenses'),
-          _drawerTile(context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
+          _drawerTile(
+              context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
               () {
             Navigator.pushAndRemoveUntil(
               context,
@@ -190,7 +198,17 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           const Divider(),
-          _drawerTile(context, Icons.logout, AppLocalizations.of(context)!.logout,
+          _drawerTile(context, Icons.privacy_tip,
+              AppLocalizations.of(context)!.privacyPolicy, () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+              (route) => false,
+            );
+          }),
+          const Divider(),
+          _drawerTile(
+              context, Icons.logout, AppLocalizations.of(context)!.logout,
               () async {
             final shouldLogout = await showDialog<bool>(
               context: context,

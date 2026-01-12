@@ -87,7 +87,7 @@ class ApiService {
   }
 
   static Future<PrivacyPolicy> getPrivacyPolicy() async {
-    final response = await get('/privacy-policy');
+    final response = await get('/api/privacy-policy');
     if (response['success']) {
       return PrivacyPolicy.fromJson(response['data']);
     } else {

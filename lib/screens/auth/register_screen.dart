@@ -5,7 +5,6 @@ import 'package:flutter_html/flutter_html.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/auth_service.dart';
 import '../../services/api_service.dart';
-import '../../models/privacy_policy.dart';
 import 'otp_verification_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,7 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
     if (!_agreeToTerms) {
-      setState(() => _error = AppLocalizations.of(context)!.acceptTermsRequired);
+      setState(
+          () => _error = AppLocalizations.of(context)!.acceptTermsRequired);
       return;
     }
     setState(() {
@@ -67,58 +67,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
     }
     setState(() => _loading = false);
-   }
+  }
 
-   Future<void> _showPrivacyPolicy() async {
-     try {
-       final policy = await ApiService.getPrivacyPolicy();
-       if (!mounted) return;
-       showDialog(
-         context: context,
-         builder: (context) => AlertDialog(
-           title: Text(policy.title),
-           content: SingleChildScrollView(
-             child: Html(data: policy.content),
-           ),
-           actions: [
-             TextButton(
-               onPressed: () => Navigator.pop(context),
-               child: Text(AppLocalizations.of(context)!.ok ?? 'OK'),
-             ),
-           ],
-         ),
-       );
-     } catch (e) {
-       if (!mounted) return;
-       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-           content: Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
-           backgroundColor: Colors.red,
-         ),
-       );
-     }
-   }
+  Future<void> _showPrivacyPolicy() async {
+    try {
+      final policy = await ApiService.getPrivacyPolicy();
+      if (!mounted) return;
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                policy.title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Html(data: policy.content),
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(AppLocalizations.of(context)!.ok ?? 'OK'),
+              ),
+            ],
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
-   @override
-   Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
 
                 // App Icon
                 Icon(
                   Icons.point_of_sale,
-                  size: 80,
+                  size: 40,
                   color: Theme.of(context).primaryColor,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
 
                 // Welcome Text
                 Text(
@@ -138,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
 
                 // Registration Form
                 Card(
@@ -333,11 +349,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                             title: RichText(
                               text: TextSpan(
-                                text: AppLocalizations.of(context)!.agreeToTerms,
+                                text:
+                                    AppLocalizations.of(context)!.agreeToTerms,
                                 style: TextStyle(color: Colors.black),
                                 children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context)!.termsAndPolicy,
+                                    text: AppLocalizations.of(context)!
+                                        .termsAndPolicy,
                                     style: TextStyle(
                                       color: Theme.of(context).primaryColor,
                                       decoration: TextDecoration.underline,
@@ -352,9 +370,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           const SizedBox(height: 24),
                           ElevatedButton(
-                            onPressed: _loading ? null : _register,
+                            onPressed:
+                                _loading || !_agreeToTerms ? null : _register,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: _agreeToTerms
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey,
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
