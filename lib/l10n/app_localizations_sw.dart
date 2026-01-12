@@ -867,4 +867,16 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get otpVerification => 'Uthibitishaji wa OTP';
+
+  @override
+  String get agreeToTerms => 'Nakubali Sheria na Masharti na Sera ya Faragha';
+
+  @override
+  String get termsAndPolicy => 'Sheria na Masharti na Sera ya Faragha';
+
+  @override
+  String get privacyPolicy => 'Sera ya Faragha';
+
+  @override
+  String get acceptTermsRequired => 'Lazima ukubali sheria na masharti ili kuendelea';
 }

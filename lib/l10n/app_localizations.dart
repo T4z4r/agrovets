@@ -1485,6 +1485,30 @@ abstract class AppLocalizations {
   String get signUp;
   String get alreadyHaveAccount;
   String get otpVerification;
+
+  /// No description provided for @agreeToTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Terms and Conditions and Privacy Policy'**
+  String get agreeToTerms;
+
+  /// No description provided for @termsAndPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions and Privacy Policy'**
+  String get termsAndPolicy;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @acceptTermsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the terms and conditions to continue'**
+  String get acceptTermsRequired;
 }
 
 class _AppLocalizationsDelegate

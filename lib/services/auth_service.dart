@@ -35,10 +35,13 @@ class AuthService {
           client.close();
 
           final jsonResponse = jsonDecode(apiResponse.body);
-          if (apiResponse.statusCode == 401 && jsonResponse['message']?.contains('Invalid credentials') == true) {
+          if (apiResponse.statusCode == 401 &&
+              jsonResponse['message']?.contains('Invalid credentials') ==
+                  true) {
             // Return invalid credentials response
             return jsonResponse;
-          } else if (apiResponse.statusCode == 403 && jsonResponse['message']?.contains('not verified') == true) {
+          } else if (apiResponse.statusCode == 403 &&
+              jsonResponse['message']?.contains('not verified') == true) {
             // Return unverified account response
             return jsonResponse;
           }
@@ -58,17 +61,54 @@ class AuthService {
       String passwordConfirmation,
       String shopName,
       String shopLocation) async {
-    final response = await ApiService.post('/api/register', {
-      'name': name,
-      'email': email,
-      'password': password,
-      'password_confirmation': passwordConfirmation,
-      'role': 'owner',
-      'shop_name': shopName,
-      'shop_location': shopLocation,
-    });
-    // Note: Register does not return token yet, OTP verification needed
-    return response;
+    try {
+      final data = {
+        'name': name,
+        'email': email,
+        'password': password,
+        'password_confirmation': passwordConfirmation,
+        'role': 'owner',
+        'shop_name': shopName,
+        'shop_location': shopLocation,
+      };
+      print('Register data: $data'); // Debug log
+      final response = await ApiService.post('/api/register', data);
+      // Note: Register does not return token yet, OTP verification needed
+      return response;
+    } catch (e) {
+      // Handle validation errors (422) and other errors
+      if (e.toString().contains('An error occurred')) {
+        try {
+          final client = http.Client();
+          final headers = await ApiService.getHeaders();
+          final apiResponse = await client.post(
+            Uri.parse('${ApiService.baseUrl}/api/register'),
+            headers: headers,
+            body: jsonEncode({
+              'name': name,
+              'email': email,
+              'password': password,
+              'password_confirmation': passwordConfirmation,
+              'role': 'owner',
+              'shop_name': shopName,
+              'shop_location': shopLocation,
+            }),
+          );
+          client.close();
+
+          final jsonResponse = jsonDecode(apiResponse.body);
+          if (apiResponse.statusCode == 422) {
+            // Validation error
+            return jsonResponse;
+          } else {
+            throw Exception('Registration failed');
+          }
+        } catch (innerError) {
+          throw Exception('Connection error. Please try again.');
+        }
+      }
+      rethrow;
+    }
   }
 
   static Future<Map<String, dynamic>> verifyOtp(

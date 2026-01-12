@@ -331,5 +331,9 @@
   "confirmPasswordRequired": "Uthibitishaji wa nenosiri unahitajika",
   "signUp": "Jisajili",
   "alreadyHaveAccount": "Tayari una akaunti? Ingia",
-  "otpVerification": "Uthibitishaji wa OTP"
+  "otpVerification": "Uthibitishaji wa OTP",
+  "agreeToTerms": "Nakubali Sheria na Masharti na Sera ya Faragha",
+  "termsAndPolicy": "Sheria na Masharti na Sera ya Faragha",
+  "privacyPolicy": "Sera ya Faragha",
+  "acceptTermsRequired": "Lazima ukubali sheria na masharti ili kuendelea"
 }

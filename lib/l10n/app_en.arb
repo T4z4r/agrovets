@@ -332,5 +332,9 @@
   "confirmPasswordRequired": "Password confirmation is required",
   "signUp": "Sign Up",
   "alreadyHaveAccount": "Already have an account? Sign In",
-  "otpVerification": "OTP Verification"
+  "otpVerification": "OTP Verification",
+  "agreeToTerms": "I agree to the Terms and Conditions and Privacy Policy",
+  "termsAndPolicy": "Terms and Conditions and Privacy Policy",
+  "privacyPolicy": "Privacy Policy",
+  "acceptTermsRequired": "You must accept the terms and conditions to continue"
 }

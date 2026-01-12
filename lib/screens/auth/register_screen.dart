@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_html/flutter_html.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/auth_service.dart';
+import '../../services/api_service.dart';
+import '../../models/privacy_policy.dart';
 import 'otp_verification_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -22,10 +26,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _loading = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _agreeToTerms = false;
   String? _error;
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
+    if (!_agreeToTerms) {
+      setState(() => _error = AppLocalizations.of(context)!.acceptTermsRequired);
+      return;
+    }
     setState(() {
       _loading = true;
       _error = null;
@@ -58,10 +67,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
     }
     setState(() => _loading = false);
-  }
+   }
 
-  @override
-  Widget build(BuildContext context) {
+   Future<void> _showPrivacyPolicy() async {
+     try {
+       final policy = await ApiService.getPrivacyPolicy();
+       if (!mounted) return;
+       showDialog(
+         context: context,
+         builder: (context) => AlertDialog(
+           title: Text(policy.title),
+           content: SingleChildScrollView(
+             child: Html(data: policy.content),
+           ),
+           actions: [
+             TextButton(
+               onPressed: () => Navigator.pop(context),
+               child: Text(AppLocalizations.of(context)!.ok ?? 'OK'),
+             ),
+           ],
+         ),
+       );
+     } catch (e) {
+       if (!mounted) return;
+       ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+           content: Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+           backgroundColor: Colors.red,
+         ),
+       );
+     }
+   }
+
+   @override
+   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SafeArea(
@@ -196,13 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .shopNameRequired;
-                              }
-                              return null;
-                            },
+                            validator: (v) => null,
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
@@ -217,13 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .shopLocationRequired;
-                              }
-                              return null;
-                            },
+                            validator: (v) => null,
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
@@ -297,6 +324,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                               return null;
                             },
+                          ),
+                          const SizedBox(height: 16),
+                          CheckboxListTile(
+                            value: _agreeToTerms,
+                            onChanged: (value) {
+                              setState(() => _agreeToTerms = value ?? false);
+                            },
+                            title: RichText(
+                              text: TextSpan(
+                                text: AppLocalizations.of(context)!.agreeToTerms,
+                                style: TextStyle(color: Colors.black),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.termsAndPolicy,
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = _showPrivacyPolicy,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            controlAffinity: ListTileControlAffinity.leading,
                           ),
                           const SizedBox(height: 24),
                           ElevatedButton(

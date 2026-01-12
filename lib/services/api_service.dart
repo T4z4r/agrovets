@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/privacy_policy.dart';
 
 class ApiService {
   static const String baseUrl = 'https://pos.sudsudgroup.com'; // CHANGE THIS
@@ -83,6 +84,15 @@ class ApiService {
 
   static Future<dynamic> toggleBlockSeller(int id) async {
     return await patch('/api/sellers/$id/block', {});
+  }
+
+  static Future<PrivacyPolicy> getPrivacyPolicy() async {
+    final response = await get('/privacy-policy');
+    if (response['success']) {
+      return PrivacyPolicy.fromJson(response['data']);
+    } else {
+      throw Exception(response['message'] ?? 'Failed to fetch privacy policy');
+    }
   }
 
   static dynamic _handleResponse(http.Response response) {

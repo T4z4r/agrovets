@@ -861,4 +861,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get otpVerification => 'OTP Verification';
+
+  @override
+  String get agreeToTerms => 'I agree to the Terms and Conditions and Privacy Policy';
+
+  @override
+  String get termsAndPolicy => 'Terms and Conditions and Privacy Policy';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get acceptTermsRequired => 'You must accept the terms and conditions to continue';
 }
