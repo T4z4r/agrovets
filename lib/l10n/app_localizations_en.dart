@@ -816,4 +816,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get operationFailed => 'Operation failed. Please try again.';
+
+  @override
+  String get registrationFailed => 'Registration failed';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get enterFullName => 'Enter your full name';
+
+  @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get shopName => 'Shop Name';
+
+  @override
+  String get enterShopName => 'Enter shop name';
+
+  @override
+  String get shopNameRequired => 'Shop name is required';
+
+  @override
+  String get shopLocation => 'Shop Location';
+
+  @override
+  String get enterShopLocation => 'Enter shop location';
+
+  @override
+  String get shopLocationRequired => 'Shop location is required';
+
+  @override
+  String get confirmPasswordRequired => 'Password confirmation is required';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Sign In';
+
+  @override
+  String get otpVerification => 'OTP Verification';
 }

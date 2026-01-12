@@ -1,4 +1,4 @@
-package com.example.agrovets
+package com.apexpos.app
 
 import io.flutter.embedding.android.FlutterActivity
 

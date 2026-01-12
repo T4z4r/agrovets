@@ -822,4 +822,49 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get operationFailed =>
       'Operesheni imeshindikana. Tafadhali jaribu tena.';
+
+  @override
+  String get registrationFailed => 'Usajili umeshindikana';
+
+  @override
+  String get createAccount => 'Unda Akaunti';
+
+  @override
+  String get fullName => 'Jina Kamili';
+
+  @override
+  String get enterFullName => 'Ingiza jina lako kamili';
+
+  @override
+  String get nameRequired => 'Jina linahitajika';
+
+  @override
+  String get shopName => 'Jina la Duka';
+
+  @override
+  String get enterShopName => 'Ingiza jina la duka';
+
+  @override
+  String get shopNameRequired => 'Jina la duka linahitajika';
+
+  @override
+  String get shopLocation => 'Mahali pa Duka';
+
+  @override
+  String get enterShopLocation => 'Ingiza mahali pa duka';
+
+  @override
+  String get shopLocationRequired => 'Mahali pa duka linahitajika';
+
+  @override
+  String get confirmPasswordRequired => 'Uthibitishaji wa nenosiri unahitajika';
+
+  @override
+  String get signUp => 'Jisajili';
+
+  @override
+  String get alreadyHaveAccount => 'Tayari una akaunti? Ingia';
+
+  @override
+  String get otpVerification => 'Uthibitishaji wa OTP';
 }

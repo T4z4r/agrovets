@@ -93,7 +93,7 @@ We may update this Privacy Policy from time to time. We will notify you of any c
 
 If you have any questions about this Privacy Policy or our data practices, please contact us:
 
-- **Email**: [Your Contact Email]
+- **Email**: tazarchriss@gmail.com
 - **App Support**: Through the app's support features
 
 By using Apex, you agree to the collection and use of information in accordance with this Privacy Policy.

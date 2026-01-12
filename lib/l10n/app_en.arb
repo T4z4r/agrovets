@@ -317,5 +317,20 @@
   "barcode": "Barcode",
   "confirmLanguageChange": "Confirm Language Change",
   "languageChangeMessage": "Are you sure you want to change the language?",
-  "operationFailed": "Operation failed. Please try again."
+  "operationFailed": "Operation failed. Please try again.",
+  "registrationFailed": "Registration failed",
+  "createAccount": "Create Account",
+  "fullName": "Full Name",
+  "enterFullName": "Enter your full name",
+  "nameRequired": "Name is required",
+  "shopName": "Shop Name",
+  "enterShopName": "Enter shop name",
+  "shopNameRequired": "Shop name is required",
+  "shopLocation": "Shop Location",
+  "enterShopLocation": "Enter shop location",
+  "shopLocationRequired": "Shop location is required",
+  "confirmPasswordRequired": "Password confirmation is required",
+  "signUp": "Sign Up",
+  "alreadyHaveAccount": "Already have an account? Sign In",
+  "otpVerification": "OTP Verification"
 }

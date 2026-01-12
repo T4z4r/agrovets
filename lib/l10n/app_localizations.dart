@@ -1470,6 +1470,21 @@ abstract class AppLocalizations {
   String get confirmLanguageChange;
   String get languageChangeMessage;
   String get operationFailed;
+  String get registrationFailed;
+  String get createAccount;
+  String get fullName;
+  String get enterFullName;
+  String get nameRequired;
+  String get shopName;
+  String get enterShopName;
+  String get shopNameRequired;
+  String get shopLocation;
+  String get enterShopLocation;
+  String get shopLocationRequired;
+  String get confirmPasswordRequired;
+  String get signUp;
+  String get alreadyHaveAccount;
+  String get otpVerification;
 }
 
 class _AppLocalizationsDelegate

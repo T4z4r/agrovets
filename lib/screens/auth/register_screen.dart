@@ -1,69 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
-import '../../providers/auth_provider.dart';
 import '../../services/auth_service.dart';
-import '../dashboard_screen.dart';
-import '../seller/seller_home_screen.dart';
 import 'otp_verification_screen.dart';
-import 'register_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
+  final _confirmPassCtrl = TextEditingController();
+  final _shopNameCtrl = TextEditingController();
+  final _shopLocationCtrl = TextEditingController();
   bool _loading = false;
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   String? _error;
 
-  Future<void> _login() async {
+  Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
       _loading = true;
       _error = null;
     });
     try {
-      final response = await AuthService.login(_emailCtrl.text, _passCtrl.text);
+      final response = await AuthService.register(
+        _nameCtrl.text,
+        _emailCtrl.text,
+        _passCtrl.text,
+        _confirmPassCtrl.text,
+        _shopNameCtrl.text,
+        _shopLocationCtrl.text,
+      );
       if (response['success']) {
-        await context.read<AuthProvider>().loadUser();
         if (!mounted) return;
-        final user = context.read<AuthProvider>().user;
-        if (user?['role'] == 'seller') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const SellerHomeScreen()),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const DashboardScreen()),
-          );
-        }
-      } else {
-        // Check if user is not verified
-        final message = response['message']?.toString().toLowerCase() ?? '';
-        if (message.contains('not verified') || message.contains('verify')) {
-          if (!mounted) return;
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => OtpVerificationScreen(
-                email: _emailCtrl.text,
-                isFromLogin: true,
-              ),
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => OtpVerificationScreen(
+              email: _emailCtrl.text,
+              isFromLogin: false,
             ),
-          );
-        } else {
-          setState(() => _error = AppLocalizations.of(context)!.loginFailed);
-        }
+          ),
+        );
+      } else {
+        setState(() => _error = response['message'] ??
+            AppLocalizations.of(context)!.registrationFailed);
       }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
@@ -103,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context)!.welcomeBack,
+                  AppLocalizations.of(context)!.createAccount,
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -112,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 40),
 
-                // Login Form
+                // Registration Form
                 Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -150,6 +139,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 16),
                           ],
                           TextFormField(
+                            controller: _nameCtrl,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.fullName,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterFullName,
+                              prefixIcon: const Icon(Icons.person),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            validator: (v) {
+                              if (v == null || v.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .nameRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
                             controller: _emailCtrl,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
@@ -171,6 +180,47 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .hasMatch(v)) {
                                 return AppLocalizations.of(context)!
                                     .invalidEmail;
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _shopNameCtrl,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.shopName,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterShopName,
+                              prefixIcon: const Icon(Icons.store),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            validator: (v) {
+                              if (v == null || v.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .shopNameRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _shopLocationCtrl,
+                            decoration: InputDecoration(
+                              labelText:
+                                  AppLocalizations.of(context)!.shopLocation,
+                              hintText: AppLocalizations.of(context)!
+                                  .enterShopLocation,
+                              prefixIcon: const Icon(Icons.location_on),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            validator: (v) {
+                              if (v == null || v.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .shopLocationRequired;
                               }
                               return null;
                             },
@@ -211,9 +261,46 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _confirmPassCtrl,
+                            obscureText: _obscureConfirmPassword,
+                            decoration: InputDecoration(
+                              labelText:
+                                  AppLocalizations.of(context)!.confirmPassword,
+                              hintText:
+                                  AppLocalizations.of(context)!.confirmPassword,
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                                onPressed: () {
+                                  setState(() => _obscureConfirmPassword =
+                                      !_obscureConfirmPassword);
+                                },
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            validator: (v) {
+                              if (v == null || v.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .confirmPasswordRequired;
+                              }
+                              if (v != _passCtrl.text) {
+                                return AppLocalizations.of(context)!
+                                    .passwordsDoNotMatch;
+                              }
+                              return null;
+                            },
+                          ),
                           const SizedBox(height: 24),
                           ElevatedButton(
-                            onPressed: _loading ? null : _login,
+                            onPressed: _loading ? null : _register,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
                               foregroundColor: Colors.white,
@@ -231,7 +318,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Colors.white, size: 20.0),
                                   )
                                 : Text(
-                                    AppLocalizations.of(context)!.signIn,
+                                    AppLocalizations.of(context)!.signUp,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
@@ -241,16 +328,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 16),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => const RegisterScreen()),
-                              );
+                              Navigator.pop(context);
                             },
                             child: Text(
-                              AppLocalizations.of(context)!.createAccount,
+                              AppLocalizations.of(context)!.alreadyHaveAccount,
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
-                                fontSize: 16,
                               ),
                             ),
                           ),

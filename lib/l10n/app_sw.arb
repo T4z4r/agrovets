@@ -316,5 +316,20 @@
   "barcode": "Barcode",
   "confirmLanguageChange": "Thibitisha Kubadilisha Lugha",
   "languageChangeMessage": "Je, una uhakika unataka kubadilisha lugha?",
-  "operationFailed": "Operesheni imeshindikana. Tafadhali jaribu tena."
+  "operationFailed": "Operesheni imeshindikana. Tafadhali jaribu tena.",
+  "registrationFailed": "Usajili umeshindikana",
+  "createAccount": "Unda Akaunti",
+  "fullName": "Jina Kamili",
+  "enterFullName": "Ingiza jina lako kamili",
+  "nameRequired": "Jina linahitajika",
+  "shopName": "Jina la Duka",
+  "enterShopName": "Ingiza jina la duka",
+  "shopNameRequired": "Jina la duka linahitajika",
+  "shopLocation": "Mahali pa Duka",
+  "enterShopLocation": "Ingiza mahali pa duka",
+  "shopLocationRequired": "Mahali pa duka linahitajika",
+  "confirmPasswordRequired": "Uthibitishaji wa nenosiri unahitajika",
+  "signUp": "Jisajili",
+  "alreadyHaveAccount": "Tayari una akaunti? Ingia",
+  "otpVerification": "Uthibitishaji wa OTP"
 }
