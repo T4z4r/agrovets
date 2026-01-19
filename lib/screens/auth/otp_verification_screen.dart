@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +34,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   String? _error;
   int _resendCooldown = 0;
 
+  Timer? _timer;
+
   String get _otpCode => _otpControllers.map((c) => c.text).join();
 
   @override
@@ -48,19 +52,18 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     for (var node in _focusNodes) {
       node.dispose();
     }
+    _timer?.cancel();
     super.dispose();
   }
 
   void _startResendCooldown() {
-    _resendCooldown = 60; // 60 seconds cooldown
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) {
-        setState(() {
-          if (_resendCooldown > 0) {
-            _resendCooldown--;
-            _startResendCooldown();
-          }
-        });
+    _resendCooldown = 60;
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted && _resendCooldown > 0) {
+        setState(() => _resendCooldown--);
+      } else {
+        timer.cancel();
       }
     });
   }
@@ -102,6 +105,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   Future<void> _resendOtp() async {
     if (_resendCooldown > 0) return;
+    final shouldResend = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Resend OTP'),
+        content: Text('Are you sure you want to resend the OTP?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text('Resend'),
+          ),
+        ],
+      ),
+    );
+    if (shouldResend != true) return;
     setState(() {
       _resendLoading = true;
       _error = null;
@@ -112,7 +133,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         _startResendCooldown();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(response['message'] ?? 'OTP sent successfully')),
+            content: Text(response['message'] ?? 'OTP sent successfully'),
+          ),
         );
       } else {
         setState(() => _error = response['message'] ?? 'Failed to resend OTP');
