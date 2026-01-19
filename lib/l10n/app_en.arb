@@ -337,6 +337,7 @@
   "termsAndPolicy": "Terms and Conditions and Privacy Policy",
   "privacyPolicy": "Privacy Policy",
   "acceptTermsRequired": "You must accept the terms and conditions to continue",
+  "about": "About",
   "forgotPassword": "Forgot Password?",
   "forgotPasswordTitle": "Forgot Password",
   "forgotPasswordDescription": "Enter your email address and we'll send you a password reset OTP.",
@@ -365,5 +366,7 @@
   "otpAlreadySent": "OTP already sent. Please wait before requesting a new one.",
   "invalidOrExpiredOtp": "Invalid or expired OTP",
   "failedToSendResetOtp": "Failed to send password reset OTP",
-  "failedToResetPassword": "Failed to reset password"
+  "failedToResetPassword": "Failed to reset password",
+  "shopDetails": "Shop Details",
+  "noDataAvailable": "No data available"
 }

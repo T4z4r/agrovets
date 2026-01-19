@@ -31,7 +31,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+          content:
+              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -44,6 +45,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(AppLocalizations.of(context)!.privacyPolicy),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,

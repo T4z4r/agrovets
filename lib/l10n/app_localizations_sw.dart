@@ -935,4 +935,13 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get failedToResetPassword => 'Imeshindikana kuweka upya nenosiri';
+
+  @override
+  String get about => 'Kuhusu';
+
+  @override
+  String get shopDetails => 'Maelezo ya Duka';
+
+  @override
+  String get noDataAvailable => 'Hakuna data inayopatikana';
 }

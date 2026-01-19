@@ -214,7 +214,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
-            _drawerTile(context, Icons.info, 'About', () {
+            _drawerTile(context, Icons.info, AppLocalizations.of(context)!.about, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const AboutScreen()));
             }),

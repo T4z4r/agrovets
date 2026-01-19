@@ -929,4 +929,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToResetPassword => 'Failed to reset password';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get shopDetails => 'Shop Details';
+
+  @override
+  String get noDataAvailable => 'No data available';
 }

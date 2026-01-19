@@ -336,6 +336,7 @@
   "termsAndPolicy": "Sheria na Masharti na Sera ya Faragha",
   "privacyPolicy": "Sera ya Faragha",
   "acceptTermsRequired": "Lazima ukubali sheria na masharti ili kuendelea",
+  "about": "Kuhusu",
   "forgotPassword": "Umesahau Nenosiri?",
   "forgotPasswordTitle": "Umesahau Nenosiri",
   "forgotPasswordDescription": "Ingiza anwani yako ya barua pepe na tutakutumia OTP ya kuweka upya nenosiri.",
@@ -364,5 +365,7 @@
   "otpAlreadySent": "OTP tayari imetumwa. Tafadhali subiri kabla ya kuomba nyingine.",
   "invalidOrExpiredOtp": "OTP batili au imekwisha muda wake",
   "failedToSendResetOtp": "Imeshindikana kutuma OTP ya kuweka upya nenosiri",
-  "failedToResetPassword": "Imeshindikana kuweka upya nenosiri"
+  "failedToResetPassword": "Imeshindikana kuweka upya nenosiri",
+  "shopDetails": "Maelezo ya Duka",
+  "noDataAvailable": "Hakuna data inayopatikana"
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/privacy_policy.dart';
+import '../models/shop.dart';
 
 class ApiService {
   static const String baseUrl = 'https://pos.sudsudgroup.com'; // CHANGE THIS
@@ -92,6 +93,25 @@ class ApiService {
       return PrivacyPolicy.fromJson(response['data']);
     } else {
       throw Exception(response['message'] ?? 'Failed to fetch privacy policy');
+    }
+  }
+
+  // Shop API methods
+  static Future<Shop> getShop() async {
+    final response = await get('/shop');
+    if (response['success']) {
+      return Shop.fromJson(response['data']);
+    } else {
+      throw Exception(response['message'] ?? 'Failed to fetch shop details');
+    }
+  }
+
+  static Future<Shop> updateShop(Map<String, dynamic> data) async {
+    final response = await put('/shop', data);
+    if (response['success']) {
+      return Shop.fromJson(response['data']);
+    } else {
+      throw Exception(response['message'] ?? 'Failed to update shop details');
     }
   }
 

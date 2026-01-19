@@ -12,6 +12,7 @@ import '../screens/sales/sale_list_screen.dart';
 import '../screens/expenses/expense_list_screen.dart';
 import '../screens/reports/daily_report_screen.dart';
 import '../screens/sellers/seller_list_screen.dart';
+import '../screens/shop/shop_detail_screen.dart';
 import '../screens/privacy_policy_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -62,6 +63,14 @@ class AppDrawer extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
                   )),
+          if (auth.isOwner)
+            _drawerTile(context, Icons.store, 'Shop', () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const ShopDetailScreen()),
+                (route) => false,
+              );
+            }, isActive: activeScreen == 'shop'),
           _drawerTile(
               context, Icons.inventory, AppLocalizations.of(context)!.products,
               () {
@@ -200,10 +209,9 @@ class AppDrawer extends StatelessWidget {
           const Divider(),
           _drawerTile(context, Icons.privacy_tip,
               AppLocalizations.of(context)!.privacyPolicy, () {
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
-              (route) => false,
             );
           }),
           const Divider(),

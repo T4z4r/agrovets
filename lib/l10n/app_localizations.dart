@@ -1510,6 +1510,12 @@ abstract class AppLocalizations {
   /// **'You must accept the terms and conditions to continue'**
   String get acceptTermsRequired;
 
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
   /// No description provided for @forgotPassword.
   ///
   /// In en, this message translates to:
@@ -1617,6 +1623,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to reset password'**
   String get failedToResetPassword;
+
+  /// No description provided for @shopDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Details'**
+  String get shopDetails;
+
+  /// No description provided for @noDataAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noDataAvailable;
 }
 
 class _AppLocalizationsDelegate
