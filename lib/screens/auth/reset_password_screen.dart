@@ -1,72 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
-import '../../providers/auth_provider.dart';
 import '../../services/auth_service.dart';
-import '../dashboard_screen.dart';
-import '../seller/seller_home_screen.dart';
-import 'forgot_password_screen.dart';
-import 'otp_verification_screen.dart';
-import 'register_screen.dart';
+import 'login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  final String email;
+
+  const ResetPasswordScreen({super.key, required this.email});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailCtrl = TextEditingController();
-  final _passCtrl = TextEditingController();
+  final _otpCtrl = TextEditingController();
+  final _passwordCtrl = TextEditingController();
+  final _confirmPasswordCtrl = TextEditingController();
   bool _loading = false;
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   String? _error;
 
-  Future<void> _login() async {
+  Future<void> _resetPassword() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
       _loading = true;
       _error = null;
     });
     try {
-      final response = await AuthService.login(_emailCtrl.text, _passCtrl.text);
+      final response = await AuthService.resetPassword(
+        widget.email,
+        _otpCtrl.text,
+        _passwordCtrl.text,
+        _confirmPasswordCtrl.text,
+      );
       if (response['success']) {
-        await context.read<AuthProvider>().loadUser();
         if (!mounted) return;
-        final user = context.read<AuthProvider>().user;
-        if (user?['role'] == 'seller') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const SellerHomeScreen()),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const DashboardScreen()),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Password reset successfully. Please login with your new password.'),
+          ),
+        );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
+          (route) => false,
+        );
       } else {
-        // Check the response message to determine the action
         final message = response['message']?.toString() ?? '';
-        if (message.contains('Invalid credentials')) {
-          setState(() => _error = 'Invalid credentials');
-        } else if (message.contains('not verified') ||
-            message.contains('verify')) {
-          if (!mounted) return;
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => OtpVerificationScreen(
-                email: _emailCtrl.text,
-                isFromLogin: true,
-              ),
-            ),
-          );
+        if (message.contains('User not found')) {
+          setState(() => _error = 'User not found');
+        } else if (message.contains('Invalid or expired OTP')) {
+          setState(() => _error = 'Invalid or expired OTP');
         } else {
-          setState(() => _error = AppLocalizations.of(context)!.loginFailed);
+          setState(() => _error = 'Failed to reset password');
         }
       }
     } catch (e) {
@@ -79,6 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -90,15 +87,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // App Icon
                 Icon(
-                  Icons.point_of_sale,
+                  Icons.lock_reset,
                   size: 80,
                   color: Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: 20),
 
-                // Welcome Text
+                // Title
                 Text(
-                  AppLocalizations.of(context)!.appName,
+                  AppLocalizations.of(context)!.resetPassword,
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -107,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context)!.welcomeBack,
+                  AppLocalizations.of(context)!.resetPasswordDescription(widget.email),
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -116,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 40),
 
-                // Login Form
+                // Form
                 Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -154,39 +151,37 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 16),
                           ],
                           TextFormField(
-                            controller: _emailCtrl,
-                            keyboardType: TextInputType.emailAddress,
+                            controller: _otpCtrl,
+                            keyboardType: TextInputType.number,
+                            maxLength: 6,
                             decoration: InputDecoration(
-                              labelText:
-                                  AppLocalizations.of(context)!.emailAddress,
-                              hintText:
-                                  AppLocalizations.of(context)!.enterEmail,
-                              prefixIcon: const Icon(Icons.email),
+                              labelText: AppLocalizations.of(context)!.otpCode,
+                              hintText: AppLocalizations.of(context)!.enterOtpCode,
+                              prefixIcon: const Icon(Icons.verified_user),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .emailRequired;
+                                return AppLocalizations.of(context)!.otpRequired;
                               }
-                              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                  .hasMatch(v)) {
-                                return AppLocalizations.of(context)!
-                                    .invalidEmail;
+                              if (v.length != 6) {
+                                return AppLocalizations.of(context)!.otpMustBe6Digits;
+                              }
+                              if (!RegExp(r'^\d{6}$').hasMatch(v)) {
+                                return AppLocalizations.of(context)!.otpMustBeDigits;
                               }
                               return null;
                             },
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
-                            controller: _passCtrl,
+                            controller: _passwordCtrl,
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.password,
-                              hintText:
-                                  AppLocalizations.of(context)!.enterPassword,
+                              hintText: AppLocalizations.of(context)!.enterPassword,
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -205,40 +200,50 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .passwordRequired;
+                                return AppLocalizations.of(context)!.passwordRequired;
                               }
-                              if (v.length < 6) {
-                                return AppLocalizations.of(context)!
-                                    .passwordMinLength;
+                              if (v.length < 8) {
+                                return 'Password must be at least 8 characters';
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 8),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) =>
-                                          const ForgotPasswordScreen()),
-                                );
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.forgotPassword,
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 14,
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _confirmPasswordCtrl,
+                            obscureText: _obscureConfirmPassword,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.confirmPassword,
+                              hintText: AppLocalizations.of(context)!.enterConfirmPassword,
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                 ),
+                                onPressed: () {
+                                  setState(() => _obscureConfirmPassword =
+                                      !_obscureConfirmPassword);
+                                },
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
                             ),
+                            validator: (v) {
+                              if (v == null || v.isEmpty) {
+                                return AppLocalizations.of(context)!.passwordConfirmationRequired;
+                              }
+                              if (v != _passwordCtrl.text) {
+                                return AppLocalizations.of(context)!.passwordsDoNotMatch;
+                              }
+                              return null;
+                            },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
                           ElevatedButton(
-                            onPressed: _loading ? null : _login,
+                            onPressed: _loading ? null : _resetPassword,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
                               foregroundColor: Colors.white,
@@ -255,30 +260,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: SpinKitWaveSpinner(
                                         color: Colors.white, size: 20.0),
                                   )
-                                : Text(
-                                    AppLocalizations.of(context)!.signIn,
+                                : const Text(
+                                    'Reset Password',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                          ),
-                          const SizedBox(height: 16),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const RegisterScreen()),
-                              );
-                            },
-                            child: Text(
-                              AppLocalizations.of(context)!.createAccount,
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 16,
-                              ),
-                            ),
                           ),
                         ],
                       ),

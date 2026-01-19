@@ -132,6 +132,24 @@ class AuthService {
     return response;
   }
 
+  static Future<Map<String, dynamic>> forgotPassword(String email) async {
+    final response = await ApiService.post('/api/forgot-password', {
+      'email': email,
+    });
+    return response;
+  }
+
+  static Future<Map<String, dynamic>> resetPassword(
+      String email, String otpCode, String password, String passwordConfirmation) async {
+    final response = await ApiService.post('/api/reset-password', {
+      'email': email,
+      'otp_code': otpCode,
+      'password': password,
+      'password_confirmation': passwordConfirmation,
+    });
+    return response;
+  }
+
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');

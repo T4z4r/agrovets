@@ -873,4 +873,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get acceptTermsRequired => 'You must accept the terms and conditions to continue';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot Password';
+
+  @override
+  String get forgotPasswordDescription => 'Enter your email address and we\'ll send you a password reset OTP.';
+
+  @override
+  String get sendResetOtp => 'Send Reset OTP';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String resetPasswordDescription(String email) {
+    return 'Enter the OTP sent to $email and your new password.';
+  }
+
+  @override
+  String get otpCode => 'OTP Code';
+
+  @override
+  String get enterOtpCode => 'Enter 6-digit OTP';
+
+  @override
+  String get otpRequired => 'OTP is required';
+
+  @override
+  String get otpMustBe6Digits => 'OTP must be 6 digits';
+
+  @override
+  String get otpMustBeDigits => 'OTP must contain only digits';
+
+  @override
+  String get passwordResetSuccess => 'Password reset successfully. Please login with your new password.';
+
+  @override
+  String get passwordResetOtpSent => 'Password reset OTP sent to your email.';
+
+  @override
+  String get userNotFound => 'User not found';
+
+  @override
+  String get otpAlreadySent => 'OTP already sent. Please wait before requesting a new one.';
+
+  @override
+  String get invalidOrExpiredOtp => 'Invalid or expired OTP';
+
+  @override
+  String get failedToSendResetOtp => 'Failed to send password reset OTP';
+
+  @override
+  String get failedToResetPassword => 'Failed to reset password';
 }

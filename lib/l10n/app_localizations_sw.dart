@@ -879,4 +879,60 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get acceptTermsRequired => 'Lazima ukubali sheria na masharti ili kuendelea';
+
+  @override
+  String get forgotPassword => 'Umesahau Nenosiri?';
+
+  @override
+  String get forgotPasswordTitle => 'Umesahau Nenosiri';
+
+  @override
+  String get forgotPasswordDescription => 'Ingiza anwani yako ya barua pepe na tutakutumia OTP ya kuweka upya nenosiri.';
+
+  @override
+  String get sendResetOtp => 'Tuma OTP ya Kuweka Upya';
+
+  @override
+  String get resetPassword => 'Weka Upya Nenosiri';
+
+  @override
+  String resetPasswordDescription(String email) {
+    return 'Ingiza OTP iliyotumwa kwa $email na nenosiri lako jipya.';
+  }
+
+  @override
+  String get otpCode => 'Msimbo wa OTP';
+
+  @override
+  String get enterOtpCode => 'Ingiza OTP ya tarakimu 6';
+
+  @override
+  String get otpRequired => 'OTP inahitajika';
+
+  @override
+  String get otpMustBe6Digits => 'OTP lazima iwe tarakimu 6';
+
+  @override
+  String get otpMustBeDigits => 'OTP lazima iwe na tarakimu tu';
+
+  @override
+  String get passwordResetSuccess => 'Nenosiri limewekwa upya kwa mafanikio. Tafadhali ingia na nenosiri lako jipya.';
+
+  @override
+  String get passwordResetOtpSent => 'OTP ya kuweka upya nenosiri imetumwa kwa barua pepe yako.';
+
+  @override
+  String get userNotFound => 'Mtumiaji hajapatikana';
+
+  @override
+  String get otpAlreadySent => 'OTP tayari imetumwa. Tafadhali subiri kabla ya kuomba nyingine.';
+
+  @override
+  String get invalidOrExpiredOtp => 'OTP batili au imekwisha muda wake';
+
+  @override
+  String get failedToSendResetOtp => 'Imeshindikana kutuma OTP ya kuweka upya nenosiri';
+
+  @override
+  String get failedToResetPassword => 'Imeshindikana kuweka upya nenosiri';
 }

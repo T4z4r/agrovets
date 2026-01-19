@@ -1509,6 +1509,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You must accept the terms and conditions to continue'**
   String get acceptTermsRequired;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we'll send you a password reset OTP.'**
+  String get forgotPasswordDescription;
+
+  /// No description provided for @sendResetOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset OTP'**
+  String get sendResetOtp;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @resetPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the OTP sent to {email} and your new password.'**
+  String resetPasswordDescription(String email);
+
+  /// No description provided for @otpCode.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP Code'**
+  String get otpCode;
+
+  /// No description provided for @enterOtpCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 6-digit OTP'**
+  String get enterOtpCode;
+
+  /// No description provided for @otpRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP is required'**
+  String get otpRequired;
+
+  /// No description provided for @otpMustBe6Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP must be 6 digits'**
+  String get otpMustBe6Digits;
+
+  /// No description provided for @otpMustBeDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP must contain only digits'**
+  String get otpMustBeDigits;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully. Please login with your new password.'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @passwordResetOtpSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset OTP sent to your email.'**
+  String get passwordResetOtpSent;
+
+  /// No description provided for @userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found'**
+  String get userNotFound;
+
+  /// No description provided for @otpAlreadySent.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP already sent. Please wait before requesting a new one.'**
+  String get otpAlreadySent;
+
+  /// No description provided for @invalidOrExpiredOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or expired OTP'**
+  String get invalidOrExpiredOtp;
+
+  /// No description provided for @failedToSendResetOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send password reset OTP'**
+  String get failedToSendResetOtp;
+
+  /// No description provided for @failedToResetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset password'**
+  String get failedToResetPassword;
 }
 
 class _AppLocalizationsDelegate
