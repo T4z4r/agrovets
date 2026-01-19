@@ -16,6 +16,7 @@ import 'sales/sale_list_screen.dart';
 import 'expenses/expense_list_screen.dart';
 import 'reports/daily_report_screen.dart';
 import 'sellers/seller_list_screen.dart';
+import 'shop/shop_detail_screen.dart';
 import 'about_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -170,6 +171,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 AppLocalizations.of(context)!.dashboard,
                 () => Navigator.pop(context),
                 isActive: true),
+            if (auth.isOwner)
+              _drawerTile(
+                  context, Icons.store, AppLocalizations.of(context)!.shop, () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ShopDetailScreen()),
+                  (route) => false,
+                );
+              }, isActive: false),
             _drawerTile(context, Icons.inventory,
                 AppLocalizations.of(context)!.products, () {
               Navigator.push(context,
@@ -214,7 +224,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const DailyReportScreen()));
             }),
-            _drawerTile(context, Icons.info, AppLocalizations.of(context)!.about, () {
+            _drawerTile(
+                context, Icons.info, AppLocalizations.of(context)!.about, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const AboutScreen()));
             }),
