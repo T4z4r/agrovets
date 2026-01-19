@@ -944,4 +944,7 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get noDataAvailable => 'Hakuna data inayopatikana';
+
+  @override
+  String get shop => 'Duka';
 }

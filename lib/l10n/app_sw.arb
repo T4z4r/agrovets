@@ -367,5 +367,6 @@
   "failedToSendResetOtp": "Imeshindikana kutuma OTP ya kuweka upya nenosiri",
   "failedToResetPassword": "Imeshindikana kuweka upya nenosiri",
   "shopDetails": "Maelezo ya Duka",
-  "noDataAvailable": "Hakuna data inayopatikana"
+  "noDataAvailable": "Hakuna data inayopatikana",
+  "shop": "Duka"
 }

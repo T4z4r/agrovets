@@ -63,8 +63,8 @@ class AppDrawer extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
                   )),
-          if (auth.isOwner)
-            _drawerTile(context, Icons.store, 'Shop', () {
+          if (auth.isOwner || auth.isSeller)
+            _drawerTile(context, Icons.store, AppLocalizations.of(context)!.shop, () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => const ShopDetailScreen()),

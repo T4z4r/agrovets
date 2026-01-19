@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../widgets/app_drawer.dart';
 import 'shop_form_screen.dart';
@@ -25,6 +26,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
@@ -32,30 +34,32 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          Consumer<ShopProvider>(
-            builder: (context, shopProvider, child) {
-              return IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: shopProvider.shop != null
-                    ? () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ShopFormScreen(
-                              shop: shopProvider.shop,
-                            ),
-                          ),
-                        );
-                        if (result == true) {
-                          shopProvider.fetchShop();
-                        }
-                      }
-                    : null,
-              );
-            },
-          ),
-        ],
+        actions: auth.isOwner
+            ? [
+                Consumer<ShopProvider>(
+                  builder: (context, shopProvider, child) {
+                    return IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: shopProvider.shop != null
+                          ? () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ShopFormScreen(
+                                    shop: shopProvider.shop,
+                                  ),
+                                ),
+                              );
+                              if (result == true) {
+                                shopProvider.fetchShop();
+                              }
+                            }
+                          : null,
+                    );
+                  },
+                ),
+              ]
+            : null,
       ),
       drawer: const AppDrawer(activeScreen: 'shop'),
       body: Consumer<ShopProvider>(

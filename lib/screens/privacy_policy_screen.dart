@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import '../l10n/app_localizations.dart';
 import '../services/api_service.dart';
 import '../models/privacy_policy.dart';
+import '../widgets/app_drawer.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});
@@ -45,15 +46,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
         title: Text(AppLocalizations.of(context)!.privacyPolicy),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      drawer: const AppDrawer(activeScreen: 'privacy'),
       body: _loading
           ? Center(
               child: SpinKitWaveSpinner(

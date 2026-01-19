@@ -368,5 +368,6 @@
   "failedToSendResetOtp": "Failed to send password reset OTP",
   "failedToResetPassword": "Failed to reset password",
   "shopDetails": "Shop Details",
-  "noDataAvailable": "No data available"
+  "noDataAvailable": "No data available",
+  "shop": "Shop"
 }
