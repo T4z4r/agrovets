@@ -940,6 +940,39 @@ class AppLocalizationsSw extends AppLocalizations {
   String get about => 'Kuhusu';
 
   @override
+  String get passwordRequirements => 'Mahitaji ya Nenosiri';
+
+  @override
+  String get passwordRequirementLength => 'Angalau herufi 8';
+
+  @override
+  String get passwordRequirementUppercase => 'Angalau herufi kubwa moja (A-Z)';
+
+  @override
+  String get passwordRequirementLowercase => 'Angalau herufi ndogo moja (a-z)';
+
+  @override
+  String get passwordRequirementNumber => 'Angalau nambari moja (0-9)';
+
+  @override
+  String get passwordRequirementSpecial => 'Angalau herufi maalum moja (!@#\$%^&*(),.?\":|<>)' ;
+
+  @override
+  String get passwordMustBeAtLeast8Characters => 'Nenosiri lazima iwe angalau herufi 8';
+
+  @override
+  String get passwordMustContainUppercase => 'Nenosiri lazima iwe na angalau herufi kubwa moja';
+
+  @override
+  String get passwordMustContainLowercase => 'Nenosiri lazima iwe na angalau herufi ndogo moja';
+
+  @override
+  String get passwordMustContainNumber => 'Nenosiri lazima iwe na angalau nambari moja';
+
+  @override
+  String get passwordMustContainSpecial => 'Nenosiri lazima iwe na angalau herufi maalum moja';
+
+  @override
   String get shopDetails => 'Maelezo ya Duka';
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/auth_service.dart';
 import '../../services/api_service.dart';
+import '../../utils/password_validator.dart';
 import 'otp_verification_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -27,6 +28,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureConfirmPassword = true;
   bool _agreeToTerms = false;
   String? _error;
+  late Map<String, bool> _passwordRequirements;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordRequirements = {
+      'length': false,
+      'uppercase': false,
+      'lowercase': false,
+      'number': false,
+      'special': false,
+    };
+  }
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
@@ -262,6 +276,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextFormField(
                             controller: _passCtrl,
                             obscureText: _obscurePassword,
+                            onChanged: (value) {
+                              setState(() {
+                                _passwordRequirements =
+                                    PasswordValidator.checkRequirements(value);
+                              });
+                            },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.password,
                               hintText:
@@ -283,13 +303,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .passwordRequired;
-                              }
-                              if (v.length < 6) {
-                                return AppLocalizations.of(context)!
-                                    .passwordMinLength;
+                              String? validation = PasswordValidator.validate(
+                                  v ?? '', AppLocalizations.of(context)!);
+                              if (validation != null) {
+                                return validation;
                               }
                               return null;
                             },
@@ -331,6 +348,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                           ),
+                          const SizedBox(height: 8),
+                          // Password Requirements
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey[300]!),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .passwordRequirements,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                ...PasswordValidator.getRequirements(
+                                        AppLocalizations.of(context)!)
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  int index = entry.key;
+                                  String requirement = entry.value;
+                                  String key = _passwordRequirements.keys
+                                      .elementAt(index);
+                                  bool met =
+                                      _passwordRequirements[key] ?? false;
+                                  return Row(
+                                    children: [
+                                      Icon(
+                                        met
+                                            ? Icons.check_circle
+                                            : Icons.radio_button_unchecked,
+                                        size: 14,
+                                        color: met ? Colors.green : Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: Text(
+                                          requirement,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: met
+                                                ? Colors.green
+                                                : Colors.grey[600],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ],
+                            ),
+                          ),
+
                           const SizedBox(height: 16),
                           CheckboxListTile(
                             value: _agreeToTerms,

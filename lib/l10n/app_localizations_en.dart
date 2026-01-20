@@ -863,7 +863,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpVerification => 'OTP Verification';
 
   @override
-  String get agreeToTerms => 'I agree to the Terms and Conditions and Privacy Policy';
+  String get agreeToTerms =>
+      'I agree to the Terms and Conditions and Privacy Policy';
 
   @override
   String get termsAndPolicy => 'Terms and Conditions and Privacy Policy';
@@ -872,7 +873,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacyPolicy => 'Privacy Policy';
 
   @override
-  String get acceptTermsRequired => 'You must accept the terms and conditions to continue';
+  String get acceptTermsRequired =>
+      'You must accept the terms and conditions to continue';
 
   @override
   String get forgotPassword => 'Forgot Password?';
@@ -881,7 +883,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPasswordTitle => 'Forgot Password';
 
   @override
-  String get forgotPasswordDescription => 'Enter your email address and we\'ll send you a password reset OTP.';
+  String get forgotPasswordDescription =>
+      'Enter your email address and we\'ll send you a password reset OTP.';
 
   @override
   String get sendResetOtp => 'Send Reset OTP';
@@ -910,7 +913,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpMustBeDigits => 'OTP must contain only digits';
 
   @override
-  String get passwordResetSuccess => 'Password reset successfully. Please login with your new password.';
+  String get passwordResetSuccess =>
+      'Password reset successfully. Please login with your new password.';
 
   @override
   String get passwordResetOtpSent => 'Password reset OTP sent to your email.';
@@ -919,7 +923,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userNotFound => 'User not found';
 
   @override
-  String get otpAlreadySent => 'OTP already sent. Please wait before requesting a new one.';
+  String get otpAlreadySent =>
+      'OTP already sent. Please wait before requesting a new one.';
 
   @override
   String get invalidOrExpiredOtp => 'Invalid or expired OTP';
@@ -932,6 +937,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get about => 'About';
+
+  @override
+  String get passwordRequirements => 'Password Requirements';
+
+  @override
+  String get passwordRequirementLength => 'At least 8 characters long';
+
+  @override
+  String get passwordRequirementUppercase =>
+      'At least one uppercase letter (A-Z)';
+
+  @override
+  String get passwordRequirementLowercase =>
+      'At least one lowercase letter (a-z)';
+
+  @override
+  String get passwordRequirementNumber => 'At least one number (0-9)';
+
+  @override
+  String get passwordRequirementSpecial =>
+      'At least one special character (!@#%^&*(),.?":|<>)';
+
+  @override
+  String get passwordMustBeAtLeast8Characters =>
+      'Password must be at least 8 characters long';
+
+  @override
+  String get passwordMustContainUppercase =>
+      'Password must contain at least one uppercase letter';
+
+  @override
+  String get passwordMustContainLowercase =>
+      'Password must contain at least one lowercase letter';
+
+  @override
+  String get passwordMustContainNumber =>
+      'Password must contain at least one number';
+
+  @override
+  String get passwordMustContainSpecial =>
+      'Password must contain at least one special character';
 
   @override
   String get shopDetails => 'Shop Details';

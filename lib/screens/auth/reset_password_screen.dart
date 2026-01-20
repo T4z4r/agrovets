@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/auth_service.dart';
+import '../../utils/password_validator.dart';
 import 'login_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -22,6 +23,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String? _error;
+  late Map<String, bool> _passwordRequirements;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordRequirements = {
+      'length': false,
+      'uppercase': false,
+      'lowercase': false,
+      'number': false,
+      'special': false,
+    };
+  }
 
   Future<void> _resetPassword() async {
     if (!_formKey.currentState!.validate()) return;
@@ -40,7 +54,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Password reset successfully. Please login with your new password.'),
+            content: Text(
+                'Password reset successfully. Please login with your new password.'),
           ),
         );
         Navigator.pushAndRemoveUntil(
@@ -104,7 +119,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context)!.resetPasswordDescription(widget.email),
+                  AppLocalizations.of(context)!
+                      .resetPasswordDescription(widget.email),
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
@@ -156,7 +172,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             maxLength: 6,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.otpCode,
-                              hintText: AppLocalizations.of(context)!.enterOtpCode,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterOtpCode,
                               prefixIcon: const Icon(Icons.verified_user),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -164,13 +181,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!.otpRequired;
+                                return AppLocalizations.of(context)!
+                                    .otpRequired;
                               }
                               if (v.length != 6) {
-                                return AppLocalizations.of(context)!.otpMustBe6Digits;
+                                return AppLocalizations.of(context)!
+                                    .otpMustBe6Digits;
                               }
                               if (!RegExp(r'^\d{6}$').hasMatch(v)) {
-                                return AppLocalizations.of(context)!.otpMustBeDigits;
+                                return AppLocalizations.of(context)!
+                                    .otpMustBeDigits;
                               }
                               return null;
                             },
@@ -179,9 +199,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           TextFormField(
                             controller: _passwordCtrl,
                             obscureText: _obscurePassword,
+                            onChanged: (value) {
+                              setState(() {
+                                _passwordRequirements =
+                                    PasswordValidator.checkRequirements(value);
+                              });
+                            },
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!.password,
-                              hintText: AppLocalizations.of(context)!.enterPassword,
+                              hintText:
+                                  AppLocalizations.of(context)!.enterPassword,
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -199,22 +226,82 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               ),
                             ),
                             validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!.passwordRequired;
-                              }
-                              if (v.length < 8) {
-                                return 'Password must be at least 8 characters';
+                              String? validation = PasswordValidator.validate(
+                                  v ?? '', AppLocalizations.of(context)!);
+                              if (validation != null) {
+                                return validation;
                               }
                               return null;
                             },
+                          ),
+                          const SizedBox(height: 8),
+                          // Password Requirements
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey[300]!),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Password Requirements:',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                ...PasswordValidator.getRequirements(
+                                        AppLocalizations.of(context)!)
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  int index = entry.key;
+                                  String requirement = entry.value;
+                                  String key = _passwordRequirements.keys
+                                      .elementAt(index);
+                                  bool met =
+                                      _passwordRequirements[key] ?? false;
+                                  return Row(
+                                    children: [
+                                      Icon(
+                                        met
+                                            ? Icons.check_circle
+                                            : Icons.radio_button_unchecked,
+                                        size: 14,
+                                        color: met ? Colors.green : Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: Text(
+                                          requirement,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: met
+                                                ? Colors.green
+                                                : Colors.grey[600],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
                             controller: _confirmPasswordCtrl,
                             obscureText: _obscureConfirmPassword,
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.confirmPassword,
-                              hintText: AppLocalizations.of(context)!.enterConfirmPassword,
+                              labelText:
+                                  AppLocalizations.of(context)!.confirmPassword,
+                              hintText: AppLocalizations.of(context)!
+                                  .enterConfirmPassword,
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
                                 icon: Icon(
@@ -233,10 +320,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             ),
                             validator: (v) {
                               if (v == null || v.isEmpty) {
-                                return AppLocalizations.of(context)!.passwordConfirmationRequired;
+                                return AppLocalizations.of(context)!
+                                    .passwordConfirmationRequired;
                               }
                               if (v != _passwordCtrl.text) {
-                                return AppLocalizations.of(context)!.passwordsDoNotMatch;
+                                return AppLocalizations.of(context)!
+                                    .passwordsDoNotMatch;
                               }
                               return null;
                             },

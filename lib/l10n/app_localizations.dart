@@ -1641,6 +1641,28 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shop'**
   String get shop;
+
+  String get passwordRequirements;
+
+  String get passwordRequirementLength;
+
+  String get passwordRequirementUppercase;
+
+  String get passwordRequirementLowercase;
+
+  String get passwordRequirementNumber;
+
+  String get passwordRequirementSpecial;
+
+  String get passwordMustBeAtLeast8Characters;
+
+  String get passwordMustContainUppercase;
+
+  String get passwordMustContainLowercase;
+
+  String get passwordMustContainNumber;
+
+  String get passwordMustContainSpecial;
 }
 
 class _AppLocalizationsDelegate
