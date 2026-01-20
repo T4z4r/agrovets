@@ -962,7 +962,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get passwordMustBeAtLeast8Characters =>
       'Password must be at least 8 characters long';
-
   @override
   String get passwordMustContainUppercase =>
       'Password must contain at least one uppercase letter';

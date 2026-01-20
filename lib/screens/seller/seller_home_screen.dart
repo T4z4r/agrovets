@@ -43,7 +43,21 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.agroVetSeller),
+        title: Container(
+          width: 40,
+          height: 40,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: const Center(
+            child: Image(
+              image: AssetImage('assets/logo.png'),
+              width: 32,
+              height: 32,
+            ),
+          ),
+        ),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
