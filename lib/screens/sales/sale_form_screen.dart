@@ -474,13 +474,15 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                           contentPadding: EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
                                         ),
-                                        selectedItemBuilder: (context) => _filteredProducts
-                                            .map((p) => Text(
-                                                  p.name!,
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ))
-                                            .toList(),
+                                        selectedItemBuilder: (context) =>
+                                            _filteredProducts
+                                                .map((p) => Text(
+                                                      p.name!,
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ))
+                                                .toList(),
                                         items: _filteredProducts
                                             .map((p) => DropdownMenuItem(
                                                 value: p.id,
@@ -567,7 +569,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                   Icons.remove_circle,
                                                   color: Colors.red),
                                               onPressed: () {
-                                                setState(() => _items.removeAt(idx));
+                                                setState(
+                                                    () => _items.removeAt(idx));
                                                 _debounceUpdateTotal();
                                               },
                                             ),
