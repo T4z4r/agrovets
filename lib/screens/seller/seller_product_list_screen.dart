@@ -235,7 +235,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .primaryColorLight
-                                        .withOpacity(0.3),
+                                        .withOpacity(0.8),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(

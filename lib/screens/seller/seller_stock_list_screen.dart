@@ -187,7 +187,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                     : RefreshIndicator(
                         onRefresh: _loadTransactions,
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(4),
                           itemCount: _filteredTransactions.length,
                           itemBuilder: (ctx, i) {
                             final t = _filteredTransactions[i];
@@ -232,7 +232,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.all(8),
                                 leading: Container(
                                   width: 50,
                                   height: 50,

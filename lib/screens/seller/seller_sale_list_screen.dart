@@ -112,7 +112,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                     : RefreshIndicator(
                         onRefresh: _loadSales,
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(4),
                           itemCount: _filteredSales.length,
                           itemBuilder: (ctx, i) {
                             final s = _filteredSales[i];
@@ -123,14 +123,14 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.all(8),
                                 leading: Container(
                                   width: 50,
                                   height: 50,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .primaryColorLight
-                                        .withOpacity(0.3),
+                                        .withOpacity(0.8),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(

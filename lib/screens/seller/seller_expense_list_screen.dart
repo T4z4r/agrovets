@@ -119,7 +119,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                     : RefreshIndicator(
                         onRefresh: _loadExpenses,
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(4),
                           itemCount: _filteredExpenses.length,
                           itemBuilder: (ctx, i) {
                             final e = _filteredExpenses[i];
@@ -130,7 +130,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.all(8),
                                 leading: Container(
                                   width: 50,
                                   height: 50,
