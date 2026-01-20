@@ -143,7 +143,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                   title: Text(
                     AppLocalizations.of(context)!.confirmLogout,
                     style: TextStyle(
-                        color: Colors.green[700],
+                        color: Color(0xFF72140C),
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
