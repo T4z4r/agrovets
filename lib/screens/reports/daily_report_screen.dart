@@ -242,7 +242,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                             _report!.totalSales as num),
                         Icons.point_of_sale,
                         Colors.green,
-                        Theme.of(context).primaryColorLight!,
+                        Colors.green[50]!,
                       ),
                       const SizedBox(height: 12),
 
@@ -269,8 +269,8 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                                   : Colors.red[400]!,
                               (_report!.totalSales - _report!.totalExpenses) >=
                                       0
-                                  ? Theme.of(context).primaryColor!
-                                  : Colors.red[600]!,
+                                  ? Colors.green[400]!
+                                  : Colors.red[400]!,
                             ],
                           ),
                           borderRadius: BorderRadius.circular(12),
@@ -312,10 +312,10 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.visibility),
+                        icon: const Icon(Icons.receipt, color: Colors.white),
                         label: Text(AppLocalizations.of(context)!.viewDetails),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[600],
+                          backgroundColor: Color(0xFF72140C),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),
