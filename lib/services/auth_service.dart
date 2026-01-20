@@ -19,7 +19,7 @@ class AuthService {
       return response;
     } catch (e) {
       // Handle 401 (invalid credentials) and 403 (unverified account) responses
-      if (e.toString().contains('An error occurred')) {
+      if (e.toString().contains('Operation failed')) {
         // For both 401 and 403, we need to manually make the request to get the response
         try {
           final client = http.Client();
@@ -77,7 +77,7 @@ class AuthService {
       return response;
     } catch (e) {
       // Handle validation errors (422) and other errors
-      if (e.toString().contains('An error occurred')) {
+      if (e.toString().contains('Operation failed')) {
         try {
           final client = http.Client();
           final headers = await ApiService.getHeaders();

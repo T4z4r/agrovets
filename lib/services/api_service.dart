@@ -93,7 +93,7 @@ class ApiService {
     if (response['success']) {
       return PrivacyPolicy.fromJson(response['data']);
     } else {
-      throw Exception(response['message'] ?? 'Failed to fetch privacy policy');
+      throw Exception('Failed to fetch privacy policy');
     }
   }
 
@@ -103,7 +103,7 @@ class ApiService {
     if (response['data'] != null) {
       return Shop.fromJson(response['data']);
     } else {
-      throw Exception(response['message'] ?? 'Failed to fetch shop details');
+      throw Exception('Failed to fetch shop details');
     }
   }
 
@@ -112,7 +112,7 @@ class ApiService {
     if (response['data'] != null) {
       return Shop.fromJson(response['data']);
     } else {
-      throw Exception(response['message'] ?? 'Failed to update shop details');
+      throw Exception('Failed to update shop details');
     }
   }
 
@@ -126,7 +126,7 @@ class ApiService {
       guidesData = response['data'];
     } else {
       print(response);
-      throw Exception(response['message'] ?? 'Failed to fetch guides');
+      throw Exception('Failed to fetch guides');
     }
     return guidesData.map((json) => Guide.fromJson(json)).toList();
   }
@@ -140,7 +140,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return response;
     } else {
-      throw Exception('Failed to download guide');
+      throw Exception('Operation failed. Please try again.');
     }
   }
 
@@ -149,7 +149,7 @@ class ApiService {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json;
     } else {
-      throw Exception('An error occurred. Please try again.');
+      throw Exception('Operation failed. Please try again.');
     }
   }
 }
