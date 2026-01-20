@@ -24,6 +24,15 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
     });
   }
 
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
@@ -142,6 +151,57 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                     ),
                   ),
                 ),
+
+                // Timestamps
+                if (shop.createdAt != null || shop.updatedAt != null) ...[
+                  const SizedBox(height: 16),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.timestamps,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          if (shop.createdAt != null)
+                            Row(
+                              children: [
+                                Icon(Icons.calendar_today,
+                                    size: 16, color: Colors.grey[600]),
+                                const SizedBox(width: 8),
+                                Text(
+                                  '${AppLocalizations.of(context)!.created}: ${_formatDate(shop.createdAt!)}',
+                                  style: TextStyle(color: Colors.grey[700]),
+                                ),
+                              ],
+                            ),
+                          if (shop.updatedAt != null)
+                            Row(
+                              children: [
+                                Icon(Icons.update,
+                                    size: 16, color: Colors.grey[600]),
+                                const SizedBox(width: 8),
+                                Text(
+                                  '${AppLocalizations.of(context)!.updated}: ${_formatDate(shop.updatedAt!)}',
+                                  style: TextStyle(color: Colors.grey[700]),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           );

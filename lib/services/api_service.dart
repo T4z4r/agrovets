@@ -98,18 +98,17 @@ class ApiService {
 
   // Shop API methods
   static Future<Shop> getShop() async {
-    final response = await get('/shop');
-    if (response['success']) {
+    final response = await get('/api/shop');
+    if (response['data'] != null) {
       return Shop.fromJson(response['data']);
     } else {
-      print(response['message'] ?? 'Failed to fetch shop details');
       throw Exception(response['message'] ?? 'Failed to fetch shop details');
     }
   }
 
   static Future<Shop> updateShop(Map<String, dynamic> data) async {
-    final response = await put('/shop', data);
-    if (response['success']) {
+    final response = await put('/api/shop', data);
+    if (response['data'] != null) {
       return Shop.fromJson(response['data']);
     } else {
       throw Exception(response['message'] ?? 'Failed to update shop details');

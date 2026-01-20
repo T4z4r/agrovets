@@ -15,6 +15,7 @@ class ShopProvider with ChangeNotifier {
     try {
       _shop = await ApiService.getShop();
     } catch (e) {
+      print(e);
       _shop = null;
     }
     _loading = false;
