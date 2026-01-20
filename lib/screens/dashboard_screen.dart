@@ -7,6 +7,7 @@ import '../providers/locale_provider.dart';
 import '../services/api_service.dart';
 import '../utils/number_formatter.dart';
 import 'auth/login_screen.dart';
+import 'guide_list_screen.dart';
 import 'products/product_form_screen.dart';
 import 'products/product_list_screen.dart';
 import 'sales/sale_form_screen.dart';
@@ -76,6 +77,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.info),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GuideListScreen()),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadDashboard,

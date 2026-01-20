@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/privacy_policy.dart';
 import '../models/shop.dart';
+import '../models/guide.dart';
 
 class ApiService {
   static const String baseUrl = 'https://pos.sudsudgroup.com'; // CHANGE THIS
@@ -112,6 +113,34 @@ class ApiService {
       return Shop.fromJson(response['data']);
     } else {
       throw Exception(response['message'] ?? 'Failed to update shop details');
+    }
+  }
+
+  // Guide API methods
+  static Future<List<Guide>> getGuides({String language = 'en'}) async {
+    final response = await get('/api/guides');
+    List<dynamic> guidesData;
+    if (response is List) {
+      guidesData = response;
+    } else if (response['success'] && response['data'] is List) {
+      guidesData = response['data'];
+    } else {
+      print(response);
+      throw Exception(response['message'] ?? 'Failed to fetch guides');
+    }
+    return guidesData.map((json) => Guide.fromJson(json)).toList();
+  }
+
+  static Future<http.Response> downloadGuide(int id) async {
+    final headers = await getHeaders();
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/guides/$id/download'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return response;
+    } else {
+      throw Exception('Failed to download guide');
     }
   }
 

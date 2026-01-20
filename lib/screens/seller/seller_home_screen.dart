@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/locale_provider.dart';
 import '../../screens/auth/login_screen.dart';
+import '../../screens/guide_list_screen.dart';
 import 'seller_dashboard_screen.dart';
 import 'seller_product_list_screen.dart';
 import 'seller_sale_list_screen.dart';
@@ -47,6 +48,13 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.info),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const GuideListScreen()),
+            ),
+          ),
           DropdownButton<String>(
             value: localeProvider.locale.languageCode,
             icon: const Icon(Icons.language, color: Colors.white),
