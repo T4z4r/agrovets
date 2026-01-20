@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
+import '../../providers/product_provider.dart';
 import 'product_form_screen.dart';
 import 'owner_product_detail_screen.dart';
 
@@ -19,9 +21,7 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-  List<Product> _products = [];
   List<Product> _filteredProducts = [];
-  bool _loading = true;
   String _searchQuery = '';
   late TextEditingController _searchController;
 
@@ -29,7 +29,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    _loadProducts();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ProductProvider>(context, listen: false).fetchProducts();
+    });
   }
 
   @override
@@ -38,34 +40,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
     super.dispose();
   }
 
-  Future<void> _loadProducts() async {
-    try {
-      final res = await ApiService.get('/api/products');
-      setState(() {
-        _products =
-            (res['data'] as List).map((p) => Product.fromJson(p)).toList();
-        _filteredProducts = _products;
-        _loading = false;
-      });
-    } catch (e) {
-      setState(() => _loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
   void _filterProducts(String query) {
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
     setState(() {
       _searchQuery = query;
       if (query.isEmpty) {
-        _filteredProducts = _products;
+        _filteredProducts = productProvider.products;
       } else {
-        _filteredProducts = _products.where((product) {
+        _filteredProducts = productProvider.products.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
               product.unit!.toLowerCase().contains(query.toLowerCase()) ||
               product.category!.toLowerCase().contains(query.toLowerCase()) ||
@@ -180,7 +162,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             backgroundColor: Theme.of(context).primaryColor,
           ),
         );
-        _loadProducts();
+        Provider.of<ProductProvider>(context, listen: false).fetchProducts();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -195,297 +177,306 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.products),
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _loadProducts,
-          ),
-        ],
-      ),
-      drawer: const AppDrawer(activeScreen: 'products'),
-      body: Column(
-        children: [
-          // Search Bar
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    onChanged: _filterProducts,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.searchProducts,
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.qr_code_scanner),
-                  onPressed: _scanBarcode,
-                  tooltip: AppLocalizations.of(context)!.scanBarcode,
-                ),
-              ],
-            ),
-          ),
+    return Consumer<ProductProvider>(
+      builder: (context, productProvider, child) {
+        // Update filtered products when products change
+        if (_filteredProducts.isEmpty || _searchQuery.isEmpty) {
+          _filteredProducts = productProvider.products;
+        }
 
-          // Products List
-          Expanded(
-            child: _loading
-                ? Center(
-                    child: SpinKitWaveSpinner(
-                        color: Theme.of(context).primaryColor, size: 50.0))
-                : _filteredProducts.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.inventory_2,
-                              size: 64,
-                              color: Colors.grey[400],
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              _searchQuery.isEmpty
-                                  ? AppLocalizations.of(context)!
-                                      .noProductsFound
-                                  : AppLocalizations.of(context)!
-                                      .noProductsMatch,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
+        return Scaffold(
+          backgroundColor: Colors.grey[50],
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context)!.products),
+            backgroundColor: Theme.of(context).primaryColor,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => productProvider.fetchProducts(),
+              ),
+            ],
+          ),
+          drawer: const AppDrawer(activeScreen: 'products'),
+          body: Column(
+            children: [
+              // Search Bar
+              Container(
+                padding: const EdgeInsets.all(16),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: _filterProducts,
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.searchProducts,
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
                         ),
-                      )
-                    : RefreshIndicator(
-                        onRefresh: _loadProducts,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: _filteredProducts.length,
-                          itemBuilder: (ctx, i) {
-                            final p = _filteredProducts[i];
-                            return Card(
-                              margin: const EdgeInsets.only(bottom: 8),
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
-                                leading: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColorLight,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Icon(
-                                    Icons.inventory,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.qr_code_scanner),
+                      onPressed: _scanBarcode,
+                      tooltip: AppLocalizations.of(context)!.scanBarcode,
+                    ),
+                  ],
+                ),
+              ),
+
+              // Products List
+              Expanded(
+                child: productProvider.loading
+                    ? Center(
+                        child: SpinKitWaveSpinner(
+                            color: Theme.of(context).primaryColor, size: 50.0))
+                    : _filteredProducts.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.inventory_2,
+                                  size: 64,
+                                  color: Colors.grey[400],
                                 ),
-                                title: Text(
-                                  p.name!,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                const SizedBox(height: 16),
+                                Text(
+                                  _searchQuery.isEmpty
+                                      ? AppLocalizations.of(context)!
+                                          .noProductsFound
+                                      : AppLocalizations.of(context)!
+                                          .noProductsMatch,
+                                  style: TextStyle(
                                     fontSize: 16,
+                                    color: Colors.grey[600],
                                   ),
                                 ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 4),
-                                    Row(
+                              ],
+                            ),
+                          )
+                        : RefreshIndicator(
+                            onRefresh: () => productProvider.fetchProducts(),
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(4),
+                              itemCount: _filteredProducts.length,
+                              itemBuilder: (ctx, i) {
+                                final p = _filteredProducts[i];
+                                return Card(
+                                  margin: const EdgeInsets.only(bottom: 8),
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(8),
+                                    leading: Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColorLight,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Icon(
+                                        Icons.inventory,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                    title: Text(
+                                      p.name!,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Icon(
-                                          Icons.inventory,
-                                          size: 14,
-                                          color: (p.stock ?? 0) <=
-                                                  (p.minimumQuantity ?? 0)
-                                              ? Colors.red
-                                              : Colors.grey[600],
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          (p.stock ?? 0) == 0
-                                              ? '${AppLocalizations.of(context)!.stockLabel}: ${AppLocalizations.of(context)!.outOfStock}'
-                                              : '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
-                                          style: TextStyle(
-                                            color: (p.stock ?? 0) == 0
-                                                ? Colors.red
-                                                : (p.stock ?? 0) <=
-                                                        (p.minimumQuantity ?? 0)
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.inventory,
+                                              size: 14,
+                                              color: (p.stock ?? 0) <=
+                                                      (p.minimumQuantity ?? 0)
+                                                  ? Colors.red
+                                                  : Colors.grey[600],
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              (p.stock ?? 0) == 0
+                                                  ? '${AppLocalizations.of(context)!.stockLabel}: ${AppLocalizations.of(context)!.outOfStock}'
+                                                  : '${AppLocalizations.of(context)!.stockLabel}: ${p.stock} ${p.unit}',
+                                              style: TextStyle(
+                                                color: (p.stock ?? 0) == 0
                                                     ? Colors.red
-                                                    : Colors.grey[600],
-                                            fontSize: 12,
-                                            fontWeight: (p.stock ?? 0) == 0 ||
-                                                    (p.stock ?? 0) <=
-                                                        (p.minimumQuantity ?? 0)
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
-                                          ),
+                                                    : (p.stock ?? 0) <=
+                                                            (p.minimumQuantity ?? 0)
+                                                        ? Colors.red
+                                                        : Colors.grey[600],
+                                                fontSize: 12,
+                                                fontWeight: (p.stock ?? 0) == 0 ||
+                                                        (p.stock ?? 0) <=
+                                                            (p.minimumQuantity ?? 0)
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                              ),
+                                            ),
+                                            if ((p.stock ?? 0) <=
+                                                (p.minimumQuantity ?? 0)) ...[
+                                              const SizedBox(width: 4),
+                                              Icon(
+                                                Icons.warning,
+                                                size: 14,
+                                                color: Colors.red,
+                                              ),
+                                            ],
+                                          ],
                                         ),
-                                        if ((p.stock ?? 0) <=
-                                            (p.minimumQuantity ?? 0)) ...[
-                                          const SizedBox(width: 4),
-                                          Icon(
-                                            Icons.warning,
-                                            size: 14,
-                                            color: Colors.red,
+                                        const SizedBox(height: 2),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.attach_money,
+                                              size: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              '${AppLocalizations.of(context)!.priceLabel}: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
+                                              style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        if (p.category != null &&
+                                            p.category!.isNotEmpty) ...[
+                                          const SizedBox(height: 2),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blue[100],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              p.category!,
+                                              style: TextStyle(
+                                                color: Colors.blue[700],
+                                                fontSize: 10,
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ],
                                     ),
-                                    const SizedBox(height: 2),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.attach_money,
-                                          size: 14,
-                                          color: Colors.grey[600],
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '${AppLocalizations.of(context)!.priceLabel}: ${NumberFormatter.formatCurrency(p.sellingPrice)}',
-                                          style: TextStyle(
-                                            color: Colors.grey[600],
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (p.category != null &&
-                                        p.category!.isNotEmpty) ...[
-                                      const SizedBox(height: 2),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue[100],
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          p.category!,
-                                          style: TextStyle(
-                                            color: Colors.blue[700],
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => OwnerProductDetailScreen(
-                                          productId: p.id),
-                                    ),
-                                  );
-                                },
-                                trailing: PopupMenuButton(
-                                  itemBuilder: (context) => [
-                                    PopupMenuItem(
-                                      value: 'view',
-                                      child: ListTile(
-                                        leading: Icon(Icons.visibility),
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .viewDetails),
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      value: 'edit',
-                                      child: ListTile(
-                                        leading: Icon(Icons.edit),
-                                        title: Text(
-                                            AppLocalizations.of(context)!.edit),
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      value: 'delete',
-                                      child: ListTile(
-                                        leading: Icon(Icons.delete,
-                                            color: Colors.red),
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .delete,
-                                            style:
-                                                TextStyle(color: Colors.red)),
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                  ],
-                                  onSelected: (value) async {
-                                    if (value == 'view') {
+                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) =>
-                                              OwnerProductDetailScreen(
-                                                  productId: p.id),
+                                          builder: (_) => OwnerProductDetailScreen(
+                                              productId: p.id),
                                         ),
                                       );
-                                    } else if (value == 'edit') {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => ProductFormScreen(
-                                            product: p,
-                                            onSave: _loadProducts,
+                                    },
+                                    trailing: PopupMenuButton(
+                                      itemBuilder: (context) => [
+                                        PopupMenuItem(
+                                          value: 'view',
+                                          child: ListTile(
+                                            leading: Icon(Icons.visibility),
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .viewDetails),
+                                            contentPadding: EdgeInsets.zero,
                                           ),
                                         ),
-                                      );
-                                    } else if (value == 'delete') {
-                                      _deleteProduct(p.id, p.name!);
-                                    }
-                                  },
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                                        PopupMenuItem(
+                                          value: 'edit',
+                                          child: ListTile(
+                                            leading: Icon(Icons.edit),
+                                            title: Text(
+                                                AppLocalizations.of(context)!.edit),
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
+                                        ),
+                                        PopupMenuItem(
+                                          value: 'delete',
+                                          child: ListTile(
+                                            leading: Icon(Icons.delete,
+                                                color: Colors.red),
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .delete,
+                                                style:
+                                                    TextStyle(color: Colors.red)),
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
+                                        ),
+                                      ],
+                                      onSelected: (value) async {
+                                        if (value == 'view') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  OwnerProductDetailScreen(
+                                                      productId: p.id),
+                                            ),
+                                          );
+                                        } else if (value == 'edit') {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => ProductFormScreen(
+                                                product: p,
+                                                onSave: () => productProvider.fetchProducts(),
+                                              ),
+                                            ),
+                                          );
+                                        } else if (value == 'delete') {
+                                          _deleteProduct(p.id, p.name!);
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+              ),
+            ],
           ),
-        ],
-      ),
 
-      // Floating Action Button
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ProductFormScreen(onSave: _loadProducts),
-            ),
-          );
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+          // Floating Action Button
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProductFormScreen(onSave: () => productProvider.fetchProducts()),
+                ),
+              );
+            },
+            backgroundColor: Theme.of(context).primaryColor,
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
+        );
+      },
     );
   }
 }

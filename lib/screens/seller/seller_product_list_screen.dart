@@ -217,7 +217,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                     : RefreshIndicator(
                         onRefresh: _loadProducts,
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(4),
                           itemCount: _filteredProducts.length,
                           itemBuilder: (ctx, i) {
                             final p = _filteredProducts[i];
@@ -228,7 +228,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.all(8),
                                 leading: Container(
                                   width: 50,
                                   height: 50,

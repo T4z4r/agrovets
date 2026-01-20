@@ -24,4 +24,14 @@ class User {
           : (json['is_active']?.toString() == '1'),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'role': role,
+      'is_active': isActive ? 1 : 0,
+    };
+  }
 }

@@ -29,8 +29,12 @@ class Shop {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'location': location,
+      'owner_id': ownerId,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 }
