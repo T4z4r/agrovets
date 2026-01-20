@@ -53,8 +53,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.failedLoadProducts)),
+      );
     }
   }
 
@@ -192,8 +193,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
+              content: Text(AppLocalizations.of(context)!.errorFindingProduct)),
         );
       }
     }
@@ -273,8 +273,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       if (!mounted) return;
       _showSuccessDialog();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)),
+      );
       setState(() => _loading = false);
     }
   }
