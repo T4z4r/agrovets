@@ -32,6 +32,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
       'totalExpenses': false,
       'stockValue': false,
       'lowStockProducts': false,
+      'reportValues': false,
     };
     _loadDashboard();
     _loadReport();
@@ -206,82 +207,123 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
                           color:
                               Theme.of(context).primaryColor.withOpacity(0.2)),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          final screenWidth = MediaQuery.of(context).size.width;
-                          final isSmallScreen = screenWidth < 600;
-                          return SingleChildScrollView(
-                            scrollDirection:
-                                isSmallScreen ? Axis.horizontal : Axis.vertical,
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minWidth:
-                                    isSmallScreen ? 300 : constraints.maxWidth,
-                              ),
-                              child: DataTable(
-                                columnSpacing: isSmallScreen ? 20 : 50,
-                                columns: [
-                                  DataColumn(
-                                    label: Text(
-                                      AppLocalizations.of(context)!.category,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final screenWidth =
+                                  MediaQuery.of(context).size.width;
+                              final isSmallScreen = screenWidth < 600;
+                              return SingleChildScrollView(
+                                scrollDirection: isSmallScreen
+                                    ? Axis.horizontal
+                                    : Axis.vertical,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minWidth: isSmallScreen
+                                        ? 300
+                                        : constraints.maxWidth,
                                   ),
-                                  DataColumn(
-                                    label: Text(
-                                      AppLocalizations.of(context)!.amount,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                                rows: [
-                                  DataRow(cells: [
-                                    DataCell(Text(AppLocalizations.of(context)!
-                                        .totalSalesLabel)),
-                                    DataCell(Text(
-                                        NumberFormatter.formatCurrency(
-                                            report!.totalSales))),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text(AppLocalizations.of(context)!
-                                        .totalExpensesLabel)),
-                                    DataCell(Text(
-                                        NumberFormatter.formatCurrency(
-                                            report!.totalExpenses))),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text(AppLocalizations.of(context)!
-                                        .netProfit)),
-                                    DataCell(
-                                      Text(
-                                        NumberFormatter.formatCurrency(
-                                            report!.totalSales -
-                                                report!.totalExpenses),
-                                        style: TextStyle(
-                                          color: (report!.totalSales -
-                                                      report!.totalExpenses) >=
-                                                  0
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                              : Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
-                                          fontWeight: FontWeight.bold,
+                                  child: DataTable(
+                                    columnSpacing: isSmallScreen ? 20 : 50,
+                                    columns: [
+                                      DataColumn(
+                                        label: Text(
+                                          AppLocalizations.of(context)!
+                                              .category,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                    ),
-                                  ]),
-                                ],
-                              ),
+                                      DataColumn(
+                                        label: Text(
+                                          AppLocalizations.of(context)!.amount,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                    rows: [
+                                      DataRow(cells: [
+                                        DataCell(Text(
+                                            AppLocalizations.of(context)!
+                                                .totalSalesLabel)),
+                                        DataCell(Text(_cardVisibility[
+                                                'reportValues']!
+                                            ? NumberFormatter.formatCurrency(
+                                                report!.totalSales)
+                                            : '****')),
+                                      ]),
+                                      DataRow(cells: [
+                                        DataCell(Text(
+                                            AppLocalizations.of(context)!
+                                                .totalExpensesLabel)),
+                                        DataCell(Text(_cardVisibility[
+                                                'reportValues']!
+                                            ? NumberFormatter.formatCurrency(
+                                                report!.totalExpenses)
+                                            : '****')),
+                                      ]),
+                                      DataRow(cells: [
+                                        DataCell(Text(
+                                            AppLocalizations.of(context)!
+                                                .netProfit)),
+                                        DataCell(
+                                          Text(
+                                            _cardVisibility['reportValues']!
+                                                ? NumberFormatter
+                                                    .formatCurrency(report!
+                                                            .totalSales -
+                                                        report!.totalExpenses)
+                                                : '****',
+                                            style:
+                                                _cardVisibility['reportValues']!
+                                                    ? TextStyle(
+                                                        color: (report!.totalSales -
+                                                                    report!
+                                                                        .totalExpenses) >=
+                                                                0
+                                                            ? Theme.of(context)
+                                                                .colorScheme
+                                                                .primary
+                                                            : Theme.of(context)
+                                                                .colorScheme
+                                                                .secondary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )
+                                                    : null,
+                                          ),
+                                        ),
+                                      ]),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              _cardVisibility['reportValues']!
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              size: 20,
+                              color: Colors.grey[600],
                             ),
-                          );
-                        },
-                      ),
+                            onPressed: () => setState(() =>
+                                _cardVisibility['reportValues'] =
+                                    !_cardVisibility['reportValues']!),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
