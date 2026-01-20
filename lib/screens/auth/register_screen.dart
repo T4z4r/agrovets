@@ -129,22 +129,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 30),
 
                 // App Icon
-                Icon(
-                  Icons.point_of_sale,
-                  size: 40,
-                  color: Theme.of(context).primaryColor,
+                const Image(
+                  image: AssetImage('assets/logo.png'),
+                  width: 100,
+                  height: 100,
                 ),
-                const SizedBox(height: 5),
 
-                // Welcome Text
-                Text(
-                  AppLocalizations.of(context)!.appName,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
                 const SizedBox(height: 8),
                 Text(
                   AppLocalizations.of(context)!.createAccount,

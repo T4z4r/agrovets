@@ -88,28 +88,28 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 40),
 
-                // App Icon
-                Icon(
-                  Icons.point_of_sale,
-                  size: 80,
-                  color: Theme.of(context).primaryColor,
+                // App Logo
+                const Image(
+                  image: AssetImage('assets/logo.png'),
+                  width: 200,
+                  height: 200,
                 ),
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
 
                 // Welcome Text
-                Text(
-                  AppLocalizations.of(context)!.appName,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
+                // Text(
+                //   AppLocalizations.of(context)!.appName,
+                //   style: TextStyle(
+                //     fontSize: 32,
+                //     fontWeight: FontWeight.bold,
+                //     color: Theme.of(context).primaryColor,
+                //   ),
+                // ),
                 const SizedBox(height: 8),
                 Text(
                   AppLocalizations.of(context)!.welcomeBack,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.grey[600],
                   ),
                   textAlign: TextAlign.center,

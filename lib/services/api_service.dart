@@ -102,6 +102,7 @@ class ApiService {
     if (response['success']) {
       return Shop.fromJson(response['data']);
     } else {
+      print(response['message'] ?? 'Failed to fetch shop details');
       throw Exception(response['message'] ?? 'Failed to fetch shop details');
     }
   }

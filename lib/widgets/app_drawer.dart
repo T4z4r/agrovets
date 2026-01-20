@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo.png'),
+                  backgroundImage: AssetImage('assets/logo.png'),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -64,7 +64,8 @@ class AppDrawer extends StatelessWidget {
                     (route) => false,
                   )),
           if (auth.isOwner || auth.isSeller)
-            _drawerTile(context, Icons.store, AppLocalizations.of(context)!.shop, () {
+            _drawerTile(
+                context, Icons.store, AppLocalizations.of(context)!.shop, () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => const ShopDetailScreen()),
