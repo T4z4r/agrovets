@@ -101,8 +101,10 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-              Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
+          content: Text(
+            AppLocalizations.of(context)!.failedSaveExpense,
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(

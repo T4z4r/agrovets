@@ -49,9 +49,9 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       _loadSuppliers();
     } catch (e) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+          .showSnackBar(SnackBar(content: Text(e.toString()),  backgroundColor: Colors.red,));
     }
-  }
+  },
 
   void _filterSuppliers(String query) {
     setState(() {

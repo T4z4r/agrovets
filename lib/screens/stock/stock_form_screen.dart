@@ -56,8 +56,15 @@ class _StockFormScreenState extends State<StockFormScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.operationFailed,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -131,7 +138,10 @@ class _StockFormScreenState extends State<StockFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedSaveStock}: $e'),
+          content: Text(
+            AppLocalizations.of(context)!.failedSaveStock,
+            style: TextStyle(color: Colors.white),
+          ),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -304,8 +314,12 @@ class _StockFormScreenState extends State<StockFormScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
+            content: Text(
+              AppLocalizations.of(context)!.errorFindingProduct,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -338,7 +352,9 @@ class _StockFormScreenState extends State<StockFormScreen> {
       ),
       drawer: const AppDrawer(activeScreen: 'stock'),
       body: _loading
-          ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
+          ? Center(
+              child: SpinKitWaveSpinner(
+                  color: Theme.of(context).primaryColor, size: 50.0))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Form(
@@ -428,7 +444,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.trending_up,
-                                          color: Theme.of(context).primaryColor),
+                                          color:
+                                              Theme.of(context).primaryColor),
                                       const SizedBox(width: 8),
                                       Text(AppLocalizations.of(context)!
                                           .stockIn),

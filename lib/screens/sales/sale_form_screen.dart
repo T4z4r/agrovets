@@ -56,7 +56,13 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
     } catch (e) {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.failedLoadProducts)),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.failedLoadProducts,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -196,7 +202,12 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(AppLocalizations.of(context)!.errorFindingProduct)),
+            content: Text(
+              AppLocalizations.of(context)!.errorFindingProduct,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -256,7 +267,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}'),
+              '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}',
+              style: TextStyle(color: Colors.white),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -277,7 +290,13 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
       _showSuccessDialog();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.operationFailed,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
       setState(() => _loading = false);
     }

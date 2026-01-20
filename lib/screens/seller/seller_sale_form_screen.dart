@@ -54,7 +54,13 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
     } catch (e) {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.failedLoadProducts)),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.failedLoadProducts,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -193,7 +199,12 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(AppLocalizations.of(context)!.errorFindingProduct)),
+            content: Text(
+              AppLocalizations.of(context)!.errorFindingProduct,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -253,7 +264,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}'),
+              '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}',
+              style: TextStyle(color: Colors.white),
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -274,7 +287,13 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
       _showSuccessDialog();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)),
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.operationFailed,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
       setState(() => _loading = false);
     }

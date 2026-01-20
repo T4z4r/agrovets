@@ -47,7 +47,8 @@ class AuthService {
           }
           throw Exception('Login failed');
         } catch (innerError) {
-          throw Exception('Connection error. Please try again.');
+          throw Exception(
+              'Network Error: Please check your internet connection.');
         }
       }
       rethrow;
@@ -104,7 +105,8 @@ class AuthService {
             throw Exception('Registration failed');
           }
         } catch (innerError) {
-          throw Exception('Connection error. Please try again.');
+          throw Exception(
+              'Network Error: Please check your internet connection.');
         }
       }
       rethrow;
@@ -139,8 +141,8 @@ class AuthService {
     return response;
   }
 
-  static Future<Map<String, dynamic>> resetPassword(
-      String email, String otpCode, String password, String passwordConfirmation) async {
+  static Future<Map<String, dynamic>> resetPassword(String email,
+      String otpCode, String password, String passwordConfirmation) async {
     final response = await ApiService.post('/api/reset-password', {
       'email': email,
       'otp_code': otpCode,

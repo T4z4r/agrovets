@@ -19,48 +19,70 @@ class ApiService {
   }
 
   static Future<dynamic> get(String endpoint) async {
-    final response = await http.get(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: await getHeaders(),
-    );
-    return _handleResponse(response);
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: await getHeaders(),
+      );
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    }
   }
 
   static Future<dynamic> post(
       String endpoint, Map<String, dynamic> data) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: await getHeaders(),
-      body: jsonEncode(data),
-    );
-    return _handleResponse(response);
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: await getHeaders(),
+        body: jsonEncode(data),
+      );
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception(
+'Network Error: Please check your internet connection.');
+    }
   }
 
   static Future<dynamic> put(String endpoint, Map<String, dynamic> data) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: await getHeaders(),
-      body: jsonEncode(data),
-    );
-    return _handleResponse(response);
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: await getHeaders(),
+        body: jsonEncode(data),
+      );
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception(
+'Network Error: Please check your internet connection.');
+    }
   }
 
   static Future<dynamic> delete(String endpoint) async {
-    final response = await http.delete(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: await getHeaders(),
-    );
-    return _handleResponse(response);
+    try {
+      final response = await http.delete(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: await getHeaders(),
+      );
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    }
   }
 
   static Future<dynamic> patch(
       String endpoint, Map<String, dynamic> data) async {
-    final response = await http.patch(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: await getHeaders(),
-      body: jsonEncode(data),
-    );
-    return _handleResponse(response);
+    try {
+      final response = await http.patch(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: await getHeaders(),
+        body: jsonEncode(data),
+      );
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    }
   }
 
   // Seller API methods

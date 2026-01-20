@@ -113,8 +113,10 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content:
-                Text('${AppLocalizations.of(context)!.failedSaveSeller}: $e'),
+            content: Text(
+              AppLocalizations.of(context)!.failedSaveSeller,
+              style: TextStyle(color: Colors.white),
+            ),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 3),
             action: SnackBarAction(
