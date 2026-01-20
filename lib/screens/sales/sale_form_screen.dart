@@ -1,4 +1,6 @@
 // lib/screens/sales/sale_form_screen.dart
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -28,11 +30,19 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
   List<Product> _products = [];
   bool _loading = true;
   String _productSearchQuery = '';
+  Timer? _debounceTimer;
+  double _totalAmount = 0.0;
 
   @override
   void initState() {
     super.initState();
     _loadData();
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadData() async {
@@ -65,6 +75,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           });
         }
       });
+      _debounceUpdateTotal();
     }
   }
 
@@ -173,6 +184,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
               );
             }
           });
+          _debounceUpdateTotal();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -275,10 +287,19 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           p.name!.toLowerCase().contains(_productSearchQuery.toLowerCase()))
       .toList();
 
-  double get _totalAmount => _items.fold(
+  double _calculateTotal() => _items.fold(
       0.0,
       (sum, item) =>
           sum + ((item['quantity'] as int) * (item['price'] as num)));
+
+  void _debounceUpdateTotal() {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(seconds: 2), () {
+      setState(() {
+        _totalAmount = _calculateTotal();
+      });
+    });
+  }
 
   Future<void> _selectDate() async {
     final picked = await showDatePicker(
@@ -474,6 +495,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                               _items[idx]['price'] =
                                                   product.sellingPrice;
                                             });
+                                            _debounceUpdateTotal();
                                           }
                                         },
                                       ),
@@ -488,9 +510,13 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                 initialValue: _items[idx]
                                                         ['quantity']
                                                     .toString(),
-                                                onChanged: (v) => _items[idx]
-                                                        ['quantity'] =
-                                                    int.tryParse(v) ?? 1,
+                                                onChanged: (v) {
+                                                  setState(() {
+                                                    _items[idx]['quantity'] =
+                                                        int.tryParse(v) ?? 1;
+                                                  });
+                                                  _debounceUpdateTotal();
+                                                },
                                                 decoration: InputDecoration(
                                                   labelText:
                                                       AppLocalizations.of(
@@ -513,9 +539,13 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                 initialValue: _items[idx]
                                                         ['price']
                                                     .toString(),
-                                                onChanged: (v) => _items[idx]
-                                                        ['price'] =
-                                                    int.tryParse(v) ?? 0,
+                                                onChanged: (v) {
+                                                  setState(() {
+                                                    _items[idx]['price'] =
+                                                        int.tryParse(v) ?? 0;
+                                                  });
+                                                  _debounceUpdateTotal();
+                                                },
                                                 decoration: InputDecoration(
                                                   labelText:
                                                       AppLocalizations.of(
@@ -536,8 +566,10 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                               icon: const Icon(
                                                   Icons.remove_circle,
                                                   color: Colors.red),
-                                              onPressed: () => setState(
-                                                  () => _items.removeAt(idx)),
+                                              onPressed: () {
+                                                setState(() => _items.removeAt(idx));
+                                                _debounceUpdateTotal();
+                                              },
                                             ),
                                           ],
                                         ),
