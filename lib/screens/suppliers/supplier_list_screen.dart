@@ -48,10 +48,9 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       await ApiService.delete('/api/suppliers/$id');
       _loadSuppliers();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString()),  backgroundColor: Colors.red,));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
-  },
+  }
 
   void _filterSuppliers(String query) {
     setState(() {
@@ -117,7 +116,8 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
           Expanded(
             child: _loading
                 ? Center(
-                    child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
+                    child: SpinKitWaveSpinner(
+                        color: Theme.of(context).primaryColor, size: 50.0))
                 : _filteredSuppliers.isEmpty
                     ? Center(
                         child: Column(

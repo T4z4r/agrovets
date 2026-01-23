@@ -152,12 +152,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.person,
-                        size: 40, color: Theme.of(context).primaryColor),
-                  ),
+                    CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('assets/logo.png'),
+                ),
                   const SizedBox(height: 12),
                   Text(
                     AppLocalizations.of(context)!.welcome,
