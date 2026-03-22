@@ -1,4 +1,4 @@
-package com.apexposs.app
+package com.apexlite.app
 
 import io.flutter.embedding.android.FlutterActivity
 
