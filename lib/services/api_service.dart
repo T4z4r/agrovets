@@ -6,7 +6,7 @@ import '../models/shop.dart';
 import '../models/guide.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://pos.sudsudgroup.com'; // CHANGE THIS
+  static const String baseUrl = 'https://app.apexpos.co.tz'; // CHANGE THIS
 
   static Future<Map<String, String>> getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
