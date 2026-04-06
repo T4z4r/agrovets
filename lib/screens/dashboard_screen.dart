@@ -70,9 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appName +
-            ' ' +
-            AppLocalizations.of(context)!.dashboard),
+        title: Text('${AppLocalizations.of(context)!.appName} ${AppLocalizations.of(context)!.dashboard}'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -152,7 +150,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage('assets/logo.png'),
@@ -160,7 +158,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(height: 12),
                   Text(
                     AppLocalizations.of(context)!.welcome,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
@@ -347,13 +345,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(AppLocalizations.of(context)!.goodDay,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold)),
                             Text(
                               AppLocalizations.of(context)!.businessOverview,
-                              style: TextStyle(color: Colors.white70),
+                              style: const TextStyle(color: Colors.white70),
                             ),
                           ],
                         ),
@@ -368,7 +366,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               // ================= Stats =================
               if (_loading)
                 Padding(
-                  padding: EdgeInsets.all(40),
+                  padding: const EdgeInsets.all(40),
                   child: Center(
                       child: SpinKitWaveSpinner(
                           color: Theme.of(context).primaryColor, size: 50.0)),

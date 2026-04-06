@@ -206,7 +206,7 @@ class _StockListScreenState extends State<StockListScreen> {
                             switch (t.type) {
                               case 'stock_in':
                                 iconData = Icons.trending_up;
-                                iconColor = Theme.of(context).primaryColor!;
+                                iconColor = Theme.of(context).primaryColor;
                                 cardColor = Colors.green[50]!;
                                 break;
                               case 'stock_out':
@@ -350,26 +350,26 @@ class _StockListScreenState extends State<StockListScreen> {
                                     PopupMenuItem(
                                       value: 'view_details',
                                       child: ListTile(
-                                        leading: Icon(Icons.visibility,
+                                        leading: const Icon(Icons.visibility,
                                             color: Colors.blue),
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .viewDetails,
                                             style:
-                                                TextStyle(color: Colors.blue)),
+                                                const TextStyle(color: Colors.blue)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),
                                     PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
-                                        leading: Icon(Icons.delete,
+                                        leading: const Icon(Icons.delete,
                                             color: Colors.red),
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .delete,
                                             style:
-                                                TextStyle(color: Colors.red)),
+                                                const TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),

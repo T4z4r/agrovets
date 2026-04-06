@@ -82,7 +82,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                           "body": Style(
                             fontSize: FontSize(16),
                             color: Colors.grey[700],
-                            lineHeight: LineHeight(1.5),
+                            lineHeight: const LineHeight(1.5),
                           ),
                           "h1": Style(
                             fontSize: FontSize(22),

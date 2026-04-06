@@ -131,7 +131,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -146,7 +146,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),

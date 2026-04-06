@@ -77,7 +77,7 @@ class _ReceiptViewScreenState extends State<ReceiptViewScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('File downloaded successfully'),
+            content: const Text('File downloaded successfully'),
             backgroundColor: Theme.of(context).primaryColor,
           ),
         );

@@ -159,7 +159,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                             )
                           : Text(
                               AppLocalizations.of(context)!.generatingReport,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -182,7 +182,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                   padding: const EdgeInsets.all(40),
                   child: Column(
                     children: [
-                      SpinKitWaveSpinner(color: Colors.blue, size: 50.0),
+                      const SpinKitWaveSpinner(color: Colors.blue, size: 50.0),
                       const SizedBox(height: 16),
                       Text(AppLocalizations.of(context)!.generatingDailyReport),
                     ],
@@ -315,7 +315,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
                         icon: const Icon(Icons.receipt, color: Colors.white),
                         label: Text(AppLocalizations.of(context)!.viewDetails),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF72140C),
+                          backgroundColor: const Color(0xFF72140C),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 24, vertical: 12),

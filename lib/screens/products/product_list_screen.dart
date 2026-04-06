@@ -68,7 +68,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -83,7 +83,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),
@@ -334,7 +334,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                             if ((p.stock ?? 0) <=
                                                 (p.minimumQuantity ?? 0)) ...[
                                               const SizedBox(width: 4),
-                                              Icon(
+                                              const Icon(
                                                 Icons.warning,
                                                 size: 14,
                                                 color: Colors.red,
@@ -398,7 +398,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         PopupMenuItem(
                                           value: 'view',
                                           child: ListTile(
-                                            leading: Icon(Icons.visibility),
+                                            leading: const Icon(Icons.visibility),
                                             title: Text(
                                                 AppLocalizations.of(context)!
                                                     .viewDetails),
@@ -408,7 +408,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         PopupMenuItem(
                                           value: 'edit',
                                           child: ListTile(
-                                            leading: Icon(Icons.edit),
+                                            leading: const Icon(Icons.edit),
                                             title: Text(
                                                 AppLocalizations.of(context)!.edit),
                                             contentPadding: EdgeInsets.zero,
@@ -417,13 +417,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                         PopupMenuItem(
                                           value: 'delete',
                                           child: ListTile(
-                                            leading: Icon(Icons.delete,
+                                            leading: const Icon(Icons.delete,
                                                 color: Colors.red),
                                             title: Text(
                                                 AppLocalizations.of(context)!
                                                     .delete,
                                                 style:
-                                                    TextStyle(color: Colors.red)),
+                                                    const TextStyle(color: Colors.red)),
                                             contentPadding: EdgeInsets.zero,
                                           ),
                                         ),

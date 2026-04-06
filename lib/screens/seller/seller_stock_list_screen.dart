@@ -345,13 +345,13 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
                                     PopupMenuItem(
                                       value: 'view_details',
                                       child: ListTile(
-                                        leading: Icon(Icons.visibility,
+                                        leading: const Icon(Icons.visibility,
                                             color: Colors.blue),
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .viewDetails,
                                             style:
-                                                TextStyle(color: Colors.blue)),
+                                                const TextStyle(color: Colors.blue)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),

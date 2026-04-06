@@ -40,7 +40,7 @@ android {
 Run the following command to build the release version:
 
 ```bash
-flutter build appbundle --release
+flutter build appbundle --release --no-tree-shake-icons  
 ```
 
 This creates `build/app/outputs/bundle/release/app-release.aab`

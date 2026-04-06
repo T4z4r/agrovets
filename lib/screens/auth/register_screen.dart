@@ -97,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               Text(
                 policy.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -419,7 +419,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               text: TextSpan(
                                 text:
                                     AppLocalizations.of(context)!.agreeToTerms,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 children: [
                                   TextSpan(
                                     text: AppLocalizations.of(context)!
@@ -460,7 +460,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   )
                                 : Text(
                                     AppLocalizations.of(context)!.signUp,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),

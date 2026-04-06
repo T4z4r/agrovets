@@ -119,7 +119,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                             foregroundColor: Theme.of(context).primaryColor,
                             textStyle:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        child: Text(
+                        child: const Text(
                             'Yes'), // Since 'yes' is not localized, but 'ok' could be used, but for now 'Yes'
                       ),
                     ],
@@ -142,7 +142,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                   backgroundColor: Colors.white,
                   title: Text(
                     AppLocalizations.of(context)!.confirmLogout,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xFF72140C),
                         fontSize: 20,
                         fontWeight: FontWeight.bold),

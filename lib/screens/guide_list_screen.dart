@@ -59,8 +59,9 @@ class _GuideListScreenState extends State<GuideListScreen> {
     final userRole = auth.user?['role'] ?? '';
     return _guides.where((guide) {
       if (guide.targetRole == 'both') return true;
-      if (userRole == 'owner' || userRole == 'admin')
+      if (userRole == 'owner' || userRole == 'admin') {
         return guide.targetRole == 'owner';
+      }
       if (userRole == 'seller') return guide.targetRole == 'seller';
       return false;
     }).toList();

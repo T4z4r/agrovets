@@ -1,4 +1,3 @@
-import 'user.dart';
 import 'sale.dart';
 import 'expense.dart';
 import 'stock_transaction.dart';

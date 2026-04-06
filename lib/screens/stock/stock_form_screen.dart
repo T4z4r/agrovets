@@ -60,7 +60,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.operationFailed,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
@@ -140,7 +140,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.failedSaveStock,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
@@ -227,7 +227,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -242,7 +242,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),
@@ -316,7 +316,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
           SnackBar(
             content: Text(
               AppLocalizations.of(context)!.errorFindingProduct,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -345,7 +345,7 @@ class _StockFormScreenState extends State<StockFormScreen> {
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
             label: Text(AppLocalizations.of(context)!.scan,
-                style: TextStyle(color: Colors.white)),
+                style: const TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],

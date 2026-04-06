@@ -115,7 +115,7 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
           SnackBar(
             content: Text(
               AppLocalizations.of(context)!.failedSaveSeller,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 3),

@@ -85,7 +85,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -100,7 +100,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),
@@ -284,7 +284,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                         if ((p.stock ?? 0) <=
                                             (p.minimumQuantity ?? 0)) ...[
                                           const SizedBox(width: 4),
-                                          Icon(
+                                          const Icon(
                                             Icons.warning,
                                             size: 14,
                                             color: Colors.red,
@@ -339,7 +339,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                     PopupMenuItem(
                                       value: 'view',
                                       child: ListTile(
-                                        leading: Icon(Icons.visibility),
+                                        leading: const Icon(Icons.visibility),
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .viewDetails),

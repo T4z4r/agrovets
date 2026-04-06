@@ -26,10 +26,10 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
   final _formKey = GlobalKey<FormState>();
   int? _sellerId;
   DateTime _date = DateTime.now();
-  List<Map<String, dynamic>> _items = [];
+  final List<Map<String, dynamic>> _items = [];
   List<Product> _products = [];
   bool _loading = true;
-  String _productSearchQuery = '';
+  final String _productSearchQuery = '';
   Timer? _debounceTimer;
   double _totalAmount = 0.0;
 
@@ -59,7 +59,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.failedLoadProducts,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
@@ -96,7 +96,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -111,7 +111,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),
@@ -204,7 +204,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           SnackBar(
             content: Text(
               AppLocalizations.of(context)!.errorFindingProduct,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -268,7 +268,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           SnackBar(
             content: Text(
               '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -293,7 +293,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.operationFailed,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
@@ -344,7 +344,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
             label: Text(AppLocalizations.of(context)!.scan,
-                style: TextStyle(color: Colors.white)),
+                style: const TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -490,8 +490,8 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                           labelText:
                                               AppLocalizations.of(context)!
                                                   .product,
-                                          border: OutlineInputBorder(),
-                                          contentPadding: EdgeInsets.symmetric(
+                                          border: const OutlineInputBorder(),
+                                          contentPadding: const EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
                                         ),
                                         selectedItemBuilder: (context) =>
@@ -544,9 +544,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                       AppLocalizations.of(
                                                               context)!
                                                           .qty,
-                                                  border: OutlineInputBorder(),
+                                                  border: const OutlineInputBorder(),
                                                   contentPadding:
-                                                      EdgeInsets.symmetric(
+                                                      const EdgeInsets.symmetric(
                                                           horizontal: 12,
                                                           vertical: 8),
                                                 ),
@@ -573,9 +573,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                                       AppLocalizations.of(
                                                               context)!
                                                           .price,
-                                                  border: OutlineInputBorder(),
+                                                  border: const OutlineInputBorder(),
                                                   contentPadding:
-                                                      EdgeInsets.symmetric(
+                                                      const EdgeInsets.symmetric(
                                                           horizontal: 12,
                                                           vertical: 8),
                                                 ),
@@ -600,7 +600,7 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                     ],
                                   ),
                                 );
-                              }).toList(),
+                              }),
                           ],
                         ),
                       ),
@@ -716,7 +716,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
           SnackBar(
             content:
                 Text(AppLocalizations.of(context)!.cameraPermissionRequired),
-            action: SnackBarAction(
+            action: const SnackBarAction(
               label: 'Settings',
               onPressed: openAppSettings,
             ),
@@ -731,7 +731,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
         SnackBar(
           content: Text(
               AppLocalizations.of(context)!.cameraPermissionPermanentlyDenied),
-          action: SnackBarAction(
+          action: const SnackBarAction(
             label: 'Settings',
             onPressed: openAppSettings,
           ),
@@ -872,7 +872,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                       onChanged: (value) {
                         setState(() {
                           if (value == true) {
-                            _selectedProductIds.add(product.id!);
+                            _selectedProductIds.add(product.id);
                           } else {
                             _selectedProductIds.remove(product.id);
                           }

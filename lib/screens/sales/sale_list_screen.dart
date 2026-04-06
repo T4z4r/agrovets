@@ -210,7 +210,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                         PopupMenuItem(
                                           value: 'receipt',
                                           child: ListTile(
-                                            leading: Icon(Icons.receipt),
+                                            leading: const Icon(Icons.receipt),
                                             title: Text(
                                                 AppLocalizations.of(context)!
                                                     .viewReceipt),
@@ -221,12 +221,12 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                           PopupMenuItem(
                                             value: 'delete',
                                             child: ListTile(
-                                              leading: Icon(Icons.delete,
+                                              leading: const Icon(Icons.delete,
                                                   color: Colors.red),
                                               title: Text(
                                                 AppLocalizations.of(context)!
                                                     .deleteSale,
-                                                style: TextStyle(color: Colors.red),
+                                                style: const TextStyle(color: Colors.red),
                                               ),
                                               contentPadding: EdgeInsets.zero,
                                             ),

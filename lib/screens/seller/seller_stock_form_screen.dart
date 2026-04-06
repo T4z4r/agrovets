@@ -254,7 +254,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: const Text('Scan Barcode'),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -329,7 +329,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
             label: Text(AppLocalizations.of(context)!.scan,
-                style: TextStyle(color: Colors.white)),
+                style: const TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -594,7 +594,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
                                   : Text(
                                       AppLocalizations.of(context)!
                                           .saveTransaction,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),

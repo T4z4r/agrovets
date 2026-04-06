@@ -274,7 +274,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                         NumberFormatter.formatCurrency(_report!.revenue),
                         Icons.monetization_on,
                         Colors.green,
-                        Theme.of(context).primaryColorLight!,
+                        Theme.of(context).primaryColorLight,
                       ),
                       const SizedBox(height: 12),
 
@@ -307,7 +307,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
                           gradient: LinearGradient(
                             colors: [
                               Colors.green[400]!,
-                              Theme.of(context).primaryColor!,
+                              Theme.of(context).primaryColor,
                             ],
                           ),
                           borderRadius: BorderRadius.circular(12),

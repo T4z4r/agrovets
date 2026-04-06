@@ -80,9 +80,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     try {
       final response = await AuthService.verifyOtp(widget.email, _otpCode);
       if (response['success']) {
-        await context.read<AuthProvider>().loadUser();
+        final authProvider = context.read<AuthProvider>();
+        await authProvider.loadUser();
         if (!mounted) return;
-        final user = context.read<AuthProvider>().user;
+        final user = authProvider.user;
+        if (!mounted) return;
         if (user?['role'] == 'seller') {
           Navigator.pushReplacement(
             context,
@@ -105,24 +107,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   Future<void> _resendOtp() async {
     if (_resendCooldown > 0) return;
-    final shouldResend = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Resend OTP'),
-        content: Text('Are you sure you want to resend the OTP?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text('Resend'),
-          ),
-        ],
-      ),
-    );
-    if (shouldResend != true) return;
     setState(() {
       _resendLoading = true;
       _error = null;
@@ -131,11 +115,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       final response = await AuthService.resendOtp(widget.email);
       if (response['success']) {
         _startResendCooldown();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(response['message'] ?? 'OTP sent successfully'),
-          ),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(response['message'] ?? 'OTP sent successfully'),
+            ),
+          );
+        }
       } else {
         setState(() => _error = response['message'] ?? 'Failed to resend OTP');
       }
@@ -223,48 +209,68 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             ),
                             const SizedBox(height: 16),
                           ],
-                          Wrap(
-                            alignment: WrapAlignment.center,
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: List.generate(6, (index) {
-                              return SizedBox(
-                                width: 45,
-                                height: 50,
-                                child: TextFormField(
-                                  controller: _otpControllers[index],
-                                  focusNode: _focusNodes[index],
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 1,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                        color: Theme.of(context).primaryColor,
-                                        width: 2,
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              final screenWidth = constraints.maxWidth;
+                              final boxWidth = screenWidth > 400 ? 50.0 : (screenWidth - 48) / 6;
+                              final boxHeight = screenWidth > 400 ? 58.0 : 54.0;
+                              final fontSize = screenWidth > 400 ? 24.0 : 20.0;
+                              final spacing = screenWidth > 400 ? 8.0 : 6.0;
+                              return Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: spacing,
+                                runSpacing: spacing,
+                                children: List.generate(6, (index) {
+                                  return SizedBox(
+                                    width: boxWidth.clamp(40.0, 55.0),
+                                    height: boxHeight.clamp(46.0, 60.0),
+                                    child: TextFormField(
+                                      controller: _otpControllers[index],
+                                      focusNode: _focusNodes[index],
+                                      keyboardType: TextInputType.number,
+                                      maxLength: 1,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        fontWeight: FontWeight.bold,
                                       ),
+                                      decoration: InputDecoration(
+                                        counterText: '',
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: screenWidth > 400 ? 16 : 12,
+                                          horizontal: 0,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: Theme.of(context).primaryColor,
+                                            width: 2,
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        if (value.isNotEmpty && index < 5) {
+                                          _focusNodes[index + 1].requestFocus();
+                                        }
+                                        if (value.isEmpty && index > 0) {
+                                          _focusNodes[index - 1].requestFocus();
+                                        }
+                                        if (_otpCode.length == 6) {
+                                          Future.delayed(const Duration(milliseconds: 300), () {
+                                            if (_otpCode.length == 6 && mounted) {
+                                              _verifyOtp();
+                                            }
+                                          });
+                                        }
+                                      },
                                     ),
-                                  ),
-                                  onChanged: (value) {
-                                    if (value.isNotEmpty && index < 5) {
-                                      _focusNodes[index + 1].requestFocus();
-                                    }
-                                    if (value.isEmpty && index > 0) {
-                                      _focusNodes[index - 1].requestFocus();
-                                    }
-                                  },
-                                ),
+                                  );
+                                }),
                               );
-                            }),
+                            },
                           ),
                           const SizedBox(height: 24),
                           ElevatedButton(

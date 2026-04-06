@@ -103,7 +103,7 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.failedSaveExpense,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),

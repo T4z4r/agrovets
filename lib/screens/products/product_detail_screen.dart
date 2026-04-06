@@ -145,7 +145,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   if ((_product!.stock ?? 0) <=
                                       (_product!.minimumQuantity ?? 0)) ...[
                                     const SizedBox(width: 4),
-                                    Icon(Icons.warning,
+                                    const Icon(Icons.warning,
                                         color: Colors.red, size: 16),
                                   ],
                                 ],

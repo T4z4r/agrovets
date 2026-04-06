@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage('assets/logo.png'),
@@ -42,7 +42,7 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   AppLocalizations.of(context)!.welcome,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),

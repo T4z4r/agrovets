@@ -217,9 +217,9 @@ class _ShopFormScreenState extends State<ShopFormScreen> {
                                 child: SpinKitWaveSpinner(
                                     color: Colors.white, size: 20.0),
                               )
-                            : Text(
+                            : const Text(
                                 'Update Shop',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),

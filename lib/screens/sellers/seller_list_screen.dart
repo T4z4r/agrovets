@@ -260,7 +260,7 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                     PopupMenuItem(
                                       value: 'edit',
                                       child: ListTile(
-                                        leading: Icon(Icons.edit),
+                                        leading: const Icon(Icons.edit),
                                         title: Text(
                                             AppLocalizations.of(context)!.edit),
                                         contentPadding: EdgeInsets.zero,
@@ -295,13 +295,13 @@ class _SellerListScreenState extends State<SellerListScreen> {
                                     PopupMenuItem(
                                       value: 'delete',
                                       child: ListTile(
-                                        leading: Icon(Icons.delete,
+                                        leading: const Icon(Icons.delete,
                                             color: Colors.red),
                                         title: Text(
                                             AppLocalizations.of(context)!
                                                 .delete,
                                             style:
-                                                TextStyle(color: Colors.red)),
+                                                const TextStyle(color: Colors.red)),
                                         contentPadding: EdgeInsets.zero,
                                       ),
                                     ),

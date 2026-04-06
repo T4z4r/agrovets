@@ -24,10 +24,10 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
   final _formKey = GlobalKey<FormState>();
   int? _sellerId;
   DateTime _date = DateTime.now();
-  List<Map<String, dynamic>> _items = [];
+  final List<Map<String, dynamic>> _items = [];
   List<Product> _products = [];
   bool _loading = true;
-  String _productSearchQuery = '';
+  final String _productSearchQuery = '';
   Timer? _debounceTimer;
   double _totalAmount = 0.0;
 
@@ -57,7 +57,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.failedLoadProducts,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
@@ -125,7 +125,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: const Text('Scan Barcode'),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -201,7 +201,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           SnackBar(
             content: Text(
               AppLocalizations.of(context)!.errorFindingProduct,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -265,7 +265,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           SnackBar(
             content: Text(
               '${AppLocalizations.of(context)!.insufficientStockFor} ${product.name}. ${AppLocalizations.of(context)!.available}: ${product.stock}',
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.red,
           ),
@@ -290,7 +290,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
         SnackBar(
           content: Text(
             AppLocalizations.of(context)!.operationFailed,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
@@ -341,7 +341,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
           TextButton.icon(
             icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
             label: Text(AppLocalizations.of(context)!.scan,
-                style: TextStyle(color: Colors.white)),
+                style: const TextStyle(color: Colors.white)),
             onPressed: _scanBarcode,
           ),
         ],
@@ -486,8 +486,8 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                           labelText:
                                               AppLocalizations.of(context)!
                                                   .product,
-                                          border: OutlineInputBorder(),
-                                          contentPadding: EdgeInsets.symmetric(
+                                          border: const OutlineInputBorder(),
+                                          contentPadding: const EdgeInsets.symmetric(
                                               horizontal: 12, vertical: 8),
                                         ),
                                         selectedItemBuilder: (context) =>
@@ -540,9 +540,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                                       AppLocalizations.of(
                                                               context)!
                                                           .qty,
-                                                  border: OutlineInputBorder(),
+                                                  border: const OutlineInputBorder(),
                                                   contentPadding:
-                                                      EdgeInsets.symmetric(
+                                                      const EdgeInsets.symmetric(
                                                           horizontal: 12,
                                                           vertical: 8),
                                                 ),
@@ -569,9 +569,9 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                                       AppLocalizations.of(
                                                               context)!
                                                           .price,
-                                                  border: OutlineInputBorder(),
+                                                  border: const OutlineInputBorder(),
                                                   contentPadding:
-                                                      EdgeInsets.symmetric(
+                                                      const EdgeInsets.symmetric(
                                                           horizontal: 12,
                                                           vertical: 8),
                                                 ),
@@ -596,7 +596,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                                     ],
                                   ),
                                 );
-                              }).toList(),
+                              }),
                           ],
                         ),
                       ),
@@ -654,7 +654,7 @@ class _SellerSaleFormScreenState extends State<SellerSaleFormScreen> {
                             )
                           : Text(
                               AppLocalizations.of(context)!.createSale,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -743,7 +743,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
           child: Column(
             children: [
               AppBar(
-                title: Text('Scan Barcode'),
+                title: const Text('Scan Barcode'),
                 leading: IconButton(
                   icon: const Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
@@ -789,7 +789,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
         ),
         child: Text(
           AppLocalizations.of(context)!.selectProducts,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -867,7 +867,7 @@ class _ProductSelectionDialogState extends State<_ProductSelectionDialog> {
                       onChanged: (value) {
                         setState(() {
                           if (value == true) {
-                            _selectedProductIds.add(product.id!);
+                            _selectedProductIds.add(product.id);
                           } else {
                             _selectedProductIds.remove(product.id);
                           }

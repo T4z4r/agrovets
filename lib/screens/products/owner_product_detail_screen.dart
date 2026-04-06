@@ -164,7 +164,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
       body: _loading
           ? Center(child: SpinKitWaveSpinner(color: Theme.of(context).primaryColor, size: 50.0))
           : _product == null
-              ? Center(child: Text('Product not found'))
+              ? const Center(child: Text('Product not found'))
               : SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -212,7 +212,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
                                   if ((_product!.stock ?? 0) <=
                                       (_product!.minimumQuantity ?? 0)) ...[
                                     const SizedBox(width: 4),
-                                    Icon(Icons.warning,
+                                    const Icon(Icons.warning,
                                         color: Colors.red, size: 16),
                                   ],
                                 ],
