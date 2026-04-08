@@ -23,8 +23,9 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'apex.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -46,6 +47,7 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY,
         name TEXT,
         location TEXT,
+        owner_id INTEGER,
         created_at TEXT,
         updated_at TEXT
       )
@@ -88,6 +90,12 @@ class DatabaseHelper {
         FOREIGN KEY (sale_id) REFERENCES sales (id)
       )
     ''');
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE shops ADD COLUMN owner_id INTEGER');
+    }
   }
 
   // User methods

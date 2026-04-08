@@ -8,6 +8,7 @@ import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
 import '../../screens/products/seller_product_detail_screen.dart';
+import 'seller_product_form_screen.dart';
 
 class SellerProductListScreen extends StatefulWidget {
   const SellerProductListScreen({super.key});
@@ -334,31 +335,50 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                                     ],
                                   ],
                                 ),
-                                trailing: PopupMenuButton(
-                                  itemBuilder: (context) => [
-                                    PopupMenuItem(
-                                      value: 'view',
-                                      child: ListTile(
-                                        leading: const Icon(Icons.visibility),
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .viewDetails),
-                                        contentPadding: EdgeInsets.zero,
-                                      ),
-                                    ),
-                                  ],
-                                  onSelected: (value) async {
-                                    if (value == 'view') {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) =>
-                                              SellerProductDetailScreen(
-                                                  productId: p.id),
-                                        ),
-                                      );
-                                    }
-                                  },
+                                 trailing: PopupMenuButton(
+                                   itemBuilder: (context) => [
+                                     PopupMenuItem(
+                                       value: 'view',
+                                       child: ListTile(
+                                         leading: const Icon(Icons.visibility),
+                                         title: Text(
+                                             AppLocalizations.of(context)!
+                                                 .viewDetails),
+                                         contentPadding: EdgeInsets.zero,
+                                       ),
+                                     ),
+                                     PopupMenuItem(
+                                       value: 'edit',
+                                       child: ListTile(
+                                         leading: const Icon(Icons.edit),
+                                         title: Text(
+                                             AppLocalizations.of(context)!.edit),
+                                         contentPadding: EdgeInsets.zero,
+                                       ),
+                                     ),
+                                   ],
+                                   onSelected: (value) async {
+                                     if (value == 'view') {
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                           builder: (_) =>
+                                               SellerProductDetailScreen(
+                                                   productId: p.id),
+                                         ),
+                                       );
+                                     } else if (value == 'edit') {
+                                       await Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                           builder: (_) => SellerProductFormScreen(
+                                             product: p,
+                                             onSave: _loadProducts,
+                                           ),
+                                         ),
+                                       );
+                                     }
+                                   },
                                 ),
                               ),
                             );

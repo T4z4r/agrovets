@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/sale.dart';
+import '../../utils/number_formatter.dart';
 import 'seller_sale_form_screen.dart';
 import 'seller_receipt_view_screen.dart';
 
@@ -201,7 +202,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.totalLabel}: ${NumberFormatter.formatCurrency(s.totalAmount > 0 ? s.totalAmount : s.items.fold<num>(0, (sum, item) => sum + ((item.quantity ?? 0) * (item.price ?? 0))))}',
+                                          '${AppLocalizations.of(context)!.totalLabel}: ${NumberFormatter.formatCurrency(s.totalAmount > 0 ? s.totalAmount : s.items.fold<num>(0, (sum, item) => sum + (item.quantity * item.price)))}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,
