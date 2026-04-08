@@ -4,12 +4,14 @@ class Sale {
   final int sellerId;
   final String saleDate;
   final List<SaleItem> items;
+  final num totalAmount;
 
   Sale({
     required this.id,
     required this.sellerId,
     required this.saleDate,
     required this.items,
+    required this.totalAmount,
   });
 
   factory Sale.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Sale {
       items:
           (json['items'] as List?)?.map((i) => SaleItem.fromJson(i)).toList() ??
               [],
+      totalAmount: num.tryParse(json['total']?.toString() ?? '0') ?? 0,
     );
   }
 

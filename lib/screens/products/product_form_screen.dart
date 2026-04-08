@@ -348,7 +348,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       TextFormField(
                         controller: _stockCtrl,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.initialStock,
+                          labelText: widget.product == null ? AppLocalizations.of(context)!.initialStock : AppLocalizations.of(context)!.stock,
                           hintText:
                               AppLocalizations.of(context)!.enterStockQuantity,
                           prefixIcon: const Icon(Icons.inventory),

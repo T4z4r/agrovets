@@ -8,6 +8,7 @@ import '../../models/sale.dart';
 import '../../widgets/app_drawer.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/sale_provider.dart';
+import '../../utils/number_formatter.dart';
 import 'sale_form_screen.dart';
 import 'receipt_view_screen.dart';
 
@@ -196,6 +197,24 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                             const SizedBox(width: 4),
                                             Text(
                                               '${AppLocalizations.of(context)!.items}: ${s.items.length}',
+                                              style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.attach_money,
+                                              size: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              '${AppLocalizations.of(context)!.totalLabel}: ${NumberFormatter.formatCurrency(s.totalAmount > 0 ? s.totalAmount : s.items.fold<num>(0, (sum, item) => sum + ((item.quantity ?? 0) * (item.price ?? 0))))}',
                                               style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 12,

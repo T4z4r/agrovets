@@ -170,6 +170,7 @@ class DatabaseHelper {
         sellerId: saleMap['seller_id'],
         saleDate: saleMap['sale_date'],
         items: items,
+        totalAmount: items.fold(0, (sum, item) => sum + item.quantity * item.price),
       ));
     }
     return sales;

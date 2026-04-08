@@ -191,6 +191,24 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.attach_money,
+                                          size: 14,
+                                          color: Colors.grey[600],
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '${AppLocalizations.of(context)!.totalLabel}: ${NumberFormatter.formatCurrency(s.totalAmount > 0 ? s.totalAmount : s.items.fold<num>(0, (sum, item) => sum + ((item.quantity ?? 0) * (item.price ?? 0))))}',
+                                          style: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 trailing: PopupMenuButton(
@@ -213,7 +231,8 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         title: Text(
                                           AppLocalizations.of(context)!
                                               .deleteSale,
-                                          style: const TextStyle(color: Colors.red),
+                                          style: const TextStyle(
+                                              color: Colors.red),
                                         ),
                                         contentPadding: EdgeInsets.zero,
                                       ),
