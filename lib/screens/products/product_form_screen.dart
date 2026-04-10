@@ -93,6 +93,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   Future<void> _save() async {
+    print('Starting _save for owner product update');
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
     final data = {
@@ -107,17 +108,23 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     };
     try {
       if (widget.product == null) {
+        print('Owner creating product with data: $data');
         await ApiService.post('/api/products', data);
         _showSuccessDialog(AppLocalizations.of(context)!.productCreated);
       } else {
-        await ApiService.put('/api/products/${widget.product!.id}', data);
+        print('Owner updating product ${widget.product!.id} with data: $data');
+        print('API URL: /api/products/${widget.product!.id}');
+        await ApiService.post('/api/products/update/${widget.product!.id}', data);
         _showSuccessDialog(AppLocalizations.of(context)!.productUpdated);
       }
       widget.onSave();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-      setState(() => _loading = false);
+      print('Error saving product (owner): $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+        setState(() => _loading = false);
+      }
     }
   }
 
@@ -473,12 +480,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           elevation: 2,
                         ),
                         child: _loading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: SpinKitWaveSpinner(
-                                    color: Colors.white, size: 20.0),
-                              )
+                             ? const SizedBox(
+                                 height: 20,
+                                 width: 20,
+                                 child: SpinKitCircle(
+                                     color: Colors.white, size: 20.0),
+                               )
                             : Text(
                                 widget.product == null
                                     ? AppLocalizations.of(context)!

@@ -86,24 +86,32 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
   }
 
   Future<void> _save() async {
+    print('Starting _save for seller product update');
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
     final data = {
       'name': _nameCtrl.text,
       'unit': _unitCtrl.text,
       'category': _categoryCtrl.text,
+      'stock': widget.product!.stock ?? 0,
+      'cost_price': widget.product!.costPrice ?? 0,
       'selling_price': double.parse(_sellingPriceCtrl.text),
       'minimum_quantity': double.parse(_minimumQuantityCtrl.text),
       'barcode': _barcodeCtrl.text.isEmpty ? null : _barcodeCtrl.text,
     };
+    print('Seller updating product ${widget.product!.id} with data: $data');
+    print('API URL: /api/products/${widget.product!.id}');
     try {
-      await ApiService.put('/api/products/${widget.product!.id}', data);
+      await ApiService.post('/api/products/update/${widget.product!.id}', data);
       _showSuccessDialog(AppLocalizations.of(context)!.productUpdated);
       widget.onSave();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-      setState(() => _loading = false);
+      print('Error saving product (seller): $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+        setState(() => _loading = false);
+      }
     }
   }
 
@@ -398,10 +406,10 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
                         ),
                         child: _loading
                             ? const SizedBox(
-                                height: 20,
-                                width: 20,
+                                height: 24,
+                                width: 24,
                                 child: SpinKitWaveSpinner(
-                                    color: Colors.white, size: 20.0),
+                                    color: Colors.white, size: 24.0),
                               )
                             : Text(
                                 AppLocalizations.of(context)!

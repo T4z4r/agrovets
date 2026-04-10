@@ -438,16 +438,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                                       productId: p.id),
                                             ),
                                           );
-                                        } else if (value == 'edit') {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => ProductFormScreen(
-                                                product: p,
-                                                onSave: () => productProvider.fetchProducts(),
-                                              ),
-                                            ),
-                                          );
+                                         } else if (value == 'edit') {
+                                           await Navigator.push(
+                                             context,
+                                             MaterialPageRoute(
+                                               builder: (_) => ProductFormScreen(
+                                                 product: p,
+                                                 onSave: () => productProvider.fetchProducts(),
+                                               ),
+                                             ),
+                                           );
                                         } else if (value == 'delete') {
                                           _deleteProduct(p.id, p.name!);
                                         }

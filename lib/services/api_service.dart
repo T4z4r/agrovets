@@ -168,10 +168,32 @@ class ApiService {
 
   static dynamic _handleResponse(http.Response response) {
     final json = jsonDecode(response.body);
+    print('API Response: Status ${response.statusCode}, Body: $json');
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json;
     } else {
-      throw Exception('Operation failed. Please try again.');
+      // Extract error message from server response
+      String errorMessage = 'Operation failed. Please try again.';
+      if (json is Map<String, dynamic>) {
+        if (json.containsKey('message')) {
+          errorMessage = json['message'];
+        } else if (json.containsKey('error')) {
+          if (json['error'] is String) {
+            errorMessage = json['error'];
+          } else if (json['error'] is Map && json['error'].containsKey('message')) {
+            errorMessage = json['error']['message'];
+          }
+        } else if (json.containsKey('errors')) {
+          // Handle validation errors
+          final errors = json['errors'];
+          if (errors is Map) {
+            errorMessage = errors.values.first.toString();
+          } else if (errors is List) {
+            errorMessage = errors.first.toString();
+          }
+        }
+      }
+      throw Exception(errorMessage);
     }
   }
 }

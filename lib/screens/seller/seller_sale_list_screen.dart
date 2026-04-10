@@ -31,15 +31,19 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
   Future<void> _loadSales() async {
     try {
       final res = await ApiService.get('/api/sales');
-      setState(() {
-        _sales = (res['data'] as List).map((s) => Sale.fromJson(s)).toList();
-        _filteredSales = _sales;
-        _loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _sales = (res['data'] as List).map((s) => Sale.fromJson(s)).toList();
+          _filteredSales = _sales;
+          _loading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (mounted) {
+        setState(() => _loading = false);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 

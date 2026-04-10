@@ -41,21 +41,25 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
   Future<void> _loadProducts() async {
     try {
       final res = await ApiService.get('/api/products');
-      setState(() {
-        _products =
-            (res['data'] as List).map((p) => Product.fromJson(p)).toList();
-        _filteredProducts = _products;
-        _loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _products =
+              (res['data'] as List).map((p) => Product.fromJson(p)).toList();
+          _filteredProducts = _products;
+          _loading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        setState(() => _loading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content:
+                Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

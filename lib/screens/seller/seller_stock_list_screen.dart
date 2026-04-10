@@ -43,17 +43,21 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
   Future<void> _loadTransactions() async {
     try {
       final res = await ApiService.get('/api/stock');
-      setState(() {
-        _transactions = (res['data'] as List)
-            .map((t) => StockTransaction.fromJson(t))
-            .toList();
-        _filteredTransactions = _transactions;
-        _loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _transactions = (res['data'] as List)
+              .map((t) => StockTransaction.fromJson(t))
+              .toList();
+          _filteredTransactions = _transactions;
+          _loading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (mounted) {
+        setState(() => _loading = false);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
