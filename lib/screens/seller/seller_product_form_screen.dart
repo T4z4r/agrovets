@@ -22,6 +22,7 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
   late TextEditingController _nameCtrl;
   late TextEditingController _unitCtrl;
   late TextEditingController _categoryCtrl;
+  late TextEditingController _stockCtrl;
   late TextEditingController _sellingPriceCtrl;
   late TextEditingController _minimumQuantityCtrl;
   late TextEditingController _barcodeCtrl;
@@ -34,6 +35,8 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
     _unitCtrl = TextEditingController(text: widget.product?.unit ?? '');
     _categoryCtrl =
         TextEditingController(text: widget.product?.category ?? '--');
+    _stockCtrl = TextEditingController(
+        text: widget.product?.stock.toString() ?? '');
     _sellingPriceCtrl = TextEditingController(
         text: widget.product?.sellingPrice.toString() ?? '');
     _minimumQuantityCtrl = TextEditingController(
@@ -93,7 +96,7 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
       'name': _nameCtrl.text,
       'unit': _unitCtrl.text,
       'category': _categoryCtrl.text,
-      'stock': widget.product!.stock ?? 0,
+      'stock': double.parse(_stockCtrl.text),
       'cost_price': widget.product!.costPrice ?? 0,
       'selling_price': double.parse(_sellingPriceCtrl.text),
       'minimum_quantity': double.parse(_minimumQuantityCtrl.text),
@@ -309,10 +312,37 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
                           }
                           return null;
                         },
-                      ),
-                      const SizedBox(height: 16),
+                       ),
+                       const SizedBox(height: 16),
 
-                      // Barcode Field
+                       // Stock Field
+                       TextFormField(
+                         controller: _stockCtrl,
+                         decoration: InputDecoration(
+                           labelText: AppLocalizations.of(context)!.stock,
+                           hintText: AppLocalizations.of(context)!.enterQuantity,
+                           prefixIcon: const Icon(Icons.inventory),
+                           border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(12),
+                           ),
+                           filled: true,
+                           fillColor: Colors.grey[50],
+                         ),
+                         keyboardType: TextInputType.number,
+                         validator: (v) {
+                           if (v == null || v.isEmpty) {
+                             return AppLocalizations.of(context)!.stockRequired;
+                           }
+                           if (double.tryParse(v) == null) {
+                             return AppLocalizations.of(context)!
+                                 .enterValidAmount;
+                           }
+                           return null;
+                         },
+                       ),
+                       const SizedBox(height: 16),
+
+                       // Barcode Field
                       TextFormField(
                         controller: _barcodeCtrl,
                         decoration: InputDecoration(
