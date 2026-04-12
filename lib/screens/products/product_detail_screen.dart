@@ -326,8 +326,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                        '${AppLocalizations.of(context)!.date}: ${transaction.date}'),
+                                     Text(
+                                         '${AppLocalizations.of(context)!.dateLabel}: ${transaction.date}'),
                                     if (transaction.remarks != null &&
                                         transaction.remarks!.isNotEmpty)
                                       Text(

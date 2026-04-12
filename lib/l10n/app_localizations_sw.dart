@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -317,7 +319,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get enterCostPrice => 'Ingiza bei ya ununuzi';
 
   @override
-  String get sellingPrice => 'Bei ya Uuzaji (Tsh)';
+  String get sellingPrice => 'Bei ya Uuzaji';
 
   @override
   String get enterSellingPrice => 'Ingiza bei ya uuzaji';
@@ -344,6 +346,24 @@ class AppLocalizationsSw extends AppLocalizations {
   String get expenseDate => 'Tarehe ya Matumizi';
 
   @override
+  String get createExpense => 'Unda Matumizi';
+
+  @override
+  String get editExpense => 'Hariri Matumizi';
+
+  @override
+  String get addNewExpense => 'Ongeza Matumizi Mapya';
+
+  @override
+  String get categoryRequired => 'Kategoria inahitajika';
+
+  @override
+  String get amountRequired => 'Kiasi kinahitajika';
+
+  @override
+  String get enterValidAmount => 'Tafadhali ingiza kiasi sahihi';
+
+  @override
   String get expenseCreated => 'Matumizi yameundwa kwa mafanikio!';
 
   @override
@@ -351,6 +371,12 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get failedSaveExpense => 'Imeshindikana kuhifadhi matumizi';
+
+  @override
+  String get retry => 'Jaribu Tena';
+
+  @override
+  String get editExpenseTitle => 'Hariri Matumizi';
 
   @override
   String get deleteExpense => 'Futa Matumizi';
@@ -380,6 +406,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get dailyReport => 'Ripoti ya Kila Siku';
 
   @override
+  String get dailySummary => 'Muhtasari wa Kila Siku';
+
+  @override
   String get generatingDailyReport => 'Inazalisha ripoti ya kila siku...';
 
   @override
@@ -399,7 +428,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get deleteTransaction => 'Futa Muamala';
 
   @override
-  String get receipt => 'Risiti';
+  String get receiptSale => 'Risiti';
 
   @override
   String get totalSalesLabel => 'Jumla ya Mauzo';
@@ -414,7 +443,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get failedLoadReport => 'Imeshindikana kupakia ripoti';
 
   @override
-  String get agroVetSeller => 'Apex Seller';
+  String get agroVetSeller => 'Apex Mwuza';
 
   @override
   String get searchProducts => 'Tafuta bidhaa...';
@@ -489,6 +518,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get amountLabel => 'Kiasi';
 
   @override
+  String get selectDateRange => 'Chagua muda wa tarehe';
+
+  @override
   String get searchSellers => 'Tafuta wauzaji...';
 
   @override
@@ -496,6 +528,13 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get noSellersMatch => 'Hakuna wauzaji wanaolingana na utafutaji wako';
+
+  @override
+  String get receiptReport => 'Risiti';
+
+  @override
+  String get selectDateRangeProfitReport =>
+      'Chagua muda wa tarehe ili kuzalisha ripoti ya faida';
 
   @override
   String get saleLabel => 'Uuzaji';
@@ -507,31 +546,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get stockTransactionTitle => 'Muamala wa Stoki';
 
   @override
-  String get retry => 'Jaribu Tena';
-
-  @override
   String get saveTransaction => 'Hifadhi Muamala';
-
-  @override
-  String get createExpense => 'Unda Matumizi';
-
-  @override
-  String get editExpense => 'Hariri Matumizi';
-
-  @override
-  String get addNewExpense => 'Ongeza Matumizi Mapya';
-
-  @override
-  String get editExpenseTitle => 'Hariri Matumizi';
-
-  @override
-  String get categoryRequired => 'Kategoria inahitajika';
-
-  @override
-  String get amountRequired => 'Kiasi kinahitajika';
-
-  @override
-  String get enterValidAmount => 'Tafadhali ingiza kiasi sahihi';
 
   @override
   String get createProduct => 'Unda Bidhaa';
@@ -543,6 +558,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get addNewProduct => 'Ongeza Bidhaa Mpya';
 
   @override
+  String get updateProduct => 'Sasisha Bidhaa';
+
+  @override
   String get minimumQuantity => 'Idadi ya Chini';
 
   @override
@@ -550,9 +568,6 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get minimumQuantityRequired => 'Idadi ya chini inahitajika';
-
-  @override
-  String get updateProduct => 'Sasisha Bidhaa';
 
   @override
   String get prices => 'Bei';
@@ -567,13 +582,13 @@ class AppLocalizationsSw extends AppLocalizations {
   String get updated => 'Imesasishwa';
 
   @override
-  String get date => 'Tarehe';
+  String get dateGeneral => 'Tarehe';
 
   @override
   String get remarks => 'Maoni';
 
   @override
-  String get recordedBy => 'Imerekodiwa na';
+  String get recordedByStock => 'Imerekodiwa na';
 
   @override
   String get createSupplier => 'Unda Msambazaji';
@@ -612,7 +627,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get addNewSeller => 'Ongeza Mwuza Mpya';
 
   @override
-  String get updateSeller => 'Sasisha Mwuza';
+  String get updateSeller => 'Sasisha Mfanyabiashara';
 
   @override
   String get newPasswordOptional => 'Nenosiri Jipya (hiari)';
@@ -627,7 +642,7 @@ class AppLocalizationsSw extends AppLocalizations {
   String get confirmNewPassword => 'Thibitisha Nenosiri Jipya';
 
   @override
-  String get enterConfirmPassword => 'Thibitisha nenosiri';
+  String get enterConfirmPassword => 'Ingiza tena nenosiri lako';
 
   @override
   String get leaveEmptyNotChanging => 'Acha tupu ikiwa hautabadilisha';
@@ -647,6 +662,9 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get supplier => 'Msambazaji';
+
+  @override
+  String get recordedBy => 'Imerekodiwa na';
 
   @override
   String get viewDetails => 'Tazama Maelezo';
@@ -679,6 +697,9 @@ class AppLocalizationsSw extends AppLocalizations {
   String get sale => 'Uuzaji';
 
   @override
+  String get dateSale => 'Tarehe';
+
+  @override
   String get items => 'Bidhaa';
 
   @override
@@ -696,6 +717,18 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get sellerNameRequired => 'Jina la mfanyabiashara linahitajika';
+
+  @override
+  String get receiptProduct => 'Risiti';
+
+  @override
+  String get recordedByProduct => 'Imeandikishwa na';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get scanBarcode => 'Skani Barcode';
 
   @override
   String get success => 'Mafanikio!';
@@ -734,12 +767,6 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get ok => 'Sawa';
-
-  @override
-  String get barcode => 'Barcode';
-
-  @override
-  String get scanBarcode => 'Skani Barcode';
 
   @override
   String get outOfStock => 'Hakuna Stoki';
@@ -813,6 +840,12 @@ class AppLocalizationsSw extends AppLocalizations {
   String get additionalInformation => 'Maelezo ya Ziada';
 
   @override
+  String get unitDetails => 'Kipimo';
+
+  @override
+  String get barcodeDetails => 'Barcode';
+
+  @override
   String get confirmLanguageChange => 'Thibitisha Kubadilisha Lugha';
 
   @override
@@ -878,7 +911,11 @@ class AppLocalizationsSw extends AppLocalizations {
   String get privacyPolicy => 'Sera ya Faragha';
 
   @override
-  String get acceptTermsRequired => 'Lazima ukubali sheria na masharti ili kuendelea';
+  String get acceptTermsRequired =>
+      'Lazima ukubali sheria na masharti ili kuendelea';
+
+  @override
+  String get about => 'Kuhusu';
 
   @override
   String get forgotPassword => 'Umesahau Nenosiri?';
@@ -887,7 +924,8 @@ class AppLocalizationsSw extends AppLocalizations {
   String get forgotPasswordTitle => 'Umesahau Nenosiri';
 
   @override
-  String get forgotPasswordDescription => 'Ingiza anwani yako ya barua pepe na tutakutumia OTP ya kuweka upya nenosiri.';
+  String get forgotPasswordDescription =>
+      'Ingiza anwani yako ya barua pepe na tutakutumia OTP ya kuweka upya nenosiri.';
 
   @override
   String get sendResetOtp => 'Tuma OTP ya Kuweka Upya';
@@ -916,28 +954,29 @@ class AppLocalizationsSw extends AppLocalizations {
   String get otpMustBeDigits => 'OTP lazima iwe na tarakimu tu';
 
   @override
-  String get passwordResetSuccess => 'Nenosiri limewekwa upya kwa mafanikio. Tafadhali ingia na nenosiri lako jipya.';
+  String get passwordResetSuccess =>
+      'Nenosiri limewekwa upya kwa mafanikio. Tafadhali ingia na nenosiri lako jipya.';
 
   @override
-  String get passwordResetOtpSent => 'OTP ya kuweka upya nenosiri imetumwa kwa barua pepe yako.';
+  String get passwordResetOtpSent =>
+      'OTP ya kuweka upya nenosiri imetumwa kwa barua pepe yako.';
 
   @override
   String get userNotFound => 'Mtumiaji hajapatikana';
 
   @override
-  String get otpAlreadySent => 'OTP tayari imetumwa. Tafadhali subiri kabla ya kuomba nyingine.';
+  String get otpAlreadySent =>
+      'OTP tayari imetumwa. Tafadhali subiri kabla ya kuomba nyingine.';
 
   @override
   String get invalidOrExpiredOtp => 'OTP batili au imekwisha muda wake';
 
   @override
-  String get failedToSendResetOtp => 'Imeshindikana kutuma OTP ya kuweka upya nenosiri';
+  String get failedToSendResetOtp =>
+      'Imeshindikana kutuma OTP ya kuweka upya nenosiri';
 
   @override
   String get failedToResetPassword => 'Imeshindikana kuweka upya nenosiri';
-
-  @override
-  String get about => 'Kuhusu';
 
   @override
   String get passwordRequirements => 'Mahitaji ya Nenosiri';
@@ -955,22 +994,28 @@ class AppLocalizationsSw extends AppLocalizations {
   String get passwordRequirementNumber => 'Angalau nambari moja (0-9)';
 
   @override
-  String get passwordRequirementSpecial => 'Angalau herufi maalum moja (!@#\$%^&*(),.?\":|<>)' ;
+  String get passwordRequirementSpecial =>
+      'Angalau herufi maalum moja (!@#\$%^&*(),.?\":|<>)';
 
   @override
-  String get passwordMustBeAtLeast8Characters => 'Nenosiri lazima iwe angalau herufi 8';
+  String get passwordMustBeAtLeast8Characters =>
+      'Nenosiri lazima iwe angalau herufi 8';
 
   @override
-  String get passwordMustContainUppercase => 'Nenosiri lazima iwe na angalau herufi kubwa moja';
+  String get passwordMustContainUppercase =>
+      'Nenosiri lazima iwe na angalau herufi kubwa moja';
 
   @override
-  String get passwordMustContainLowercase => 'Nenosiri lazima iwe na angalau herufi ndogo moja';
+  String get passwordMustContainLowercase =>
+      'Nenosiri lazima iwe na angalau herufi ndogo moja';
 
   @override
-  String get passwordMustContainNumber => 'Nenosiri lazima iwe na angalau nambari moja';
+  String get passwordMustContainNumber =>
+      'Nenosiri lazima iwe na angalau nambari moja';
 
   @override
-  String get passwordMustContainSpecial => 'Nenosiri lazima iwe na angalau herufi maalum moja';
+  String get passwordMustContainSpecial =>
+      'Nenosiri lazima iwe na angalau herufi maalum moja';
 
   @override
   String get shopDetails => 'Maelezo ya Duka';

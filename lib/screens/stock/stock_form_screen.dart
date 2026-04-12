@@ -426,8 +426,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             const SizedBox(height: 16),
 
                             // Transaction Type
-                            DropdownButtonFormField<String>(
-                              value: _type,
+                             DropdownButtonFormField<String>(
+                               initialValue: _type,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .transactionType,
@@ -525,8 +525,8 @@ class _StockFormScreenState extends State<StockFormScreen> {
                             const SizedBox(height: 16),
 
                             // Supplier Selection (Optional)
-                            DropdownButtonFormField<int>(
-                              value: _supplierId,
+                             DropdownButtonFormField<int>(
+                               initialValue: _supplierId,
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!
                                     .supplierOptional,

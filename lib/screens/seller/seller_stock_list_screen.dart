@@ -104,7 +104,7 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
               const SizedBox(height: 8),
               Text('${AppLocalizations.of(context)!.quantity}: ${t.quantity}'),
               const SizedBox(height: 8),
-              Text('${AppLocalizations.of(context)!.date}: ${t.date}'),
+              Text('${AppLocalizations.of(context)!.dateLabel}: ${t.date}'),
               const SizedBox(height: 8),
               if (t.supplier != null) ...[
                 Text(

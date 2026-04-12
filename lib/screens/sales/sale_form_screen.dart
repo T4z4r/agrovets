@@ -483,9 +483,9 @@ class _SaleFormScreenState extends State<SaleFormScreen> {
                                   ),
                                   child: Column(
                                     children: [
-                                      DropdownButtonFormField<int>(
-                                        isExpanded: true,
-                                        value: _items[idx]['product_id'],
+                                       DropdownButtonFormField<int>(
+                                         isExpanded: true,
+                                         initialValue: _items[idx]['product_id'],
                                         decoration: InputDecoration(
                                           labelText:
                                               AppLocalizations.of(context)!

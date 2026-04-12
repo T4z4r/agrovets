@@ -76,7 +76,7 @@ class _StockListScreenState extends State<StockListScreen> {
               const SizedBox(height: 8),
               Text('${AppLocalizations.of(context)!.quantity}: ${t.quantity}'),
               const SizedBox(height: 8),
-              Text('${AppLocalizations.of(context)!.date}: ${t.date}'),
+              Text('${AppLocalizations.of(context)!.dateLabel}: ${t.date}'),
               const SizedBox(height: 8),
               if (t.supplier != null) ...[
                 Text(
@@ -311,7 +311,7 @@ class _StockListScreenState extends State<StockListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.date}: ${t.date}',
+                                          '${AppLocalizations.of(context)!.dateLabel}: ${t.date}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

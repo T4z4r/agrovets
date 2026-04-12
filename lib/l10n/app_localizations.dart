@@ -18,7 +18,7 @@ import 'app_localizations_sw.dart';
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'gen_l10n/app_localizations.dart';
+/// import 'l10n/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -63,7 +63,7 @@ import 'app_localizations_sw.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,22 +86,22 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('sw')
+    Locale('sw'),
   ];
 
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'AgroVet'**
+  /// **'Apex'**
   String get appName;
 
   /// No description provided for @welcomeBack.
@@ -719,7 +719,7 @@ abstract class AppLocalizations {
   /// No description provided for @sellingPrice.
   ///
   /// In en, this message translates to:
-  /// **'Selling Price (Tsh)'**
+  /// **'Selling Price'**
   String get sellingPrice;
 
   /// No description provided for @enterSellingPrice.
@@ -770,6 +770,42 @@ abstract class AppLocalizations {
   /// **'Expense Date'**
   String get expenseDate;
 
+  /// No description provided for @createExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Expense'**
+  String get createExpense;
+
+  /// No description provided for @editExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Expense'**
+  String get editExpense;
+
+  /// No description provided for @addNewExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Expense'**
+  String get addNewExpense;
+
+  /// No description provided for @categoryRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Category is required'**
+  String get categoryRequired;
+
+  /// No description provided for @amountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount is required'**
+  String get amountRequired;
+
+  /// No description provided for @enterValidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid amount'**
+  String get enterValidAmount;
+
   /// No description provided for @expenseCreated.
   ///
   /// In en, this message translates to:
@@ -787,6 +823,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to save expense'**
   String get failedSaveExpense;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @editExpenseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Expense'**
+  String get editExpenseTitle;
 
   /// No description provided for @deleteExpense.
   ///
@@ -842,6 +890,12 @@ abstract class AppLocalizations {
   /// **'Daily Report'**
   String get dailyReport;
 
+  /// No description provided for @dailySummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Summary'**
+  String get dailySummary;
+
   /// No description provided for @generatingDailyReport.
   ///
   /// In en, this message translates to:
@@ -878,11 +932,11 @@ abstract class AppLocalizations {
   /// **'Delete Transaction'**
   String get deleteTransaction;
 
-  /// No description provided for @receipt.
+  /// No description provided for @receiptSale.
   ///
   /// In en, this message translates to:
   /// **'Receipt'**
-  String get receipt;
+  String get receiptSale;
 
   /// No description provided for @totalSalesLabel.
   ///
@@ -911,7 +965,7 @@ abstract class AppLocalizations {
   /// No description provided for @agroVetSeller.
   ///
   /// In en, this message translates to:
-  /// **'AgroVet Seller'**
+  /// **'Apex Seller'**
   String get agroVetSeller;
 
   /// No description provided for @searchProducts.
@@ -1052,6 +1106,12 @@ abstract class AppLocalizations {
   /// **'Amount'**
   String get amountLabel;
 
+  /// No description provided for @selectDateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date range'**
+  String get selectDateRange;
+
   /// No description provided for @searchSellers.
   ///
   /// In en, this message translates to:
@@ -1069,6 +1129,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sellers match your search'**
   String get noSellersMatch;
+
+  /// No description provided for @receiptReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get receiptReport;
+
+  /// No description provided for @selectDateRangeProfitReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a date range to generate profit report'**
+  String get selectDateRangeProfitReport;
 
   /// No description provided for @saleLabel.
   ///
@@ -1088,59 +1160,11 @@ abstract class AppLocalizations {
   /// **'Stock Transaction'**
   String get stockTransactionTitle;
 
-  /// No description provided for @retry.
-  ///
-  /// In en, this message translates to:
-  /// **'Retry'**
-  String get retry;
-
   /// No description provided for @saveTransaction.
   ///
   /// In en, this message translates to:
   /// **'Save Transaction'**
   String get saveTransaction;
-
-  /// No description provided for @createExpense.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Expense'**
-  String get createExpense;
-
-  /// No description provided for @editExpense.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Expense'**
-  String get editExpense;
-
-  /// No description provided for @addNewExpense.
-  ///
-  /// In en, this message translates to:
-  /// **'Add New Expense'**
-  String get addNewExpense;
-
-  /// No description provided for @editExpenseTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Expense'**
-  String get editExpenseTitle;
-
-  /// No description provided for @categoryRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Category is required'**
-  String get categoryRequired;
-
-  /// No description provided for @amountRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Amount is required'**
-  String get amountRequired;
-
-  /// No description provided for @enterValidAmount.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a valid amount'**
-  String get enterValidAmount;
 
   /// No description provided for @createProduct.
   ///
@@ -1160,6 +1184,12 @@ abstract class AppLocalizations {
   /// **'Add New Product'**
   String get addNewProduct;
 
+  /// No description provided for @updateProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Product'**
+  String get updateProduct;
+
   /// No description provided for @minimumQuantity.
   ///
   /// In en, this message translates to:
@@ -1177,12 +1207,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Minimum quantity is required'**
   String get minimumQuantityRequired;
-
-  /// No description provided for @updateProduct.
-  ///
-  /// In en, this message translates to:
-  /// **'Update Product'**
-  String get updateProduct;
 
   /// No description provided for @prices.
   ///
@@ -1208,11 +1232,11 @@ abstract class AppLocalizations {
   /// **'Updated'**
   String get updated;
 
-  /// No description provided for @date.
+  /// No description provided for @dateGeneral.
   ///
   /// In en, this message translates to:
   /// **'Date'**
-  String get date;
+  String get dateGeneral;
 
   /// No description provided for @remarks.
   ///
@@ -1220,11 +1244,11 @@ abstract class AppLocalizations {
   /// **'Remarks'**
   String get remarks;
 
-  /// No description provided for @recordedBy.
+  /// No description provided for @recordedByStock.
   ///
   /// In en, this message translates to:
   /// **'Recorded by'**
-  String get recordedBy;
+  String get recordedByStock;
 
   /// No description provided for @createSupplier.
   ///
@@ -1331,7 +1355,7 @@ abstract class AppLocalizations {
   /// No description provided for @enterConfirmPassword.
   ///
   /// In en, this message translates to:
-  /// **'Confirm password'**
+  /// **'Re-enter your password'**
   String get enterConfirmPassword;
 
   /// No description provided for @leaveEmptyNotChanging.
@@ -1369,6 +1393,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Supplier'**
   String get supplier;
+
+  /// No description provided for @recordedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded By'**
+  String get recordedBy;
 
   /// No description provided for @viewDetails.
   ///
@@ -1423,67 +1453,407 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Products'**
   String get selectProducts;
+
+  /// No description provided for @sale.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale'**
   String get sale;
+
+  /// No description provided for @dateSale.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateSale;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
   String get items;
+
+  /// No description provided for @updateExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Expense'**
   String get updateExpense;
+
+  /// No description provided for @netIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Income'**
   String get netIncome;
+
+  /// No description provided for @netLoss.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Loss'**
   String get netLoss;
+
+  /// No description provided for @selectDateToGenerateDailyReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a date to generate daily report'**
   String get selectDateToGenerateDailyReport;
+
+  /// No description provided for @sellerNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Seller name is required'**
   String get sellerNameRequired;
-  String get success;
-  String get productCreated;
-  String get productUpdated;
-  String get productNameRequired;
-  String get unitRequired;
-  String get stockRequired;
-  String get enterValidNumber;
-  String get costPriceRequired;
-  String get sellingPriceRequired;
-  String get cameraPermissionRequired;
-  String get cameraPermissionPermanentlyDenied;
-  String get ok;
+
+  /// No description provided for @receiptProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get receiptProduct;
+
+  /// No description provided for @recordedByProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded by'**
+  String get recordedByProduct;
+
+  /// No description provided for @barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
   String get barcode;
+
+  /// No description provided for @scanBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Barcode'**
   String get scanBarcode;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success!'**
+  String get success;
+
+  /// No description provided for @productCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Product created successfully.'**
+  String get productCreated;
+
+  /// No description provided for @productUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Product updated successfully.'**
+  String get productUpdated;
+
+  /// No description provided for @productNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name is required'**
+  String get productNameRequired;
+
+  /// No description provided for @unitRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit is required'**
+  String get unitRequired;
+
+  /// No description provided for @stockRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock quantity is required'**
+  String get stockRequired;
+
+  /// No description provided for @enterValidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid number'**
+  String get enterValidNumber;
+
+  /// No description provided for @costPriceRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost price is required'**
+  String get costPriceRequired;
+
+  /// No description provided for @sellingPriceRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Selling price is required'**
+  String get sellingPriceRequired;
+
+  /// No description provided for @cameraPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission is required to scan barcodes'**
+  String get cameraPermissionRequired;
+
+  /// No description provided for @cameraPermissionPermanentlyDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera permission is permanently denied. Please enable it in settings.'**
+  String get cameraPermissionPermanentlyDenied;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @outOfStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of Stock'**
   String get outOfStock;
+
+  /// No description provided for @scan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan'**
   String get scan;
+
+  /// No description provided for @selected.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
   String get selected;
+
+  /// No description provided for @productNotFoundForBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Product not found for scanned barcode'**
   String get productNotFoundForBarcode;
+
+  /// No description provided for @errorFindingProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Error finding product'**
   String get errorFindingProduct;
+
+  /// No description provided for @increasedQuantityOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Increased quantity of'**
   String get increasedQuantityOf;
+
+  /// No description provided for @addedToSale.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to sale'**
   String get addedToSale;
+
+  /// No description provided for @saleSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale saved successfully.'**
   String get saleSavedSuccessfully;
+
+  /// No description provided for @insufficientStockFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient stock for'**
   String get insufficientStockFor;
+
+  /// No description provided for @available.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
   String get available;
+
+  /// No description provided for @totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
   String get totalAmount;
+
+  /// No description provided for @saleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale saved successfully.'**
   String get saleSaved;
+
+  /// No description provided for @deleteSale.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Sale'**
   String get deleteSale;
+
+  /// No description provided for @deleteSaleConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this sale? This action cannot be undone.'**
   String get deleteSaleConfirm;
+
+  /// No description provided for @saleDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale deleted successfully.'**
   String get saleDeletedSuccessfully;
+
+  /// No description provided for @failedDeleteSale.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete sale'**
   String get failedDeleteSale;
+
+  /// No description provided for @productDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Details'**
   String get productDetails;
+
+  /// No description provided for @failedLoadProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load product'**
   String get failedLoadProduct;
+
+  /// No description provided for @productNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Product not found'**
   String get productNotFound;
+
+  /// No description provided for @stockInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Information'**
   String get stockInformation;
+
+  /// No description provided for @currentStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Stock'**
   String get currentStock;
+
+  /// No description provided for @pricingInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing Information'**
   String get pricingInformation;
+
+  /// No description provided for @additionalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Information'**
   String get additionalInformation;
+
+  /// No description provided for @unitDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get unitDetails;
+
+  /// No description provided for @barcodeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get barcodeDetails;
+
+  /// No description provided for @confirmLanguageChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Language Change'**
   String get confirmLanguageChange;
+
+  /// No description provided for @languageChangeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to change the language?'**
   String get languageChangeMessage;
+
+  /// No description provided for @operationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed. Please try again.'**
   String get operationFailed;
+
+  /// No description provided for @registrationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration failed'**
   String get registrationFailed;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
   String get createAccount;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
   String get fullName;
+
+  /// No description provided for @enterFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name'**
   String get enterFullName;
+
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
   String get nameRequired;
+
+  /// No description provided for @shopName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Name'**
   String get shopName;
+
+  /// No description provided for @enterShopName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter shop name'**
   String get enterShopName;
+
+  /// No description provided for @shopNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop name is required'**
   String get shopNameRequired;
+
+  /// No description provided for @shopLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop Location'**
   String get shopLocation;
+
+  /// No description provided for @enterShopLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter shop location'**
   String get enterShopLocation;
+
+  /// No description provided for @shopLocationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop location is required'**
   String get shopLocationRequired;
+
+  /// No description provided for @confirmPasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password confirmation is required'**
   String get confirmPasswordRequired;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
   String get signUp;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign In'**
   String get alreadyHaveAccount;
+
+  /// No description provided for @otpVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP Verification'**
   String get otpVerification;
 
   /// No description provided for @agreeToTerms.
@@ -1531,7 +1901,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgotPasswordDescription.
   ///
   /// In en, this message translates to:
-  /// **'Enter your email address and we'll send you a password reset OTP.'**
+  /// **'Enter your email address and we\'ll send you a password reset OTP.'**
   String get forgotPasswordDescription;
 
   /// No description provided for @sendResetOtp.
@@ -1624,6 +1994,72 @@ abstract class AppLocalizations {
   /// **'Failed to reset password'**
   String get failedToResetPassword;
 
+  /// No description provided for @passwordRequirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Requirements'**
+  String get passwordRequirements;
+
+  /// No description provided for @passwordRequirementLength.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 characters long'**
+  String get passwordRequirementLength;
+
+  /// No description provided for @passwordRequirementUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one uppercase letter (A-Z)'**
+  String get passwordRequirementUppercase;
+
+  /// No description provided for @passwordRequirementLowercase.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one lowercase letter (a-z)'**
+  String get passwordRequirementLowercase;
+
+  /// No description provided for @passwordRequirementNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one number (0-9)'**
+  String get passwordRequirementNumber;
+
+  /// No description provided for @passwordRequirementSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'At least one special character (!@#\$%^&*(),.?\":|<>)'**
+  String get passwordRequirementSpecial;
+
+  /// No description provided for @passwordMustBeAtLeast8Characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long'**
+  String get passwordMustBeAtLeast8Characters;
+
+  /// No description provided for @passwordMustContainUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one uppercase letter'**
+  String get passwordMustContainUppercase;
+
+  /// No description provided for @passwordMustContainLowercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one lowercase letter'**
+  String get passwordMustContainLowercase;
+
+  /// No description provided for @passwordMustContainNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one number'**
+  String get passwordMustContainNumber;
+
+  /// No description provided for @passwordMustContainSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one special character'**
+  String get passwordMustContainSpecial;
+
   /// No description provided for @shopDetails.
   ///
   /// In en, this message translates to:
@@ -1641,28 +2077,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shop'**
   String get shop;
-
-  String get passwordRequirements;
-
-  String get passwordRequirementLength;
-
-  String get passwordRequirementUppercase;
-
-  String get passwordRequirementLowercase;
-
-  String get passwordRequirementNumber;
-
-  String get passwordRequirementSpecial;
-
-  String get passwordMustBeAtLeast8Characters;
-
-  String get passwordMustContainUppercase;
-
-  String get passwordMustContainLowercase;
-
-  String get passwordMustContainNumber;
-
-  String get passwordMustContainSpecial;
 }
 
 class _AppLocalizationsDelegate
@@ -1692,8 +2106,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

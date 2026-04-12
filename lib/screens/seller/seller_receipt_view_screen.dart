@@ -96,7 +96,7 @@ class _SellerReceiptViewScreenState extends State<SellerReceiptViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.receipt),
+        title: Text(AppLocalizations.of(context)!.receiptSale),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,

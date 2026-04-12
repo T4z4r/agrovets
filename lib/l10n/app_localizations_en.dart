@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -316,7 +318,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterCostPrice => 'Enter cost price';
 
   @override
-  String get sellingPrice => 'Selling Price (Tsh)';
+  String get sellingPrice => 'Selling Price';
 
   @override
   String get enterSellingPrice => 'Enter selling price';
@@ -343,6 +345,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get expenseDate => 'Expense Date';
 
   @override
+  String get createExpense => 'Create Expense';
+
+  @override
+  String get editExpense => 'Edit Expense';
+
+  @override
+  String get addNewExpense => 'Add New Expense';
+
+  @override
+  String get categoryRequired => 'Category is required';
+
+  @override
+  String get amountRequired => 'Amount is required';
+
+  @override
+  String get enterValidAmount => 'Please enter a valid amount';
+
+  @override
   String get expenseCreated => 'Expense created successfully!';
 
   @override
@@ -350,6 +370,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedSaveExpense => 'Failed to save expense';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get editExpenseTitle => 'Edit Expense';
 
   @override
   String get deleteExpense => 'Delete Expense';
@@ -379,6 +405,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyReport => 'Daily Report';
 
   @override
+  String get dailySummary => 'Daily Summary';
+
+  @override
   String get generatingDailyReport => 'Generating daily report...';
 
   @override
@@ -397,7 +426,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteTransaction => 'Delete Transaction';
 
   @override
-  String get receipt => 'Receipt';
+  String get receiptSale => 'Receipt';
 
   @override
   String get totalSalesLabel => 'Total Sales';
@@ -484,6 +513,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get amountLabel => 'Amount';
 
   @override
+  String get selectDateRange => 'Select date range';
+
+  @override
   String get searchSellers => 'Search sellers...';
 
   @override
@@ -491,6 +523,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSellersMatch => 'No sellers match your search';
+
+  @override
+  String get receiptReport => 'Receipt';
+
+  @override
+  String get selectDateRangeProfitReport =>
+      'Select a date range to generate profit report';
 
   @override
   String get saleLabel => 'Sale';
@@ -502,31 +541,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stockTransactionTitle => 'Stock Transaction';
 
   @override
-  String get retry => 'Retry';
-
-  @override
   String get saveTransaction => 'Save Transaction';
-
-  @override
-  String get createExpense => 'Create Expense';
-
-  @override
-  String get editExpense => 'Edit Expense';
-
-  @override
-  String get addNewExpense => 'Add New Expense';
-
-  @override
-  String get editExpenseTitle => 'Edit Expense';
-
-  @override
-  String get categoryRequired => 'Category is required';
-
-  @override
-  String get amountRequired => 'Amount is required';
-
-  @override
-  String get enterValidAmount => 'Please enter a valid amount';
 
   @override
   String get createProduct => 'Create Product';
@@ -538,6 +553,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addNewProduct => 'Add New Product';
 
   @override
+  String get updateProduct => 'Update Product';
+
+  @override
   String get minimumQuantity => 'Minimum Quantity';
 
   @override
@@ -545,9 +563,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minimumQuantityRequired => 'Minimum quantity is required';
-
-  @override
-  String get updateProduct => 'Update Product';
 
   @override
   String get prices => 'Prices';
@@ -562,13 +577,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updated => 'Updated';
 
   @override
-  String get date => 'Date';
+  String get dateGeneral => 'Date';
 
   @override
   String get remarks => 'Remarks';
 
   @override
-  String get recordedBy => 'Recorded by';
+  String get recordedByStock => 'Recorded by';
 
   @override
   String get createSupplier => 'Create Supplier';
@@ -622,7 +637,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmNewPassword => 'Confirm New Password';
 
   @override
-  String get enterConfirmPassword => 'Confirm password';
+  String get enterConfirmPassword => 'Re-enter your password';
 
   @override
   String get leaveEmptyNotChanging => 'Leave empty if not changing';
@@ -642,6 +657,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supplier => 'Supplier';
+
+  @override
+  String get recordedBy => 'Recorded By';
 
   @override
   String get viewDetails => 'View Details';
@@ -674,6 +692,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sale => 'Sale';
 
   @override
+  String get dateSale => 'Date';
+
+  @override
   String get items => 'Items';
 
   @override
@@ -691,6 +712,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sellerNameRequired => 'Seller name is required';
+
+  @override
+  String get receiptProduct => 'Receipt';
+
+  @override
+  String get recordedByProduct => 'Recorded by';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get scanBarcode => 'Scan Barcode';
 
   @override
   String get success => 'Success!';
@@ -729,12 +762,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
-
-  @override
-  String get barcode => 'Barcode';
-
-  @override
-  String get scanBarcode => 'Scan Barcode';
 
   @override
   String get outOfStock => 'Out of Stock';
@@ -808,6 +835,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get additionalInformation => 'Additional Information';
 
   @override
+  String get unitDetails => 'Unit';
+
+  @override
+  String get barcodeDetails => 'Barcode';
+
+  @override
   String get confirmLanguageChange => 'Confirm Language Change';
 
   @override
@@ -877,6 +910,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'You must accept the terms and conditions to continue';
 
   @override
+  String get about => 'About';
+
+  @override
   String get forgotPassword => 'Forgot Password?';
 
   @override
@@ -936,9 +972,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedToResetPassword => 'Failed to reset password';
 
   @override
-  String get about => 'About';
-
-  @override
   String get passwordRequirements => 'Password Requirements';
 
   @override
@@ -957,11 +990,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordRequirementSpecial =>
-      'At least one special character (!@#%^&*(),.?":|<>)';
+      'At least one special character (!@#\$%^&*(),.?\":|<>)';
 
   @override
   String get passwordMustBeAtLeast8Characters =>
       'Password must be at least 8 characters long';
+
   @override
   String get passwordMustContainUppercase =>
       'Password must contain at least one uppercase letter';
