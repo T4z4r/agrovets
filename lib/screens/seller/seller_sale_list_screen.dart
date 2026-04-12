@@ -163,7 +163,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.dateLabel}: ${(() {
+                                          '${AppLocalizations.of(context)!.saleDate}: ${(() {
                                             try {
                                               return DateFormat.yMMMd().format(
                                                   DateTime.parse(s.saleDate));

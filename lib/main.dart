@@ -81,9 +81,33 @@ class _AuthWrapperState extends State<AuthWrapper> {
   Widget build(BuildContext context) {
     if (!_checked) {
       return Scaffold(
-          body: Center(
-              child: SpinKitWaveSpinner(
-                  color: Theme.of(context).colorScheme.primary, size: 50.0)));
+        body: Container(
+          color: Theme.of(context).primaryColorLight,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                Image.asset('assets/logo.png', width: 150, height: 150),
+                const SizedBox(height: 40),
+                SpinKitWave(
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 50.0,
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Initializing...',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
     }
 
     final user = context.watch<AuthProvider>().user;

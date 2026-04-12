@@ -23,6 +23,7 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   List<Product> _filteredProducts = [];
   String _searchQuery = '';
+  bool _showLowStockOnly = false;
   late TextEditingController _searchController;
 
   @override
@@ -44,10 +45,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
     setState(() {
       _searchQuery = query;
-      if (query.isEmpty) {
-        _filteredProducts = productProvider.products;
-      } else {
-        _filteredProducts = productProvider.products.where((product) {
+      List<Product> filtered = productProvider.products;
+
+      // Apply search filter
+      if (query.isNotEmpty) {
+        filtered = filtered.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
               product.unit!.toLowerCase().contains(query.toLowerCase()) ||
               product.category!.toLowerCase().contains(query.toLowerCase()) ||
@@ -55,6 +57,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   false);
         }).toList();
       }
+
+      // Apply low stock filter
+      if (_showLowStockOnly) {
+        filtered = filtered.where((product) {
+          return (product.stock ?? 0) <= (product.minimumQuantity ?? 0);
+        }).toList();
+      }
+
+      _filteredProducts = filtered;
     });
   }
 
@@ -179,10 +190,28 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
       builder: (context, productProvider, child) {
-        // Update filtered products when products change
-        if (_filteredProducts.isEmpty || _searchQuery.isEmpty) {
-          _filteredProducts = productProvider.products;
+        // Compute filtered products
+        List<Product> filtered = productProvider.products;
+
+        // Apply search filter
+        if (_searchQuery.isNotEmpty) {
+          filtered = filtered.where((product) {
+            return product.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                product.unit!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                product.category!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                (product.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+                    false);
+          }).toList();
         }
+
+        // Apply low stock filter
+        if (_showLowStockOnly) {
+          filtered = filtered.where((product) {
+            return (product.stock ?? 0) <= (product.minimumQuantity ?? 0);
+          }).toList();
+        }
+
+        _filteredProducts = filtered;
 
         return Scaffold(
           backgroundColor: Colors.grey[50],
@@ -192,6 +221,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
             foregroundColor: Colors.white,
             elevation: 0,
             actions: [
+              OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    _showLowStockOnly = !_showLowStockOnly;
+                    _filterProducts(_searchQuery);
+                  });
+                },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                    color: _showLowStockOnly ? Colors.red : Colors.white,
+                  ),
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(fontSize: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                ),
+                child: Text(
+                  _showLowStockOnly
+                      ? AppLocalizations.of(context)!.products
+                      : AppLocalizations.of(context)!.outOfStock,
+                ),
+              ),
               IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () => productProvider.fetchProducts(),

@@ -23,6 +23,7 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
   List<Product> _filteredProducts = [];
   bool _loading = true;
   String _searchQuery = '';
+  bool _showLowStockOnly = false;
   late TextEditingController _searchController;
 
   @override
@@ -66,10 +67,11 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
   void _filterProducts(String query) {
     setState(() {
       _searchQuery = query;
-      if (query.isEmpty) {
-        _filteredProducts = _products;
-      } else {
-        _filteredProducts = _products.where((product) {
+      List<Product> filtered = _products;
+
+      // Apply search filter
+      if (query.isNotEmpty) {
+        filtered = filtered.where((product) {
           return product.name!.toLowerCase().contains(query.toLowerCase()) ||
               product.unit!.toLowerCase().contains(query.toLowerCase()) ||
               product.category!.toLowerCase().contains(query.toLowerCase()) ||
@@ -77,6 +79,15 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                   false);
         }).toList();
       }
+
+      // Apply low stock filter
+      if (_showLowStockOnly) {
+        filtered = filtered.where((product) {
+          return (product.stock ?? 0) <= (product.minimumQuantity ?? 0);
+        }).toList();
+      }
+
+      _filteredProducts = filtered;
     });
   }
 
@@ -155,6 +166,29 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Compute filtered products
+    List<Product> filtered = _products;
+
+    // Apply search filter
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((product) {
+        return product.name!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            product.unit!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            product.category!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            (product.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+                false);
+      }).toList();
+    }
+
+    // Apply low stock filter
+    if (_showLowStockOnly) {
+      filtered = filtered.where((product) {
+        return (product.stock ?? 0) <= (product.minimumQuantity ?? 0);
+      }).toList();
+    }
+
+    _filteredProducts = filtered;
+
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: Column(
@@ -163,28 +197,57 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             color: Colors.white,
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: TextField(
-                    controller: _searchController,
-                    onChanged: _filterProducts,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.searchProducts,
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: _filterProducts,
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.searchProducts,
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                        ),
                       ),
-                      filled: true,
-                      fillColor: Colors.grey[50],
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.qr_code_scanner),
+                      onPressed: _scanBarcode,
+                      tooltip: AppLocalizations.of(context)!.scanBarcode,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _showLowStockOnly = !_showLowStockOnly;
+                        _filterProducts(_searchQuery);
+                      });
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        color: _showLowStockOnly ? Colors.red : Colors.grey,
+                      ),
+                      foregroundColor: _showLowStockOnly ? Colors.red : Colors.black,
+                      textStyle: const TextStyle(fontSize: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    ),
+                    child: Text(
+                      _showLowStockOnly
+                          ? AppLocalizations.of(context)!.products
+                          : AppLocalizations.of(context)!.outOfStock,
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.qr_code_scanner),
-                  onPressed: _scanBarcode,
-                  tooltip: AppLocalizations.of(context)!.scanBarcode,
                 ),
               ],
             ),
@@ -209,8 +272,8 @@ class _SellerProductListScreenState extends State<SellerProductListScreen> {
                             const SizedBox(height: 16),
                             Text(
                               _searchQuery.isEmpty
-                                  ? 'No products found'
-                                  : 'No products match your search',
+                                  ? AppLocalizations.of(context)!.noProductsFound
+                                  : AppLocalizations.of(context)!.noProductsMatch,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
