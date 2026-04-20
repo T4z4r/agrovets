@@ -320,12 +320,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               itemCount: _filteredProducts.length,
                               itemBuilder: (ctx, i) {
                                 final p = _filteredProducts[i];
-                                return Card(
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                                 return Card(
+                                   margin: const EdgeInsets.only(bottom: 8),
+                                   elevation: 2,
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius: BorderRadius.circular(4),
+                                   ),
                                   child: ListTile(
                                     contentPadding: const EdgeInsets.all(8),
                                     leading: Container(

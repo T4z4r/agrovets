@@ -9,7 +9,6 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
-import '../../models/user.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
 

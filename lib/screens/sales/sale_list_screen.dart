@@ -138,12 +138,12 @@ class _SaleListScreenState extends State<SaleListScreen> {
                               itemCount: _filteredSales.length,
                               itemBuilder: (ctx, i) {
                                 final s = _filteredSales[i];
-                                return Card(
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                                 return Card(
+                                   margin: const EdgeInsets.only(bottom: 8),
+                                   elevation: 2,
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius: BorderRadius.circular(4),
+                                   ),
                                   child: ListTile(
                                     contentPadding: const EdgeInsets.all(16),
                                     leading: Container(
