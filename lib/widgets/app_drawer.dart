@@ -17,8 +17,9 @@ import '../screens/privacy_policy_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final String? activeScreen;
+  final Map<String, GlobalKey>? itemKeys;
 
-  const AppDrawer({super.key, this.activeScreen});
+  const AppDrawer({super.key, this.activeScreen, this.itemKeys});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,8 @@ class AppDrawer extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (_) => const DashboardScreen()),
                     (route) => false,
-                  )),
+                  ),
+              key: itemKeys?['dashboard']),
           if (auth.isOwner || auth.isSeller)
             _drawerTile(
                 context, Icons.store, AppLocalizations.of(context)!.shop, () {
@@ -71,7 +73,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const ShopDetailScreen()),
                 (route) => false,
               );
-            }, isActive: activeScreen == 'shop'),
+            }, isActive: activeScreen == 'shop', key: itemKeys?['shop']),
           _drawerTile(
               context, Icons.inventory, AppLocalizations.of(context)!.products,
               () {
@@ -80,7 +82,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const ProductListScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'products'),
+          }, isActive: activeScreen == 'products', key: itemKeys?['products']),
           _drawerTile(
               context, Icons.people, AppLocalizations.of(context)!.suppliers,
               () {
@@ -89,7 +91,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const SupplierListScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'suppliers'),
+          }, isActive: activeScreen == 'suppliers', key: itemKeys?['suppliers']),
           if (auth.isOwner || auth.isAdmin || auth.isSeller)
             _drawerTile(
                 context, Icons.person, AppLocalizations.of(context)!.sellers,
@@ -99,7 +101,7 @@ class AppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (_) => const SellerListScreen()),
                 (route) => false,
               );
-            }, isActive: activeScreen == 'sellers'),
+            }, isActive: activeScreen == 'sellers', key: itemKeys?['sellers']),
           _drawerTile(
               context, Icons.storage, AppLocalizations.of(context)!.stock, () {
             Navigator.pushAndRemoveUntil(
@@ -107,7 +109,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const StockListScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'stock'),
+          }, isActive: activeScreen == 'stock', key: itemKeys?['stock']),
           _drawerTile(
               context, Icons.point_of_sale, AppLocalizations.of(context)!.sales,
               () {
@@ -116,7 +118,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const SaleListScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'sales'),
+          }, isActive: activeScreen == 'sales', key: itemKeys?['sales']),
           _drawerTile(
               context, Icons.money_off, AppLocalizations.of(context)!.expenses,
               () {
@@ -125,7 +127,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const ExpenseListScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'expenses'),
+          }, isActive: activeScreen == 'expenses', key: itemKeys?['expenses']),
           _drawerTile(
               context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
               () {
@@ -134,7 +136,7 @@ class AppDrawer extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const DailyReportScreen()),
               (route) => false,
             );
-          }, isActive: activeScreen == 'reports'),
+          }, isActive: activeScreen == 'reports', key: itemKeys?['reports']),
           const Divider(),
           // Language Switcher Section
           Container(
@@ -253,8 +255,9 @@ class AppDrawer extends StatelessWidget {
 
   Widget _drawerTile(
       BuildContext context, IconData icon, String title, VoidCallback onTap,
-      {bool isActive = false}) {
+      {bool isActive = false, GlobalKey? key}) {
     return Container(
+      key: key,
       color: isActive
           ? Theme.of(context).primaryColorLight.withOpacity(0.1)
           : null,

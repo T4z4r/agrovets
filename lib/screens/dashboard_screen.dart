@@ -3,22 +3,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
-import '../providers/locale_provider.dart';
 import '../services/api_service.dart';
+import '../services/app_tour_service.dart';
 import '../utils/number_formatter.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/app_tour_dialog.dart';
 import 'auth/login_screen.dart';
 import 'guide_list_screen.dart';
 import 'products/product_form_screen.dart';
-import 'products/product_list_screen.dart';
 import 'sales/sale_form_screen.dart';
-import 'suppliers/supplier_list_screen.dart';
-import 'stock/stock_list_screen.dart';
-import 'sales/sale_list_screen.dart';
-import 'expenses/expense_list_screen.dart';
-import 'reports/daily_report_screen.dart';
-import 'sellers/seller_list_screen.dart';
-import 'shop/shop_detail_screen.dart';
-import 'about_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -28,9 +21,30 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _menuButtonKey = GlobalKey();
+  final GlobalKey _statsSectionKey = GlobalKey();
+  final GlobalKey _quickActionsKey = GlobalKey();
+  final GlobalKey _addProductKey = GlobalKey();
+  final GlobalKey _newSaleKey = GlobalKey();
+  final GlobalKey _tourHelpKey = GlobalKey();
+  final Map<String, GlobalKey> _drawerItemKeys = {
+    'dashboard': GlobalKey(),
+    'shop': GlobalKey(),
+    'products': GlobalKey(),
+    'suppliers': GlobalKey(),
+    'sellers': GlobalKey(),
+    'stock': GlobalKey(),
+    'sales': GlobalKey(),
+    'expenses': GlobalKey(),
+    'reports': GlobalKey(),
+  };
+
   Map<String, dynamic> dashboard = {};
   bool _loading = false;
   Map<String, bool> _cardVisibility = {};
+  bool _dashboardReady = false;
+  bool _tourScheduled = false;
 
   @override
   void initState() {
@@ -59,28 +73,167 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       );
     }
+    _dashboardReady = true;
     setState(() => _loading = false);
+  }
+
+  String _tourText(String en, String sw) {
+    return AppLocalizations.of(context)?.localeName == 'sw' ? sw : en;
+  }
+
+  Future<void> _showAppTour({bool force = false}) async {
+    final auth = context.read<AuthProvider>();
+    if (auth.user == null) return;
+
+    if (!force) {
+      final shouldShow = await AppTourService.shouldShowTour(auth.user);
+      if (!shouldShow || !mounted) return;
+    }
+
+    final steps = <AppTourStep>[
+      AppTourStep(
+        title: _tourText('Your dashboard menu', 'Menyu ya dashibodi'),
+        description: _tourText(
+          'Use the drawer to jump to products, sales, stock, reports, and shop settings.',
+          'Tumia menyu ya pembeni kwenda bidhaa, mauzo, hisa, ripoti, na mipangilio ya duka.',
+        ),
+        targetKey: _menuButtonKey,
+        highlightLabel: _tourText(
+          'Tap the menu button whenever you want the full navigation list.',
+          'Bonyeza kitufe cha menyu ili kuona chaguo zote za usogezaji.',
+        ),
+      ),
+      AppTourStep(
+        title: _tourText('Quick actions', 'Vitendo vya haraka'),
+        description: _tourText(
+          'These cards are the fastest way to add products or create a sale.',
+          'Kadi hizi ndizo njia ya haraka zaidi kuongeza bidhaa au kuanzisha mauzo.',
+        ),
+        targetKey: _quickActionsKey,
+      ),
+      AppTourStep(
+        title: _tourText('Add a product', 'Ongeza bidhaa'),
+        description: _tourText(
+          'Use this when you need to create a new product record or restock an item.',
+          'Tumia hapa unapohitaji kuongeza bidhaa mpya au kujaza upya bidhaa.',
+        ),
+        targetKey: _addProductKey,
+      ),
+      AppTourStep(
+        title: _tourText('Start a sale', 'Anzisha mauzo'),
+        description: _tourText(
+          'Open the sales flow to record a customer purchase and generate a receipt.',
+          'Fungua mauzo ili kurekodi ununuzi wa mteja na kutoa risiti.',
+        ),
+        targetKey: _newSaleKey,
+      ),
+      AppTourStep(
+        title: _tourText('Help and guides', 'Msaada na maelekezo'),
+        description: _tourText(
+          'This menu opens written guides and lets you replay the tour anytime.',
+          'Menyu hii hufungua maelekezo na pia hukuruhusu kurudia tour wakati wowote.',
+        ),
+        targetKey: _tourHelpKey,
+      ),
+      AppTourStep(
+        title: _tourText('Dashboard insights', 'Muhtasari wa dashibodi'),
+        description: _tourText(
+          'The totals, stock value, and low-stock alerts help you watch the business at a glance.',
+          'Jumla, thamani ya hisa, na tahadhari za hisa ndogo hukusaidia kufuatilia biashara kwa haraka.',
+        ),
+        targetKey: _statsSectionKey,
+      ),
+    ];
+
+    await AppTourDialog.show(
+      context,
+      title: _tourText('Owner walkthrough', 'Mwongozo wa mmiliki'),
+      steps: steps,
+    );
+
+    if (mounted && !force) {
+      await AppTourService.markTourSeen(auth.user);
+    }
+  }
+
+  Future<void> _showHelpMenu() async {
+    await showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              Text(
+                _tourText('Help & tour', 'Msaada na tour'),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 12),
+              ListTile(
+                leading: const Icon(Icons.menu_book),
+                title: const Text('Guides'),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const GuideListScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.play_circle_outline),
+                title: Text(_tourText('Replay tour', 'Rudia tour')),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  _showAppTour(force: true);
+                },
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final localeProvider = context.watch<LocaleProvider>();
+
+    if (_dashboardReady && !_loading && !_tourScheduled) {
+      _tourScheduled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await _showAppTour();
+      });
+    }
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text('${AppLocalizations.of(context)!.appName} ${AppLocalizations.of(context)!.dashboard}'),
+        title: Text(
+          '${AppLocalizations.of(context)!.appName} ${AppLocalizations.of(context)!.dashboard}',
+        ),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          key: _menuButtonKey,
+          icon: const Icon(Icons.menu),
+          onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+        ),
         actions: [
           IconButton(
+            key: _tourHelpKey,
             icon: const Icon(Icons.info),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const GuideListScreen()),
-            ),
+            onPressed: _showHelpMenu,
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -93,34 +246,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 context: context,
                 builder: (context) => AlertDialog(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   backgroundColor: Colors.white,
                   title: Text(
                     AppLocalizations.of(context)!.confirmLogout,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   content: Text(
                     AppLocalizations.of(context)!.logoutMessage,
                     style: TextStyle(color: Colors.grey[700]),
                   ),
-                  actionsPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  actionsPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
                       style: TextButton.styleFrom(
-                          foregroundColor: Colors.grey[600]),
+                        foregroundColor: Colors.grey[600],
+                      ),
                       child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
                       style: TextButton.styleFrom(
-                          foregroundColor: Colors.red[600],
-                          textStyle:
-                              const TextStyle(fontWeight: FontWeight.bold)),
+                        foregroundColor: Colors.red[600],
+                        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ],
@@ -138,179 +296,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-
-      // ================= Drawer =================
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-              color: Theme.of(context).primaryColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                    const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/logo.png'),
-                ),
-                  const SizedBox(height: 12),
-                  Text(
-                    AppLocalizations.of(context)!.welcome,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    auth.user?['name'] ?? 'User',
-                    style: TextStyle(color: Colors.white.withOpacity(0.9)),
-                  ),
-                ],
-              ),
-            ),
-            _drawerTile(
-                context,
-                Icons.dashboard,
-                AppLocalizations.of(context)!.dashboard,
-                () => Navigator.pop(context),
-                isActive: true),
-            if (auth.isOwner)
-              _drawerTile(
-                  context, Icons.store, AppLocalizations.of(context)!.shop, () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ShopDetailScreen()),
-                  (route) => false,
-                );
-              }, isActive: false),
-            _drawerTile(context, Icons.inventory,
-                AppLocalizations.of(context)!.products, () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const ProductListScreen()));
-            }),
-            _drawerTile(
-                context, Icons.people, AppLocalizations.of(context)!.suppliers,
-                () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const SupplierListScreen()));
-            }),
-            if (auth.isOwner || auth.isAdmin || auth.isSeller)
-              _drawerTile(
-                  context, Icons.person, AppLocalizations.of(context)!.sellers,
-                  () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const SellerListScreen()));
-              }, isActive: false),
-            _drawerTile(
-                context, Icons.storage, AppLocalizations.of(context)!.stock,
-                () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const StockListScreen()));
-            }),
-            _drawerTile(context, Icons.point_of_sale,
-                AppLocalizations.of(context)!.sales, () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const SaleListScreen()));
-            }),
-            _drawerTile(context, Icons.money_off,
-                AppLocalizations.of(context)!.expenses, () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const ExpenseListScreen()));
-            }),
-            _drawerTile(
-                context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
-                () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const DailyReportScreen()));
-            }),
-            _drawerTile(
-                context, Icons.info, AppLocalizations.of(context)!.about, () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const AboutScreen()));
-            }),
-            const Divider(),
-            // Language Switcher Section
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.localeName == 'sw'
-                        ? 'Lugha'
-                        : 'Language',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Consumer<LocaleProvider>(
-                    builder: (context, localeProvider, child) {
-                      return Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () =>
-                                  localeProvider.setLocale(const Locale('en')),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    localeProvider.locale.languageCode == 'en'
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.grey[200],
-                                foregroundColor:
-                                    localeProvider.locale.languageCode == 'en'
-                                        ? Colors.white
-                                        : Colors.black,
-                                elevation:
-                                    localeProvider.locale.languageCode == 'en'
-                                        ? 2
-                                        : 0,
-                              ),
-                              child: const Text('English'),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () =>
-                                  localeProvider.setLocale(const Locale('sw')),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    localeProvider.locale.languageCode == 'sw'
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.grey[200],
-                                foregroundColor:
-                                    localeProvider.locale.languageCode == 'sw'
-                                        ? Colors.white
-                                        : Colors.black,
-                                elevation:
-                                    localeProvider.locale.languageCode == 'sw'
-                                        ? 2
-                                        : 0,
-                              ),
-                              child: const Text('Kiswahili'),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-
-      // ================= Body =================
+      drawer: AppDrawer(activeScreen: 'dashboard', itemKeys: _drawerItemKeys),
       body: RefreshIndicator(
         onRefresh: _loadDashboard,
         child: SingleChildScrollView(
@@ -319,36 +305,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Welcome Card
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Theme.of(context).primaryColor.withOpacity(0.8),
-                        Theme.of(context).primaryColor
+                        Theme.of(context).primaryColor,
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.waving_hand,
-                          size: 40, color: Colors.white),
+                      const Icon(
+                        Icons.waving_hand,
+                        size: 40,
+                        color: Colors.white,
+                      ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(AppLocalizations.of(context)!.goodDay,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              AppLocalizations.of(context)!.goodDay,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             Text(
                               AppLocalizations.of(context)!.businessOverview,
                               style: const TextStyle(color: Colors.white70),
@@ -360,116 +352,154 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
-
-              // ================= Stats =================
-              if (_loading)
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Center(
-                      child: SpinKitWaveSpinner(
-                          color: Theme.of(context).primaryColor, size: 50.0)),
-                )
-              else
-                Column(
-                  children: [
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 1.25,
-                      children: [
-                        _statCard(
-                            AppLocalizations.of(context)!.totalProducts,
-                            dashboard['total_products']?.toString() ?? '0',
-                            Icons.inventory,
-                            Colors.blue,
-                            'totalProducts'),
-                        _statCard(
-                            AppLocalizations.of(context)!.todaySales,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['today_sales']?.toString() ?? '0')),
-                            Icons.trending_up,
+              Container(
+                key: _statsSectionKey,
+                child: _loading
+                    ? Padding(
+                        padding: const EdgeInsets.all(40),
+                        child: Center(
+                          child: SpinKitWaveSpinner(
+                            color: Theme.of(context).primaryColor,
+                            size: 50.0,
+                          ),
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          GridView.count(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 1.25,
+                            children: [
+                              _statCard(
+                                AppLocalizations.of(context)!.totalProducts,
+                                dashboard['total_products']?.toString() ?? '0',
+                                Icons.inventory,
+                                Colors.blue,
+                                'totalProducts',
+                              ),
+                              _statCard(
+                                AppLocalizations.of(context)!.todaySales,
+                                NumberFormatter.formatCurrency(
+                                  num.tryParse(
+                                    dashboard['today_sales']?.toString() ?? '0',
+                                  ),
+                                ),
+                                Icons.trending_up,
+                                Theme.of(context).primaryColor,
+                                'todaySales',
+                              ),
+                              _statCard(
+                                AppLocalizations.of(context)!.totalSales,
+                                NumberFormatter.formatCurrency(
+                                  num.tryParse(
+                                    dashboard['total_sales']?.toString() ?? '0',
+                                  ),
+                                ),
+                                Icons.monetization_on,
+                                Colors.orange,
+                                'totalSales',
+                              ),
+                              _statCard(
+                                AppLocalizations.of(context)!.totalExpenses,
+                                NumberFormatter.formatCurrency(
+                                  num.tryParse(
+                                    dashboard['total_expenses']?.toString() ??
+                                        '0',
+                                  ),
+                                ),
+                                Icons.money_off,
+                                Colors.red,
+                                'totalExpenses',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          _statCardFullWidth(
+                            AppLocalizations.of(context)!.stockValue,
+                            NumberFormatter.formatCurrency(
+                              num.tryParse(
+                                dashboard['stock_value']?.toString() ?? '0',
+                              ),
+                            ),
+                            Icons.warehouse,
                             Theme.of(context).primaryColor,
-                            'todaySales'),
-                        _statCard(
-                            AppLocalizations.of(context)!.totalSales,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['total_sales']?.toString() ?? '0')),
-                            Icons.monetization_on,
+                            'stockValue',
+                          ),
+                          const SizedBox(height: 16),
+                          _statCardFullWidth(
+                            AppLocalizations.of(context)!.lowStockProducts,
+                            dashboard['low_stock_products_count']?.toString() ??
+                                '0',
+                            Icons.warning,
                             Colors.orange,
-                            'totalSales'),
-                        _statCard(
-                            AppLocalizations.of(context)!.totalExpenses,
-                            NumberFormatter.formatCurrency(num.tryParse(
-                                dashboard['total_expenses']?.toString() ??
-                                    '0')),
-                            Icons.money_off,
-                            Colors.red,
-                            'totalExpenses'),
+                            'lowStockProducts',
+                          ),
+                        ],
+                      ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                key: _quickActionsKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.quickActions,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            key: _addProductKey,
+                            child: _quickActionCard(
+                              AppLocalizations.of(context)!.addProduct,
+                              Icons.add_box,
+                              Colors.blue,
+                              () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ProductFormScreen(
+                                    onSave: () => _loadDashboard(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Container(
+                            key: _newSaleKey,
+                            child: _quickActionCard(
+                              AppLocalizations.of(context)!.newSale,
+                              Icons.point_of_sale,
+                              Theme.of(context).primaryColor,
+                              () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SaleFormScreen(
+                                    onSave: () => _loadDashboard(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    _statCardFullWidth(
-                        AppLocalizations.of(context)!.stockValue,
-                        NumberFormatter.formatCurrency(num.tryParse(
-                            dashboard['stock_value']?.toString() ?? '0')),
-                        Icons.warehouse,
-                        Theme.of(context).primaryColor,
-                        'stockValue'),
-                    const SizedBox(height: 16),
-                    _statCardFullWidth(
-                        AppLocalizations.of(context)!.lowStockProducts,
-                        dashboard['low_stock_products_count']?.toString() ??
-                            '0',
-                        Icons.warning,
-                        Colors.orange,
-                        'lowStockProducts'),
                   ],
                 ),
-
-              const SizedBox(height: 24),
-
-              // ================= Quick Actions =================
-              Text(
-                AppLocalizations.of(context)!.quickActions,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800]),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _quickActionCard(
-                      AppLocalizations.of(context)!.addProduct,
-                      Icons.add_box,
-                      Colors.blue,
-                      () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ProductFormScreen(
-                                  onSave: () => _loadDashboard()))),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _quickActionCard(
-                      AppLocalizations.of(context)!.newSale,
-                      Icons.point_of_sale,
-                      Theme.of(context).primaryColor,
-                      () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => SaleFormScreen(
-                                  onSave: () => _loadDashboard()))),
-                    ),
-                  ),
-                ],
               ),
             ],
           ),
@@ -478,12 +508,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // ================= Widgets =================
-
   Widget _drawerTile(
-      BuildContext context, IconData icon, String title, VoidCallback onTap,
-      {bool isActive = false}) {
+    BuildContext context,
+    IconData icon,
+    String title,
+    VoidCallback onTap, {
+    bool isActive = false,
+    GlobalKey? key,
+  }) {
     return Container(
+      key: key,
       color: isActive
           ? Theme.of(context).primaryColorLight.withOpacity(0.1)
           : null,
@@ -502,12 +536,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _statCard(
-      String title, String value, IconData icon, Color color, String key) {
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+    String key,
+  ) {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -565,7 +602,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   color: Colors.grey[600],
                 ),
                 onPressed: () => setState(
-                    () => _cardVisibility[key] = !_cardVisibility[key]!),
+                  () => _cardVisibility[key] = !_cardVisibility[key]!,
+                ),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
               ),
@@ -577,7 +615,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _statCardFullWidth(
-      String title, String value, IconData icon, Color color, String key) {
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+    String key,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -635,7 +678,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _quickActionCard(
-      String title, IconData icon, Color color, VoidCallback onTap) {
+    String title,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
