@@ -1025,4 +1025,106 @@ class AppLocalizationsSw extends AppLocalizations {
 
   @override
   String get shop => 'Duka';
+
+  @override
+  String get debts => 'Madeni';
+
+  @override
+  String get searchDebts => 'Tafuta madeni...';
+
+  @override
+  String get noDebtsFound => 'Hakuna madeni yaliyopatikana';
+
+  @override
+  String get noDebtsMatch => 'Hakuna madeni yanayolingana na utafutaji wako';
+
+  @override
+  String get deleteDebt => 'Futa Deni';
+
+  @override
+  String deleteDebtConfirm(String name) {
+    return 'Futa deni la \"$name\"?';
+  }
+
+  @override
+  String get createDebt => 'Unda Deni';
+
+  @override
+  String get editDebt => 'Hariri Deni';
+
+  @override
+  String get addNewDebt => 'Ongeza Deni Jipya';
+
+  @override
+  String get updateDebt => 'Sasisha Deni';
+
+  @override
+  String get debtorName => 'Jina la Mdaiwa';
+
+  @override
+  String get enterDebtorName => 'Ingiza jina la mdaiwa';
+
+  @override
+  String get debtorNameRequired => 'Jina la mdaiwa linahitajika';
+
+  @override
+  String get enterDebtAmount => 'Ingiza kiasi cha deni';
+
+  @override
+  String get debtDate => 'Tarehe ya Deni';
+
+  @override
+  String get dueDate => 'Tarehe ya Mwisho';
+
+  @override
+  String get dueDateAfterDebtDate =>
+      'Tarehe ya mwisho lazima iwe sawa au baada ya tarehe ya deni';
+
+  @override
+  String get enterDebtDescription => 'Ingiza maelezo ya deni';
+
+  @override
+  String get amountBelowPaid =>
+      'Kiasi hakiwezi kuwa chini ya kiasi kilicholipwa';
+
+  @override
+  String get balance => 'Salio';
+
+  @override
+  String get paid => 'Imelipwa';
+
+  @override
+  String get partial => 'Sehemu imelipwa';
+
+  @override
+  String get unpaid => 'Haijalipwa';
+
+  @override
+  String get recordPayment => 'Rekodi Malipo';
+
+  @override
+  String get paymentHistory => 'Historia ya Malipo';
+
+  @override
+  String get noPaymentsRecorded => 'Hakuna malipo yaliyorekodiwa';
+
+  @override
+  String paymentAmountMax(String amount) {
+    return 'Kiasi (kiwango cha juu $amount)';
+  }
+
+  @override
+  String get paymentExceedsBalance => 'Malipo hayawezi kuzidi salio';
+
+  @override
+  String get paymentDate => 'Tarehe ya Malipo';
+
+  @override
+  String get paymentMethod => 'Njia ya Malipo';
+
+  @override
+  String get notes => 'Maelezo';
+
+  @override
+  String get save => 'Hifadhi';
 }

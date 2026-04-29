@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/expense.dart';
+import '../debts/general_debt_list_screen.dart';
 import '../../utils/number_formatter.dart';
 import 'seller_expense_form_screen.dart';
 
@@ -61,8 +62,7 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildExpenseTab(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: Column(
@@ -235,6 +235,43 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
         },
         backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          Material(
+            color: Colors.white,
+            child: TabBar(
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.grey[600],
+              indicatorColor: Theme.of(context).primaryColor,
+              tabs: [
+                Tab(
+                  icon: const Icon(Icons.money_off),
+                  text: AppLocalizations.of(context)!.expenses,
+                ),
+                Tab(
+                  icon: const Icon(Icons.account_balance_wallet),
+                  text: AppLocalizations.of(context)!.debts,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                _buildExpenseTab(context),
+                const GeneralDebtListScreen(embedded: true),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

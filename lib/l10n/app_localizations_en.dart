@@ -1020,4 +1020,104 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shop => 'Shop';
+
+  @override
+  String get debts => 'Debts';
+
+  @override
+  String get searchDebts => 'Search debts...';
+
+  @override
+  String get noDebtsFound => 'No debts found';
+
+  @override
+  String get noDebtsMatch => 'No debts match your search';
+
+  @override
+  String get deleteDebt => 'Delete Debt';
+
+  @override
+  String deleteDebtConfirm(String name) {
+    return 'Delete debt for \"$name\"?';
+  }
+
+  @override
+  String get createDebt => 'Create Debt';
+
+  @override
+  String get editDebt => 'Edit Debt';
+
+  @override
+  String get addNewDebt => 'Add New Debt';
+
+  @override
+  String get updateDebt => 'Update Debt';
+
+  @override
+  String get debtorName => 'Debtor Name';
+
+  @override
+  String get enterDebtorName => 'Enter debtor name';
+
+  @override
+  String get debtorNameRequired => 'Debtor name is required';
+
+  @override
+  String get enterDebtAmount => 'Enter debt amount';
+
+  @override
+  String get debtDate => 'Debt Date';
+
+  @override
+  String get dueDate => 'Due Date';
+
+  @override
+  String get dueDateAfterDebtDate => 'Due date must be on or after debt date';
+
+  @override
+  String get enterDebtDescription => 'Enter debt description';
+
+  @override
+  String get amountBelowPaid => 'Amount cannot be below paid amount';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get paid => 'Paid';
+
+  @override
+  String get partial => 'Partial';
+
+  @override
+  String get unpaid => 'Unpaid';
+
+  @override
+  String get recordPayment => 'Record Payment';
+
+  @override
+  String get paymentHistory => 'Payment History';
+
+  @override
+  String get noPaymentsRecorded => 'No payments recorded';
+
+  @override
+  String paymentAmountMax(String amount) {
+    return 'Amount (max $amount)';
+  }
+
+  @override
+  String get paymentExceedsBalance => 'Payment cannot exceed balance';
+
+  @override
+  String get paymentDate => 'Payment Date';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get save => 'Save';
 }

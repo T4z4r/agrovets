@@ -2077,6 +2077,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Shop'**
   String get shop;
+
+  /// No description provided for @debts.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts'**
+  String get debts;
+
+  /// No description provided for @searchDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Search debts...'**
+  String get searchDebts;
+
+  /// No description provided for @noDebtsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No debts found'**
+  String get noDebtsFound;
+
+  /// No description provided for @noDebtsMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No debts match your search'**
+  String get noDebtsMatch;
+
+  /// No description provided for @deleteDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Debt'**
+  String get deleteDebt;
+
+  /// No description provided for @deleteDebtConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete debt for \"{name}\"?'**
+  String deleteDebtConfirm(String name);
+
+  /// No description provided for @createDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Debt'**
+  String get createDebt;
+
+  /// No description provided for @editDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Debt'**
+  String get editDebt;
+
+  /// No description provided for @addNewDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Debt'**
+  String get addNewDebt;
+
+  /// No description provided for @updateDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Debt'**
+  String get updateDebt;
+
+  /// No description provided for @debtorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Debtor Name'**
+  String get debtorName;
+
+  /// No description provided for @enterDebtorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter debtor name'**
+  String get enterDebtorName;
+
+  /// No description provided for @debtorNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Debtor name is required'**
+  String get debtorNameRequired;
+
+  /// No description provided for @enterDebtAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter debt amount'**
+  String get enterDebtAmount;
+
+  /// No description provided for @debtDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Debt Date'**
+  String get debtDate;
+
+  /// No description provided for @dueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get dueDate;
+
+  /// No description provided for @dueDateAfterDebtDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date must be on or after debt date'**
+  String get dueDateAfterDebtDate;
+
+  /// No description provided for @enterDebtDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter debt description'**
+  String get enterDebtDescription;
+
+  /// No description provided for @amountBelowPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount cannot be below paid amount'**
+  String get amountBelowPaid;
+
+  /// No description provided for @balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balance;
+
+  /// No description provided for @paid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get paid;
+
+  /// No description provided for @partial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get partial;
+
+  /// No description provided for @unpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid'**
+  String get unpaid;
+
+  /// No description provided for @recordPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Payment'**
+  String get recordPayment;
+
+  /// No description provided for @paymentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get paymentHistory;
+
+  /// No description provided for @noPaymentsRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments recorded'**
+  String get noPaymentsRecorded;
+
+  /// No description provided for @paymentAmountMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount (max {amount})'**
+  String paymentAmountMax(String amount);
+
+  /// No description provided for @paymentExceedsBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment cannot exceed balance'**
+  String get paymentExceedsBalance;
+
+  /// No description provided for @paymentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date'**
+  String get paymentDate;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
 }
 
 class _AppLocalizationsDelegate

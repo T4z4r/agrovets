@@ -379,5 +379,51 @@
   "passwordMustContainSpecial": "Nenosiri lazima iwe na angalau herufi maalum moja",
   "shopDetails": "Maelezo ya Duka",
   "noDataAvailable": "Hakuna data inayopatikana",
-  "shop": "Duka"
+  "shop": "Duka",
+  "debts": "Madeni",
+  "searchDebts": "Tafuta madeni...",
+  "noDebtsFound": "Hakuna madeni yaliyopatikana",
+  "noDebtsMatch": "Hakuna madeni yanayolingana na utafutaji wako",
+  "deleteDebt": "Futa Deni",
+  "deleteDebtConfirm": "Futa deni la \"{name}\"?",
+  "@deleteDebtConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createDebt": "Unda Deni",
+  "editDebt": "Hariri Deni",
+  "addNewDebt": "Ongeza Deni Jipya",
+  "updateDebt": "Sasisha Deni",
+  "debtorName": "Jina la Mdaiwa",
+  "enterDebtorName": "Ingiza jina la mdaiwa",
+  "debtorNameRequired": "Jina la mdaiwa linahitajika",
+  "enterDebtAmount": "Ingiza kiasi cha deni",
+  "debtDate": "Tarehe ya Deni",
+  "dueDate": "Tarehe ya Mwisho",
+  "dueDateAfterDebtDate": "Tarehe ya mwisho lazima iwe sawa au baada ya tarehe ya deni",
+  "enterDebtDescription": "Ingiza maelezo ya deni",
+  "amountBelowPaid": "Kiasi hakiwezi kuwa chini ya kiasi kilicholipwa",
+  "balance": "Salio",
+  "paid": "Imelipwa",
+  "partial": "Sehemu imelipwa",
+  "unpaid": "Haijalipwa",
+  "recordPayment": "Rekodi Malipo",
+  "paymentHistory": "Historia ya Malipo",
+  "noPaymentsRecorded": "Hakuna malipo yaliyorekodiwa",
+  "paymentAmountMax": "Kiasi (kiwango cha juu {amount})",
+  "@paymentAmountMax": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentExceedsBalance": "Malipo hayawezi kuzidi salio",
+  "paymentDate": "Tarehe ya Malipo",
+  "paymentMethod": "Njia ya Malipo",
+  "notes": "Maelezo",
+  "save": "Hifadhi"
 }

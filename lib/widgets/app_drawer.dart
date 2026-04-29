@@ -10,6 +10,7 @@ import '../screens/suppliers/supplier_list_screen.dart';
 import '../screens/stock/stock_list_screen.dart';
 import '../screens/sales/sale_list_screen.dart';
 import '../screens/expenses/expense_list_screen.dart';
+import '../screens/debts/general_debt_list_screen.dart';
 import '../screens/reports/daily_report_screen.dart';
 import '../screens/sellers/seller_list_screen.dart';
 import '../screens/shop/shop_detail_screen.dart';
@@ -128,6 +129,16 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'expenses', key: itemKeys?['expenses']),
+          if (auth.isOwner)
+            _drawerTile(context, Icons.account_balance_wallet, 'Debts', () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const GeneralDebtListScreen(),
+                ),
+                (route) => false,
+              );
+            }, isActive: activeScreen == 'debts', key: itemKeys?['debts']),
           _drawerTile(
               context, Icons.bar_chart, AppLocalizations.of(context)!.reports,
               () {

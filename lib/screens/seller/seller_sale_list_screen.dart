@@ -61,6 +61,16 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
     });
   }
 
+  String _formatDate(String dateString) {
+    try {
+      final dateOnly = dateString.split('T').first;
+      final date = DateFormat('yyyy-MM-dd').parseStrict(dateOnly);
+      return DateFormat.yMMMd().format(date);
+    } catch (_) {
+      return dateString;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,14 +173,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '${AppLocalizations.of(context)!.saleDate}: ${(() {
-                                            try {
-                                              return DateFormat.yMMMd().format(
-                                                  DateTime.parse(s.saleDate));
-                                            } catch (_) {
-                                              return s.saleDate;
-                                            }
-                                          })()}',
+                                          '${AppLocalizations.of(context)!.saleDate}: ${_formatDate(s.saleDate)}',
                                           style: TextStyle(
                                             color: Colors.grey[600],
                                             fontSize: 12,

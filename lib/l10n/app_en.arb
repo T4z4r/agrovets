@@ -380,5 +380,51 @@
   "passwordMustContainSpecial": "Password must contain at least one special character",
   "shopDetails": "Shop Details",
   "noDataAvailable": "No data available",
-  "shop": "Shop"
+  "shop": "Shop",
+  "debts": "Debts",
+  "searchDebts": "Search debts...",
+  "noDebtsFound": "No debts found",
+  "noDebtsMatch": "No debts match your search",
+  "deleteDebt": "Delete Debt",
+  "deleteDebtConfirm": "Delete debt for \"{name}\"?",
+  "@deleteDebtConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "createDebt": "Create Debt",
+  "editDebt": "Edit Debt",
+  "addNewDebt": "Add New Debt",
+  "updateDebt": "Update Debt",
+  "debtorName": "Debtor Name",
+  "enterDebtorName": "Enter debtor name",
+  "debtorNameRequired": "Debtor name is required",
+  "enterDebtAmount": "Enter debt amount",
+  "debtDate": "Debt Date",
+  "dueDate": "Due Date",
+  "dueDateAfterDebtDate": "Due date must be on or after debt date",
+  "enterDebtDescription": "Enter debt description",
+  "amountBelowPaid": "Amount cannot be below paid amount",
+  "balance": "Balance",
+  "paid": "Paid",
+  "partial": "Partial",
+  "unpaid": "Unpaid",
+  "recordPayment": "Record Payment",
+  "paymentHistory": "Payment History",
+  "noPaymentsRecorded": "No payments recorded",
+  "paymentAmountMax": "Amount (max {amount})",
+  "@paymentAmountMax": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentExceedsBalance": "Payment cannot exceed balance",
+  "paymentDate": "Payment Date",
+  "paymentMethod": "Payment Method",
+  "notes": "Notes",
+  "save": "Save"
 }

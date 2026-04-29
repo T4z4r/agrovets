@@ -440,7 +440,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
   }) {
     final isSelected = _selectedIndex == index;
     final activeColor = Theme.of(context).primaryColor;
-    final inactiveColor = Colors.grey;
+    const inactiveColor = Colors.grey;
 
     return InkWell(
       key: key,
