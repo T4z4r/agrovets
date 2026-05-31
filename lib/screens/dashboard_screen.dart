@@ -42,7 +42,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Map<String, dynamic> dashboard = {};
   bool _loading = false;
   Map<String, bool> _cardVisibility = {};
-  bool _dashboardReady = false;
 
   @override
   void initState() {
@@ -71,7 +70,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       );
     }
-    _dashboardReady = true;
     setState(() => _loading = false);
   }
 

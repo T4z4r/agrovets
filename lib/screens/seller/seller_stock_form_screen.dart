@@ -4,10 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/supplier.dart';
+import '../../providers/product_provider.dart';
 
 class SellerStockFormScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -131,7 +133,12 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       'remarks': _remarks,
     };
     try {
-      await ApiService.post('/api/stock', data);
+      final response = await ApiService.post('/api/stock', data);
+      if (mounted) {
+        await context
+            .read<ProductProvider>()
+            .syncFromStockResponse(response);
+      }
       _showSuccessDialog(AppLocalizations.of(context)!.stockTransactionSaved);
       widget.onSave();
     } catch (e) {

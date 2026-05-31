@@ -115,8 +115,6 @@ class _AppTourDialogState extends State<_AppTourDialog> {
   @override
   Widget build(BuildContext context) {
     final rect = _rectForTarget(_step.targetKey);
-    final media = MediaQuery.of(context);
-    final bottomInset = media.padding.bottom;
 
     return Material(
       color: Colors.transparent,
@@ -147,119 +145,122 @@ class _AppTourDialogState extends State<_AppTourDialog> {
             ),
           SafeArea(
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + bottomInset * 0.15),
-                child: Card(
-                  elevation: 18,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
+                padding: const EdgeInsets.all(16),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 420),
+                  child: Card(
+                    elevation: 18,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  widget.title,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.8,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '${_index + 1}/${widget.steps.length}',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            _step.title,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _step.description,
+                            style: TextStyle(
+                              fontSize: 15,
+                              height: 1.4,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          if (rect != null && _step.highlightLabel != null) ...[
+                            const SizedBox(height: 14),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF72140C).withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(14),
+                              ),
                               child: Text(
-                                widget.title,
+                                _step.highlightLabel!,
                                 style: const TextStyle(
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.8,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                            Text(
-                              '${_index + 1}/${widget.steps.length}',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
                           ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          _step.title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          _step.description,
-                          style: TextStyle(
-                            fontSize: 15,
-                            height: 1.4,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        if (rect != null && _step.highlightLabel != null) ...[
-                          const SizedBox(height: 14),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF72140C).withOpacity(0.08),
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Text(
-                              _step.highlightLabel!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
+                          const SizedBox(height: 18),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: _back,
+                                child: Text(
+                                  'Back',
+                                  style: TextStyle(
+                                    color: _index == 0
+                                        ? Colors.grey
+                                        : const Color(0xFF72140C),
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(width: 8),
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text('Skip'),
+                              ),
+                              const Spacer(),
+                              ElevatedButton(
+                                onPressed: _next,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF72140C),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 14,
+                                  ),
+                                ),
+                                child: Text(_isLast ? 'Done' : 'Next'),
+                              ),
+                            ],
                           ),
                         ],
-                        const SizedBox(height: 18),
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: _back,
-                              child: Text(
-                                'Back',
-                                style: TextStyle(
-                                  color: _index == 0
-                                      ? Colors.grey
-                                      : const Color(0xFF72140C),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: const Text('Skip'),
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: _next,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF72140C),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 14,
-                                ),
-                              ),
-                              child: Text(_isLast ? 'Done' : 'Next'),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

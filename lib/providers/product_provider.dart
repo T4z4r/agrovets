@@ -42,6 +42,27 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> syncFromStockResponse(Map<String, dynamic> response) async {
+    final data = response['data'];
+    final stockItems = data is List ? data : [data];
+    final updatedProducts = stockItems
+        .whereType<Map<String, dynamic>>()
+        .map((item) => item['product'])
+        .whereType<Map<String, dynamic>>()
+        .map(Product.fromJson)
+        .toList();
+
+    if (updatedProducts.isEmpty) return;
+
+    final productsById = {
+      for (final product in _products) product.id: product,
+      for (final product in updatedProducts) product.id: product,
+    };
+    _products = productsById.values.toList();
+    await DatabaseHelper().insertProducts(updatedProducts);
+    notifyListeners();
+  }
+
   Future<void> addProduct(Product product) async {
     // Assuming online for now
     // After adding via API, refetch

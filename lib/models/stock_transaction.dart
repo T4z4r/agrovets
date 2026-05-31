@@ -7,7 +7,7 @@ class StockTransaction {
   final int id;
   final int productId;
   final String type;
-  final int quantity;
+  final double quantity;
   final int? supplierId;
   final String date;
   final String? remarks;
@@ -33,7 +33,7 @@ class StockTransaction {
       id: json['id'] ?? 0,
       productId: int.tryParse(json['product_id']?.toString() ?? '0') ?? 0,
       type: json['type'] ?? '',
-      quantity: int.tryParse(json['quantity']?.toString() ?? '0') ?? 0,
+      quantity: double.tryParse(json['quantity']?.toString() ?? '0') ?? 0,
       supplierId: json['supplier_id'] != null
           ? int.tryParse(json['supplier_id'].toString())
           : null,
