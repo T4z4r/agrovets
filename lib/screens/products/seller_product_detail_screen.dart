@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../utils/number_formatter.dart';
+import '../../widgets/product_image.dart';
 
 class SellerProductDetailScreen extends StatefulWidget {
   final int productId;
@@ -75,18 +76,11 @@ class _SellerProductDetailScreenState extends State<SellerProductDetailScreen> {
                           padding: const EdgeInsets.all(20),
                           child: Row(
                             children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColorLight,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Icon(
-                                  Icons.inventory,
-                                  size: 30,
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                              ProductImage(
+                                imageUrl: _product!.imageUrl,
+                                width: 72,
+                                height: 72,
+                                borderRadius: 12,
                               ),
                               const SizedBox(width: 16),
                               Expanded(

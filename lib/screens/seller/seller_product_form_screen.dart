@@ -1,11 +1,15 @@
 // lib/screens/seller/seller_product_form_screen.dart
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/product_image.dart';
 
 class SellerProductFormScreen extends StatefulWidget {
   final Product? product;
@@ -26,6 +30,7 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
   late TextEditingController _sellingPriceCtrl;
   late TextEditingController _minimumQuantityCtrl;
   late TextEditingController _barcodeCtrl;
+  XFile? _pickedImage;
   bool _loading = false;
 
   @override
@@ -42,6 +47,17 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
     _minimumQuantityCtrl = TextEditingController(
         text: widget.product?.minimumQuantity.toString() ?? '');
     _barcodeCtrl = TextEditingController(text: widget.product?.barcode ?? '');
+  }
+
+  Future<void> _pickImage() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 85,
+      maxWidth: 1600,
+    );
+    if (image != null) {
+      setState(() => _pickedImage = image);
+    }
   }
 
   void _showSuccessDialog(String message) {
@@ -105,7 +121,15 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
     print('Seller updating product ${widget.product!.id} with data: $data');
     print('API URL: /api/products/${widget.product!.id}');
     try {
-      await ApiService.post('/api/products/update/${widget.product!.id}', data);
+      if (_pickedImage != null) {
+        await ApiService.postMultipart(
+          '/api/products/update/${widget.product!.id}',
+          data,
+          filePath: _pickedImage!.path,
+        );
+      } else {
+        await ApiService.post('/api/products/update/${widget.product!.id}', data);
+      }
       _showSuccessDialog(AppLocalizations.of(context)!.productUpdated);
       widget.onSave();
     } catch (e) {
@@ -208,18 +232,40 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Product Icon Header
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Icon(
-                  Icons.edit,
-                  size: 40,
-                  color: Theme.of(context).primaryColor,
+              Center(
+                child: Stack(
+                  children: [
+                    _pickedImage != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.file(
+                              File(_pickedImage!.path),
+                              width: 96,
+                              height: 96,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : ProductImage(
+                            imageUrl: widget.product?.imageUrl,
+                            width: 96,
+                            height: 96,
+                            borderRadius: 20,
+                          ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Material(
+                        color: Theme.of(context).primaryColor,
+                        shape: const CircleBorder(),
+                        child: IconButton(
+                          icon: const Icon(Icons.photo_camera,
+                              color: Colors.white),
+                          tooltip: 'Select product image',
+                          onPressed: _pickImage,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 24),

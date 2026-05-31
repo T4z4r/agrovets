@@ -1,7 +1,7 @@
 name: apex
 description: Apex Mobile App
 publish_to: 'none'
-version: 1.0.0+20
+version: 1.0.0+22
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -25,6 +25,7 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   sqflite: ^2.3.0
   connectivity_plus: ^7.0.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:

@@ -23,7 +23,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'apex.db');
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -65,6 +65,8 @@ class DatabaseHelper {
         selling_price REAL,
         minimum_quantity REAL,
         barcode TEXT,
+        photo TEXT,
+        image_url TEXT,
         created_at TEXT,
         updated_at TEXT
       )
@@ -95,6 +97,10 @@ class DatabaseHelper {
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
       await db.execute('ALTER TABLE shops ADD COLUMN owner_id INTEGER');
+    }
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE products ADD COLUMN photo TEXT');
+      await db.execute('ALTER TABLE products ADD COLUMN image_url TEXT');
     }
   }
 

@@ -8,6 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/product_image.dart';
 import '../../utils/number_formatter.dart';
 import '../../providers/product_provider.dart';
 import 'product_form_screen.dart';
@@ -328,17 +329,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                    ),
                                   child: ListTile(
                                     contentPadding: const EdgeInsets.all(8),
-                                    leading: Container(
+                                    leading: ProductImage(
+                                      imageUrl: p.imageUrl,
                                       width: 50,
                                       height: 50,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColorLight,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Icon(
-                                        Icons.inventory,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                                      borderRadius: 8,
                                     ),
                                     title: Text(
                                       p.name!,

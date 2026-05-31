@@ -762,7 +762,7 @@ class _DebtDetailsSheet extends StatelessWidget {
                 const SizedBox(height: 16),
                 Text(
                   l10n.paymentHistory,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 if (debt.payments.isEmpty)

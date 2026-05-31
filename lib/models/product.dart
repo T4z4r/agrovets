@@ -11,6 +11,8 @@ class Product {
   final double? sellingPrice;
   final double? minimumQuantity;
   final String? barcode;
+  final String? photo;
+  final String? imageUrl;
   final List<StockTransaction>? stockTransactions;
   final String? createdAt;
   final String? updatedAt;
@@ -25,6 +27,8 @@ class Product {
     required this.sellingPrice,
     required this.minimumQuantity,
     this.barcode,
+    this.photo,
+    this.imageUrl,
     this.stockTransactions,
     this.createdAt,
     this.updatedAt,
@@ -44,6 +48,8 @@ class Product {
       minimumQuantity:
           double.tryParse(map['minimum_quantity']?.toString() ?? '0') ?? 0,
       barcode: map['barcode'],
+      photo: map['photo'],
+      imageUrl: map['image_url'],
       stockTransactions: map['stock_transactions'] != null
           ? (map['stock_transactions'] as List)
               .map((e) => StockTransaction.fromJson(e))
@@ -56,6 +62,7 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'unit': unit,
       'category': category,
@@ -64,6 +71,10 @@ class Product {
       'selling_price': sellingPrice,
       'minimum_quantity': minimumQuantity,
       'barcode': barcode,
+      'photo': photo,
+      'image_url': imageUrl,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 }

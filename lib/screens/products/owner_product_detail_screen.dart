@@ -6,6 +6,7 @@ import '../../services/api_service.dart';
 import '../../models/product.dart';
 import '../../models/stock_transaction.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/product_image.dart';
 import '../../utils/number_formatter.dart';
 import 'product_form_screen.dart';
 
@@ -181,14 +182,28 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                _product!.name ?? '',
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ProductImage(
+                                    imageUrl: _product!.imageUrl,
+                                    width: 96,
+                                    height: 96,
+                                    borderRadius: 12,
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Text(
+                                      _product!.name ?? '',
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 12),
                               Row(
                                 children: [
                                   Icon(Icons.inventory,

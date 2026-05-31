@@ -45,6 +45,39 @@ class ApiService {
     }
   }
 
+  static Future<dynamic> postMultipart(
+    String endpoint,
+    Map<String, dynamic> data, {
+    String? filePath,
+    String fileField = 'photo',
+  }) async {
+    try {
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl$endpoint'),
+      );
+      final headers = await getHeaders();
+      headers.remove('Content-Type');
+      request.headers.addAll(headers);
+      data.forEach((key, value) {
+        if (value != null) {
+          request.fields[key] = value.toString();
+        }
+      });
+      if (filePath != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(fileField, filePath),
+        );
+      }
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      return _handleResponse(response);
+    } on http.ClientException {
+      throw Exception(
+'Network Error: Please check your internet connection.');
+    }
+  }
+
   static Future<dynamic> put(String endpoint, Map<String, dynamic> data) async {
     try {
       final response = await http.put(
