@@ -5,7 +5,6 @@ import '../../providers/auth_provider.dart';
 import '../../providers/locale_provider.dart';
 import '../../screens/auth/login_screen.dart';
 import '../../screens/guide_list_screen.dart';
-import '../../services/app_tour_service.dart';
 import '../../widgets/app_tour_dialog.dart';
 import 'seller_dashboard_screen.dart';
 import 'seller_product_list_screen.dart';
@@ -22,7 +21,6 @@ class SellerHomeScreen extends StatefulWidget {
 
 class _SellerHomeScreenState extends State<SellerHomeScreen> {
   int _selectedIndex = 0;
-  bool _tourScheduled = false;
 
   final GlobalKey _tourHelpKey = GlobalKey();
   final GlobalKey _languageKey = GlobalKey();
@@ -86,7 +84,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                 title: Text(_tourText('Replay tour', 'Rudia tour')),
                 onTap: () {
                   Navigator.pop(sheetContext);
-                  _showAppTour(force: true);
+                  _showAppTour();
                 },
               ),
               const SizedBox(height: 12),
@@ -97,14 +95,9 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
     );
   }
 
-  Future<void> _showAppTour({bool force = false}) async {
+  Future<void> _showAppTour() async {
     final auth = context.read<AuthProvider>();
     if (auth.user == null) return;
-
-    if (!force) {
-      final shouldShow = await AppTourService.shouldShowTour(auth.user);
-      if (!shouldShow || !mounted) return;
-    }
 
     final steps = <AppTourStep>[
       AppTourStep(
@@ -202,23 +195,12 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
       title: _tourText('Seller walkthrough', 'Mwongozo wa muuzaji'),
       steps: steps,
     );
-
-    if (mounted && !force) {
-      await AppTourService.markTourSeen(auth.user);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
     final localeProvider = context.watch<LocaleProvider>();
-
-    if (!_tourScheduled) {
-      _tourScheduled = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await _showAppTour();
-      });
-    }
 
     return Scaffold(
       appBar: AppBar(

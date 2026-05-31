@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
 import '../services/api_service.dart';
-import '../services/app_tour_service.dart';
 import '../utils/number_formatter.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/app_tour_dialog.dart';
@@ -44,7 +43,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool _loading = false;
   Map<String, bool> _cardVisibility = {};
   bool _dashboardReady = false;
-  bool _tourScheduled = false;
 
   @override
   void initState() {
@@ -81,14 +79,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return AppLocalizations.of(context)?.localeName == 'sw' ? sw : en;
   }
 
-  Future<void> _showAppTour({bool force = false}) async {
+  Future<void> _showAppTour() async {
     final auth = context.read<AuthProvider>();
     if (auth.user == null) return;
-
-    if (!force) {
-      final shouldShow = await AppTourService.shouldShowTour(auth.user);
-      if (!shouldShow || !mounted) return;
-    }
 
     final steps = <AppTourStep>[
       AppTourStep(
@@ -150,10 +143,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       title: _tourText('Owner walkthrough', 'Mwongozo wa mmiliki'),
       steps: steps,
     );
-
-    if (mounted && !force) {
-      await AppTourService.markTourSeen(auth.user);
-    }
   }
 
   Future<void> _showHelpMenu() async {
@@ -192,7 +181,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 title: Text(_tourText('Replay tour', 'Rudia tour')),
                 onTap: () {
                   Navigator.pop(sheetContext);
-                  _showAppTour(force: true);
+                  _showAppTour();
                 },
               ),
               const SizedBox(height: 12),
@@ -206,13 +195,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-
-    if (_dashboardReady && !_loading && !_tourScheduled) {
-      _tourScheduled = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await _showAppTour();
-      });
-    }
 
     return Scaffold(
       key: _scaffoldKey,
