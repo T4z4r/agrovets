@@ -38,8 +38,8 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
     } catch (e) {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              '${AppLocalizations.of(context)!.failedLoadSuppliers}: $e')));
+          content:
+              Text(AppLocalizations.of(context)!.failedLoadSuppliers)));
     }
   }
 
@@ -48,7 +48,8 @@ class _SupplierListScreenState extends State<SupplierListScreen> {
       await ApiService.delete('/api/suppliers/$id');
       _loadSuppliers();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 

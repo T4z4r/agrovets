@@ -55,8 +55,8 @@ class _SellerStockListScreenState extends State<SellerStockListScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _loading = false);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(AppLocalizations.of(context)!.operationFailed)));
       }
     }
   }

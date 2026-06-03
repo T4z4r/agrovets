@@ -33,7 +33,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+              Text(AppLocalizations.of(context)!.failedLoadReport),
           backgroundColor: Colors.red,
         ),
       );

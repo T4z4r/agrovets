@@ -103,7 +103,7 @@ class _SellerExpenseFormScreenState extends State<SellerExpenseFormScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedSaveExpense}: $e'),
+              Text(AppLocalizations.of(context)!.failedSaveExpense),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(

@@ -375,7 +375,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                                           ).showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                '${AppLocalizations.of(context)!.failedDeleteSale}: $e',
+                                                AppLocalizations.of(context)!.failedDeleteSale,
                                               ),
                                             ),
                                           );

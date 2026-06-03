@@ -30,7 +30,7 @@ class _AboutScreenState extends State<AboutScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+          content: Text(AppLocalizations.of(context)!.failedLoadReport),
           backgroundColor: Colors.red,
         ),
       );

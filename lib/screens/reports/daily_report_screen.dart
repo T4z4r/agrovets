@@ -31,7 +31,7 @@ class _DailyReportScreenState extends State<DailyReportScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-              '${AppLocalizations.of(context)!.failedLoadDailyReport}: $e'),
+              AppLocalizations.of(context)!.failedLoadDailyReport),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(

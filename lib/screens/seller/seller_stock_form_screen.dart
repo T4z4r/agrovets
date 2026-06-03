@@ -64,8 +64,8 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -144,7 +144,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${AppLocalizations.of(context)!.failedSaveStock}: $e'),
+          content: Text(AppLocalizations.of(context)!.failedSaveStock),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(
@@ -316,8 +316,7 @@ class _SellerStockFormScreenState extends State<SellerStockFormScreen> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  '${AppLocalizations.of(context)!.errorFindingProduct}: $e')),
+              content: Text(AppLocalizations.of(context)!.errorFindingProduct)),
         );
       }
     }

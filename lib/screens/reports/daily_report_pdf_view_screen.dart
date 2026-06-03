@@ -73,7 +73,7 @@ class _DailyReportPdfViewScreenState extends State<DailyReportPdfViewScreen> {
       if (result.type != ResultType.done) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to open file: ${result.message}'),
+            content: Text(AppLocalizations.of(context)!.operationFailed),
             backgroundColor: Colors.red,
           ),
         );
@@ -88,7 +88,7 @@ class _DailyReportPdfViewScreenState extends State<DailyReportPdfViewScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to download file: $e'),
+          content: Text(AppLocalizations.of(context)!.operationFailed),
           backgroundColor: Colors.red,
         ),
       );

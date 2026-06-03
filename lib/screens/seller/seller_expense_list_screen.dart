@@ -39,8 +39,8 @@ class _SellerExpenseListScreenState extends State<SellerExpenseListScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 

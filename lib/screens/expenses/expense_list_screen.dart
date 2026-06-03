@@ -38,8 +38,8 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -48,8 +48,8 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
       await ApiService.delete('/api/expenses/$id');
       _loadExpenses();
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 

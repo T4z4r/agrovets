@@ -41,8 +41,8 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _loading = false);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(AppLocalizations.of(context)!.operationFailed)));
       }
     }
   }
@@ -346,7 +346,7 @@ class _SellerSaleListScreenState extends State<SellerSaleListScreen> {
                                               .showSnackBar(
                                             SnackBar(
                                                 content: Text(
-                                                    '${AppLocalizations.of(context)!.failedDeleteSale}: $e')),
+                                                    AppLocalizations.of(context)!.failedDeleteSale)),
                                           );
                                         }
                                       }

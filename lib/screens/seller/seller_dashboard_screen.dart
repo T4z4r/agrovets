@@ -50,7 +50,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedLoadDashboard}: $e'),
+              Text(AppLocalizations.of(context)!.failedLoadDashboard),
           backgroundColor: Colors.red,
         ),
       );
@@ -68,7 +68,7 @@ class _SellerDashboardScreenState extends State<SellerDashboardScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+              Text(AppLocalizations.of(context)!.failedLoadReport),
           backgroundColor: Colors.red,
         ),
       );

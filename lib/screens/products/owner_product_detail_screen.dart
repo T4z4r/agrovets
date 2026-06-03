@@ -44,7 +44,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load product: $e'),
+          content: Text(AppLocalizations.of(context)!.failedLoadProduct),
           backgroundColor: Colors.red,
         ),
       );
@@ -118,7 +118,7 @@ class _OwnerProductDetailScreenState extends State<OwnerProductDetailScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                '${AppLocalizations.of(context)!.failedDeleteProduct}: $e'),
+                AppLocalizations.of(context)!.failedDeleteProduct),
             backgroundColor: Colors.red,
           ),
         );

@@ -85,7 +85,7 @@ class _ShopFormScreenState extends State<ShopFormScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to update shop: $e'),
+          content: Text(AppLocalizations.of(context)!.operationFailed),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
         ),

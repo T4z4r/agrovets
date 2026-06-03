@@ -65,7 +65,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load dashboard: $e'),
+          content: Text(AppLocalizations.of(context)!.failedLoadDashboard),
           backgroundColor: Colors.red,
         ),
       );

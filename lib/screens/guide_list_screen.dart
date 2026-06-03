@@ -42,7 +42,7 @@ class _GuideListScreenState extends State<GuideListScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to load guides: $e'),
+            content: Text(AppLocalizations.of(context)!.operationFailed),
             backgroundColor: Colors.red,
           ),
         );
@@ -144,7 +144,8 @@ class _GuideListScreenState extends State<GuideListScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to download guide: $e')),
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.operationFailed)),
         );
       }
     }

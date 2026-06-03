@@ -43,7 +43,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedLoadProducts}: $e'),
+              Text(AppLocalizations.of(context)!.failedLoadProducts),
           backgroundColor: Colors.red,
         ),
       );

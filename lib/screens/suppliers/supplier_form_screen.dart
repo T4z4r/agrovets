@@ -103,7 +103,7 @@ class _SupplierFormScreenState extends State<SupplierFormScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedSaveSupplier}: $e'),
+              Text(AppLocalizations.of(context)!.failedSaveSupplier),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(

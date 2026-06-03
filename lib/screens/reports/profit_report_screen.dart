@@ -30,7 +30,7 @@ class _ProfitReportScreenState extends State<ProfitReportScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load profit report: $e'),
+          content: Text(AppLocalizations.of(context)!.failedLoadProfitReport),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
           action: SnackBarAction(

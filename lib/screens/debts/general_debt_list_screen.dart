@@ -43,8 +43,8 @@ class _GeneralDebtListScreenState extends State<GeneralDebtListScreen> {
     } catch (e) {
       setState(() => _loading = false);
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -105,8 +105,8 @@ class _GeneralDebtListScreenState extends State<GeneralDebtListScreen> {
       await _loadDebts();
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -128,8 +128,8 @@ class _GeneralDebtListScreenState extends State<GeneralDebtListScreen> {
       );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -471,8 +471,8 @@ class _GeneralDebtFormScreenState extends State<GeneralDebtFormScreen> {
     } catch (e) {
       setState(() => _loading = false);
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -686,8 +686,8 @@ class _DebtDetailsSheet extends StatelessWidget {
       Navigator.pop(context);
     } catch (e) {
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 
@@ -864,8 +864,8 @@ class _PaymentDialogState extends State<_PaymentDialog> {
     } catch (e) {
       setState(() => _loading = false);
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.operationFailed)));
     }
   }
 

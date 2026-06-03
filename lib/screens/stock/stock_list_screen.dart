@@ -40,7 +40,7 @@ class _StockListScreenState extends State<StockListScreen> {
       setState(() => _loading = false);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content:
-              Text('${AppLocalizations.of(context)!.failedLoadStock}: $e'),  backgroundColor: Colors.red,));
+              Text(AppLocalizations.of(context)!.failedLoadStock),  backgroundColor: Colors.red,));
     }
   }
 
@@ -51,7 +51,7 @@ class _StockListScreenState extends State<StockListScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
-              '${AppLocalizations.of(context)!.failedDeleteProduct}: $e'),  backgroundColor: Colors.red,));
+              AppLocalizations.of(context)!.failedDeleteProduct),  backgroundColor: Colors.red,));
     }
   }
 
