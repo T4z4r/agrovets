@@ -35,7 +35,6 @@ class SaleProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error fetching sales: $e');
       // Keep DB sales if available
     }
     _loading = false;

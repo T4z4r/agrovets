@@ -39,7 +39,6 @@ class _GuideListScreenState extends State<GuideListScreen> {
         setState(() => _guides = guides);
       }
     } catch (e) {
-      print(e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

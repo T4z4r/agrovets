@@ -105,7 +105,6 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
   }
 
   Future<void> _save() async {
-    print('Starting _save for seller product update');
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
     final data = {
@@ -118,8 +117,6 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
       'minimum_quantity': double.parse(_minimumQuantityCtrl.text),
       'barcode': _barcodeCtrl.text.isEmpty ? null : _barcodeCtrl.text,
     };
-    print('Seller updating product ${widget.product!.id} with data: $data');
-    print('API URL: /api/products/${widget.product!.id}');
     try {
       if (_pickedImage != null) {
         await ApiService.postMultipart(
@@ -133,10 +130,12 @@ class _SellerProductFormScreenState extends State<SellerProductFormScreen> {
       _showSuccessDialog(AppLocalizations.of(context)!.productUpdated);
       widget.onSave();
     } catch (e) {
-      print('Error saving product (seller): $e');
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.operationFailed),
+          ),
+        );
         setState(() => _loading = false);
       }
     }

@@ -97,7 +97,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           );
         }
       } else {
-        setState(() => _error = response['message'] ?? 'Invalid OTP');
+        setState(
+            () => _error = AppLocalizations.of(context)!.invalidOrExpiredOtp);
       }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
@@ -118,12 +119,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(response['message'] ?? 'OTP sent successfully'),
+              content: const Text('OTP sent successfully'),
             ),
           );
         }
       } else {
-        setState(() => _error = response['message'] ?? 'Failed to resend OTP');
+        setState(() => _error = 'Failed to resend OTP');
       }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);

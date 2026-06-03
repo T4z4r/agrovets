@@ -35,7 +35,6 @@ class ProductProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error fetching products: $e');
       // Keep DB products if available
     }
     _loading = false;

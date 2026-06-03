@@ -17,12 +17,12 @@ class PrivacyPolicy {
 
   factory PrivacyPolicy.fromJson(Map<String, dynamic> json) {
     return PrivacyPolicy(
-      id: json['id'],
-      title: json['title'],
-      content: json['content'],
-      isActive: json['is_active'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      id: json['id'] is int ? json['id'] : int.tryParse('${json['id']}') ?? 0,
+      title: json['title']?.toString() ?? '',
+      content: json['content']?.toString() ?? '',
+      isActive: json['is_active']?.toString() ?? '',
+      createdAt: json['created_at']?.toString() ?? '',
+      updatedAt: json['updated_at']?.toString() ?? '',
     );
   }
 }

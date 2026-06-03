@@ -109,7 +109,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   Future<void> _save() async {
-    print('Starting _save for owner product update');
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
     final data = {
@@ -124,7 +123,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     };
     try {
       if (widget.product == null) {
-        print('Owner creating product with data: $data');
         if (_pickedImage != null) {
           await ApiService.postMultipart(
             '/api/products',
@@ -136,8 +134,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         }
         _showSuccessDialog(AppLocalizations.of(context)!.productCreated);
       } else {
-        print('Owner updating product ${widget.product!.id} with data: $data');
-        print('API URL: /api/products/${widget.product!.id}');
         if (_pickedImage != null) {
           await ApiService.postMultipart(
             '/api/products/update/${widget.product!.id}',
@@ -152,10 +148,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       }
       widget.onSave();
     } catch (e) {
-      print('Error saving product (owner): $e');
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.operationFailed),
+          ),
+        );
         setState(() => _loading = false);
       }
     }

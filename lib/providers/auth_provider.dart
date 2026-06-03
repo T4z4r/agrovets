@@ -47,7 +47,6 @@ class AuthProvider with ChangeNotifier {
       }
     } catch (e) {
       // If both fail, keep the DB user if available
-      print('Error loading user: $e');
     }
     _loading = false;
     notifyListeners();

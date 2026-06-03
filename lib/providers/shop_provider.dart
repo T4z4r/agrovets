@@ -32,7 +32,6 @@ class ShopProvider with ChangeNotifier {
         await DatabaseHelper().insertShop(apiShop);
       }
     } catch (e) {
-      print(e);
       // Keep DB shop if available
     }
     _loading = false;

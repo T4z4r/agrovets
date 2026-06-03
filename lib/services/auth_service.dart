@@ -72,7 +72,6 @@ class AuthService {
         'shop_name': shopName,
         'shop_location': shopLocation,
       };
-      print('Register data: $data'); // Debug log
       final response = await ApiService.post('/api/register', data);
       // Note: Register does not return token yet, OTP verification needed
       return response;

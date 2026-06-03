@@ -74,8 +74,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         );
       } else {
-        setState(() => _error = response['message'] ??
-            AppLocalizations.of(context)!.registrationFailed);
+        setState(
+            () => _error = AppLocalizations.of(context)!.registrationFailed);
       }
     } catch (e) {
       setState(() => _error = AppLocalizations.of(context)!.connectionError);
@@ -121,8 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-              Text('${AppLocalizations.of(context)!.failedLoadReport}: $e'),
+          content: Text(AppLocalizations.of(context)!.failedLoadReport),
           backgroundColor: Colors.red,
         ),
       );
