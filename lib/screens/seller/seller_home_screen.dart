@@ -5,6 +5,7 @@ import '../../providers/auth_provider.dart';
 import '../../providers/locale_provider.dart';
 import '../../screens/auth/login_screen.dart';
 import '../../screens/guide_list_screen.dart';
+import '../../screens/pos/pos_screen.dart';
 import '../../widgets/app_tour_dialog.dart';
 import 'seller_dashboard_screen.dart';
 import 'seller_product_list_screen.dart';
@@ -26,6 +27,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
   final GlobalKey _languageKey = GlobalKey();
   final GlobalKey _dashboardTabKey = GlobalKey();
   final GlobalKey _productsTabKey = GlobalKey();
+  final GlobalKey _posTabKey = GlobalKey();
   final GlobalKey _salesTabKey = GlobalKey();
   final GlobalKey _stockTabKey = GlobalKey();
   final GlobalKey _expensesTabKey = GlobalKey();
@@ -33,6 +35,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
   final List<Widget> _screens = const [
     SellerDashboardScreen(),
     SellerProductListScreen(),
+    PosScreen(embedded: true),
     SellerSaleListScreen(),
     SellerStockListScreen(),
     SellerExpenseListScreen(),
@@ -145,6 +148,22 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
         },
       ),
       AppTourStep(
+        title: _tourText('POS mode', 'Mfumo wa POS'),
+        description: _tourText(
+          'Use this supermarket-style checkout to tap products, scan barcodes, and complete a sale quickly.',
+          'Tumia mfumo huu wa mauzo kuchagua bidhaa, kuskani barcode, na kukamilisha mauzo kwa haraka.',
+        ),
+        targetKey: _posTabKey,
+        onBack: (_) async {
+          _onItemTapped(1);
+          await Future.delayed(const Duration(milliseconds: 250));
+        },
+        onNext: (_) async {
+          _onItemTapped(3);
+          await Future.delayed(const Duration(milliseconds: 250));
+        },
+      ),
+      AppTourStep(
         title: _tourText('Sales', 'Mauzo'),
         description: _tourText(
           'Record new sales, review receipts, and keep daily trading history. Tap next for stock.',
@@ -152,11 +171,11 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
         ),
         targetKey: _salesTabKey,
         onBack: (_) async {
-          _onItemTapped(1);
+          _onItemTapped(2);
           await Future.delayed(const Duration(milliseconds: 250));
         },
         onNext: (_) async {
-          _onItemTapped(3);
+          _onItemTapped(4);
           await Future.delayed(const Duration(milliseconds: 250));
         },
       ),
@@ -168,11 +187,11 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
         ),
         targetKey: _stockTabKey,
         onBack: (_) async {
-          _onItemTapped(2);
+          _onItemTapped(3);
           await Future.delayed(const Duration(milliseconds: 250));
         },
         onNext: (_) async {
-          _onItemTapped(4);
+          _onItemTapped(5);
           await Future.delayed(const Duration(milliseconds: 250));
         },
       ),
@@ -184,7 +203,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
         ),
         targetKey: _expensesTabKey,
         onBack: (_) async {
-          _onItemTapped(3);
+          _onItemTapped(4);
           await Future.delayed(const Duration(milliseconds: 250));
         },
       ),
@@ -385,8 +404,16 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               ),
               Expanded(
                 child: _bottomNavItem(
-                  key: _salesTabKey,
+                  key: _posTabKey,
                   index: 2,
+                  icon: Icons.storefront,
+                  label: 'POS',
+                ),
+              ),
+              Expanded(
+                child: _bottomNavItem(
+                  key: _salesTabKey,
+                  index: 3,
                   icon: Icons.point_of_sale,
                   label: AppLocalizations.of(context)!.sales,
                 ),
@@ -394,7 +421,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               Expanded(
                 child: _bottomNavItem(
                   key: _stockTabKey,
-                  index: 3,
+                  index: 4,
                   icon: Icons.storage,
                   label: AppLocalizations.of(context)!.stock,
                 ),
@@ -402,7 +429,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               Expanded(
                 child: _bottomNavItem(
                   key: _expensesTabKey,
-                  index: 4,
+                  index: 5,
                   icon: Icons.calculate,
                   label: AppLocalizations.of(context)!.expenses,
                 ),

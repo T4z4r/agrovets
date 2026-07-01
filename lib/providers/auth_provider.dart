@@ -39,7 +39,9 @@ class AuthProvider with ChangeNotifier {
           }
         } catch (e) {
           // If API fails (e.g., token expired), clear local data
-          if (e.toString().contains('401') || e.toString().contains('Unauthorized')) {
+          if (e.toString().contains('ApiException(401)') ||
+              e.toString().contains('Unauthorized')) {
+            await AuthService.logout();
             await DatabaseHelper().clearAllData();
             _user = null;
           }

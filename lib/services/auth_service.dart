@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'api_service.dart';
+import 'secure_storage_service.dart';
 
 class AuthService {
   static Future<Map<String, dynamic>> login(
@@ -13,43 +13,14 @@ class AuthService {
       });
       if (response['success']) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', response['data']['token']);
+        await SecureStorageService.saveToken(response['data']['token']);
         await prefs.setString('user', jsonEncode(response['data']['user']));
       }
       return response;
-    } catch (e) {
-      // Handle 401 (invalid credentials) and 403 (unverified account) responses
-      if (e.toString().contains('Operation failed')) {
-        // For both 401 and 403, we need to manually make the request to get the response
-        try {
-          final client = http.Client();
-          final headers = await ApiService.getHeaders();
-          final apiResponse = await client.post(
-            Uri.parse('${ApiService.baseUrl}/api/login'),
-            headers: headers,
-            body: jsonEncode({
-              'email': email,
-              'password': password,
-            }),
-          );
-          client.close();
-
-          final jsonResponse = jsonDecode(apiResponse.body);
-          if (apiResponse.statusCode == 401 &&
-              jsonResponse['message']?.contains('Invalid credentials') ==
-                  true) {
-            // Return invalid credentials response
-            return jsonResponse;
-          } else if (apiResponse.statusCode == 403 &&
-              jsonResponse['message']?.contains('not verified') == true) {
-            // Return unverified account response
-            return jsonResponse;
-          }
-          throw Exception('Login failed');
-        } catch (innerError) {
-          throw Exception(
-              'Network Error: Please check your internet connection.');
-        }
+    } on ApiException catch (e) {
+      if ((e.statusCode == 401 || e.statusCode == 403) &&
+          e.body is Map<String, dynamic>) {
+        return e.body as Map<String, dynamic>;
       }
       rethrow;
     }
@@ -69,44 +40,15 @@ class AuthService {
         'password': password,
         'password_confirmation': passwordConfirmation,
         'role': 'owner',
-        'shop_name': shopName,
-        'shop_location': shopLocation,
+        'shop_name': shopName.trim(),
+        'shop_location': shopLocation.trim(),
       };
       final response = await ApiService.post('/api/register', data);
       // Note: Register does not return token yet, OTP verification needed
       return response;
-    } catch (e) {
-      // Handle validation errors (422) and other errors
-      if (e.toString().contains('Operation failed')) {
-        try {
-          final client = http.Client();
-          final headers = await ApiService.getHeaders();
-          final apiResponse = await client.post(
-            Uri.parse('${ApiService.baseUrl}/api/register'),
-            headers: headers,
-            body: jsonEncode({
-              'name': name,
-              'email': email,
-              'password': password,
-              'password_confirmation': passwordConfirmation,
-              'role': 'owner',
-              'shop_name': shopName,
-              'shop_location': shopLocation,
-            }),
-          );
-          client.close();
-
-          final jsonResponse = jsonDecode(apiResponse.body);
-          if (apiResponse.statusCode == 422) {
-            // Validation error
-            return jsonResponse;
-          } else {
-            throw Exception('Registration failed');
-          }
-        } catch (innerError) {
-          throw Exception(
-              'Network Error: Please check your internet connection.');
-        }
+    } on ApiException catch (e) {
+      if (e.statusCode == 422 && e.body is Map<String, dynamic>) {
+        return e.body as Map<String, dynamic>;
       }
       rethrow;
     }
@@ -120,7 +62,7 @@ class AuthService {
     });
     if (response['success']) {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', response['data']['token']);
+      await SecureStorageService.saveToken(response['data']['token']);
       await prefs.setString('user', jsonEncode(response['data']['user']));
     }
     return response;
@@ -153,7 +95,7 @@ class AuthService {
 
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('token');
+    await SecureStorageService.clearToken();
     await prefs.remove('user');
   }
 
@@ -178,7 +120,7 @@ class AuthService {
   }
 
   static Future<bool> isLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token') != null;
+    final token = await SecureStorageService.getToken();
+    return token != null;
   }
 }

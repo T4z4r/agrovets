@@ -7,6 +7,7 @@ import '../../models/user.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/app_drawer.dart';
 import '../../l10n/app_localizations.dart';
+import '../../utils/password_validator.dart';
 
 class SellerFormScreen extends StatefulWidget {
   final User? seller;
@@ -84,8 +85,8 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
     setState(() => _loading = true);
 
     final data = <String, dynamic>{
-      'name': _nameCtrl.text,
-      'email': _emailCtrl.text,
+      'name': _nameCtrl.text.trim(),
+      'email': _emailCtrl.text.trim(),
     };
 
     if (widget.seller == null) {
@@ -286,9 +287,11 @@ class _SellerFormScreenState extends State<SellerFormScreen> {
                             return AppLocalizations.of(context)!
                                 .passwordRequired;
                           }
-                          if (v != null && v.isNotEmpty && v.length < 6) {
-                            return AppLocalizations.of(context)!
-                                .passwordMinLength;
+                          if (v != null && v.isNotEmpty) {
+                            return PasswordValidator.validate(
+                              v,
+                              AppLocalizations.of(context)!,
+                            );
                           }
                           return null;
                         },

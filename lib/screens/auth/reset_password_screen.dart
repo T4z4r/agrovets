@@ -46,7 +46,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     try {
       final response = await AuthService.resetPassword(
         widget.email,
-        _otpCtrl.text,
+        _otpCtrl.text.trim(),
         _passwordCtrl.text,
         _confirmPasswordCtrl.text,
       );

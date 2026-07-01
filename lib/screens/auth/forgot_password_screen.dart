@@ -24,13 +24,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       _error = null;
     });
     try {
-      final response = await AuthService.forgotPassword(_emailCtrl.text);
+      final response = await AuthService.forgotPassword(_emailCtrl.text.trim());
       if (response['success']) {
         if (!mounted) return;
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => ResetPasswordScreen(email: _emailCtrl.text),
+            builder: (_) => ResetPasswordScreen(email: _emailCtrl.text.trim()),
           ),
         );
       } else {

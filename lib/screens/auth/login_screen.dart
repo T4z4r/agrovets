@@ -32,7 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
       _error = null;
     });
     try {
-      final response = await AuthService.login(_emailCtrl.text, _passCtrl.text);
+      final response =
+          await AuthService.login(_emailCtrl.text.trim(), _passCtrl.text);
       if (response['success']) {
         await context.read<AuthProvider>().loadUser();
         if (!mounted) return;
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             context,
             MaterialPageRoute(
               builder: (_) => OtpVerificationScreen(
-                email: _emailCtrl.text,
+                email: _emailCtrl.text.trim(),
                 isFromLogin: true,
               ),
             ),

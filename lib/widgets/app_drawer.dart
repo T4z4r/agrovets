@@ -9,6 +9,7 @@ import '../screens/products/product_list_screen.dart';
 import '../screens/suppliers/supplier_list_screen.dart';
 import '../screens/stock/stock_list_screen.dart';
 import '../screens/sales/sale_list_screen.dart';
+import '../screens/pos/pos_screen.dart';
 import '../screens/expenses/expense_list_screen.dart';
 import '../screens/debts/general_debt_list_screen.dart';
 import '../screens/reports/daily_report_screen.dart';
@@ -120,6 +121,14 @@ class AppDrawer extends StatelessWidget {
               (route) => false,
             );
           }, isActive: activeScreen == 'sales', key: itemKeys?['sales']),
+          if (auth.isOwner || auth.isSeller)
+            _drawerTile(context, Icons.storefront, 'POS Mode', () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const PosScreen()),
+                (route) => false,
+              );
+            }, isActive: activeScreen == 'pos', key: itemKeys?['pos']),
           _drawerTile(
               context, Icons.money_off, AppLocalizations.of(context)!.expenses,
               () {

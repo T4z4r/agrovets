@@ -1,16 +1,31 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/privacy_policy.dart';
 import '../models/shop.dart';
 import '../models/guide.dart';
+import 'secure_storage_service.dart';
+
+class ApiException implements Exception {
+  final int statusCode;
+  final String message;
+  final dynamic body;
+
+  const ApiException(this.statusCode, this.message, {this.body});
+
+  bool get isUnauthorized => statusCode == 401;
+
+  @override
+  String toString() => 'ApiException($statusCode): $message';
+}
 
 class ApiService {
-  static const String baseUrl = 'https://app.apexpos.co.tz'; // CHANGE THIS
+  static const String baseUrl = 'https://app.apexpos.co.tz';
+  static const Duration timeout = Duration(seconds: 20);
 
   static Future<Map<String, String>> getHeaders() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
+    final token = await SecureStorageService.getToken();
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -23,9 +38,11 @@ class ApiService {
       final response = await http.get(
         Uri.parse('$baseUrl$endpoint'),
         headers: await getHeaders(),
-      );
+      ).timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
       throw Exception('Network Error: Please check your internet connection.');
     }
   }
@@ -37,11 +54,12 @@ class ApiService {
         Uri.parse('$baseUrl$endpoint'),
         headers: await getHeaders(),
         body: jsonEncode(data),
-      );
+      ).timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
-      throw Exception(
-'Network Error: Please check your internet connection.');
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
+      throw Exception('Network Error: Please check your internet connection.');
     }
   }
 
@@ -70,11 +88,13 @@ class ApiService {
         );
       }
       final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
+      final response = await http.Response.fromStream(streamedResponse)
+          .timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
-      throw Exception(
-'Network Error: Please check your internet connection.');
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
+      throw Exception('Network Error: Please check your internet connection.');
     }
   }
 
@@ -84,11 +104,12 @@ class ApiService {
         Uri.parse('$baseUrl$endpoint'),
         headers: await getHeaders(),
         body: jsonEncode(data),
-      );
+      ).timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
-      throw Exception(
-'Network Error: Please check your internet connection.');
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
+      throw Exception('Network Error: Please check your internet connection.');
     }
   }
 
@@ -97,9 +118,11 @@ class ApiService {
       final response = await http.delete(
         Uri.parse('$baseUrl$endpoint'),
         headers: await getHeaders(),
-      );
+      ).timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
       throw Exception('Network Error: Please check your internet connection.');
     }
   }
@@ -111,9 +134,11 @@ class ApiService {
         Uri.parse('$baseUrl$endpoint'),
         headers: await getHeaders(),
         body: jsonEncode(data),
-      );
+      ).timeout(timeout);
       return _handleResponse(response);
     } on http.ClientException {
+      throw Exception('Network Error: Please check your internet connection.');
+    } on TimeoutException {
       throw Exception('Network Error: Please check your internet connection.');
     }
   }
@@ -190,7 +215,7 @@ class ApiService {
     final response = await http.get(
       Uri.parse('$baseUrl/api/guides/$id/download'),
       headers: headers,
-    );
+    ).timeout(timeout);
     if (response.statusCode == 200) {
       return response;
     } else {
@@ -199,11 +224,14 @@ class ApiService {
   }
 
   static dynamic _handleResponse(http.Response response) {
-    final json = jsonDecode(response.body);
+    final body = response.body.isEmpty ? null : jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return json;
-    } else {
-      throw Exception('Operation failed. Please try again.');
+      return body;
     }
+
+    final message = body is Map<String, dynamic>
+        ? body['message']?.toString() ?? 'Operation failed. Please try again.'
+        : 'Operation failed. Please try again.';
+    throw ApiException(response.statusCode, message, body: body);
   }
 }

@@ -78,7 +78,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       _error = null;
     });
     try {
-      final response = await AuthService.verifyOtp(widget.email, _otpCode);
+      final response =
+          await AuthService.verifyOtp(widget.email.trim(), _otpCode);
       if (response['success']) {
         final authProvider = context.read<AuthProvider>();
         await authProvider.loadUser();
@@ -113,7 +114,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       _error = null;
     });
     try {
-      final response = await AuthService.resendOtp(widget.email);
+      final response = await AuthService.resendOtp(widget.email.trim());
       if (response['success']) {
         _startResendCooldown();
         if (mounted) {

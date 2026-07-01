@@ -55,8 +55,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
     try {
       final response = await AuthService.register(
-        _nameCtrl.text,
-        _emailCtrl.text,
+        _nameCtrl.text.trim(),
+        _emailCtrl.text.trim(),
         _passCtrl.text,
         _confirmPassCtrl.text,
         _shopNameCtrl.text,
@@ -68,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           context,
           MaterialPageRoute(
             builder: (_) => OtpVerificationScreen(
-              email: _emailCtrl.text,
+              email: _emailCtrl.text.trim(),
               isFromLogin: false,
             ),
           ),

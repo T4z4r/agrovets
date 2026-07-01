@@ -1,7 +1,7 @@
 name: apex
 description: Apex Mobile App
 publish_to: 'none'
-version: 1.0.0+23
+version: 1.0.0+24
 
 environment:
   sdk: '>=3.11.0 <4.0.0'
@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   http: ^1.2.0
+  flutter_secure_storage: ^9.2.4
   shared_preferences: ^2.2.2
   provider: ^6.1.1
   intl: ^0.20.0

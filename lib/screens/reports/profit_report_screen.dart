@@ -6,6 +6,8 @@ import '../../services/api_service.dart';
 import '../../models/report.dart';
 import '../../widgets/app_drawer.dart';
 import '../../utils/number_formatter.dart';
+import '../../l10n/app_localizations.dart';
+
 
 class ProfitReportScreen extends StatefulWidget {
   const ProfitReportScreen({super.key});
